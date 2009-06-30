@@ -5,7 +5,7 @@
 
 
 
-    <bean id="jakeMainApp" class="com.jakeapp.gui.swing.JakeMainApp">
+    <bean id="jakeMainApp" class="com.jakeapp.gui.swing.JakeMainApp" factory-method="getInstance">
 
     </bean>
 

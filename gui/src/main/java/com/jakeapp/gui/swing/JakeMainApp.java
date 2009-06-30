@@ -11,7 +11,6 @@ import com.jakeapp.gui.swing.helpers.ApplicationInstanceListener;
 import com.jakeapp.gui.swing.helpers.ApplicationInstanceManager;
 import com.jakeapp.gui.swing.helpers.ExceptionUtilities;
 import com.jakeapp.gui.swing.helpers.Platform;
-import com.jakeapp.gui.swing.xcore.ObjectRegistry;
 import org.apache.log4j.Logger;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
@@ -74,7 +73,13 @@ public class JakeMainApp extends SingleFrameApplication {
 	@Override
 	protected void startup() {
 		this.setMainFrame(new JFrame("Jake"));
-		show(new JakeMainView(this));
+
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("/com/jakeapp/gui/swing/gui-config.xml");
+
+		JakeMainView mainView = (JakeMainView) ctx.getBean("jakeMainView", JakeMainView.class);
+		show(mainView);
+		
+//		show(new JakeMainView(this));
 	}
 
 	/**
@@ -101,13 +106,6 @@ public class JakeMainApp extends SingleFrameApplication {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
-		ObjectRegistry registry = new ObjectRegistry();
-
-//		ApplicationContext context = new ClassPathXmlApplicationContext("/com/jakeapp/gui/swing/gui-config.xml");
-		
-
-
 		startGui(args);
 	}
 
