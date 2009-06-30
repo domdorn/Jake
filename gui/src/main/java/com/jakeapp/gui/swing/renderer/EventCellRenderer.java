@@ -8,6 +8,7 @@ import com.jakeapp.core.domain.Project;
 import com.jakeapp.core.domain.User;
 import com.jakeapp.core.domain.logentries.LogEntry;
 import com.jakeapp.gui.swing.JakeMainApp;
+import com.jakeapp.gui.swing.xcore.ObjectRegistry;
 import com.jakeapp.gui.swing.helpers.*;
 import com.jakeapp.gui.swing.panels.NewsPanel;
 import org.apache.log4j.Logger;
@@ -24,7 +25,7 @@ public class EventCellRenderer extends DefaultJakeTableCellRenderer {
 	private static final Logger log = Logger.getLogger(EventCellRenderer.class);
 
 
-	private ITimeUtilities timeUtilities = new TimeUtilities();
+	private ITimeUtilities timeUtilities = ObjectRegistry.getTimeUtilities();
 
 	// file actions
 	private final static ImageIcon fileAddIcon =

@@ -26,8 +26,7 @@ public class InitCoreTask extends SwingWorker<ICoreAccess, Void>
 	@Override protected ICoreAccess doInBackground() throws Exception {
 		try {
 			SpringThreadBroker.getInstance()
-							.loadSpring(new String[]{"/com/jakeapp/core/applicationContext.xml",
-											"/com/jakeapp/gui/swing/applicationContext-gui.xml"});
+							.loadSpring(new String[]{"/com/jakeapp/gui/swing/applicationContext-gui.xml"});
 
 			return (ICoreAccess) SpringThreadBroker.getInstance().getBean("coreAccess");
 		} catch (RuntimeException e) {

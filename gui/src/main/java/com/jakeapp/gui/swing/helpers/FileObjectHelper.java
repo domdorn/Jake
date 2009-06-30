@@ -3,6 +3,7 @@ package com.jakeapp.gui.swing.helpers;
 import com.jakeapp.core.domain.FileObject;
 import com.jakeapp.core.synchronization.attributes.Attributed;
 import com.jakeapp.gui.swing.JakeMainApp;
+import com.jakeapp.gui.swing.xcore.ObjectRegistry;
 import com.jakeapp.gui.swing.exceptions.FileOperationFailedException;
 import org.apache.log4j.Logger;
 
@@ -15,6 +16,10 @@ import java.text.SimpleDateFormat;
  */
 public class FileObjectHelper {
 	private static final Logger log = Logger.getLogger(FileObjectHelper.class);
+
+
+	static ITimeUtilities timeUtilities = ObjectRegistry.getTimeUtilities();
+
 
 	/**
 	 * Returns the name of a file.
@@ -99,8 +104,8 @@ public class FileObjectHelper {
 	 * @return relative time for last edit of file
 	 */
 	public static String getTimeRel(Attributed<FileObject> afo) {
-		ITimeUtilities timeutils = new TimeUtilities();
-		return timeutils.getRelativeTime(afo.getLastModificationDate());
+
+		return timeUtilities.getRelativeTime(afo.getLastModificationDate());
 	}
 
 	/**
@@ -111,7 +116,7 @@ public class FileObjectHelper {
 	 * @return relative time for last edit of file
 	 */
 	public static String getLocalTimeRel(Attributed<FileObject> afo) {
-		ITimeUtilities timeUtilities = new TimeUtilities();
+
 		return timeUtilities.getRelativeTime(
 						JakeMainApp.getCore().getLocalFileLastModified(afo.getJakeObject()));
 	}

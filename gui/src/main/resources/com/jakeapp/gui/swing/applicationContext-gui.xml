@@ -11,7 +11,10 @@
      <tx:annotation-driven/>
     
 
-    <bean id="coreAccess" class="com.jakeapp.gui.swing.SpringCoreAccessImpl" >
+    <import resource="classpath:/com/jakeapp/core/applicationContext.xml" />
+
+
+    <bean id="coreAccess" class="com.jakeapp.gui.swing.SpringCoreAccessImpl" lazy-init="true" >
       <property name="frontendService" ref="frontendService" />
     </bean>
 
@@ -20,7 +23,7 @@
     <!--</bean>-->
 
 
-    <bean id="timeUtilities" class="com.jakeapp.gui.swing.helpers.TimeUtilities" />
+    <bean id="timeUtilities" class="com.jakeapp.gui.swing.helpers.PetersTimeUtilities" />
 
 
 

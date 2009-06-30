@@ -11,9 +11,12 @@ import com.jakeapp.gui.swing.helpers.ApplicationInstanceListener;
 import com.jakeapp.gui.swing.helpers.ApplicationInstanceManager;
 import com.jakeapp.gui.swing.helpers.ExceptionUtilities;
 import com.jakeapp.gui.swing.helpers.Platform;
+import com.jakeapp.gui.swing.xcore.ObjectRegistry;
 import org.apache.log4j.Logger;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -98,6 +101,13 @@ public class JakeMainApp extends SingleFrameApplication {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+
+		ObjectRegistry registry = new ObjectRegistry();
+
+//		ApplicationContext context = new ClassPathXmlApplicationContext("/com/jakeapp/gui/swing/gui-config.xml");
+		
+
+
 		startGui(args);
 	}
 

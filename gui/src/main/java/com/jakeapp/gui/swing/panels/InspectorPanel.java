@@ -20,6 +20,7 @@ import com.jakeapp.gui.swing.exceptions.FileOperationFailedException;
 import com.jakeapp.gui.swing.helpers.*;
 import com.jakeapp.gui.swing.models.EventsTableModel;
 import com.jakeapp.gui.swing.xcore.EventCore;
+import com.jakeapp.gui.swing.xcore.ObjectRegistry;
 import net.miginfocom.swing.MigLayout;
 import org.apache.log4j.Logger;
 import org.jdesktop.application.ResourceMap;
@@ -42,7 +43,7 @@ public class InspectorPanel extends JXPanel
 				ProjectViewChangedCallback, NoteSelectionChangedCallback {
 
 
-	private ITimeUtilities timeUtilities = new TimeUtilities();
+	private ITimeUtilities timeUtilities = ObjectRegistry.getTimeUtilities();
 
 	private static final long serialVersionUID = 7743765581263700424L;
 	private static final Logger log = Logger.getLogger(InspectorPanel.class);

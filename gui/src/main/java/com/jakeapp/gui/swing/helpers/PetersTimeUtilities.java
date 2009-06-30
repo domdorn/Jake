@@ -8,8 +8,8 @@ import java.util.Date;
 /**
  * @author: studpete
  */
-public class TimeUtilities implements ITimeUtilities {
-	private static final Logger log = Logger.getLogger(TimeUtilities.class);
+public class PetersTimeUtilities implements ITimeUtilities {
+	private static final Logger log = Logger.getLogger(PetersTimeUtilities.class);
 
 	// Date & Time constants - just in case they change anytime soon ;)
 	private final static int SECOND = 1;

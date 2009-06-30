@@ -6,7 +6,7 @@ import com.jakeapp.core.domain.logentries.LogEntry;
 import com.jakeapp.core.domain.Project;
 import com.jakeapp.core.synchronization.attributes.Attributed;
 import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.helpers.TimeUtilities;
+import com.jakeapp.gui.swing.xcore.ObjectRegistry;
 import com.jakeapp.gui.swing.helpers.ITimeUtilities;
 import org.apache.log4j.Logger;
 
@@ -23,7 +23,7 @@ public class EventsTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = -3604724857190594625L;
 	private static final Logger log = Logger.getLogger(EventsTableModel.class);
 
-	private ITimeUtilities timeUtilities = new TimeUtilities();
+	private ITimeUtilities timeUtilities = ObjectRegistry.getTimeUtilities();
 
 	private Project project;
 	private Attributed<? extends JakeObject> attributedJakeObject;

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+    <bean id="jakeMainApp" class="com.jakeapp.gui.swing.JakeMainApp">
+
+    </bean>
+
+
+    <bean id="jakeMainView" class="com.jakeapp.gui.swing.JakeMainView">
+        <constructor-arg index="0" type="com.jakeapp.gui.swing.JakeMainApp" ref="jakeMainApp" />
+    </bean>
+
+
+
+
+</beans>

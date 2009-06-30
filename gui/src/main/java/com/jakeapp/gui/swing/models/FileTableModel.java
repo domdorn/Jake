@@ -10,6 +10,7 @@ import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.helpers.*;
 import com.jakeapp.gui.swing.xcore.EventCore;
 import com.jakeapp.gui.swing.xcore.ObjectCache;
+import com.jakeapp.gui.swing.xcore.ObjectRegistry;
 import org.apache.log4j.Logger;
 
 import javax.swing.table.AbstractTableModel;
@@ -24,7 +25,7 @@ public class FileTableModel extends AbstractTableModel
 				implements ContextChangedCallback, DataChangedCallback {
 	private static final Logger log = Logger.getLogger(FolderTreeTableModel.class);
 
-	private ITimeUtilities timeUtilities = new TimeUtilities();
+	private ITimeUtilities timeUtilities = ObjectRegistry.getTimeUtilities();
 
 	private List<FileObject> files;
 

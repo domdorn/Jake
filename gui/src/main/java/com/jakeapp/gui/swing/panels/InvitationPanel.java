@@ -8,6 +8,7 @@ import com.jakeapp.gui.swing.callbacks.ContextChangedCallback;
 import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.helpers.*;
 import com.jakeapp.gui.swing.xcore.EventCore;
+import com.jakeapp.gui.swing.xcore.ObjectRegistry;
 import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
@@ -35,7 +36,7 @@ public class InvitationPanel extends JXPanel implements ContextChangedCallback {
 	private JButton joinButton;
 	private JoinProjectAction joinProjectAction;
 
-	private ITimeUtilities timeUtilities = new TimeUtilities();
+	private ITimeUtilities timeUtilities = ObjectRegistry.getTimeUtilities();
 
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(InvitationPanel.class);
