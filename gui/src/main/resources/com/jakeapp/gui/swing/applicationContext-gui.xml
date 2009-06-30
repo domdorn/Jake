@@ -20,4 +20,11 @@
     <!--</bean>-->
 
 
+    <bean id="timeUtilities" class="com.jakeapp.gui.swing.helpers.TimeUtilities" />
+
+
+
+    
+
+
 </beans>

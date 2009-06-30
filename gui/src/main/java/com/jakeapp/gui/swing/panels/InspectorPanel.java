@@ -17,14 +17,7 @@ import com.jakeapp.gui.swing.controls.cmacwidgets.ITunesTable;
 import com.jakeapp.gui.swing.controls.SmallLabel;
 import com.jakeapp.gui.swing.controls.SmallShortenedLabel;
 import com.jakeapp.gui.swing.exceptions.FileOperationFailedException;
-import com.jakeapp.gui.swing.helpers.ConfigControlsHelper;
-import com.jakeapp.gui.swing.helpers.ExceptionUtilities;
-import com.jakeapp.gui.swing.helpers.FileObjectHelper;
-import com.jakeapp.gui.swing.helpers.ImageLoader;
-import com.jakeapp.gui.swing.helpers.NotesHelper;
-import com.jakeapp.gui.swing.helpers.Platform;
-import com.jakeapp.gui.swing.helpers.StringUtilities;
-import com.jakeapp.gui.swing.helpers.TimeUtilities;
+import com.jakeapp.gui.swing.helpers.*;
 import com.jakeapp.gui.swing.models.EventsTableModel;
 import com.jakeapp.gui.swing.xcore.EventCore;
 import net.miginfocom.swing.MigLayout;
@@ -47,6 +40,9 @@ import java.util.EnumSet;
 public class InspectorPanel extends JXPanel
 				implements ProjectChangedCallback, ContextChangedCallback, FileSelectionChangedCallback,
 				ProjectViewChangedCallback, NoteSelectionChangedCallback {
+
+
+	private ITimeUtilities timeUtilities = new TimeUtilities();
 
 	private static final long serialVersionUID = 7743765581263700424L;
 	private static final Logger log = Logger.getLogger(InspectorPanel.class);
@@ -326,7 +322,7 @@ public class InspectorPanel extends JXPanel
 			this.lastEditorValue.setText("local"); //FIXME: elaborate, i18n
 		}
 		
-		this.lastEditedValue	.setText(TimeUtilities.getRelativeTime(attributedJakeObject
+		this.lastEditedValue	.setText(timeUtilities.getRelativeTime(attributedJakeObject
 				.getLastModificationDate()));
 		
 		this.sharedValue.setText(Boolean.toString((!attributedJakeObject.isOnlyLocal())));

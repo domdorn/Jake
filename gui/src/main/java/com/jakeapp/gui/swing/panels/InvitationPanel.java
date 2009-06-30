@@ -6,11 +6,7 @@ import com.jakeapp.gui.swing.actions.project.JoinProjectAction;
 import com.jakeapp.gui.swing.actions.project.RejectInvitationAction;
 import com.jakeapp.gui.swing.callbacks.ContextChangedCallback;
 import com.jakeapp.gui.swing.globals.JakeContext;
-import com.jakeapp.gui.swing.helpers.FileUtilities;
-import com.jakeapp.gui.swing.helpers.ImageLoader;
-import com.jakeapp.gui.swing.helpers.Platform;
-import com.jakeapp.gui.swing.helpers.TimeUtilities;
-import com.jakeapp.gui.swing.helpers.UserHelper;
+import com.jakeapp.gui.swing.helpers.*;
 import com.jakeapp.gui.swing.xcore.EventCore;
 import net.miginfocom.swing.MigLayout;
 
@@ -38,7 +34,9 @@ public class InvitationPanel extends JXPanel implements ContextChangedCallback {
 	private final static int TableUpdateDelay = 60000;
 	private JButton joinButton;
 	private JoinProjectAction joinProjectAction;
-	
+
+	private ITimeUtilities timeUtilities = new TimeUtilities();
+
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(InvitationPanel.class);
 
@@ -158,7 +156,7 @@ public class InvitationPanel extends JXPanel implements ContextChangedCallback {
 			userNameLabel.setText(String.format("%s %s by %s",
 							JakeMainView.getMainView().getResourceMap().getString(
 											"projectInvited"),
-							TimeUtilities.getRelativeTime(invite.getCreation()), userId));
+							timeUtilities.getRelativeTime(invite.getCreation()), userId));
 
 			boolean createNewFolder =
 							!FileUtilities.checkDirectoryExistence(folderTextField.getText());

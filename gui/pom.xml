@@ -42,7 +42,15 @@
             <url>http://repository.codehaus.org/</url>
             <layout>default</layout>
         </repository>
+
+        <repository>
+            <id>com.ocpsoft</id>
+            <name>com.ocpsoft</name>
+            <url>http://ocpsoft.com/repository</url>
+            <layout>default</layout>
+        </repository>
     </repositories>
+
     <dependencies>
         <dependency>
             <groupId>com.jakeapp.jake</groupId>
@@ -109,6 +117,12 @@
             <groupId>net.java.dev.timingframework</groupId>
             <artifactId>timingframework</artifactId>
             <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ocpsoft</groupId>
+            <artifactId>ocpsoft-pretty-time</artifactId>
+            <version>1.0.2</version>
         </dependency>
 <!--        <dependency>
             <groupId>org.bushe.eventbus</groupId>

@@ -8,25 +8,19 @@ import java.util.Date;
 /**
  * @author: studpete
  */
-public class TimeUtilities {
+public class TimeUtilities implements ITimeUtilities {
 	private static final Logger log = Logger.getLogger(TimeUtilities.class);
 
 	// Date & Time constants - just in case they change anytime soon ;)
-	public final static int SECOND = 1;
-	public final static int MINUTE = 60 * SECOND;
-	public final static int HOUR = 60 * MINUTE;
-	public final static int DAY = 24 * HOUR;
-	public final static int MONTH = 30 * DAY;
-	public final static int YEAR = 365 * MONTH;
+	private final static int SECOND = 1;
+	private final static int MINUTE = 60 * SECOND;
+	private final static int HOUR = 60 * MINUTE;
+	private final static int DAY = 24 * HOUR;
+	private final static int MONTH = 30 * DAY;
+	private final static int YEAR = 365 * MONTH;
 
-	/**
-	 * Makes a fancy relative time description from a date object (e.g.
-	 * "2 minutes ago", "5 days ago", "2 years ago", ...)
-	 *
-	 * @param date Any date
-	 * @return A string containing a relative description of the date
-	 */
-	public static String getRelativeTime(Date date) {
+
+	public String getRelativeTime(Date date) {
 		if (date == null) {
 			log.warn("tried to get relative time with NULL date");
 			return "<DATE IS NULL>";
@@ -72,7 +66,7 @@ public class TimeUtilities {
 		}*/
 	}
 
-	public static String getRelativeTime(long date) {
+	public String getRelativeTime(long date) {
 		return getRelativeTime(new Date(date));
 	}
 }

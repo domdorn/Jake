@@ -6,10 +6,7 @@ import com.jakeapp.gui.swing.JakeMainApp;
 import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.callbacks.FilesChangedCallback;
 import com.jakeapp.gui.swing.exceptions.InvalidTagStringFormatException;
-import com.jakeapp.gui.swing.helpers.FileObjectLockedCell;
-import com.jakeapp.gui.swing.helpers.FolderObject;
-import com.jakeapp.gui.swing.helpers.ProjectFilesTreeNode;
-import com.jakeapp.gui.swing.helpers.TagHelper;
+import com.jakeapp.gui.swing.helpers.*;
 import com.jakeapp.jake.fss.IModificationListener;
 import org.apache.log4j.Logger;
 import org.jdesktop.swingx.treetable.TreeTableModel;
@@ -24,6 +21,8 @@ import java.util.Set;
 
 public class FolderTreeTableModel implements TreeTableModel, FilesChangedCallback {
 	private static final Logger log = Logger.getLogger(FolderTreeTableModel.class);
+
+	private ITimeUtilities timeUtilities;
 
 	private ProjectFilesTreeNode root;
 
@@ -117,7 +116,7 @@ public class FolderTreeTableModel implements TreeTableModel, FilesChangedCallbac
 					// TODO: fix, change to attributed
 					//return FileUtilities.getSize(JakeMainApp.getCore().getFileSize(ournode.getFileObject()));
 				case 4:
-					//return TimeUtilities.getRelativeTime(JakeMainApp.getApp().getCore().getFileLastModified(ournode.getFileObject()));
+					//return timeUtilities.getRelativeTime(JakeMainApp.getApp().getCore().getFileLastModified(ournode.getFileObject()));
 				case 5:
 					return TagHelper.tagsToString(JakeMainApp.getCore().getTagsForFileObject(ournode.getFileObject()));
 				default:
@@ -242,5 +241,14 @@ public class FolderTreeTableModel implements TreeTableModel, FilesChangedCallbac
 //		} catch (ProjectFolderMissingException e) {
 //			log.error("Couldn't find project root folder");
 //		}
+	}
+
+
+	public ITimeUtilities getTimeUtilities() {
+		return timeUtilities;
+	}
+
+	public void setTimeUtilities(ITimeUtilities timeUtilities) {
+		this.timeUtilities = timeUtilities;
 	}
 }

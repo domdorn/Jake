@@ -7,12 +7,7 @@ import com.jakeapp.gui.swing.JakeMainApp;
 import com.jakeapp.gui.swing.callbacks.ContextChangedCallback;
 import com.jakeapp.gui.swing.callbacks.DataChangedCallback;
 import com.jakeapp.gui.swing.globals.JakeContext;
-import com.jakeapp.gui.swing.helpers.FileObjectLockedCell;
-import com.jakeapp.gui.swing.helpers.FileObjectStatusCell;
-import com.jakeapp.gui.swing.helpers.FileUtilities;
-import com.jakeapp.gui.swing.helpers.ProjectFilesTreeNode;
-import com.jakeapp.gui.swing.helpers.TimeUtilities;
-import com.jakeapp.gui.swing.helpers.UserHelper;
+import com.jakeapp.gui.swing.helpers.*;
 import com.jakeapp.gui.swing.xcore.EventCore;
 import com.jakeapp.gui.swing.xcore.ObjectCache;
 import org.apache.log4j.Logger;
@@ -28,6 +23,8 @@ import java.util.List;
 public class FileTableModel extends AbstractTableModel
 				implements ContextChangedCallback, DataChangedCallback {
 	private static final Logger log = Logger.getLogger(FolderTreeTableModel.class);
+
+	private ITimeUtilities timeUtilities = new TimeUtilities();
 
 	private List<FileObject> files;
 
@@ -167,7 +164,7 @@ public class FileTableModel extends AbstractTableModel
 				if (fileInfo == null)
 					return "";
 				else
-					return TimeUtilities.getRelativeTime(fileInfo.getLastModificationDate());
+					return timeUtilities.getRelativeTime(fileInfo.getLastModificationDate());
 			case LastModBy:
 				if (fileInfo == null)
 					return "";

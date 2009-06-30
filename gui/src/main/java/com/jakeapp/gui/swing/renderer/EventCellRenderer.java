@@ -8,11 +8,7 @@ import com.jakeapp.core.domain.Project;
 import com.jakeapp.core.domain.User;
 import com.jakeapp.core.domain.logentries.LogEntry;
 import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.helpers.ImageLoader;
-import com.jakeapp.gui.swing.helpers.NotesHelper;
-import com.jakeapp.gui.swing.helpers.TimeUtilities;
-import com.jakeapp.gui.swing.helpers.Translator;
-import com.jakeapp.gui.swing.helpers.UserHelper;
+import com.jakeapp.gui.swing.helpers.*;
 import com.jakeapp.gui.swing.panels.NewsPanel;
 import org.apache.log4j.Logger;
 import org.jdesktop.application.ResourceMap;
@@ -26,6 +22,9 @@ import java.awt.*;
  */
 public class EventCellRenderer extends DefaultJakeTableCellRenderer {
 	private static final Logger log = Logger.getLogger(EventCellRenderer.class);
+
+
+	private ITimeUtilities timeUtilities = new TimeUtilities();
 
 	// file actions
 	private final static ImageIcon fileAddIcon =
@@ -238,7 +237,7 @@ public class EventCellRenderer extends DefaultJakeTableCellRenderer {
 
 		// set the tooltip text
 		setToolTipText(
-						"<html><font size=3>" + this.getText() + "</font><br>" + TimeUtilities
+						"<html><font size=3>" + this.getText() + "</font><br>" + timeUtilities
 										.getRelativeTime(loge.getTimestamp()) + " (" + loge
 										.getTimestamp().toGMTString() + ")" + comment + "<br>" + this
 										.toString() + "</html>");

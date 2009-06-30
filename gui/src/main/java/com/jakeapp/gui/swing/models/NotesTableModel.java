@@ -10,6 +10,7 @@ import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.helpers.ImageLoader;
 import com.jakeapp.gui.swing.helpers.NotesHelper;
 import com.jakeapp.gui.swing.helpers.TimeUtilities;
+import com.jakeapp.gui.swing.helpers.ITimeUtilities;
 import com.jakeapp.gui.swing.panels.NotesPanel;
 import com.jakeapp.gui.swing.xcore.EventCore;
 import com.jakeapp.gui.swing.xcore.ObjectCache;
@@ -31,6 +32,8 @@ public class NotesTableModel extends DefaultTableModel
 				implements DataChangedCallback, ContextChangedCallback {
 	private static final long serialVersionUID = -2745782032637383756L;
 	private static Logger log = Logger.getLogger(NotesTableModel.class);
+
+	private ITimeUtilities timeUtilities = new TimeUtilities();
 
 	private List<String> columnNames;
 	private List<Attributed<NoteObject>> attributedNotes =
@@ -225,7 +228,7 @@ public class NotesTableModel extends DefaultTableModel
 				if (note.getLastModificationDate() == 0) {
 					value = "-";
 				} else {
-					value = TimeUtilities.getRelativeTime(note.getLastModificationDate());
+					value = timeUtilities.getRelativeTime(note.getLastModificationDate());
 				}
 				break;
 			case 4: //last editor

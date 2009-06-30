@@ -99,7 +99,8 @@ public class FileObjectHelper {
 	 * @return relative time for last edit of file
 	 */
 	public static String getTimeRel(Attributed<FileObject> afo) {
-		return TimeUtilities.getRelativeTime(afo.getLastModificationDate());
+		ITimeUtilities timeutils = new TimeUtilities();
+		return timeutils.getRelativeTime(afo.getLastModificationDate());
 	}
 
 	/**
@@ -110,7 +111,8 @@ public class FileObjectHelper {
 	 * @return relative time for last edit of file
 	 */
 	public static String getLocalTimeRel(Attributed<FileObject> afo) {
-		return TimeUtilities.getRelativeTime(
+		ITimeUtilities timeUtilities = new TimeUtilities();
+		return timeUtilities.getRelativeTime(
 						JakeMainApp.getCore().getLocalFileLastModified(afo.getJakeObject()));
 	}
 

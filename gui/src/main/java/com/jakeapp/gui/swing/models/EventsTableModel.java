@@ -7,6 +7,7 @@ import com.jakeapp.core.domain.Project;
 import com.jakeapp.core.synchronization.attributes.Attributed;
 import com.jakeapp.gui.swing.JakeMainApp;
 import com.jakeapp.gui.swing.helpers.TimeUtilities;
+import com.jakeapp.gui.swing.helpers.ITimeUtilities;
 import org.apache.log4j.Logger;
 
 import javax.swing.table.AbstractTableModel;
@@ -21,6 +22,8 @@ import java.util.List;
 public class EventsTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = -3604724857190594625L;
 	private static final Logger log = Logger.getLogger(EventsTableModel.class);
+
+	private ITimeUtilities timeUtilities = new TimeUtilities();
 
 	private Project project;
 	private Attributed<? extends JakeObject> attributedJakeObject;
@@ -119,7 +122,7 @@ public class EventsTableModel extends AbstractTableModel {
 				return logEntry;
 
 			case WHEN:
-				return TimeUtilities.getRelativeTime(logEntry.getTimestamp());
+				return timeUtilities.getRelativeTime(logEntry.getTimestamp());
 
 			default:
 				throw new IllegalArgumentException("Cannot get Information for column " + columnIndex);
