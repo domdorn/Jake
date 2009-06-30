@@ -12,7 +12,6 @@ import com.jakeapp.gui.swing.helpers.ApplicationInstanceManager;
 import com.jakeapp.gui.swing.helpers.ExceptionUtilities;
 import com.jakeapp.gui.swing.helpers.Platform;
 import org.apache.log4j.Logger;
-import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -97,7 +96,8 @@ public class JakeMainApp extends SingleFrameApplication {
 	 * @return the instance of JakeMock2App
 	 */
 	public static JakeMainApp getInstance() {
-		return Application.getInstance(JakeMainApp.class);
+//		return Application.getInstance(JakeMainApp.class);
+		return app;
 	}
 
 	/**
@@ -191,22 +191,13 @@ public class JakeMainApp extends SingleFrameApplication {
 
 
 	/**
-	 * Returns single instance of the App.
-	 *
-	 * @return
-	 */
-	public static JakeMainApp getApp() {
-		return app;
-	}
-
-	/**
 	 * The getCore is made static for convenience reasons.
 	 * We only have one core, and one app.
 	 *
 	 * @return
 	 */
 	public static ICoreAccess getCore() {
-		return getApp().core;
+		return JakeMainApp.getInstance().core;
 	}
 
 	public void setCore(ICoreAccess core) {

@@ -8,7 +8,11 @@ import javax.swing.*;
  * Time: 2:11:31 AM
  */
 public abstract class JakeAction extends AbstractAction {
-    /**
+
+	protected JakeAction() {
+	}
+
+	/**
      * Executes the Action
      */
     public void execute() {

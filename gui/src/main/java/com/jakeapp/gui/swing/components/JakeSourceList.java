@@ -168,7 +168,7 @@ public class JakeSourceList extends JakeGuiComponent
 
 				} else {
 					// fixme: i'm dead tired
-					//JakeMainApp.getApp().setProject(null);
+					//JakeMainApp.getInstance().setProject(null);
 
 					// show the login context panel
 					//JakeMainView.getMainView()

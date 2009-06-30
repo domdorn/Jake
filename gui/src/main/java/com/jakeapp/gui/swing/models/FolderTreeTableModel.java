@@ -116,7 +116,7 @@ public class FolderTreeTableModel implements TreeTableModel, FilesChangedCallbac
 					// TODO: fix, change to attributed
 					//return FileUtilities.getSize(JakeMainApp.getCore().getFileSize(ournode.getFileObject()));
 				case 4:
-					//return timeUtilities.getRelativeTime(JakeMainApp.getApp().getCore().getFileLastModified(ournode.getFileObject()));
+					//return timeUtilities.getRelativeTime(JakeMainApp.getInstance().getCore().getFileLastModified(ournode.getFileObject()));
 				case 5:
 					return TagHelper.tagsToString(JakeMainApp.getCore().getTagsForFileObject(ournode.getFileObject()));
 				default:

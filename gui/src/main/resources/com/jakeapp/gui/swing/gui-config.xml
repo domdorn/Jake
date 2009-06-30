@@ -4,17 +4,29 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-
     <bean id="jakeMainApp" class="com.jakeapp.gui.swing.JakeMainApp" factory-method="getInstance">
 
     </bean>
 
 
+    <bean id="eventCore" class="com.jakeapp.gui.swing.xcore.EventCore"/>
+
+
+    <!-- panels -->
+
+    <!--<bean id="invitationPanel" class="com.jakeapp.gui.swing.panels.InvitationPanel">-->
+        <!--<constructor-arg ref="eventCore"/>-->
+    <!--</bean>-->
+<!---->
+    <!--<bean id="inspectorPanel" class="com.jakeapp.gui.swing.panels.InspectorPanel"/>-->
+
+
     <bean id="jakeMainView" class="com.jakeapp.gui.swing.JakeMainView">
-        <constructor-arg index="0" type="com.jakeapp.gui.swing.JakeMainApp" ref="jakeMainApp" />
+        <constructor-arg index="0" type="com.jakeapp.gui.swing.JakeMainApp" ref="jakeMainApp"/>
+        <constructor-arg index="1" type="com.jakeapp.gui.swing.xcore.EventCore" ref="eventCore" />
+        <!--<constructor-arg index="2" type="com.jakeapp.gui.swing.panels.InspectorPanel" ref="inspectorPanel"/>-->
+        <!--<constructor-arg index="2" type="com.jakeapp.gui.swing.panels.InvitationPanel" ref="invitationPanel"/>-->
     </bean>
-
-
 
 
 </beans>

@@ -57,15 +57,24 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	private static JakeMainView mainView;
 	private boolean inspectorEnabled;
 
+	private EventCore eventCore;
+
+
 	// all the ui panels
 	private NewsPanel newsPanel;
 	private FilePanel filePanel;
 	private NotesPanel notesPanel;
+
+
 	private InvitationPanel invitationPanel;
+
 	private UserPanel loginPanel;
 	private List<JToggleButton> contextSwitcherButtons;
 	private JPanel contextSwitcherPane = createContextSwitcherPanel();
+
+
 	private JPanel inspectorPanel;
+
 	private JakeMenuBar menuBar;
 	private javax.swing.JPanel contentPanel;
 	private JSplitPane contentPanelSplit;
@@ -130,8 +139,12 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 
 
 	//	public JakeMainView(SingleFrameApplication app) {
-	public JakeMainView(JakeMainApp app) {
+	public JakeMainView(JakeMainApp app, EventCore eventCore) {
 		super(app);
+
+
+		this.eventCore = eventCore;
+
 
 		IconAppSmall = ImageLoader.get(getClass(), "/icons/jakeapp.png").getImage();
 		IconAppLarge = ImageLoader.get(getClass(), "/icons/jakeapp-large.png").getImage();
@@ -155,10 +168,16 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 		log.debug("notes panel ...");
 		notesPanel = new NotesPanel();
 		log.debug("inspector panel ...");
-		inspectorPanel = new InspectorPanel();
-		log.debug("invitation panel ...");
-		invitationPanel = new InvitationPanel();
 
+		inspectorPanel = new InspectorPanel();
+//		setInspectorPanel(inspectorPanel);
+//		setInvitationPanel(invitationPanel);;
+
+
+//		log.debug("invitation panel ...");
+//		setInvitationPanel(new InvitationPanel(eventCore));
+//		invitationPanel = new InvitationPanel(EventCore.get());
+		invitationPanel = new InvitationPanel();
 
 		// initialize helper code
 		log.debug("helpers ...");
@@ -246,7 +265,7 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 
 		// debug property
 		if (System.getProperty("com.jakeapp.gui.test.instantquit") != null) {
-			JakeMainApp.getApp().saveQuit();
+			JakeMainApp.getInstance().saveQuit();
 		}
 
 		// init auto syncer
@@ -275,9 +294,7 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 		return notesPanel;
 	}
 
-	public InvitationPanel getInvitationPanel() {
-		return invitationPanel;
-	}
+
 
 	public UserPanel getLoginPanel() {
 		return loginPanel;
@@ -800,5 +817,26 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 			//JakeMainView.getMainView().getFrame().requestFocus();
 			//JakeMainView.getMainView().getFrame().setExtendedState(JFrame.NORMAL);
 		}
+	}
+
+
+
+
+	// getters and setters
+
+	public JPanel getInspectorPanel() {
+		return inspectorPanel;
+	}
+
+	public void setInspectorPanel(JPanel inspectorPanel) {
+		this.inspectorPanel = inspectorPanel;
+	}
+
+	public InvitationPanel getInvitationPanel() {
+		return invitationPanel;
+	}
+
+	public void setInvitationPanel(InvitationPanel invitationPanel) {
+		this.invitationPanel = invitationPanel;
 	}
 }

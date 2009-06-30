@@ -128,7 +128,7 @@ public class JXTrayIcon extends TrayIcon {
 		JMenuItem exitItem = new JMenuItem("Exit");
 		exitItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JakeMainApp.getApp().saveQuit();
+				JakeMainApp.getInstance().saveQuit();
 			}
 		});
 		m.add(exitItem);

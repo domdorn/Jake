@@ -42,8 +42,8 @@ public class InvitationPanel extends JXPanel implements ContextChangedCallback {
 	private static final Logger log = Logger.getLogger(InvitationPanel.class);
 
 	public InvitationPanel() {
+//		eventCore.addContextChangedListener(this);
 		EventCore.get().addContextChangedListener(this);
-
 		joinProjectAction = new JoinProjectAction();
 
 		initComponents();
@@ -62,7 +62,7 @@ public class InvitationPanel extends JXPanel implements ContextChangedCallback {
 	private void initComponents() {
 		// set the background painter
 		this.setBackgroundPainter(
-						Platform.getStyler().getInvitationBackgroundPainter());
+				Platform.getStyler().getInvitationBackgroundPainter());
 
 		MigLayout layout = new MigLayout("wrap 1, fillx");
 		this.setLayout(layout);
@@ -145,7 +145,7 @@ public class InvitationPanel extends JXPanel implements ContextChangedCallback {
 
 	private void generateProjectDefaultLocation() {
 		folderTextField.setText(
-						FileUtilities.getDefaultProjectLocation(JakeContext.getInvitation()));
+				FileUtilities.getDefaultProjectLocation(JakeContext.getInvitation()));
 	}
 
 	private void updatePanel() {
@@ -155,26 +155,27 @@ public class InvitationPanel extends JXPanel implements ContextChangedCallback {
 
 			String userId = UserHelper.cleanUserId(invite.getInviter().getUserId());
 			userNameLabel.setText(String.format("%s %s by %s",
-							JakeMainView.getMainView().getResourceMap().getString(
-											"projectInvited"),
-							timeUtilities.getRelativeTime(invite.getCreation()), userId));
+					JakeMainView.getMainView().getResourceMap().getString(
+							"projectInvited"),
+					timeUtilities.getRelativeTime(invite.getCreation()), userId));
 
 			boolean createNewFolder =
-							!FileUtilities.checkDirectoryExistence(folderTextField.getText());
+					!FileUtilities.checkDirectoryExistence(folderTextField.getText());
 
 			if (createNewFolder) {
 				generateNewFolderLabel.setText("We'll create a new folder for you.");
-			}else {
+			} else {
 				generateNewFolderLabel.setText("Folder exists.");
 			}
 
 			joinButton.setEnabled(folderTextField.getText().length() > 0);
-			
+
 			this.joinProjectAction.setProjectLocation(folderTextField.getText());
 		}
 	}
 
-	@Override public void contextChanged(EnumSet<Reason> reason, Object context) {
+	@Override
+	public void contextChanged(EnumSet<Reason> reason, Object context) {
 		if (reason.contains(Reason.Invitation)) {
 			updatePanel();
 			generateProjectDefaultLocation();
