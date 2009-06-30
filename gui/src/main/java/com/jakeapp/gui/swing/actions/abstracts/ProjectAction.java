@@ -20,8 +20,8 @@ public abstract class ProjectAction extends JakeAction
 	private Project project;
 
 	public ProjectAction() {
-		EventCore.get().addProjectChangedCallbackListener(this);
-		EventCore.get().addContextChangedListener(this);
+		EventCore.getInstance().addProjectChangedCallbackListener(this);
+		EventCore.getInstance().addContextChangedListener(this);
 	}
 
 	public Project getProject() {

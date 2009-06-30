@@ -35,7 +35,7 @@ public class InvitePeopleDialog extends JakeDialog implements ProjectChangedCall
 
 		initDialog();
 
-		EventCore.get().addProjectChangedCallbackListener(this);
+		EventCore.getInstance().addProjectChangedCallbackListener(this);
 
 		// set custom properties
 		setDialogTitle(getResourceMap().getString("inviteTitle"));
@@ -101,7 +101,7 @@ public class InvitePeopleDialog extends JakeDialog implements ProjectChangedCall
 		dlg.showDialogSized(400, 220);
 
 		log.debug("cleaning up...");
-		EventCore.get().removeProjectChangedCallbackListener(dlg);
+		EventCore.getInstance().removeProjectChangedCallbackListener(dlg);
 	}
 
 

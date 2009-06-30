@@ -95,9 +95,9 @@ public class DeleteJakeObjectsTask extends AbstractTask<Integer> {
 	@Override
 	public void onDone() {
 		// inform the core that there are new log entries available.
-		EventCore.get().fireDataChanged(EnumSet.of(DataChangedCallback.DataReason.Files), null);
+		EventCore.getInstance().fireDataChanged(EnumSet.of(DataChangedCallback.DataReason.Files), null);
 		if (containsFileObjects())
-			EventCore.get().fireFilesChanged(this.project);
+			EventCore.getInstance().fireFilesChanged(this.project);
 		else if (containsNoteObjects()) {
 			//select a note to be selected after the deletion
 			try {
@@ -106,7 +106,7 @@ public class DeleteJakeObjectsTask extends AbstractTask<Integer> {
 				//empty handling: changing the selection is just a convenience feature
 			}
 			//inform the EventCore about the change
-			EventCore.get().fireNotesChanged(this.project);
+			EventCore.getInstance().fireNotesChanged(this.project);
 			JakeStatusBar.updateMessage();
 		}
 	}

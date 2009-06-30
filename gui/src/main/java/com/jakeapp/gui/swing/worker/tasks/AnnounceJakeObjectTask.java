@@ -47,24 +47,24 @@ public class AnnounceJakeObjectTask extends AbstractTask<Void> {
 		Project project = null;
 
 		// inform the core that there are new log entries available.
-		EventCore.get()
+		EventCore.getInstance()
 						.fireDataChanged(EnumSet.of(DataChangedCallback.DataReason.Files), null);
 		if (this.jos.size() > 0) {
 			project = this.jos.get(0).getProject();
 			if ((this.jos.get(0)) instanceof FileObject) {
-				EventCore.get().fireFilesChanged(project);
+				EventCore.getInstance().fireFilesChanged(project);
 				reason = EnumSet.of(DataChangedCallback.DataReason.Files);
 			} else if ((this.jos.get(0)) instanceof NoteObject) {
 				NotesPanel.getInstance().getNotesTableModel()
 								.setNoteToSelectLater((NoteObject) (this.jos.get(0)));
-				EventCore.get().fireNotesChanged(project);
+				EventCore.getInstance().fireNotesChanged(project);
 				reason = EnumSet.of(DataChangedCallback.DataReason.Notes);
 			}
 
 			if (reason != null)
-				EventCore.get().fireDataChanged(reason, null);
+				EventCore.getInstance().fireDataChanged(reason, null);
 
-			EventCore.get().fireProjectChanged(
+			EventCore.getInstance().fireProjectChanged(
 							new ProjectChangedCallback.ProjectChangedEvent(project,
 											ProjectChangedCallback.ProjectChangedEvent.Reason.People));
 		}

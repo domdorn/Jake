@@ -25,14 +25,14 @@ class ProjectInvitationListener implements IProjectInvitationListener {
 
 		ObjectCache.get().updateProjects();
 
-		EventCore.get().fireProjectChanged(new ProjectChangedCallback.ProjectChangedEvent(null,
+		EventCore.getInstance().fireProjectChanged(new ProjectChangedCallback.ProjectChangedEvent(null,
 						ProjectChangedCallback.ProjectChangedEvent.Reason.Invited));
 	}
 
 	@Override public void accepted(User user, Project p) {
 		log.debug("accepted: " + user + ", project" + p);
 
-		EventCore.get().fireLogChanged(p);
+		EventCore.getInstance().fireLogChanged(p);
 
 		JakeStatusBar.showMessage(UserHelper
 						.cleanUserId(user) + " accepted your Invitation to " + p.getName());
@@ -45,7 +45,7 @@ class ProjectInvitationListener implements IProjectInvitationListener {
 	@Override public void rejected(User user, Project p) {
 		log.debug("rejected" + user + ", project" + p);
 
-		EventCore.get().fireLogChanged(p);
+		EventCore.getInstance().fireLogChanged(p);
 
 		JakeStatusBar.showMessage(UserHelper
 						.cleanUserId(user) + " rejected your Invitation to " + p.getName());

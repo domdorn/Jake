@@ -16,7 +16,7 @@ public class WinPfTools extends AbstractPfTools {
 
 	// TODO: implement custom code for 16x16 pxl getter
 	// TODO: use this for FileTreeTable
-	// TODO: find methode to get larger icon without scaling.
+	// TODO: find methode to getInstance larger icon without scaling.
 	/**
 	 * Windows impl. of get file icon. Native up to 32x32.
 	 *

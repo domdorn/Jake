@@ -65,7 +65,7 @@ public class FileUtilities {
 		} else {
 			// falls back to standard swing folder chooser
 			// on the other platforms
-			// TODO: maybe we can get the native folder chooser for windows?
+			// TODO: maybe we can getInstance the native folder chooser for windows?
 
 			JFileChooser fileChooser = new JFileChooser();
 			if (defaultFolder != null) {

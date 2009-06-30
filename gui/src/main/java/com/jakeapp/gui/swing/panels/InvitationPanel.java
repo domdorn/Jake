@@ -43,7 +43,7 @@ public class InvitationPanel extends JXPanel implements ContextChangedCallback {
 
 	public InvitationPanel() {
 //		eventCore.addContextChangedListener(this);
-		EventCore.get().addContextChangedListener(this);
+		EventCore.getInstance().addContextChangedListener(this);
 		joinProjectAction = new JoinProjectAction();
 
 		initComponents();

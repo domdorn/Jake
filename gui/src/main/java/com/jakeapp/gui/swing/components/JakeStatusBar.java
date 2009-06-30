@@ -245,10 +245,10 @@ public class JakeStatusBar extends JakeGuiComponent
 		super();
 		instance = this;
 
-		EventCore.get().addProjectChangedCallbackListener(this);
-		EventCore.get().addContextChangedListener(this);
-		EventCore.get().addTasksChangedListener(this);
-		EventCore.get().addConnectionStatusCallbackListener(this);
+		EventCore.getInstance().addProjectChangedCallbackListener(this);
+		EventCore.getInstance().addContextChangedListener(this);
+		EventCore.getInstance().addTasksChangedListener(this);
+		EventCore.getInstance().addConnectionStatusCallbackListener(this);
 
 		JakeMainView.getMainView().addProjectViewChangedListener(this);
 		JakeMainView.getMainView().addContextViewChangedListener(this);

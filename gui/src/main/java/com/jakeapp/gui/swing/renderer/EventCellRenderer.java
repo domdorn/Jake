@@ -87,7 +87,7 @@ public class EventCellRenderer extends DefaultJakeTableCellRenderer {
 	private final static ImageIcon noteUpdateIcon =
 					ImageLoader.get(JakeMainApp.class, "/icons/" + "note-updated.png");
 
-	// get notes resource map
+	// getInstance notes resource map
 	private static final ResourceMap newsResourceMap =
 					org.jdesktop.application.Application
 									.getInstance(com.jakeapp.gui.swing.JakeMainApp.class).getContext()
@@ -119,7 +119,7 @@ public class EventCellRenderer extends DefaultJakeTableCellRenderer {
 		switch (loge.getLogAction()) {
 			/*case JAKE_OBJECT_NEW_VERSION: {
 				setIcon(fileAddIcon);
-				msg += Translator.get(newsResourceMap, "eventsAddedFile", loge.getBelongsTo().toString());
+				msg += Translator.getInstance(newsResourceMap, "eventsAddedFile", loge.getBelongsTo().toString());
 			}
 			break;*/
 

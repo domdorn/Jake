@@ -22,7 +22,7 @@ public class JakeObjectAttributedCacheManager implements DataChangedCallback {
 	public JakeObjectAttributedCacheManager() {
 		// register for changes - this listener work per project.
 		//springCoreAccessImpl.addFilesChangedListener(new SyncCacheFileChangedListener(), null);
-		EventCore.get().addDataChangedCallbackListener(this);
+		EventCore.getInstance().addDataChangedCallbackListener(this);
 	}
 
 	public HashMap<JakeObject, Attributed<JakeObject>> getCacheHash() {

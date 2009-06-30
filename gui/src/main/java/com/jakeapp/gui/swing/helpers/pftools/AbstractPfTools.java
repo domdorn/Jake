@@ -20,6 +20,6 @@ public abstract class AbstractPfTools {
 	 * @param size
 	 * @return
 	 */
-	// TODO: get icon on unix? found some code... but needs jna lib!
+	// TODO: getInstance icon on unix? found some code... but needs jna lib!
 	public abstract Icon getFileIcon(File file, int size);
 }

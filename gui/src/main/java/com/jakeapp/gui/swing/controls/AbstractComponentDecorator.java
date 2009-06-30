@@ -440,7 +440,7 @@ public abstract class AbstractComponentDecorator {
         public void setCursor(Cursor cursor) {
             Cursor oldCursor = getCursor();
             // Make sure the cursor actually changed, otherwise
-            // we get cursor flicker (notably on w32 title bars)
+            // we getInstance cursor flicker (notably on w32 title bars)
             if (oldCursor == null && cursor != null
                 || oldCursor != null && !oldCursor.equals(cursor)) {
                 this.cursor = cursor;

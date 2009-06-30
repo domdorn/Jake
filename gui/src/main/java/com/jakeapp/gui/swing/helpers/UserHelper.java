@@ -14,7 +14,7 @@ import org.jdesktop.application.ResourceMap;
 public class UserHelper {
 	private static final Logger log = Logger.getLogger(UserHelper.class);
 
-	// get notes resource map
+	// getInstance notes resource map
 	// TODO: move to own
 	private static final ResourceMap newsResourceMap =
 					org.jdesktop.application.Application

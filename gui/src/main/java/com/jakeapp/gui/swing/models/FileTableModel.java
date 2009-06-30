@@ -55,8 +55,8 @@ public class FileTableModel extends AbstractTableModel
 		log.trace("created FileTableModel");
 
 		// register for selection changes
-		EventCore.get().addDataChangedCallbackListener(this);
-		EventCore.get().addContextChangedListener(this);
+		EventCore.getInstance().addDataChangedCallbackListener(this);
+		EventCore.getInstance().addContextChangedListener(this);
 
 		updateData();
 	}
@@ -129,7 +129,7 @@ public class FileTableModel extends AbstractTableModel
 
 		ProjectFilesTreeNode ournode = new ProjectFilesTreeNode(files.get(rowIndex));
 
-		// FIXME cache!! get async?
+		// FIXME cache!! getInstance async?
 		FileObject fo = ournode.getFileObject();
 		Attributed<FileObject> fileInfo = null;
 

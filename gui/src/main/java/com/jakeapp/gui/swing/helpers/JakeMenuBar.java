@@ -140,7 +140,7 @@ public class JakeMenuBar extends JMenuBar {
 
 		// Get an About item instance.
 		AboutJMenuItem aboutMenuItem = app.getAboutJMenuItem();
-		// aboutMenuItem.setAction(actionMap.get("showAboutBox"));
+		// aboutMenuItem.setAction(actionMap.getInstance("showAboutBox"));
 		aboutMenuItem.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -233,7 +233,7 @@ public class JakeMenuBar extends JMenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				EventCore.get().getInvitationListener().invited(null, new Project());
+				EventCore.getInstance().getInvitationListener().invited(null, new Project());
 			}
 		});
 		debugMenu.add(testInvitationDebugItem);
@@ -268,7 +268,7 @@ public class JakeMenuBar extends JMenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				EventCore.get().fireDataChanged(DataChangedCallback.ALL, null);
+				EventCore.getInstance().fireDataChanged(DataChangedCallback.ALL, null);
 			}
 		});
 		debugMenu.add(reloadDebugItem);

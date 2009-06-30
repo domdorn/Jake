@@ -78,15 +78,15 @@ public class JakeSourceList extends JakeGuiComponent
 	public JakeSourceList() {
 		super();
 
-		EventCore.get().addProjectChangedCallbackListener(this);
-		EventCore.get().addDataChangedCallbackListener(this);
-		EventCore.get().addTasksChangedListener(this);
+		EventCore.getInstance().addProjectChangedCallbackListener(this);
+		EventCore.getInstance().addDataChangedCallbackListener(this);
+		EventCore.getInstance().addTasksChangedListener(this);
 
 		sourceListContextMenu = createSourceListContextMenu();
 		sourceListInvitiationContextMenu = createSourceListInvitationContextMenu();
 		sourceList = createSourceList();
 
-		// get internal tree
+		// getInstance internal tree
 		// FIXME: this is a MODIFICATION of MacWidgets, need to fork+publish sources!
 		JTree tree = sourceList.getTree();
 
@@ -157,7 +157,7 @@ public class JakeSourceList extends JakeGuiComponent
 				log.trace("Source List Selection: " + item);
 
 				if (item != null) {
-					// get the project from the hashmap
+					// getInstance the project from the hashmap
 					Project project = sourceListProjectMap.get(item);
 					if (project != null)
 						JakeContext.setProject(project);
@@ -230,11 +230,11 @@ public class JakeSourceList extends JakeGuiComponent
 									return createContextMenu();
 								}
 
-								//								Project project = sourceListProjectMap.get(item);
+								//								Project project = sourceListProjectMap.getInstance(item);
 								//								if(project == null)
 								//								{
 								//									// item is probably a invitation
-								//									Invitation invite = sourceListInvitationMap.get(item);
+								//									Invitation invite = sourceListInvitationMap.getInstance(item);
 								//									if(invite == null)
 								//									{
 								//										// no it isn't. don't do anything
@@ -467,7 +467,7 @@ public class JakeSourceList extends JakeGuiComponent
 
 		// override the icon if work is in process
 		ProjectChangedCallback.ProjectChangedEvent pce =
-						EventCore.get().getLastProjectEvent(project);
+						EventCore.getInstance().getLastProjectEvent(project);
 		if (pce != null && pce.isWorking()) {
 			prIcon = projectWorkingIcon;
 		}

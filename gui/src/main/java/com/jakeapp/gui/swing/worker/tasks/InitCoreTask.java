@@ -44,7 +44,7 @@ public class InitCoreTask extends SwingWorker<ICoreAccess, Void>
 		
 		boolean success = false;
 		try {
-			// get core & authenticate
+			// getInstance core & authenticate
 			Map<String, String> backendCredentials = new HashMap<String, String>();
 			ICoreAccess core = get();
 			core.authenticateOnBackend(backendCredentials);

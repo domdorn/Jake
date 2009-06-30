@@ -87,7 +87,7 @@ public class FilePanel extends javax.swing.JPanel
 
 		initComponents();
 
-		EventCore.get().addContextChangedListener(this);
+		EventCore.getInstance().addContextChangedListener(this);
 
 		this.fileTreeTable.setScrollsOnExpand(true);
 		this.fileTreeTable.setSortable(true);
@@ -258,8 +258,8 @@ public class FilePanel extends javax.swing.JPanel
 				nodeObjs.add(node);
 			}
 
-			EventCore.get().notifyFileSelectionListeners(fileObjs);
-			EventCore.get().notifyNodeSelectionListeners(nodeObjs);
+			EventCore.getInstance().notifyFileSelectionListeners(fileObjs);
+			EventCore.getInstance().notifyNodeSelectionListeners(nodeObjs);
 		}
 	}
 
@@ -281,14 +281,14 @@ public class FilePanel extends javax.swing.JPanel
 		public void mouseClicked(MouseEvent me) {
 			log.trace("mouseClicked: " + me);
 
-			// get the coordinates of the mouse click
+			// getInstance the coordinates of the mouse click
 			Point p = me.getPoint();
 
-			// get the row index that contains that coordinate
+			// getInstance the row index that contains that coordinate
 			int rowNumber = container.rowAtPoint(p);
 
 			if (rowNumber == -1) { // click in empty area
-				EventCore.get().notifyFileSelectionListeners(null);
+				EventCore.getInstance().notifyFileSelectionListeners(null);
 				container.clearSelection();
 			}
 			if (SwingUtilities.isRightMouseButton(me)) {
@@ -315,9 +315,9 @@ public class FilePanel extends javax.swing.JPanel
 
 						fileObjs.add(node.getFileObject());
 
-						EventCore.get().notifyFileSelectionListeners(fileObjs);
+						EventCore.getInstance().notifyFileSelectionListeners(fileObjs);
 					} else {
-						EventCore.get().notifyFileSelectionListeners(null);
+						EventCore.getInstance().notifyFileSelectionListeners(null);
 					}
 				}
 
@@ -327,7 +327,7 @@ public class FilePanel extends javax.swing.JPanel
 					nodeObjs.add(node);
 				}
 
-				EventCore.get().notifyNodeSelectionListeners(nodeObjs);
+				EventCore.getInstance().notifyNodeSelectionListeners(nodeObjs);
 
 				log.debug("UGA UGA " + DebugHelper.arrayToString(nodeObjs));
 
@@ -345,8 +345,8 @@ public class FilePanel extends javax.swing.JPanel
 					}
 					nodeObjs.add(node);
 				}
-				EventCore.get().notifyFileSelectionListeners(fileObjs);
-				EventCore.get().notifyNodeSelectionListeners(nodeObjs);
+				EventCore.getInstance().notifyFileSelectionListeners(fileObjs);
+				EventCore.getInstance().notifyNodeSelectionListeners(nodeObjs);
 
 				if (me.getClickCount() == 2 && fileObjs.size() == 1) {
 					onDoubleClick(fileObjs.get(0));

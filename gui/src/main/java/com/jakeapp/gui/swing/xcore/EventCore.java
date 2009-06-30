@@ -84,14 +84,15 @@ public class EventCore {
 	};
 
 	static {
-		instance = new EventCore();
+//		instance = new EventCore();
 	}
 
-	public EventCore() {
+	public EventCore(JakeMainApp app) {
+		instance = this;
 		projectChanged = new ArrayList<ProjectChangedCallback>();
 		dataChanged = new ArrayList<DataChangedCallback>();
 
-		JakeMainApp.getInstance().addCoreChangedListener(new CoreChangedCallback() {
+		app.addCoreChangedListener(new CoreChangedCallback() {
 			@Override public void coreChanged() {
 				log.debug("received core change, rolling out updates...");
 				fireAllChanged();
@@ -104,7 +105,7 @@ public class EventCore {
 		fireDataChanged(DataChangedCallback.ALL, null);
 	}
 
-	public static EventCore get() {
+	public static EventCore getInstance() {
 		return instance;
 	}
 

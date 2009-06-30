@@ -53,7 +53,7 @@ public class JakeSourceListTransferHandler extends TransferHandler {
 
 		log.info("DataFlavors: " + DebugHelper.arrayToString(t.getTransferDataFlavors()));
 
-		// TODO: we do not get any data from the transferable
+		// TODO: we do not getInstance any data from the transferable
 
 		/* fetch the data from the Transferable */
 		Object data = null;
@@ -76,7 +76,7 @@ public class JakeSourceListTransferHandler extends TransferHandler {
 
 			support.setDropAction(TransferHandler.LINK);
 
-			/*if (fileList != null && fileList.size() == 1 && fileList.get(0).isDirectory()) {
+			/*if (fileList != null && fileList.size() == 1 && fileList.getInstance(0).isDirectory()) {
 				log.info("Conditions for new project are met!");
 				support.setDropAction(TransferHandler.LINK);
 				return true;

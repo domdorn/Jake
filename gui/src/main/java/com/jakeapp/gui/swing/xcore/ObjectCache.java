@@ -41,7 +41,7 @@ public class ObjectCache implements ContextChangedCallback {
 	// do not construct
 
 	private ObjectCache() {
-		EventCore.get().addContextChangedListener(this);
+		EventCore.getInstance().addContextChangedListener(this);
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class ObjectCache implements ContextChangedCallback {
 	}
 
 	private void fireProjectDataChanged() {
-		EventCore.get()
+		EventCore.getInstance()
 						.fireDataChanged(EnumSet.of(DataChangedCallback.DataReason.Projects),
 										null);
 	}
@@ -86,7 +86,7 @@ public class ObjectCache implements ContextChangedCallback {
 	}
 
 	private void fireFilesDataChanged(Project project) {
-		EventCore.get().fireDataChanged(EnumSet.of(DataChangedCallback.DataReason.Files),
+		EventCore.getInstance().fireDataChanged(EnumSet.of(DataChangedCallback.DataReason.Files),
 						project);
 	}
 
@@ -113,7 +113,7 @@ public class ObjectCache implements ContextChangedCallback {
 	}
 
 	private void fireNotesDataChanged(Project project) {
-		EventCore.get().fireDataChanged(EnumSet.of(DataChangedCallback.DataReason.Notes),
+		EventCore.getInstance().fireDataChanged(EnumSet.of(DataChangedCallback.DataReason.Notes),
 						project);
 	}
 
@@ -143,7 +143,7 @@ public class ObjectCache implements ContextChangedCallback {
 	public void updateAll() {
 		updateProjects();
 
-		// get file & notes data!
+		// getInstance file & notes data!
 		if (JakeContext.getProject() != null) {
 			updateFiles(JakeContext.getProject());
 			updateNotes(JakeContext.getProject());

@@ -77,7 +77,7 @@ public class AnimatedIcon implements Icon {
                                 GifImageDecoder gd = (GifImageDecoder)d;
                                 Field input = ImageDecoder.class.getDeclaredField("input");
                                 input.setAccessible(true);
-                                is = (InputStream)input.get(gd);
+                                is = (InputStream)input.getInstance(gd);
                             }
                         }
                     }

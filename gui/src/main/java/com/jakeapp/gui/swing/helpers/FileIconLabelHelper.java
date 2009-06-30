@@ -57,7 +57,7 @@ public class FileIconLabelHelper {
 		// File or folder name
 		label.setText(file.getName());
 
-		// Folders don't get annotations
+		// Folders don't getInstance annotations
 		if (file.isDirectory()) {
 			label.setIcon(nativeIcon);
 			return label;

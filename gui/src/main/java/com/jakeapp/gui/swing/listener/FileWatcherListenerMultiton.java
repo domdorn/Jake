@@ -30,7 +30,7 @@ public class FileWatcherListenerMultiton {
 
 			@Override
 			public void fileModified(String relpath, ModifyActions action) {
-				EventCore.get().fireFilesChanged(p);
+				EventCore.getInstance().fireFilesChanged(p);
 
 				// auto announce! wohooo!
 				processAutoAnnounce(new FileObject(p, relpath));

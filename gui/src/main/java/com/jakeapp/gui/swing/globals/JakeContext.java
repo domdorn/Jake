@@ -44,7 +44,7 @@ public class JakeContext {
 			}
 
 			// fire the event and relay to all items/components/actions/panels
-			EventCore.get().fireContextChanged(ContextChangedCallback.Reason.Project, project);
+			EventCore.getInstance().fireContextChanged(ContextChangedCallback.Reason.Project, project);
 		}
 	}
 
@@ -68,7 +68,7 @@ public class JakeContext {
 		JakeContext.msgService = msg;
 
 		// inform the event core for this change
-		EventCore.get().fireContextChanged(ContextChangedCallback.Reason.MsgService, msg);
+		EventCore.getInstance().fireContextChanged(ContextChangedCallback.Reason.MsgService, msg);
 	}
 
 	/**
@@ -92,6 +92,6 @@ public class JakeContext {
 				setProject(null);
 			}
 
-		EventCore.get().fireContextChanged(ContextChangedCallback.Reason.Invitation, invitation);
+		EventCore.getInstance().fireContextChanged(ContextChangedCallback.Reason.Invitation, invitation);
 	}
 }

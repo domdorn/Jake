@@ -89,9 +89,9 @@ public class InspectorPanel extends JXPanel
 						InspectorPanel.class));
 
 		// register for events
-		EventCore.get().addProjectChangedCallbackListener(this);
-		EventCore.get().addContextChangedListener(this);
-		EventCore.get().addFileSelectionListener(this);
+		EventCore.getInstance().addProjectChangedCallbackListener(this);
+		EventCore.getInstance().addContextChangedListener(this);
+		EventCore.getInstance().addFileSelectionListener(this);
 		NotesPanel.getInstance().addNoteSelectionListener(this);
 		JakeMainView.getMainView().addProjectViewChangedListener(this);
 

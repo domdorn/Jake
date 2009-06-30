@@ -56,7 +56,7 @@ public class NotesTableModel extends DefaultTableModel
 		this.padlock = ImageLoader.get(JakeMainApp.class, "/icons/file-lock.png");
 		this.shared_note = ImageLoader.get(JakeMainApp.class, "/icons/shared_note.png");
 
-		EventCore.get().addDataChangedCallbackListener(this);
+		EventCore.getInstance().addDataChangedCallbackListener(this);
 	}
 
 	private ResourceMap getResourceMap() {
@@ -102,7 +102,7 @@ public class NotesTableModel extends DefaultTableModel
 	 */
 	private NoteObject getNoteSelection() {
 		//assumption: there is only one selected note
-		/* get old selection */
+		/* getInstance old selection */
 		int oldSelection;
 		Attributed<NoteObject> oldSelectionNote = null;
 		NoteObject result = null;

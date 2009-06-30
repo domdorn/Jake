@@ -35,7 +35,7 @@ public class ProjectsChangeListener implements ChangeListener {
 
 	private void fireChangeEvent(JakeObject jo) {
 		if (jo != null) {
-			EventCore.get().fireDataChanged(EnumSet.of(DataReason.Files, DataReason.Notes),
+			EventCore.getInstance().fireDataChanged(EnumSet.of(DataReason.Files, DataReason.Notes),
 							jo.getProject());
 		}
 	}
@@ -53,14 +53,14 @@ public class ProjectsChangeListener implements ChangeListener {
 	@Override public void onlineStatusChanged(Project p) {
 		log.debug("GUI received online status changed... updating");
 
-		EventCore.get().fireUserChanged(p);
+		EventCore.getInstance().fireUserChanged(p);
 	}
 
 	@Override public void syncStateChanged(Project p, SyncState state) {
 		log.debug("Sync State Changed for " + p.getName() + " to " + state);
 
 		// fixme: only update on success
-		EventCore.get().fireLogChanged(p);
+		EventCore.getInstance().fireLogChanged(p);
 
 		// update files & notes! (new log = probably new stuff :)
 		ObjectCache.get().updateFiles(p);

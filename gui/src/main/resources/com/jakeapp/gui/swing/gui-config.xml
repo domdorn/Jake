@@ -9,7 +9,9 @@
     </bean>
 
 
-    <bean id="eventCore" class="com.jakeapp.gui.swing.xcore.EventCore"/>
+    <bean id="eventCore" class="com.jakeapp.gui.swing.xcore.EventCore">
+        <constructor-arg ref="jakeMainApp" />
+    </bean>
 
 
     <!-- panels -->

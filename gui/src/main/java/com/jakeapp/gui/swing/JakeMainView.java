@@ -57,8 +57,8 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	private static JakeMainView mainView;
 	private boolean inspectorEnabled;
 
-	private EventCore eventCore;
-
+	private final EventCore eventCore;
+	private final JakeMainApp jakeMainApp;
 
 	// all the ui panels
 	private NewsPanel newsPanel;
@@ -142,7 +142,7 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	public JakeMainView(JakeMainApp app, EventCore eventCore) {
 		super(app);
 
-
+		this.jakeMainApp = app;
 		this.eventCore = eventCore;
 
 
@@ -176,7 +176,7 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 
 //		log.debug("invitation panel ...");
 //		setInvitationPanel(new InvitationPanel(eventCore));
-//		invitationPanel = new InvitationPanel(EventCore.get());
+//		invitationPanel = new InvitationPanel(EventCore.getInstance());
 		invitationPanel = new InvitationPanel();
 
 		// initialize helper code
@@ -265,7 +265,8 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 
 		// debug property
 		if (System.getProperty("com.jakeapp.gui.test.instantquit") != null) {
-			JakeMainApp.getInstance().saveQuit();
+//			JakeMainApp.getInstance().saveQuit();
+			jakeMainApp.saveQuit();
 		}
 
 		// init auto syncer
@@ -384,8 +385,11 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	 * Registers the callbacks with the core
 	 */
 	private void registerCallbacks() {
-		EventCore.get().addProjectChangedCallbackListener(new UpdateAllProjectChangedCallback());
-		EventCore.get().addContextChangedListener(this);
+		eventCore.addProjectChangedCallbackListener(new UpdateAllProjectChangedCallback());
+//		EventCore.getInstance().addProjectChangedCallbackListener(new UpdateAllProjectChangedCallback());
+//		eventCore.addContextChangedListener(this);
+		EventCore.getInstance().addContextChangedListener(this);
+
 	}
 
 
@@ -573,11 +577,13 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	@Action
 	public void showAboutBox() {
 		if (aboutBox == null) {
-			JFrame mainFrame = JakeMainApp.getInstance().getMainFrame();
+//			JFrame mainFrame = JakeMainApp.getInstance().getMainFrame();
+			JFrame mainFrame = jakeMainApp.getMainFrame();
 			aboutBox = new JakeAboutDialog(mainFrame);
 			aboutBox.setLocationRelativeTo(mainFrame);
 		}
-		JakeMainApp.getInstance().show(aboutBox);
+//		JakeMainApp.getInstance().show(aboutBox);
+		jakeMainApp.show(aboutBox);
 	}
 
 

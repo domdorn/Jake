@@ -35,6 +35,6 @@ public class ImportFileFolderTask extends AbstractTask<Void> {
 
 	@Override
 	protected void onDone() {
-		EventCore.get().fireFilesChanged(p);
+		EventCore.getInstance().fireFilesChanged(p);
 	}
 }

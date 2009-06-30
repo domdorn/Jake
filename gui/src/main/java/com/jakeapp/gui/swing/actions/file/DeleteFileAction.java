@@ -62,7 +62,7 @@ public class DeleteFileAction extends FileAction {
 
 		log.debug("getting files to delete");
 
-		//get all files to be deleted
+		//getInstance all files to be deleted
 		for (ProjectFilesTreeNode node : getNodes()) {
 			if (node.isFile()) {
 				files.add(node.getFileObject());

@@ -19,7 +19,7 @@ public class StartStopProjectTask extends AbstractTask<Void> {
 	protected AvailableLaterObject<Void> calculateFunction() {
 
 		// generate event
-		EventCore.get()
+		EventCore.getInstance()
 						.fireProjectChanged(new ProjectChangedCallback.ProjectChangedEvent(project,
 										ProjectChangedCallback.ProjectChangedEvent.Reason.StartStopStateChanging));
 
@@ -29,7 +29,7 @@ public class StartStopProjectTask extends AbstractTask<Void> {
 	@Override
 	protected void onDone() {
 		// generate event
-		EventCore.get()
+		EventCore.getInstance()
 						.fireProjectChanged(new ProjectChangedCallback.ProjectChangedEvent(project,
 										ProjectChangedCallback.ProjectChangedEvent.Reason.StartStopStateChanged));
 	}

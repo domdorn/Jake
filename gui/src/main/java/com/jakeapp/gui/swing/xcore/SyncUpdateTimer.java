@@ -30,7 +30,7 @@ public class SyncUpdateTimer implements DataChangedCallback {
 	public SyncUpdateTimer() {
 		instance = this;
 
-		EventCore.get().addDataChangedCallbackListener(this);
+		EventCore.getInstance().addDataChangedCallbackListener(this);
 
 		syncTimer = new Timer(TimerSyncRate, new ActionListener() {
 			@Override public void actionPerformed(ActionEvent e) {

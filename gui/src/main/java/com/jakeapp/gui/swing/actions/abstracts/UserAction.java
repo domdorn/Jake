@@ -23,7 +23,7 @@ public abstract class UserAction extends ProjectAction implements ContextChanged
 
 	public UserAction(JList list) {
 		setList(list);
-		EventCore.get().addContextChangedListener(this);
+		EventCore.getInstance().addContextChangedListener(this);
 	}
 
 	/**

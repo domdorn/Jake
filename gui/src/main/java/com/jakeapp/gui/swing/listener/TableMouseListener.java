@@ -29,10 +29,10 @@ public abstract class TableMouseListener implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         // Right mouse click
         if (SwingUtilities.isRightMouseButton(e)) {
-            // get the coordinates of the mouse click
+            // getInstance the coordinates of the mouse click
             Point p = e.getPoint();
 
-            // get the row index that contains that coordinate
+            // getInstance the row index that contains that coordinate
             int rowNumber = table.rowAtPoint(p);
 
             // Get the ListSelectionModel of the JTable

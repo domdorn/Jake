@@ -57,7 +57,7 @@ public class FileDropHandler extends TransferHandler {
 			/* data of type javaFileListFlavor is a list of files */
 			List<File> fileList = (List<File>) data;
 
-			// get destination folder. Project root if nothing selected.
+			// getInstance destination folder. Project root if nothing selected.
 			String destFolder = "/";
 
 			JakeExecutor.exec(new ImportFileFolderTask(JakeContext.getProject(), fileList, destFolder));

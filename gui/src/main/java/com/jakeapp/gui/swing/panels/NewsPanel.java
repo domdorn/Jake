@@ -99,9 +99,9 @@ public class NewsPanel extends javax.swing.JPanel
 						.getContext().getResourceMap(NewsPanel.class));
 
 		// register the callbacks
-		EventCore.get().addProjectChangedCallbackListener(this);
-		EventCore.get().addContextChangedListener(this);
-		EventCore.get().addDataChangedCallbackListener(this);
+		EventCore.getInstance().addProjectChangedCallbackListener(this);
+		EventCore.getInstance().addContextChangedListener(this);
+		EventCore.getInstance().addDataChangedCallbackListener(this);
 
 		// init actions!
 		this.projectRunningButton.setAction(this.startStopProjectAction);
@@ -141,7 +141,7 @@ public class NewsPanel extends javax.swing.JPanel
 		this.usersList.getSelectionModel()
 						.addListSelectionListener(new ListSelectionListener() {
 							@Override public void valueChanged(ListSelectionEvent e) {
-								EventCore.get().fireContextChanged(Reason.UserSelectionChanged,
+								EventCore.getInstance().fireContextChanged(Reason.UserSelectionChanged,
 												e.getFirstIndex());
 							}
 						});
@@ -220,10 +220,10 @@ public class NewsPanel extends javax.swing.JPanel
 		public void mouseClicked(MouseEvent me) {
 			if (SwingUtilities.isRightMouseButton(me)) {
 				log.trace("right clicked");
-				// get the coordinates of the mouse click
+				// getInstance the coordinates of the mouse click
 				Point p = me.getPoint();
 
-				// get the row index that contains that coordinate
+				// getInstance the row index that contains that coordinate
 				int rowNumber = usersList.locationToIndex(p);
 
 				// Get the ListSelectionModel of the JTable

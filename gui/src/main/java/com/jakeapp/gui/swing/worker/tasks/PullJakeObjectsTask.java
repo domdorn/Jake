@@ -39,13 +39,13 @@ public class PullJakeObjectsTask extends AbstractTask<Void> {
 
 
 		// inform the core that there are new log entries available.
-		EventCore.get()
+		EventCore.getInstance()
 						.fireDataChanged(EnumSet.of(DataChangedCallback.DataReason.Files), null);
 		if (this.jakeObjects.size() > 0) {
 			if ((this.jakeObjects.get(0)) instanceof FileObject)
-				EventCore.get().fireFilesChanged(this.jakeObjects.get(0).getProject());
+				EventCore.getInstance().fireFilesChanged(this.jakeObjects.get(0).getProject());
 			else
-				EventCore.get().fireNotesChanged(this.jakeObjects.get(0).getProject());
+				EventCore.getInstance().fireNotesChanged(this.jakeObjects.get(0).getProject());
 		}
 	}
 

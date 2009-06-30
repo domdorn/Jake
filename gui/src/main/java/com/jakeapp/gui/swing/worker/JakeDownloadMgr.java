@@ -57,13 +57,13 @@ public class JakeDownloadMgr implements DataChangedCallback, TaskChangedCallback
 			return;
 		}
 
-		// get info & update
+		// getInstance info & update
 		DownloadInfo info = getInfo(fo);
 		info.setStatus(status);
 		info.setProgress(progress);
 
 		// fire that files are changed
-		EventCore.get().fireFilesChanged(jo.getProject());
+		EventCore.getInstance().fireFilesChanged(jo.getProject());
 	}
 
 	public enum DlOptions {

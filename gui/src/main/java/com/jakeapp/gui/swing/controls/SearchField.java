@@ -114,7 +114,7 @@ public class SearchField extends JTextField {
 		/*
 				  EPopupMenu menu = new EPopupMenu();
 				  for (int i = 0; i < history.size(); ++i) {
-						menu.add(new SearchHistoryAction(history.get(i)));
+						menu.add(new SearchHistoryAction(history.getInstance(i)));
 				  }
 				  menu.addSeparator();
 				  menu.add(new ClearHistoryAction());

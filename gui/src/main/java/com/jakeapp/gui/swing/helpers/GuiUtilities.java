@@ -146,7 +146,7 @@ public class GuiUtilities {
 				long windowId = (Long) getWindowMethod.invoke(peer, new Object[0]);
 
 				long value = (int) (0xff * alpha) << 24;
-				// sun.awt.X11.XAtom.get("_NET_WM_WINDOW_OPACITY").setCard32Property(windowId, value);
+				// sun.awt.X11.XAtom.getInstance("_NET_WM_WINDOW_OPACITY").setCard32Property(windowId, value);
 				Class<?> xAtomClass = Class.forName("sun.awt.X11.XAtom");
 				Method getMethod = xAtomClass.getMethod("get", String.class);
 				Method setCard32PropertyMethod = xAtomClass.getMethod("setCard32Property", long.class, long.class);

@@ -165,7 +165,7 @@ public class UserPanel extends JXPanel
 		// set the background painter
 		this.setBackgroundPainter(Platform.getStyler().getLoginBackgroundPainter());
 
-		EventCore.get().addContextChangedListener(this);
+		EventCore.getInstance().addContextChangedListener(this);
 	}
 
 	private JPanel createLoadingAppPanel() {
@@ -445,7 +445,7 @@ public class UserPanel extends JXPanel
 					//creds.setPlainTextPassword(loginUserDataPanel.getPassword());
 
 					JakeExecutor.exec(new LoginAccountTask(msg, creds,
-									EventCore.get().getLoginStateListener()));
+									EventCore.getInstance().getLoginStateListener()));
 
 				} catch (Exception e) {
 					log.warn(e);
@@ -878,7 +878,7 @@ public class UserPanel extends JXPanel
 		JakeContext.setMsgService(msg);
 		
 		JakeExecutor.exec(new LoginAccountTask(msg, account,
-						EventCore.get().getLoginStateListener()));
+						EventCore.getInstance().getLoginStateListener()));
 
 		updateView();
 	}

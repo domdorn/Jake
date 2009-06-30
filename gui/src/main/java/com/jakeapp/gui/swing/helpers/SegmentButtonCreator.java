@@ -40,7 +40,7 @@ public class SegmentButtonCreator {
             buttons.add(createSegmentButton(style, "only", buttonGrp));
         } else {
             // If more than 1 button is requested, then
-            // the first one gets "first" the last one gets "last" and the rest get "middle"
+            // the first one gets "first" the last one gets "last" and the rest getInstance "middle"
             buttons.add(createSegmentButton(style, "first", buttonGrp));
             for (int i = 0; i < numButtons - 2; ++i) {
                 buttons.add(createSegmentButton(style, "middle", buttonGrp));

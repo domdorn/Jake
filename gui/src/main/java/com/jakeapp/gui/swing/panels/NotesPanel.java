@@ -146,7 +146,7 @@ public class NotesPanel extends javax.swing.JPanel
 	public NotesPanel() {
 		instance = this;
 
-		// get resource map
+		// getInstance resource map
 		this.setResourceMap(
 						org.jdesktop.application.Application.getInstance(JakeMainApp.class)
 										.getContext().getResourceMap(NotesPanel.class));
@@ -155,8 +155,8 @@ public class NotesPanel extends javax.swing.JPanel
 		initComponents();
 
 		// register the callbacks
-		EventCore.get().addContextChangedListener(this);
-		EventCore.get().addProjectChangedCallbackListener(this);
+		EventCore.getInstance().addContextChangedListener(this);
+		EventCore.getInstance().addProjectChangedCallbackListener(this);
 		this.notesTable.getSelectionModel().addListSelectionListener(this);
 
 		// TODO: make this a styler property
@@ -395,7 +395,7 @@ public class NotesPanel extends javax.swing.JPanel
 	 * @return the list of currently selected notes. If nothing is selected, an empty list is returned.
 	 */
 	public List<Attributed<NoteObject>> getSelectedNotes() {
-		//log.debug("get selected notes...");
+		//log.debug("getInstance selected notes...");
 		List<Attributed<NoteObject>> selectedNotes =
 						new ArrayList<Attributed<NoteObject>>();
 

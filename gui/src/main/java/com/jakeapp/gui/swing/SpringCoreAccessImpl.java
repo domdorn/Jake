@@ -110,7 +110,7 @@ public class SpringCoreAccessImpl implements ICoreAccess {
 	public void authenticateOnBackend(Map<String, String> authenticationData)
 					throws InvalidCredentialsException {
 		this.sessionId = this.frontendService
-						.authenticate(authenticationData, EventCore.get().getChangeListener());
+						.authenticate(authenticationData, EventCore.getInstance().getChangeListener());
 
 		// also cache the pms
 		pms = frontendService.getProjectsManagingService(this.sessionId);
@@ -118,7 +118,7 @@ public class SpringCoreAccessImpl implements ICoreAccess {
 		iss = getFrontendService().getSyncService(getSessionId());
 
 		// set the invitation listener
-		//		pms.setInvitationListener(EventCore.get().getInvitationListener());
+		//		pms.setInvitationListener(EventCore.getInstance().getInvitationListener());
 	}
 
 	@Override
@@ -241,7 +241,7 @@ public class SpringCoreAccessImpl implements ICoreAccess {
 						throw new ProjectNotFoundException("Project not found in list!");
 					}
 
-					EventCore.get().fireProjectChanged(
+					EventCore.getInstance().fireProjectChanged(
 									new ProjectChangedCallback.ProjectChangedEvent(project,
 													ProjectChangedCallback.ProjectChangedEvent.Reason.Deleted));
 
@@ -299,7 +299,7 @@ public class SpringCoreAccessImpl implements ICoreAccess {
 
 					Project project = invitation.createProject();
 
-					EventCore.get().fireProjectChanged(
+					EventCore.getInstance().fireProjectChanged(
 									new ProjectChangedCallback.ProjectChangedEvent(project,
 													ProjectChangedCallback.ProjectChangedEvent.Reason.Joined));
 
@@ -332,7 +332,7 @@ public class SpringCoreAccessImpl implements ICoreAccess {
 									.rejectInvitation(invitation);
 
 					// FIXME: One fine day, far far far away, make this prettier.
-					EventCore.get().fireProjectChanged(
+					EventCore.getInstance().fireProjectChanged(
 									new ProjectChangedCallback.ProjectChangedEvent(null,
 													ProjectChangedCallback.ProjectChangedEvent.Reason.Rejected));
 
@@ -364,7 +364,7 @@ public class SpringCoreAccessImpl implements ICoreAccess {
 				iss.startLogSync(project);
 			}
 
-			EventCore.get().fireProjectChanged(
+			EventCore.getInstance().fireProjectChanged(
 							new ProjectChangedCallback.ProjectChangedEvent(project,
 											ProjectChangedCallback.ProjectChangedEvent.Reason.Syncing));
 
@@ -386,7 +386,7 @@ public class SpringCoreAccessImpl implements ICoreAccess {
 		try {
 			this.getFrontendService().getProjectsManagingService(this.getSessionId())
 							.updateProjectName(project, prName);
-			EventCore.get().fireProjectChanged(
+			EventCore.getInstance().fireProjectChanged(
 							new ProjectChangedCallback.ProjectChangedEvent(project,
 											ProjectChangedCallback.ProjectChangedEvent.Reason.Name));
 		} catch (IllegalArgumentException e) {
@@ -527,7 +527,7 @@ public class SpringCoreAccessImpl implements ICoreAccess {
 			throw new NoteOperationFailedException(e);
 		}
 
-		EventCore.get().fireNotesChanged(note.getProject());
+		EventCore.getInstance().fireNotesChanged(note.getProject());
 	}
 
 	@Override
@@ -560,7 +560,7 @@ public class SpringCoreAccessImpl implements ICoreAccess {
 	public void saveNote(NoteObject note) throws NoteOperationFailedException {
 		pms.saveNote(note);
 		this.attributedCacheMan.invalidateCache(note);
-		EventCore.get().fireNotesChanged(note.getProject());
+		EventCore.getInstance().fireNotesChanged(note.getProject());
 	}
 
 
@@ -613,7 +613,7 @@ public class SpringCoreAccessImpl implements ICoreAccess {
 		} else {
 			pms.setUserNickname(project, user, nick);
 
-			EventCore.get().fireProjectChanged(
+			EventCore.getInstance().fireProjectChanged(
 							new ProjectChangedCallback.ProjectChangedEvent(project,
 											ProjectChangedCallback.ProjectChangedEvent.Reason.People));
 
@@ -631,7 +631,7 @@ public class SpringCoreAccessImpl implements ICoreAccess {
 			ExceptionUtilities.showError(e);
 		}
 
-		EventCore.get().fireProjectChanged(
+		EventCore.getInstance().fireProjectChanged(
 						new ProjectChangedCallback.ProjectChangedEvent(project,
 										ProjectChangedCallback.ProjectChangedEvent.Reason.People));
 	}
@@ -643,7 +643,7 @@ public class SpringCoreAccessImpl implements ICoreAccess {
 			this.getFrontendService().getProjectsManagingService(getSessionId())
 							.invite(project, userid);
 
-			EventCore.get().fireProjectChanged(
+			EventCore.getInstance().fireProjectChanged(
 							new ProjectChangedCallback.ProjectChangedEvent(project,
 											ProjectChangedCallback.ProjectChangedEvent.Reason.People));
 		} catch (IllegalArgumentException e) {
@@ -743,7 +743,7 @@ public class SpringCoreAccessImpl implements ICoreAccess {
 					// add Project to core-internal list
 					project = pms.createProject(name, path, msg);
 
-					EventCore.get().fireProjectChanged(
+					EventCore.getInstance().fireProjectChanged(
 									new ProjectChangedCallback.ProjectChangedEvent(project,
 													ProjectChangedCallback.ProjectChangedEvent.Reason.Created));
 
@@ -1036,7 +1036,7 @@ public class SpringCoreAccessImpl implements ICoreAccess {
 							.unlock(jakeObject, lockingMessage);
 		}
 
-		EventCore.get().fireProjectChanged(
+		EventCore.getInstance().fireProjectChanged(
 						new ProjectChangedCallback.ProjectChangedEvent(jakeObject.getProject(),
 										ProjectChangedCallback.ProjectChangedEvent.Reason.Deleted));
 	}
@@ -1048,7 +1048,7 @@ public class SpringCoreAccessImpl implements ICoreAccess {
 
 		////fixme unregister
 		service.registerInvitationListener(
-						EventCore.get().getInvitationListener()); // TODO DIRTY!
+						EventCore.getInstance().getInvitationListener()); // TODO DIRTY!
 		return this.getFrontendService()
 						.login(getSessionId(), service, credentials, connectionListener);
 	}

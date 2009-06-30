@@ -64,7 +64,7 @@ public class JakeExecutor extends ThreadPoolExecutor {
 		// make call threadsave!
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				EventCore.get().fireTasksChangedListener(task, op);
+				EventCore.getInstance().fireTasksChangedListener(task, op);
 
 				// FIXME: use new interface TaskChanged
 				ActiveTasks.tasksUpdated();

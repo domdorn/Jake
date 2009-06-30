@@ -52,7 +52,7 @@ public class ImportFileAction extends FileAction {
 
 		log.info("number files selected: " + dialog.getSelectedFiles().length);
 
-		// get destination folder. Project root if nothing selected.
+		// getInstance destination folder. Project root if nothing selected.
 		String destFolder = "/";
 
 		if (getSelectedRowCount() > 0) {

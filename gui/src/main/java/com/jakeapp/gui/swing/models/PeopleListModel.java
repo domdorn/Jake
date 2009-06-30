@@ -35,9 +35,9 @@ public class PeopleListModel extends AbstractListModel
 		this.people = new ArrayList<UserInfo>();
 
 		// register for events
-		EventCore.get().addProjectChangedCallbackListener(this);
-		EventCore.get().addContextChangedListener(this);
-		EventCore.get().addDataChangedCallbackListener(this);
+		EventCore.getInstance().addProjectChangedCallbackListener(this);
+		EventCore.getInstance().addContextChangedListener(this);
+		EventCore.getInstance().addDataChangedCallbackListener(this);
 
 		updateModel();
 	}
