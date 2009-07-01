@@ -1,6 +1,6 @@
 package com.jakeapp.gui.swing.callbacks;
 
-import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.ProjectView;
 
 /**
  * Interface for project view changed callback.
@@ -9,5 +9,5 @@ import com.jakeapp.gui.swing.JakeMainView;
  * Time: 8:44:22 PM
  */
 public interface ProjectViewChangedCallback {
-	public void setProjectViewPanel(JakeMainView.ProjectView panel);
+	public void setProjectViewPanel(ProjectView panel);
 }

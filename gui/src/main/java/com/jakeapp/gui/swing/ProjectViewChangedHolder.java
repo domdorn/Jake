@@ -33,7 +33,7 @@ public class ProjectViewChangedHolder {
 	 * 
 	 * @param projectView
 	 */
-	public void fireProjectViewChanged(JakeMainView.ProjectView projectView) {
+	public void fireProjectViewChanged(ProjectView projectView) {
 		for (ProjectViewChangedCallback psc : getProjectViewChanged()) {
 			psc.setProjectViewPanel(projectView);
 		}

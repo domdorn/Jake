@@ -113,6 +113,13 @@
     </bean>
 
 
+    <!--<bean id="jakeToolbar" class="com.jakeapp.gui.swing.components.JakeToolbar">-->
+        <!---->
+        <!--<constructor-arg type="com.jakeapp.gui.swing.xcore.EventCore" ref="eventCore" />-->
+        <!--<constructor-arg type="com.jakeapp.gui.swing.panels.FilePanel" ref="filePanel" />-->
+    <!--</bean>-->
+
+
     <bean id="jakeMainView" class="com.jakeapp.gui.swing.JakeMainView">
         <constructor-arg index="0" type="com.jakeapp.gui.swing.JakeMainApp" ref="jakeMainApp"/>
         <constructor-arg index="1" type="com.jakeapp.gui.swing.xcore.EventCore" ref="eventCore"/>

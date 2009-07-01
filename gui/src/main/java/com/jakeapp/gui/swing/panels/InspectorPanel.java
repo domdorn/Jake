@@ -7,8 +7,8 @@ import com.jakeapp.core.domain.Project;
 import com.jakeapp.core.synchronization.attributes.Attributed;
 import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.JakeMainView;
 import com.jakeapp.gui.swing.ProjectViewChangedHolder;
+import com.jakeapp.gui.swing.ProjectView;
 import com.jakeapp.gui.swing.callbacks.ContextChangedCallback;
 import com.jakeapp.gui.swing.callbacks.FileSelectionChangedCallback;
 import com.jakeapp.gui.swing.callbacks.NoteSelectionChangedCallback;
@@ -343,11 +343,11 @@ public class InspectorPanel extends JXPanel
 	}
 	
 	@Override
-	public void setProjectViewPanel(JakeMainView.ProjectView projectViewPanel) {
+	public void setProjectViewPanel(ProjectView projectViewPanel) {
 
-		if (projectViewPanel == JakeMainView.ProjectView.Files)
+		if (projectViewPanel == ProjectView.Files)
 			this.mode = Mode.FILE;
-		else if (projectViewPanel == JakeMainView.ProjectView.Notes)
+		else if (projectViewPanel == ProjectView.Notes)
 			this.mode = Mode.NOTE;
 		else
 			this.mode = Mode.NONE;
