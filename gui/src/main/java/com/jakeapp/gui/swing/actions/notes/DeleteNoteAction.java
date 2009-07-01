@@ -16,7 +16,6 @@ import com.jakeapp.core.domain.Project;
 import com.jakeapp.core.synchronization.attributes.Attributed;
 import com.jakeapp.core.synchronization.UserInfo;
 import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.JakeMainView;
 import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.actions.abstracts.NoteAction;
 import com.jakeapp.gui.swing.dialogs.generic.JSheet;
@@ -37,11 +36,17 @@ public class DeleteNoteAction extends NoteAction {
 
 	private static final long serialVersionUID = 8553169924173654143L;
 	private static final Logger log = Logger.getLogger(DeleteNoteAction.class);
+	private final ResourceMap resourceMap;
+	private final NotesPanel notesPanel;
 
-	public DeleteNoteAction() {
-		super();
 
-		String actionStr = JakeMainView.getMainView().getResourceMap().getString("deleteNoteMenuItem");
+	public DeleteNoteAction(NotesPanel notesPanel, ResourceMap resourceMap) {
+		super(notesPanel);
+
+		this.resourceMap = resourceMap;
+		this.notesPanel = notesPanel;
+
+		String actionStr = resourceMap.getString("deleteNoteMenuItem");
 		putValue(Action.NAME, actionStr);
 	}
 
@@ -49,8 +54,8 @@ public class DeleteNoteAction extends NoteAction {
 	public void actionPerformed(ActionEvent event) {
 		final List<Attributed<NoteObject>> cache = getSelectedNotes();
 
-		ResourceMap map = NotesPanel.getInstance().getResourceMap();
-		String[] options = {map.getString("confirmDeleteNote.ok"), map.getString("genericCancel")};
+
+		String[] options = {resourceMap.getString("confirmDeleteNote.ok"), resourceMap.getString("genericCancel")};
 		String text;
 		
 		if (cache.size() == 1) { //single delete
@@ -58,12 +63,12 @@ public class DeleteNoteAction extends NoteAction {
 				UserInfo lockOwner = JakeMainApp.getCore().getUserInfo(cache.get(0).getLockLogEntry().getMember());
 
 				if (lockOwner.getUser().equals(JakeContext.getCurrentUser())) { //local member is owner
-					text = map.getString("confirmDeleteNote.text");
+					text = resourceMap.getString("confirmDeleteNote.text");
 				} else {
-					text = Translator.get(map, "confirmDeleteLockedNote.text", lockOwner.getNickName());
+					text = Translator.get(resourceMap, "confirmDeleteLockedNote.text", lockOwner.getNickName());
 				}
 			} else {
-				text = map.getString("confirmDeleteNote.text");
+				text = resourceMap.getString("confirmDeleteNote.text");
 			}
 		} else { //batch delete
 			log.debug("batch delete -------------------------------------------------------------");
@@ -76,14 +81,14 @@ public class DeleteNoteAction extends NoteAction {
 			}
 			if (locked) {
 				log.debug("at least one file is locked");
-				text = map.getString("confirmDeleteLockedNotes.text");
+				text = resourceMap.getString("confirmDeleteLockedNotes.text");
 			} else {
 				log.debug("no file is locked or locked by the local user");
-				text = map.getString("confirmDeleteNotes.text");
+				text = resourceMap.getString("confirmDeleteNotes.text");
 			}
 		}
 		
-		JSheet.showOptionSheet(NotesPanel.getInstance(), text,
+		JSheet.showOptionSheet(notesPanel, text,
 				  JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0], new SheetListener() {
 			@Override
 			public void optionSelected(SheetEvent evt) {
@@ -112,10 +117,10 @@ public class DeleteNoteAction extends NoteAction {
 		NoteObject toSelectAfter = null;
 
 		try {
-			for (int i = NotesPanel.getInstance().getNotesTableModel().getRowCount()-1; i >= 0; i--) {
-				if (!cache.contains(NotesPanel.getInstance().getNotesTableModel()
+			for (int i = notesPanel.getNotesTableModel().getRowCount()-1; i >= 0; i--) {
+				if (!cache.contains(notesPanel.getNotesTableModel()
 						.getNoteAtRow(i))) {
-					toSelectAfter = NotesPanel.getInstance().getNotesTableModel()
+					toSelectAfter = notesPanel.getNotesTableModel()
 							.getNoteAtRow(i).getJakeObject();
 					break;
 				}

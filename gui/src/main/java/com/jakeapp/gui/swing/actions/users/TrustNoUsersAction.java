@@ -5,13 +5,14 @@ import com.jakeapp.gui.swing.JakeMainView;
 
 import javax.swing.*;
 
+import org.jdesktop.application.ResourceMap;
+
 public class TrustNoUsersAction extends AbstractTrustUsersAction {
 	//private static final Logger log = Logger.getLogger(TrustFullUsersAction.class);
-	public TrustNoUsersAction(JList list) {
+	public TrustNoUsersAction(JList list, ResourceMap resourceMap) {
 		super(list, TrustState.NO_TRUST);
 
-		String actionStr = JakeMainView.getMainView().getResourceMap().
-						getString("notTrustedPeopleMenuItem.text");
+		String actionStr = resourceMap.getString("notTrustedPeopleMenuItem.text");
 
 		putValue(Action.NAME, actionStr);
 

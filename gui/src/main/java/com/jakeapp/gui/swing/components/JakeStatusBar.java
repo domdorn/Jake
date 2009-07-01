@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 import org.apache.log4j.Logger;
+import org.jdesktop.application.ResourceMap;
 
 import com.explodingpixels.macwidgets.BottomBarSize;
 import com.explodingpixels.macwidgets.MacWidgetFactory;
@@ -24,6 +25,7 @@ import com.jakeapp.availablelater.AvailableLaterObject;
 import com.jakeapp.core.domain.Project;
 import com.jakeapp.gui.swing.JakeMainApp;
 import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.ContextPanelEnum;
 import com.jakeapp.gui.swing.callbacks.ContextChangedCallback;
 import com.jakeapp.gui.swing.callbacks.ContextViewChangedCallback;
 import com.jakeapp.gui.swing.callbacks.DataChangedCallback;
@@ -61,7 +63,7 @@ public class JakeStatusBar extends JakeGuiComponent
 	private JButton connectionButton;
 	private TriAreaComponent statusBar;
 	private JakeMainView.ProjectView projectViewPanel;
-	private JakeMainView.ContextPanelEnum contextViewPanel;
+	private ContextPanelEnum contextViewPanel;
 
 	private ConnectionState lastConnectionState = ConnectionState.LOGGED_OUT;
 	private String lastConnectionMsg = "";
@@ -207,8 +209,7 @@ public class JakeStatusBar extends JakeGuiComponent
 			} catch (ExecutionException e) {
 				this.handleExecutionError(e);
 			}
-			String filesStr = getResourceMap()
-							.getString(projectFileCount == 1 ? "projectFile" : "projectFiles");
+			String filesStr = resourceMap.getString(projectFileCount == 1 ? "projectFile" : "projectFiles");
 
 			// update project statistics
 			setProjectFileCount(projectFileCount + " " + filesStr);
@@ -241,14 +242,19 @@ public class JakeStatusBar extends JakeGuiComponent
 		}
 	}
 
-	public JakeStatusBar() {
+	private final EventCore eventCore;
+	private final ResourceMap resourceMap;
+
+	public JakeStatusBar(EventCore eventCore, ResourceMap resourceMap) {
 		super();
+		this.eventCore = eventCore;
+		this.resourceMap = resourceMap;
 		instance = this;
 
-		EventCore.getInstance().addProjectChangedCallbackListener(this);
-		EventCore.getInstance().addContextChangedListener(this);
-		EventCore.getInstance().addTasksChangedListener(this);
-		EventCore.getInstance().addConnectionStatusCallbackListener(this);
+		eventCore.addProjectChangedCallbackListener(this);
+		eventCore.addContextChangedListener(this);
+		eventCore.addTasksChangedListener(this);
+		eventCore.addConnectionStatusCallbackListener(this);
 
 		JakeMainView.getMainView().addProjectViewChangedListener(this);
 		JakeMainView.getMainView().addContextViewChangedListener(this);
@@ -395,7 +401,7 @@ public class JakeStatusBar extends JakeGuiComponent
 				}
 
 				JakeMainView.getMainView()
-								.setContextViewPanel(JakeMainView.ContextPanelEnum.Login);
+								.setContextViewPanel(ContextPanelEnum.Login);
 			}
 		});
 
@@ -422,7 +428,7 @@ public class JakeStatusBar extends JakeGuiComponent
 	 */
 	public void updateMessageInt() {
 
-		if (getContextViewPanel() == JakeMainView.ContextPanelEnum.Project) {
+		if (getContextViewPanel() == ContextPanelEnum.Project) {
 			if (JakeContext.getInvitation() != null) {
 				statusLabel.setText("Woohoo, that's an Invitation! You better join!");
 			} else {
@@ -459,9 +465,9 @@ public class JakeStatusBar extends JakeGuiComponent
 					}
 				}
 			}
-		} else if (getContextViewPanel() == JakeMainView.ContextPanelEnum.Invitation) {
+		} else if (getContextViewPanel() == ContextPanelEnum.Invitation) {
 			statusLabel.setText("");
-		} else if (getContextViewPanel() == JakeMainView.ContextPanelEnum.Login) {
+		} else if (getContextViewPanel() == ContextPanelEnum.Login) {
 
 			if (JakeContext.getMsgService() != null) {
 				// user chosen
@@ -525,12 +531,12 @@ public class JakeStatusBar extends JakeGuiComponent
 		return projectViewPanel;
 	}
 
-	public void setContextViewPanel(JakeMainView.ContextPanelEnum contextViewPanel) {
+	public void setContextViewPanel(ContextPanelEnum contextViewPanel) {
 		this.contextViewPanel = contextViewPanel;
 		projectUpdated();
 	}
 
-	public JakeMainView.ContextPanelEnum getContextViewPanel() {
+	public ContextPanelEnum getContextViewPanel() {
 		return contextViewPanel;
 	}
 

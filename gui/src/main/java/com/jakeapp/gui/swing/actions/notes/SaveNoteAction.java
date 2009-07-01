@@ -9,6 +9,7 @@ import com.jakeapp.gui.swing.exceptions.NoteOperationFailedException;
 import com.jakeapp.gui.swing.helpers.ExceptionUtilities;
 import com.jakeapp.gui.swing.panels.NotesPanel;
 import org.apache.log4j.Logger;
+import org.jdesktop.application.ResourceMap;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -22,23 +23,28 @@ public class SaveNoteAction extends NoteAction {
 	
 	private static final long serialVersionUID = 196271937528474367L;
 	private static final Logger log = Logger.getLogger(SaveNoteAction.class);
-	
-	public SaveNoteAction() {
-		super();
 
-		String actionStr = JakeMainView.getMainView().getResourceMap().getString("saveNoteMenuItem");
+	private final NotesPanel notesPanel;
+	private final ResourceMap resourceMap;
+
+	public SaveNoteAction(NotesPanel notesPanel, ResourceMap resourceMap) {
+		super(notesPanel);
+		this.notesPanel = notesPanel;
+		this.resourceMap = resourceMap;
+
+		String actionStr = resourceMap.getString("saveNoteMenuItem");
 		putValue(Action.NAME, actionStr);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		String newContent = NotesPanel.getInstance().getNoteReaderText();
+		String newContent = notesPanel.getNoteReaderText();
 		NoteObject cachedNote = this.getSelectedNote().getJakeObject();
 		cachedNote.setContent(newContent);
 		
 		log.debug("saving note with new content: " + newContent);
 		try {
-			NotesPanel.getInstance().getNotesTableModel().setNoteToSelectLater(cachedNote);
+			notesPanel.getNotesTableModel().setNoteToSelectLater(cachedNote);
 			JakeMainApp.getCore().saveNote(cachedNote);
 		} catch (NoteOperationFailedException e) {
 			ExceptionUtilities.showError(e);

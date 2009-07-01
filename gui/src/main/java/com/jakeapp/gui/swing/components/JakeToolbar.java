@@ -15,11 +15,14 @@ import com.jakeapp.gui.swing.filters.NoteObjectFilter;
 import com.jakeapp.gui.swing.panels.FilePanel;
 import com.jakeapp.gui.swing.panels.NotesPanel;
 import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.ContextPanelEnum;
+import com.jakeapp.gui.swing.xcore.EventCore;
 import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.helpers.ImageLoader;
 
 import org.jdesktop.swingx.decorator.FilterPipeline;
 import org.jdesktop.swingx.decorator.PatternFilter;
+import org.jdesktop.application.ResourceMap;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -41,8 +44,17 @@ public class JakeToolbar {
 	private AbstractButton invitePeopleButton;
 	private AbstractButton inspectorButton;
 
-	public JakeToolbar(JakeMainView jakeMainView) {
+	private final ResourceMap resourceMap;
+	private final EventCore eventCore;
+	private final FilePanel filePanel;
+
+
+	public JakeToolbar(JakeMainView jakeMainView, EventCore eventCore, FilePanel filePanel) {
 		this.jakeMainView = jakeMainView;
+		this.eventCore = eventCore;
+		this.filePanel = filePanel;
+		resourceMap = jakeMainView.getResourceMap();
+
 	}
 
 	/**
@@ -55,7 +67,7 @@ public class JakeToolbar {
 		TriAreaComponent toolBar = MacWidgetFactory.createUnifiedToolBar();
 		// Create Project
 		ProjectAction createProjectAction;
-		createProjectAction = new CreateProjectAction(false);
+		createProjectAction = new CreateProjectAction(false, jakeMainView.getResourceMap());
 		JButton createProjectJButton = new JButton();
 		createProjectJButton.setAction(createProjectAction);
 		createProjectButton = MacButtonFactory.makeUnifiedToolBarButton(createProjectJButton);
@@ -66,7 +78,8 @@ public class JakeToolbar {
 		// Add Files
 		Icon addFilesIcon = ImageLoader.getScaled(jakeMainView.getClass(), 
 						"/icons/toolbar-addfiles.png", 32);
-		JButton jCreateAddFilesButton = new JButton(jakeMainView.getResourceMap().getString("toolbarAddFiles"),
+
+		JButton jCreateAddFilesButton = new JButton(resourceMap.getString("toolbarAddFiles"),
 						addFilesIcon);
 
 		addFilesButton = MacButtonFactory.makeUnifiedToolBarButton(jCreateAddFilesButton);
@@ -74,7 +87,7 @@ public class JakeToolbar {
 
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				new ImportFileAction().openImportDialog();
+				new ImportFileAction(eventCore, JakeToolbar.this.filePanel, resourceMap).openImportDialog();
 			}
 		});
 		addFilesButton.setEnabled(true);
@@ -102,7 +115,7 @@ public class JakeToolbar {
 
 		// Add People
 
-		JButton invitePeopleJButton = new JButton(new InviteUsersAction(false));
+		JButton invitePeopleJButton = new JButton(new InviteUsersAction(false, jakeMainView.getResourceMap()));
 		invitePeopleButton = MacButtonFactory.makeUnifiedToolBarButton(invitePeopleJButton);
 		invitePeopleButton.setBorder(new LineBorder(Color.BLACK, 0));
 		toolBar.addComponentToLeft(invitePeopleButton, 10);
@@ -181,14 +194,14 @@ public class JakeToolbar {
 		searchField.setSendsNotificationForEachKeystroke(true);
 		toolBar.addComponentToRight(new LabeledComponentGroup("Search", searchField).getComponent());
 
-		final FilePanel filePanelp = jakeMainView.getFilePanel();
+//		final FilePanel filePanel = jakeMainView.getFilePanel();
 		searchField.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				log.trace("Search field: " + e.getActionCommand());
 				if (e.getActionCommand().equals("")) {
-					filePanelp.resetFilter();
+					filePanel.resetFilter();
 					NotesPanel.getInstance().resetFilter();
 				} else {
 					try {
@@ -198,7 +211,7 @@ public class JakeToolbar {
 						FilterPipeline filePipeline = new FilterPipeline(fileFilter);
 						FilterPipeline notesPipeline = new FilterPipeline(notesFilter);
 
-						filePanelp.switchToFlatAndFilter(filePipeline);
+						filePanel.switchToFlatAndFilter(filePipeline);
 
 						NotesPanel.getInstance().setFilter(notesPipeline);
 					} catch (PatternSyntaxException ex) {
@@ -222,7 +235,7 @@ public class JakeToolbar {
 		boolean hasProject = JakeContext.getProject() != null;
 		boolean isInvite = JakeContext.getProject() != null && JakeContext.getProject()
 						.getInvitationState() == InvitationState.INVITED;
-		boolean isProjectContext = jakeMainView.getContextViewPanel() == JakeMainView.ContextPanelEnum.Project;
+		boolean isProjectContext = jakeMainView.getContextViewPanel() == ContextPanelEnum.Project;
 		boolean hasUser = JakeContext.getMsgService() != null;
 
 		createProjectButton.setEnabled(hasUser);

@@ -15,9 +15,13 @@ import java.awt.event.ActionEvent;
  */
 public class StartStopProjectAction extends ProjectAction {
 	private static final Logger log = Logger.getLogger(StartStopProjectAction.class);
+	private final ProjectHelper projectHelper;
 
-	public StartStopProjectAction() {
-		putValue(Action.NAME, ProjectHelper.getProjectStartStopString(getProject()));
+
+	public StartStopProjectAction(ProjectHelper projectHelper) {
+		this.projectHelper = projectHelper;
+
+		putValue(Action.NAME, projectHelper.getProjectStartStopString(getProject()));
 
 		updateAction();
 	}
@@ -46,7 +50,7 @@ public class StartStopProjectAction extends ProjectAction {
 	public void updateAction() {
 		log.trace("update startstopprojectaction with " + getProject());
 		String oldName = (String) getValue(Action.NAME);
-		String newName = ProjectHelper.getProjectStartStopString(getProject());
+		String newName = projectHelper.getProjectStartStopString(getProject());
 		setEnabled(getProject() != null);
 
 		putValue(Action.NAME, newName);

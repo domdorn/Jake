@@ -7,6 +7,7 @@ import com.jakeapp.gui.swing.dialogs.InvitePeopleDialog;
 import com.jakeapp.gui.swing.helpers.ImageLoader;
 import com.jakeapp.gui.swing.helpers.SheetHelper;
 import org.apache.log4j.Logger;
+import org.jdesktop.application.ResourceMap;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,11 +27,10 @@ public class InviteUsersAction extends ProjectAction {
 	 * @param ellipsis if <code>true</code> the <code>Action.NAME</code> ends with an ellipsis (...), if
 	 *                 <code>false</code> the dots are omitted.
 	 */
-	public InviteUsersAction(boolean ellipsis) {
+	public InviteUsersAction(boolean ellipsis, ResourceMap resourceMap) {
 		super();
 
-		String actionStr = JakeMainView.getMainView().getResourceMap().
-						getString("invitePeopleMenuItem.text");
+		String actionStr = resourceMap.getString("invitePeopleMenuItem.text");
 
 		if (ellipsis) {
 			actionStr += "...";

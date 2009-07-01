@@ -1,27 +1,30 @@
 package com.jakeapp.gui.swing.actions.project;
 
 import org.apache.log4j.Logger;
+import org.jdesktop.application.ResourceMap;
 
 import java.awt.event.ActionEvent;
 
 import com.jakeapp.gui.swing.actions.project.CompoundProjectAction;
+import com.jakeapp.gui.swing.helpers.ProjectHelper;
 
 /**
  * @author studpete
  */
 public class StartStopOrJoinProjectAction extends CompoundProjectAction {
-	private final StartStopProjectAction startStopAction =
-					new StartStopProjectAction();
-	private final JoinProjectAction joinAction = new JoinProjectAction();
-	private static final Logger log =
-					Logger.getLogger(StartStopOrJoinProjectAction.class);
+	private static final Logger log = Logger.getLogger(StartStopOrJoinProjectAction.class);
+
+	private final StartStopProjectAction startStopAction;
+	private final JoinProjectAction joinAction;
 
 
-	public StartStopOrJoinProjectAction() {
+	public StartStopOrJoinProjectAction(ProjectHelper projectHelper, ResourceMap resourceMap) {
 		super();
 
 		// link updates
+		startStopAction = new StartStopProjectAction(projectHelper);
 		startStopAction.addPropertyChangeListener(up);
+		joinAction = new JoinProjectAction(resourceMap);
 		joinAction.addPropertyChangeListener(up);
 
 		updateAction();

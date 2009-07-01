@@ -13,6 +13,7 @@ import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
 import org.jdesktop.swingx.JXPanel;
+import org.jdesktop.application.ResourceMap;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -41,10 +42,17 @@ public class InvitationPanel extends JXPanel implements ContextChangedCallback {
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(InvitationPanel.class);
 
-	public InvitationPanel() {
-//		eventCore.addContextChangedListener(this);
-		EventCore.getInstance().addContextChangedListener(this);
-		joinProjectAction = new JoinProjectAction();
+
+	private final ResourceMap resourceMap;
+	private final EventCore eventCore;
+
+	public InvitationPanel(EventCore eventCore, ResourceMap resourceMap) {
+		this.eventCore = eventCore;
+		this.resourceMap = resourceMap;
+
+		eventCore.addContextChangedListener(this);
+//		EventCore.getInstance().addContextChangedListener(this);
+		joinProjectAction = new JoinProjectAction(resourceMap);
 
 		initComponents();
 
@@ -132,7 +140,7 @@ public class InvitationPanel extends JXPanel implements ContextChangedCallback {
 
 		JButton rejectButton = new JButton("Reject");
 		rejectButton.putClientProperty("JButton.buttonType", "textured");
-		rejectButton.setAction(new RejectInvitationAction());
+		rejectButton.setAction(new RejectInvitationAction(resourceMap));
 
 		btnPanel.add(joinButton, "tag ok");
 		btnPanel.add(rejectButton, "tag cancel");
@@ -155,7 +163,7 @@ public class InvitationPanel extends JXPanel implements ContextChangedCallback {
 
 			String userId = UserHelper.cleanUserId(invite.getInviter().getUserId());
 			userNameLabel.setText(String.format("%s %s by %s",
-					JakeMainView.getMainView().getResourceMap().getString(
+					resourceMap.getString(
 							"projectInvited"),
 					timeUtilities.getRelativeTime(invite.getCreation()), userId));
 

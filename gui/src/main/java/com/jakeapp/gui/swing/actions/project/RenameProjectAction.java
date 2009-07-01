@@ -7,6 +7,7 @@ import com.jakeapp.gui.swing.dialogs.generic.JSheet;
 import com.jakeapp.gui.swing.dialogs.generic.SheetEvent;
 import com.jakeapp.gui.swing.dialogs.generic.SheetListener;
 import org.apache.log4j.Logger;
+import org.jdesktop.application.ResourceMap;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,11 +20,10 @@ import java.awt.event.ActionEvent;
 public class RenameProjectAction extends ProjectAction {
 	private static final Logger log = Logger.getLogger(RenameProjectAction.class);
 
-	public RenameProjectAction() {
+	public RenameProjectAction(ResourceMap resourceMap) {
 		super();
 
-		putValue(Action.NAME, JakeMainView.getMainView().getResourceMap().
-				  getString("renameMenuItem.text"));
+		putValue(Action.NAME, resourceMap.getString("renameMenuItem.text"));
 	}
 
 

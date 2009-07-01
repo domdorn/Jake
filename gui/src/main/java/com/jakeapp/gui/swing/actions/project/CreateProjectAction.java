@@ -8,6 +8,7 @@ import com.jakeapp.gui.swing.helpers.FileUtilities;
 import com.jakeapp.gui.swing.helpers.ImageLoader;
 import com.jakeapp.gui.swing.helpers.ProjectHelper;
 import org.apache.log4j.Logger;
+import org.jdesktop.application.ResourceMap;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -24,11 +25,10 @@ public class CreateProjectAction extends ProjectAction {
 	 * @param ellipsis if <code>true</code> the <code>Action.NAME</code> ends with an ellipsis (...), if
 	 *                 <code>false</code> the dots are omitted.
 	 */
-	public CreateProjectAction(boolean ellipsis) {
+	public CreateProjectAction(boolean ellipsis, ResourceMap resourceMap) {
 		super();
 
-		putValue(Action.NAME, JakeMainView.getMainView().getResourceMap().
-						getString("createProjectMenuItem.text") + (ellipsis ? "..." : ""));
+		putValue(Action.NAME, resourceMap.getString("createProjectMenuItem.text") + (ellipsis ? "..." : ""));
 
 		Icon createProjectIcon = ImageLoader.getScaled(getClass(),
 				"/icons/createproject.png", 32);

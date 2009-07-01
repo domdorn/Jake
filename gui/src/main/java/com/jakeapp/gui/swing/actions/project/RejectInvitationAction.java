@@ -5,6 +5,7 @@ import com.jakeapp.gui.swing.JakeMainView;
 import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.actions.abstracts.JakeAction;
 import org.apache.log4j.Logger;
+import org.jdesktop.application.ResourceMap;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,11 +18,10 @@ import java.awt.event.ActionEvent;
 public class RejectInvitationAction extends JakeAction {
     private static final Logger log = Logger.getLogger(RejectInvitationAction.class);
 
-    public RejectInvitationAction() {
+    public RejectInvitationAction(ResourceMap resourceMap) {
         super();
 
-        putValue(Action.NAME, JakeMainView.getMainView().getResourceMap().
-                getString("rejectProjectMenuItem"));
+        putValue(Action.NAME, resourceMap.getString("rejectProjectMenuItem"));
     }
 
 

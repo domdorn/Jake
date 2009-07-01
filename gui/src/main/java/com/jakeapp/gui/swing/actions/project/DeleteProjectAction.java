@@ -4,6 +4,7 @@ import com.jakeapp.gui.swing.JakeMainView;
 import com.jakeapp.gui.swing.actions.abstracts.ProjectAction;
 import com.jakeapp.gui.swing.dialogs.DeleteProjectDialog;
 import org.apache.log4j.Logger;
+import org.jdesktop.application.ResourceMap;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -16,13 +17,14 @@ import java.awt.event.ActionEvent;
 public class DeleteProjectAction extends ProjectAction {
 	private static final Logger log = Logger.getLogger(DeleteProjectAction.class);
 
-	public DeleteProjectAction() {
+	public DeleteProjectAction(ResourceMap resourceMap) {
 		super();
 
-		putValue(Action.NAME, JakeMainView.getMainView().getResourceMap().
-				  getString("deleteProjectMenuItem.text"));
+		putValue(Action.NAME, resourceMap.getString("deleteProjectMenuItem.text"));
 		updateAction();
 	}
+
+
 
 
 	public void actionPerformed(ActionEvent actionEvent) {

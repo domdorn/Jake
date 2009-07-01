@@ -7,6 +7,7 @@ import com.jakeapp.gui.swing.actions.abstracts.UserAction;
 import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.helpers.UserHelper;
 import org.apache.log4j.Logger;
+import org.jdesktop.application.ResourceMap;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,11 +18,10 @@ import java.awt.event.ActionEvent;
 public class SyncUsersAction extends UserAction {
 	private static final Logger log = Logger.getLogger(SyncUsersAction.class);
 
-	public SyncUsersAction(JList list) {
+	public SyncUsersAction(JList list, ResourceMap resourceMap) {
 		super(list);
 
-		String actionStr = JakeMainView.getMainView().getResourceMap().
-						getString("syncPeopleMenuItem.text");
+		String actionStr = resourceMap.getString("syncPeopleMenuItem.text");
 
 		putValue(Action.NAME, actionStr);
 	}

@@ -3,14 +3,15 @@ package com.jakeapp.gui.swing.actions.notes;
 import com.jakeapp.core.domain.JakeObject;
 import com.jakeapp.core.domain.NoteObject;
 import com.jakeapp.core.synchronization.attributes.Attributed;
-import com.jakeapp.gui.swing.JakeMainView;
 import com.jakeapp.gui.swing.actions.abstracts.NoteAction;
 import com.jakeapp.gui.swing.worker.tasks.AnnounceJakeObjectTask;
 import com.jakeapp.gui.swing.worker.JakeExecutor;
+import com.jakeapp.gui.swing.panels.NotesPanel;
 
 import javax.swing.*;
 
 import org.apache.log4j.Logger;
+import org.jdesktop.application.ResourceMap;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -24,10 +25,12 @@ public class CommitNoteAction extends NoteAction {
 
 	private static final long serialVersionUID = 5522637881549894198L;
 	private static final Logger log = Logger.getLogger(CommitNoteAction.class);
-	public CommitNoteAction() {
-		super();
 
-		String actionStr = JakeMainView.getMainView().getResourceMap().getString("commitNoteMenuItem");
+
+	public CommitNoteAction(NotesPanel notesPanel, ResourceMap resourceMap) {
+		super(notesPanel);
+
+		String actionStr = resourceMap.getString("commitNoteMenuItem");
 		putValue(Action.NAME, actionStr);
 	}
 

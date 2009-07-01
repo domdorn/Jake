@@ -107,7 +107,7 @@ public class JakeTrayIcon {
 	}
 
 	private String getShowHideWindowString() {
-		return JakeMainView.getResouceMap().getString(
+		return JakeMainView.getStaticResouceMap().getString(
 						JakeMainView.isMainWindowVisible() ? "windowHide" : "windowShow");
 	}
 }

@@ -5,6 +5,7 @@ import com.jakeapp.gui.swing.JakeMainView;
 import com.jakeapp.gui.swing.actions.abstracts.ProjectAction;
 import com.jakeapp.gui.swing.helpers.ExceptionUtilities;
 import org.apache.log4j.Logger;
+import org.jdesktop.application.ResourceMap;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -15,8 +16,8 @@ import java.awt.event.ActionEvent;
 public class SyncProjectAction extends ProjectAction {
 	private static final Logger log = Logger.getLogger(SyncProjectAction.class);
 
-	public SyncProjectAction() {
-		putValue(Action.NAME, JakeMainView.getMainView().getResourceMap().getString("projectTreeSyncProject"));
+	public SyncProjectAction(ResourceMap resourceMap) {
+		putValue(Action.NAME, resourceMap.getString("projectTreeSyncProject"));
 
 		updateAction();
 	}

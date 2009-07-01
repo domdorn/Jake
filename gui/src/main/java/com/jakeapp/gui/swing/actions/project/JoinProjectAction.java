@@ -6,6 +6,7 @@ import com.jakeapp.gui.swing.actions.abstracts.ProjectAction;
 import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.helpers.FileUtilities;
 import org.apache.log4j.Logger;
+import org.jdesktop.application.ResourceMap;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,11 +18,10 @@ public class JoinProjectAction extends ProjectAction {
 	private static final Logger log = Logger.getLogger(JoinProjectAction.class);
 	private String projectLocation;
 
-	public JoinProjectAction() {
+	public JoinProjectAction(ResourceMap resourceMap) {
 		super();
 
-		putValue(Action.NAME, JakeMainView.getMainView().getResourceMap().
-						getString("joinProjectMenuItem"));
+		putValue(Action.NAME, resourceMap.getString("joinProjectMenuItem"));
 	}
 
 

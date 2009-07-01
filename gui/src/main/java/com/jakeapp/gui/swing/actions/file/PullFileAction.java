@@ -2,22 +2,24 @@ package com.jakeapp.gui.swing.actions.file;
 
 import com.jakeapp.core.domain.FileObject;
 import com.jakeapp.core.domain.JakeObject;
-import com.jakeapp.gui.swing.JakeMainView;
 import com.jakeapp.gui.swing.actions.abstracts.FileAction;
 import com.jakeapp.gui.swing.helpers.ExceptionUtilities;
 import com.jakeapp.gui.swing.worker.JakeDownloadMgr;
+import com.jakeapp.gui.swing.xcore.EventCore;
+import com.jakeapp.gui.swing.panels.FilePanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.EnumSet;
 
-public class PullFileAction extends FileAction {
-	public PullFileAction() {
-		super();
+import org.jdesktop.application.ResourceMap;
 
-		String actionStr = JakeMainView.getMainView().getResourceMap().
-						getString("pullMenuItem.text");
+public class PullFileAction extends FileAction {
+	public PullFileAction(EventCore eventCore, FilePanel filePanel, ResourceMap resourceMap) {
+		super(eventCore, filePanel);
+
+		String actionStr = resourceMap.getString("pullMenuItem.text");
 
 		putValue(Action.NAME, actionStr);
 

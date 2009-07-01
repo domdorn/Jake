@@ -7,6 +7,19 @@ import com.jakeapp.gui.swing.JakeMainView;
  * @author: studpete
  */
 public class ProjectHelper {
+	private static ProjectHelper instance;
+
+	private final String projectTreeStartProject;
+	private final String projectTreeStopProject;
+
+
+	public ProjectHelper(final String projectTreeStartProject,
+						 final String projectTreeStopProject) {
+
+		this.projectTreeStartProject = projectTreeStartProject;
+		this.projectTreeStopProject = projectTreeStopProject;
+
+	}
 
 	/**
 	 * Chooses the default path for the project.
@@ -39,14 +52,20 @@ public class ProjectHelper {
 	 * @param project
 	 * @return String with either Start or Stop.
 	 */
-	public static String getProjectStartStopString(Project project) {
+	public String getProjectStartStopString(Project project) {
 		String startStopString;
+
 		if (project == null || !project.isStarted()) {
-			startStopString = JakeMainView.getMainView().getResourceMap().getString("projectTreeStartProject");
+			startStopString = projectTreeStartProject;
 		} else {
-			startStopString = JakeMainView.getMainView().getResourceMap().getString("projectTreeStopProject");
+			startStopString = projectTreeStopProject;
 		}
 
 		return startStopString;
+	}
+
+
+	public static ProjectHelper getInstance() {
+		return instance;
 	}
 }

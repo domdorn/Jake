@@ -12,6 +12,7 @@ import com.jakeapp.core.domain.Project;
 import com.jakeapp.core.domain.exceptions.FrontendNotLoggedInException;
 import com.jakeapp.gui.swing.JakeMainApp;
 import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.ContextPanelEnum;
 import com.jakeapp.gui.swing.actions.project.CreateProjectAction;
 import com.jakeapp.gui.swing.actions.project.DeleteProjectAction;
 import com.jakeapp.gui.swing.actions.project.JoinProjectAction;
@@ -31,6 +32,7 @@ import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.helpers.ExceptionUtilities;
 import com.jakeapp.gui.swing.helpers.ImageLoader;
 import com.jakeapp.gui.swing.helpers.JakePopupMenu;
+import com.jakeapp.gui.swing.helpers.ProjectHelper;
 import com.jakeapp.gui.swing.helpers.dragdrop.JakeSourceListTransferHandler;
 import com.jakeapp.gui.swing.worker.JakeExecutor;
 import com.jakeapp.gui.swing.worker.tasks.GetMyProjectsTask;
@@ -38,6 +40,7 @@ import com.jakeapp.gui.swing.worker.tasks.IJakeTask;
 import com.jakeapp.gui.swing.xcore.EventCore;
 import com.jakeapp.gui.swing.xcore.ObjectCache;
 import org.apache.log4j.Logger;
+import org.jdesktop.application.ResourceMap;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -72,15 +75,25 @@ public class JakeSourceList extends JakeGuiComponent
 
 	private SourceListSelectionListener projectSelectionListener;
 
+	private final EventCore eventCore;
+	private final ResourceMap resourceMap;
+	private final ProjectHelper projectHelper;
+
 	/**
 	 * Constructor
+	 * @param eventCore
+	 * @param resourceMap
+	 * @param projectHelper
 	 */
-	public JakeSourceList() {
+	public JakeSourceList(EventCore eventCore, ResourceMap resourceMap, ProjectHelper projectHelper) {
 		super();
+		this.eventCore = eventCore;
+		this.resourceMap = resourceMap;
+		this.projectHelper = projectHelper;
 
-		EventCore.getInstance().addProjectChangedCallbackListener(this);
-		EventCore.getInstance().addDataChangedCallbackListener(this);
-		EventCore.getInstance().addTasksChangedListener(this);
+		eventCore.addProjectChangedCallbackListener(this);
+		eventCore.addDataChangedCallbackListener(this);
+		eventCore.addTasksChangedListener(this);
 
 		sourceListContextMenu = createSourceListContextMenu();
 		sourceListInvitiationContextMenu = createSourceListInvitationContextMenu();
@@ -121,9 +134,9 @@ public class JakeSourceList extends JakeGuiComponent
 		projectSourceListModel = new SourceListModel();
 
 		myProjectsCategory = new SourceListCategory(
-						getResourceMap().getString("projectTreeMyProjects"));
+						resourceMap.getString("projectTreeMyProjects"));
 		invitedProjectsCategory = new SourceListCategory(
-						getResourceMap().getString("projectTreeInvitedProjects"));
+						resourceMap.getString("projectTreeInvitedProjects"));
 		projectSourceListModel.addCategory(myProjectsCategory);
 		projectSourceListModel.addCategory(invitedProjectsCategory);
 
@@ -196,7 +209,7 @@ public class JakeSourceList extends JakeGuiComponent
 							public JPopupMenu createContextMenu() {
 								log.trace("public JPopupMenu createContextMenu() {");
 								JPopupMenu popupMenu = new JakePopupMenu();
-								popupMenu.add(new JMenuItem(new CreateProjectAction(true)));
+								popupMenu.add(new JMenuItem(new CreateProjectAction(true, JakeMainView.getStaticResouceMap())));
 								return popupMenu;
 							}
 
@@ -277,21 +290,21 @@ public class JakeSourceList extends JakeGuiComponent
 		JPopupMenu popupMenu = new JakePopupMenu();
 
 		JMenuItem syncMenuItem = new JMenuItem();
-		syncMenuItem.setAction(new SyncProjectAction());
+		syncMenuItem.setAction(new SyncProjectAction(resourceMap));
 		popupMenu.add(syncMenuItem);
 
 		popupMenu.add(new JSeparator());
 
 		JMenuItem startStopMenuItem = new JMenuItem();
-		startStopMenuItem.setAction(new StartStopProjectAction());
+		startStopMenuItem.setAction(new StartStopProjectAction(projectHelper));
 		popupMenu.add(startStopMenuItem);
 
 		JMenuItem renameMenuItem = new JMenuItem();
-		renameMenuItem.setAction(new RenameProjectAction());
+		renameMenuItem.setAction(new RenameProjectAction(resourceMap));
 		popupMenu.add(renameMenuItem);
 
 		JMenuItem deleteProjectMenuItem = new JMenuItem();
-		deleteProjectMenuItem.setAction(new DeleteProjectAction());
+		deleteProjectMenuItem.setAction(new DeleteProjectAction(resourceMap));
 		popupMenu.add(deleteProjectMenuItem);
 
 		return popupMenu;
@@ -306,11 +319,11 @@ public class JakeSourceList extends JakeGuiComponent
 		JPopupMenu popupMenu = new JakePopupMenu();
 
 		JMenuItem joinMenuItem = new JMenuItem();
-		joinMenuItem.setAction(new JoinProjectAction());
+		joinMenuItem.setAction(new JoinProjectAction(resourceMap));
 		popupMenu.add(joinMenuItem);
 
 		JMenuItem rejectMenuItem = new JMenuItem();
-		rejectMenuItem.setAction(new RejectInvitationAction());
+		rejectMenuItem.setAction(new RejectInvitationAction(resourceMap));
 		popupMenu.add(rejectMenuItem);
 
 		return popupMenu;
@@ -597,8 +610,8 @@ public class JakeSourceList extends JakeGuiComponent
 		}
 	}
 
-	@Override public void setContextViewPanel(JakeMainView.ContextPanelEnum panel) {
-		if (panel == JakeMainView.ContextPanelEnum.Login) {
+	@Override public void setContextViewPanel(ContextPanelEnum panel) {
+		if (panel == ContextPanelEnum.Login) {
 			removeSelection();
 		} else {
 			syncSelection();

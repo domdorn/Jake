@@ -1,6 +1,7 @@
 package com.jakeapp.gui.swing.actions.users;
 
 import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.ContextPanelEnum;
 import com.jakeapp.gui.swing.actions.abstracts.UserAction;
 import com.jakeapp.gui.swing.controls.JListMutable;
 import com.jakeapp.gui.swing.helpers.UserHelper;
@@ -38,7 +39,7 @@ public class RenameUsersAction extends UserAction {
 
 		// ensure that users panel is visible
 		JakeMainView.getMainView()
-						.setContextViewPanel(JakeMainView.ContextPanelEnum.Project);
+						.setContextViewPanel(ContextPanelEnum.Project);
 
 		new JListMutable.StartEditingAction()
 						.actionPerformed(new ActionEvent(getMutable(), 0, ""));

@@ -15,7 +15,7 @@ public abstract class JakeGuiComponent implements ContextChangedCallback {
     }
 
     protected ResourceMap getResourceMap() {
-        return JakeMainView.getResouceMap();
+        return JakeMainView.getStaticResouceMap();
     }
 
     public Project getProject() {

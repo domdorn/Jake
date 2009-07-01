@@ -7,13 +7,13 @@ import com.jakeapp.core.domain.User;
 import com.jakeapp.core.domain.logentries.LogEntry;
 import com.jakeapp.core.synchronization.attributes.Attributed;
 import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.panels.FilePanel;
+import com.jakeapp.gui.swing.xcore.EventCore;
 import com.jakeapp.gui.swing.actions.abstracts.FileAction;
 import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.helpers.ProjectFilesTreeNode;
 import com.jakeapp.gui.swing.helpers.SheetHelper;
 import com.jakeapp.gui.swing.helpers.Translator;
-import com.jakeapp.gui.swing.panels.FilePanel;
 import com.jakeapp.gui.swing.worker.tasks.DeleteJakeObjectsTask;
 import com.jakeapp.gui.swing.worker.JakeExecutor;
 import org.apache.log4j.Logger;
@@ -26,10 +26,11 @@ import java.util.List;
 
 public class DeleteFileAction extends FileAction {
 	private static final Logger log = Logger.getLogger(DeleteFileAction.class);
-
-	public DeleteFileAction() {
-		String actionStr = JakeMainView.getMainView().getResourceMap().
-						getString("deleteMenuItem.text");
+	private final ResourceMap resourceMap;
+	public DeleteFileAction(EventCore eventCore, FilePanel filePanel, ResourceMap resourceMap) {
+		super(eventCore, filePanel);
+		this.resourceMap = resourceMap;
+		String actionStr = resourceMap.getString("deleteMenuItem.text");
 
 		putValue(Action.NAME, actionStr);
 
@@ -54,7 +55,7 @@ public class DeleteFileAction extends FileAction {
 
 		User currentUser = JakeContext.getProject().getUserId();
 
-		ResourceMap map = FilePanel.getInstance().getResourceMap();
+//		ResourceMap map = FilePanel.getInstance().getResourceMap();
 		String text;
 		LogEntry<? extends ILogable> lockEntry = null;
 		Attributed<FileObject> af;
@@ -92,23 +93,23 @@ public class DeleteFileAction extends FileAction {
 
 		if (files.size() == 1) {
 			if (lockEntry != null) {
-				text = Translator.get(map, "confirmDeleteLockedFile.text",
+				text = Translator.get(resourceMap, "confirmDeleteLockedFile.text",
 								lockEntry.getMember().getUserId());
 			} else {
-				text = map.getString("confirmDeleteFile.text");
+				text = resourceMap.getString("confirmDeleteFile.text");
 			}
 		} else {
 			if (lockEntry != null) {
-				text = map.getString("confirmDeleteLockedFiles.text");
+				text = resourceMap.getString("confirmDeleteLockedFiles.text");
 			} else {
 				text = Translator
-								.get(map, "confirmDeleteFiles.text", String.valueOf(files.size()));
+								.get(resourceMap, "confirmDeleteFiles.text", String.valueOf(files.size()));
 			}
 		}
 
 		log.debug("User-interaction text is: " + text);
 
-		if (SheetHelper.showConfirm(text, map.getString("confirmDeleteFile.ok"))) {
+		if (SheetHelper.showConfirm(text, resourceMap.getString("confirmDeleteFile.ok"))) {
 			log.debug("Deleting now...");
 			JakeExecutor.exec(new DeleteJakeObjectsTask(JakeContext.getProject(),
 							new ArrayList<JakeObject>(files), null));

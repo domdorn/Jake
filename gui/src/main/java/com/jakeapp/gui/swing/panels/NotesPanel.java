@@ -54,8 +54,8 @@ import java.util.List;
  * @author studpete, simon
  */
 public class NotesPanel extends javax.swing.JPanel
-				implements ContextChangedCallback, ProjectChangedCallback,
-				ListSelectionListener {
+		implements ContextChangedCallback, ProjectChangedCallback,
+		ListSelectionListener {
 
 	private static final long serialVersionUID = -7703570005631651276L;
 	private static NotesPanel instance;
@@ -64,7 +64,7 @@ public class NotesPanel extends javax.swing.JPanel
 	// 20 sec 	//FIXME magic number, make property
 	private Timer tableUpdateTimer;
 	private List<NoteSelectionChangedCallback> noteSelectionListeners =
-					new ArrayList<NoteSelectionChangedCallback>();
+			new ArrayList<NoteSelectionChangedCallback>();
 	private NotesTableModel notesTableModel;
 	private JScrollPane notesTableScrollPane;
 	private JSplitPane mainSplitPane;
@@ -85,19 +85,24 @@ public class NotesPanel extends javax.swing.JPanel
 		private JPopupMenu popupMenu;
 
 		{
-			this.popupMenu = new JakePopupMenu();
-			this.popupMenu.add(new JMenuItem(new CreateNoteAction()));
-			this.popupMenu.addSeparator();
-			this.popupMenu.add(new JMenuItem(new DeleteNoteAction()));
-			this.popupMenu.add(new JMenuItem(new CommitNoteAction()));
-			this.popupMenu.addSeparator();
-			this.popupMenu.add(new JMenuItem(new SoftlockNoteAction()));
+
 		}
 
-		public NoteContainerMouseListener(NotesPanel panel, JTable table) {
+		public NoteContainerMouseListener(NotesPanel notesPanel, JTable table) {
 			super();
-			this.panel = panel;
+			this.panel = notesPanel;
 			this.table = table;
+
+
+			this.popupMenu = new JakePopupMenu();
+			this.popupMenu.add(new JMenuItem(new CreateNoteAction(notesPanel, resourceMap)));
+			this.popupMenu.addSeparator();
+			this.popupMenu.add(new JMenuItem(new DeleteNoteAction(notesPanel, resourceMap)));
+			this.popupMenu.add(new JMenuItem(new CommitNoteAction(notesPanel, resourceMap)));
+			this.popupMenu.addSeparator();
+			this.popupMenu.add(new JMenuItem(new SoftlockNoteAction(notesPanel, resourceMap)));
+
+
 		}
 
 		@Override
@@ -132,7 +137,7 @@ public class NotesPanel extends javax.swing.JPanel
 
 		private void showMenu(MouseEvent me) {
 			this.popupMenu.show(this.table, (int) me.getPoint().getX(),
-							(int) me.getPoint().getY());
+					(int) me.getPoint().getY());
 		}
 	}
 
@@ -148,8 +153,8 @@ public class NotesPanel extends javax.swing.JPanel
 
 		// getInstance resource map
 		this.setResourceMap(
-						org.jdesktop.application.Application.getInstance(JakeMainApp.class)
-										.getContext().getResourceMap(NotesPanel.class));
+				org.jdesktop.application.Application.getInstance(JakeMainApp.class)
+						.getContext().getResourceMap(NotesPanel.class));
 
 		// init components
 		initComponents();
@@ -166,7 +171,7 @@ public class NotesPanel extends javax.swing.JPanel
 		//final JPopupMenu notesPopupMenu = new JakePopupMenu();
 
 		this.notesTable
-						.addMouseListener(new NoteContainerMouseListener(this, this.notesTable));
+				.addMouseListener(new NoteContainerMouseListener(this, this.notesTable));
 
 		// install event table update timer
 		this.tableUpdateTimer = new Timer(TableUpdateDelay, new ActionListener() {
@@ -202,19 +207,19 @@ public class NotesPanel extends javax.swing.JPanel
 			}*/
 			//handle new selection
 			text = this.notesTableModel.getNoteAtRow(
-							this.notesTable.convertRowIndexToModel(
-											this.notesTable.getSelectedRow())).getJakeObject()
-							.getContent();
+					this.notesTable.convertRowIndexToModel(
+							this.notesTable.getSelectedRow())).getJakeObject()
+					.getContent();
 			this.noteReader.setText(text);
 
 			this.noteReader.setEditable(JakeHelper.isEditable(getSelectedNote()));
 		}
 
 		List<Attributed<NoteObject>> selectedNotes =
-						new ArrayList<Attributed<NoteObject>>();
+				new ArrayList<Attributed<NoteObject>>();
 		for (int row : this.notesTable.getSelectedRows()) {
 			selectedNotes.add(this.notesTableModel.getNoteAtRow(
-							this.notesTable.convertRowIndexToModel(row)));
+					this.notesTable.convertRowIndexToModel(row)));
 		}
 		this.notifyNoteSelectionListeners(selectedNotes);
 	}
@@ -261,7 +266,8 @@ public class NotesPanel extends javax.swing.JPanel
 	}
 
 
-	@Override public void contextChanged(EnumSet<Reason> reason, Object context) {
+	@Override
+	public void contextChanged(EnumSet<Reason> reason, Object context) {
 		this.notesTableModel.update(this.getProject());
 	}
 
@@ -295,7 +301,7 @@ public class NotesPanel extends javax.swing.JPanel
 
 		for (int i = 2; i < this.notesTable.getColumnCount(); i++) {
 			this.notesTable.getColumn(i)
-							.setCellRenderer(new DefaultJakeTableCellRenderer());
+					.setCellRenderer(new DefaultJakeTableCellRenderer());
 		}
 
 		this.notesTable.getSelectionModel().addListSelectionListener(this);
@@ -304,35 +310,35 @@ public class NotesPanel extends javax.swing.JPanel
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_DELETE) {
-					new DeleteNoteAction().execute();
+					new DeleteNoteAction(instance, resourceMap).execute();
 				}
 			}
 		});
 
 		this.noteReaderPanel = new JXPanel(new MigLayout("wrap 1, ins 0, fill"));
 		this.noteReaderPanel
-						.setBackground(getResourceMap().getColor("noteReadPanel.background"));
+				.setBackground(getResourceMap().getColor("noteReadPanel.background"));
 
 		JPanel noteControlPanel = new JPanel(new MigLayout("nogrid, ins 0"));
 		noteControlPanel.setBackground(Color.WHITE);
 
-		this.createBtn = new JButton(new CreateNoteAction());
+		this.createBtn = new JButton(new CreateNoteAction(this, resourceMap));
 		this.createBtn.putClientProperty("JButton.buttonType", "textured");
 		noteControlPanel.add(this.createBtn);
 
-		this.announceBtn = new JButton(new CommitNoteAction());
+		this.announceBtn = new JButton(new CommitNoteAction(this, resourceMap));
 		this.announceBtn.putClientProperty("JButton.buttonType", "textured");
 		noteControlPanel.add(this.announceBtn);
 
-		this.softLockBtn = new JButton(new SoftlockNoteAction());
+		this.softLockBtn = new JButton(new SoftlockNoteAction(this, resourceMap));
 		this.softLockBtn.putClientProperty("JButton.buttonType", "textured");
 		noteControlPanel.add(this.softLockBtn);
 
-		this.deleteBtn = new JButton(new DeleteNoteAction());
+		this.deleteBtn = new JButton(new DeleteNoteAction(this, resourceMap));
 		this.deleteBtn.putClientProperty("JButton.buttonType", "textured");
 		noteControlPanel.add(this.deleteBtn);
 
-		this.saveBtn = new JButton(new SaveNoteAction());
+		this.saveBtn = new JButton(new SaveNoteAction(this, resourceMap));
 		this.saveBtn.putClientProperty("JButton.buttonType", "textured");
 		noteControlPanel.add(this.saveBtn);
 
@@ -347,9 +353,9 @@ public class NotesPanel extends javax.swing.JPanel
 
 		JScrollPane noteReaderScrollPane = new JScrollPane(this.noteReader);
 		noteReaderScrollPane.setHorizontalScrollBarPolicy(
-						ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		noteReaderScrollPane.setVerticalScrollBarPolicy(
-						ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		noteReaderScrollPane.setOpaque(false);
 		noteReaderScrollPane.getViewport().setOpaque(false);
 		noteReaderScrollPane.setBorder(new LineBorder(Color.BLACK, 0));
@@ -359,7 +365,7 @@ public class NotesPanel extends javax.swing.JPanel
 		// set the background painter
 		MattePainter mp = new MattePainter(Colors.Yellow.alpha(0.5f));
 		GlossPainter gp = new GlossPainter(Colors.White.alpha(0.3f),
-						GlossPainter.GlossPosition.TOP);
+				GlossPainter.GlossPosition.TOP);
 		this.noteReaderPanel.setBackgroundPainter(new CompoundPainter(mp, gp));
 
 		this.mainSplitPane.setRightComponent(this.noteReaderPanel);
@@ -379,13 +385,13 @@ public class NotesPanel extends javax.swing.JPanel
 	}
 
 	public void notifyNoteSelectionListeners(
-					List<Attributed<NoteObject>> selectedNotes) {
+			List<Attributed<NoteObject>> selectedNotes) {
 
 		log.debug("notify note selection listeners");
 
 		for (NoteSelectionChangedCallback listener : this.noteSelectionListeners) {
 			listener.noteSelectionChanged(
-							new NoteSelectionChangedCallback.NoteSelectedEvent(selectedNotes));
+					new NoteSelectionChangedCallback.NoteSelectedEvent(selectedNotes));
 		}
 	}
 
@@ -397,7 +403,7 @@ public class NotesPanel extends javax.swing.JPanel
 	public List<Attributed<NoteObject>> getSelectedNotes() {
 		//log.debug("getInstance selected notes...");
 		List<Attributed<NoteObject>> selectedNotes =
-						new ArrayList<Attributed<NoteObject>>();
+				new ArrayList<Attributed<NoteObject>>();
 
 		if (this.notesTable.getSelectedRow() == -1) {
 			return selectedNotes;
@@ -406,7 +412,7 @@ public class NotesPanel extends javax.swing.JPanel
 		//log.debug("selected notes count: " + notesTable.getSelectedRowCount());
 		for (int row : this.notesTable.getSelectedRows()) {
 			selectedNotes.add(this.notesTableModel.getNoteAtRow(
-							this.notesTable.convertRowIndexToModel(row)));
+					this.notesTable.convertRowIndexToModel(row)));
 		}
 		return selectedNotes;
 	}

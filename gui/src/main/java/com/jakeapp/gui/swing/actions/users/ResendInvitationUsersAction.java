@@ -7,6 +7,7 @@ import com.jakeapp.gui.swing.actions.abstracts.UserAction;
 import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.helpers.UserHelper;
 import org.apache.log4j.Logger;
+import org.jdesktop.application.ResourceMap;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -16,11 +17,10 @@ public class ResendInvitationUsersAction extends UserAction {
 	private static final Logger log =
 					Logger.getLogger(ResendInvitationUsersAction.class);
 
-	public ResendInvitationUsersAction(JList list) {
+	public ResendInvitationUsersAction(JList list, ResourceMap resourceMap) {
 		super(list);
 
-		String actionStr = JakeMainView.getMainView().getResourceMap().
-						getString("sendInvitationPeopleMenuItem.text");
+		String actionStr = resourceMap.getString("sendInvitationPeopleMenuItem.text");
 
 		putValue(Action.NAME, actionStr);
 	}

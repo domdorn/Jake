@@ -2,6 +2,8 @@ package com.jakeapp.gui.swing.helpers;
 
 import com.jakeapp.core.domain.Project;
 import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.ContextViewChangedHolder;
+import com.jakeapp.gui.swing.ContextViewPanelHolder;
 import com.jakeapp.gui.swing.actions.file.*;
 import com.jakeapp.gui.swing.actions.notes.CommitNoteAction;
 import com.jakeapp.gui.swing.actions.notes.CreateNoteAction;
@@ -34,6 +36,7 @@ import net.roydesign.mac.MRJAdapter;
 import net.roydesign.ui.StandardMacAboutFrame;
 import org.apache.log4j.Logger;
 import org.jivesoftware.smack.XMPPConnection;
+import org.jdesktop.application.ResourceMap;
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
@@ -50,30 +53,47 @@ import java.net.URI;
  */
 public class JakeMenuBar extends JMenuBar {
 	private static final Logger log = Logger.getLogger(JakeMenuBar.class);
+	private final ResourceMap resourceMap;
+	private final ContextViewChangedHolder contextViewChangedHolder;
+	private final ContextViewPanelHolder contextViewPanelHolder;
+	private final EventCore eventCore;
+	private final FilePanel filePanel;
+	private final NotesPanel notesPanel;
 
-	public JakeMenuBar() {
+	public JakeMenuBar(
+			ProjectHelper projectHelper,
+			ResourceMap resourceMap,
+			ContextViewChangedHolder contextViewChangedHolder,
+			ContextViewPanelHolder contextViewPanelHolder,
+			EventCore eventCore,
+			FilePanel filePanel,
+			NotesPanel notesPanel
+	) {
 		super();
+
+		this.resourceMap = resourceMap;
+		this.contextViewChangedHolder = contextViewChangedHolder;
+		this.contextViewPanelHolder = contextViewPanelHolder;
+		this.eventCore = eventCore;
+		this.filePanel = filePanel;
+		this.notesPanel = notesPanel;
+
 
 		// Get the application instance
 		Application app = Application.getInstance();
-		org.jdesktop.application.ResourceMap resourceMap =
-						org.jdesktop.application.Application
-										.getInstance(com.jakeapp.gui.swing.JakeMainApp.class)
-										.getContext().getResourceMap(JakeMainView.class);
-
 
 		/****************************** Project *********************************/
 		final JMenu projectMenu = new JMenu();
 		projectMenu.setText(resourceMap.getString("projectMenu.text"));
 
-		projectMenu.add(new JMenuItem(new CreateProjectAction(true)));
-		projectMenu.add(new JMenuItem(new SyncProjectAction()));
+		projectMenu.add(new JMenuItem(new CreateProjectAction(true, resourceMap)));
+		projectMenu.add(new JMenuItem(new SyncProjectAction(resourceMap)));
 		projectMenu.addSeparator();
-		projectMenu.add(new JMenuItem(new StartStopProjectAction()));
-		projectMenu.add(new JMenuItem(new RenameProjectAction()));
-		projectMenu.add(new JMenuItem(new DeleteProjectAction()));
+		projectMenu.add(new JMenuItem(new StartStopProjectAction(projectHelper)));
+		projectMenu.add(new JMenuItem(new RenameProjectAction(resourceMap)));
+		projectMenu.add(new JMenuItem(new DeleteProjectAction(resourceMap)));
 		projectMenu.addSeparator();
-		projectMenu.add(new JMenuItem(new InviteUsersAction(true)));
+		projectMenu.add(new JMenuItem(new InviteUsersAction(true, resourceMap)));
 
 		this.add(projectMenu);
 
@@ -81,11 +101,11 @@ public class JakeMenuBar extends JMenuBar {
 		final JMenu viewMenu = new JMenu();
 		viewMenu.setText(resourceMap.getString("viewMenu.text"));
 
-		viewMenu.add(new JMenuItem(new SwitchNewsProjectContextAction()));
-		viewMenu.add(new JMenuItem(new SwitchFilesProjectContextAction()));
-		viewMenu.add(new JMenuItem(new SwitchNotesProjectContextAction()));
+		viewMenu.add(new JMenuItem(new SwitchNewsProjectContextAction(contextViewChangedHolder, resourceMap, contextViewPanelHolder)));
+		viewMenu.add(new JMenuItem(new SwitchFilesProjectContextAction(contextViewChangedHolder, resourceMap, contextViewPanelHolder)));
+		viewMenu.add(new JMenuItem(new SwitchNotesProjectContextAction(contextViewChangedHolder, resourceMap, contextViewPanelHolder)));
 		viewMenu.addSeparator();
-		viewMenu.add(new JMenuItem(new SwitchLoginProjectContextAction()));
+		viewMenu.add(new JMenuItem(new SwitchLoginProjectContextAction(contextViewChangedHolder, resourceMap, contextViewPanelHolder)));
 
 		this.add(viewMenu);
 
@@ -93,32 +113,32 @@ public class JakeMenuBar extends JMenuBar {
 		final JMenu fileMenu = new JMenu();
 		fileMenu.setText(resourceMap.getString("fileMenu.text"));
 
-		fileMenu.add(new JMenuItem(new OpenFileAction()));
-		fileMenu.add(new JMenuItem(new ShowInBrowserFileAction()));				
-		fileMenu.add(new JMenuItem(new ResolveConflictFileAction()));
+		fileMenu.add(new JMenuItem(new OpenFileAction(this.eventCore, this.filePanel, resourceMap)));
+		fileMenu.add(new JMenuItem(new ShowInBrowserFileAction(eventCore, filePanel, resourceMap)));
+		fileMenu.add(new JMenuItem(new ResolveConflictFileAction(eventCore, filePanel, resourceMap)));
 		fileMenu.addSeparator();
-		fileMenu.add(new JMenuItem(new AnnounceFileAction()));
-		fileMenu.add(new JMenuItem(new PullFileAction()));
+		fileMenu.add(new JMenuItem(new AnnounceFileAction(eventCore, filePanel, resourceMap)));
+		fileMenu.add(new JMenuItem(new PullFileAction(eventCore, filePanel, resourceMap)));
 		fileMenu.addSeparator();
-		fileMenu.add(new JMenuItem(new DeleteFileAction()));
-		fileMenu.add(new JMenuItem(new RenameFileAction()));
-		fileMenu.add(new JMenuItem(new LockFileAction()));
+		fileMenu.add(new JMenuItem(new DeleteFileAction(eventCore, filePanel, resourceMap)));
+		fileMenu.add(new JMenuItem(new RenameFileAction(eventCore, filePanel, resourceMap)));
+		fileMenu.add(new JMenuItem(new LockFileAction(eventCore, filePanel, resourceMap)));
 		fileMenu.addSeparator();
-		fileMenu.add(new JMenuItem(new InspectorFileAction()));		
-		fileMenu.add(new JMenuItem(new CreateFolderFileAction()));
-		fileMenu.add(new JMenuItem(new ImportFileAction()));
+		fileMenu.add(new JMenuItem(new InspectorFileAction(eventCore, filePanel, resourceMap)));
+		fileMenu.add(new JMenuItem(new CreateFolderFileAction(eventCore, filePanel, resourceMap)));
+		fileMenu.add(new JMenuItem(new ImportFileAction(eventCore, filePanel, resourceMap)));
 		this.add(fileMenu);
 
 		/****************************** Notes *******************************/
 		final JMenu notesMenu = new JMenu();
 		notesMenu.setText(resourceMap.getString("notesMenu.text"));
 
-		notesMenu.add(new JMenuItem(new CreateNoteAction()));
+		notesMenu.add(new JMenuItem(new CreateNoteAction(this.notesPanel, resourceMap)));
 		notesMenu.addSeparator();
-		notesMenu.add(new JMenuItem(new DeleteNoteAction()));
-		notesMenu.add(new JMenuItem(new CommitNoteAction()));
+		notesMenu.add(new JMenuItem(new DeleteNoteAction(this.notesPanel, resourceMap)));
+		notesMenu.add(new JMenuItem(new CommitNoteAction(this.notesPanel, resourceMap)));
 		notesMenu.addSeparator();
-		notesMenu.add(new JMenuItem(new SoftlockNoteAction()));
+		notesMenu.add(new JMenuItem(new SoftlockNoteAction(this.notesPanel, resourceMap)));
 
 		this.add(notesMenu);
 
@@ -127,15 +147,24 @@ public class JakeMenuBar extends JMenuBar {
 		JMenu helpMenu = new JMenu();
 		helpMenu.setText(resourceMap.getString("helpMenu.text"));
 
+
+		/*
+
+		// TODO fixme - is it really necessary to use actionmap just to make a clickable link?
 		JMenuItem visitWebsiteMenuItem = new JMenuItem();
+
+
 		javax.swing.ActionMap actionMap = org.jdesktop.application.Application
 						.getInstance(com.jakeapp.gui.swing.JakeMainApp.class).getContext()
 						.getActionMap(JakeMainView.class, JakeMainView.getMainView());
 		visitWebsiteMenuItem.setAction(actionMap.get("showJakeWebsite")); // NOI18N
+
 		visitWebsiteMenuItem
 						.setText(resourceMap.getString("visitWebsiteMenuItem.text")); // NOI18N
 		visitWebsiteMenuItem.setName("visitWebsiteMenuItem"); // NOI18N
 		helpMenu.add(visitWebsiteMenuItem);
+
+		*/
 
 
 		// Get an About item instance.

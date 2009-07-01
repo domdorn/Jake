@@ -21,13 +21,21 @@ public abstract class FileAction extends ProjectAction
 	private List<ProjectFilesTreeNode> nodes;
 	private int selectedRowCount;
 
-	public FileAction() {
+
+	private final EventCore eventCore;
+	private final FilePanel filePanel;
+
+	public FileAction(EventCore eventCore, FilePanel filePanel) {
 		super();
-		EventCore.getInstance().addNodeSelectionListener(this);
+		this.eventCore = eventCore;
+		this.filePanel = filePanel;
+
+
+		eventCore.addNodeSelectionListener(this);
 		selectedRowCount = 0;
 		nodes = new ArrayList<ProjectFilesTreeNode>();
 
-		this.nodes = FilePanel.getInstance().getSelectedNodes();
+		this.nodes = filePanel.getSelectedNodes();
 		this.selectedRowCount = nodes.size();
 	}
 

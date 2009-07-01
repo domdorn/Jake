@@ -3,7 +3,8 @@ package com.jakeapp.gui.swing.actions.file;
 import com.jakeapp.core.domain.FileObject;
 import com.jakeapp.core.synchronization.attributes.Attributed;
 import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.panels.FilePanel;
+import com.jakeapp.gui.swing.xcore.EventCore;
 import com.jakeapp.gui.swing.actions.abstracts.FileAction;
 import com.jakeapp.gui.swing.dialogs.generic.JSheet;
 import com.jakeapp.gui.swing.dialogs.generic.SheetEvent;
@@ -26,9 +27,9 @@ public class LockFileAction extends FileAction {
 	private static final long serialVersionUID = -7898650898881238796L;
 	private final ResourceMap resourceMap;
 
-	public LockFileAction() {
-		super();
-		this.resourceMap = JakeMainView.getResouceMap();
+	public LockFileAction(EventCore eventCore, FilePanel filePanel, ResourceMap resourceMap) {
+		super(eventCore, filePanel);
+		this.resourceMap = resourceMap;
 
 		updateAction();
 	}

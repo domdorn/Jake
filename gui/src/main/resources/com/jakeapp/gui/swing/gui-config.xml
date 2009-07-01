@@ -4,30 +4,121 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
+    <!--<bean id="propertyPlaceholderConfigurer"-->
+    <!--class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+    <!--<property name="location" value="/com/jakeapp/gui/swing/resources/JakeMainView.properties"/>-->
+    <!--</bean>-->
+
     <bean id="jakeMainApp" class="com.jakeapp.gui.swing.JakeMainApp" factory-method="getInstance">
+
+    </bean>
+
+    <bean id="jdesktopApplicationContext" class="org.jdesktop.application.ApplicationContext" factory-bean="jakeMainApp"
+          factory-method="getContext"/>
+
+    <bean id="resourceMap" class="org.jdesktop.application.ResourceMap" factory-bean="jdesktopApplicationContext"
+          factory-method="getResourceMap">
 
     </bean>
 
 
     <bean id="eventCore" class="com.jakeapp.gui.swing.xcore.EventCore">
-        <constructor-arg ref="jakeMainApp" />
+        <constructor-arg ref="jakeMainApp"/>
+    </bean>
+
+
+    <bean id="contextViewChangedHolder" class="com.jakeapp.gui.swing.ContextViewChangedHolder"></bean>
+
+    <bean id="invitationPanel" class="com.jakeapp.gui.swing.panels.InvitationPanel">
+        <constructor-arg ref="eventCore"/>
+        <constructor-arg ref="resourceMap"/>
+    </bean>
+
+
+    <bean id="loginPanel" class="com.jakeapp.gui.swing.panels.UserPanel">
+        <constructor-arg ref="jakeMainApp"/>
+    </bean>
+
+
+    <bean id="filePanel" class="com.jakeapp.gui.swing.panels.FilePanel">
+        <constructor-arg ref="eventCore"/>
+        <constructor-arg ref="resourceMap"/>
+    </bean>
+
+    <bean id="notesPanel" class="com.jakeapp.gui.swing.panels.NotesPanel">
+
+    </bean>
+
+
+    <bean id="contextViewPanelHolder" class="com.jakeapp.gui.swing.ContextViewPanelHolder">
+        <constructor-arg ref="loginPanel"/>
+        <constructor-arg ref="invitationPanel"/>
+    </bean>
+
+
+    <bean id="projectHelper" class="com.jakeapp.gui.swing.helpers.ProjectHelper">
+        <!--<constructor-arg value="#{jakeMainViewPropertyPlaceholder.projectTreeStartProject}" />-->
+        <!--<constructor-arg value="#{jakeMainViewPropertyPlaceholder.projectTreeStopProject}" />-->
+        <constructor-arg value="${projectTreeStartProject}"/>
+        <constructor-arg value="${projectTreeStopProject}"/>
+
+    </bean>
+
+
+    <bean id="startStopProjectAction" class="com.jakeapp.gui.swing.actions.project.StartStopProjectAction">
+        <constructor-arg ref="projectHelper"/>
+    </bean>
+
+    <bean id="jakeMenuBar" class="com.jakeapp.gui.swing.helpers.JakeMenuBar">
+        <constructor-arg index="0" type="com.jakeapp.gui.swing.helpers.ProjectHelper" ref="projectHelper"/>
+        <constructor-arg index="1" type="org.jdesktop.application.ResourceMap" ref="resourceMap"/>
+        <constructor-arg index="2" type="com.jakeapp.gui.swing.ContextViewChangedHolder" ref="contextViewChangedHolder"/>
+        <constructor-arg index="3" type="com.jakeapp.gui.swing.ContextViewPanelHolder" ref="contextViewPanelHolder"/>
+        <constructor-arg index="4" type="com.jakeapp.gui.swing.xcore.EventCore" ref="eventCore"/>
+        <constructor-arg index="5" type="com.jakeapp.gui.swing.panels.FilePanel" ref="filePanel"/>
+        <constructor-arg index="6" type="com.jakeapp.gui.swing.panels.NotesPanel" ref="notesPanel"/>
+
     </bean>
 
 
     <!-- panels -->
 
-    <!--<bean id="invitationPanel" class="com.jakeapp.gui.swing.panels.InvitationPanel">-->
-        <!--<constructor-arg ref="eventCore"/>-->
-    <!--</bean>-->
-<!---->
+
+    <!---->
     <!--<bean id="inspectorPanel" class="com.jakeapp.gui.swing.panels.InspectorPanel"/>-->
+
+
+    <bean id="newsPanel" class="com.jakeapp.gui.swing.panels.NewsPanel">
+        <constructor-arg ref="jakeMainApp"/>
+        <constructor-arg ref="eventCore"/>
+        <constructor-arg ref="startStopProjectAction"/>
+    </bean>
+
+
+    <bean id="jakeSourceList" class="com.jakeapp.gui.swing.components.JakeSourceList">
+        <constructor-arg type="com.jakeapp.gui.swing.xcore.EventCore" ref="eventCore"/>
+        <constructor-arg type="org.jdesktop.application.ResourceMap" ref="resourceMap"/>
+        <constructor-arg type="com.jakeapp.gui.swing.helpers.ProjectHelper" ref="projectHelper"/>
+    </bean>
 
 
     <bean id="jakeMainView" class="com.jakeapp.gui.swing.JakeMainView">
         <constructor-arg index="0" type="com.jakeapp.gui.swing.JakeMainApp" ref="jakeMainApp"/>
-        <constructor-arg index="1" type="com.jakeapp.gui.swing.xcore.EventCore" ref="eventCore" />
+        <constructor-arg index="1" type="com.jakeapp.gui.swing.xcore.EventCore" ref="eventCore"/>
+        <constructor-arg index="2" type="com.jakeapp.gui.swing.panels.UserPanel" ref="loginPanel"/>
+        <constructor-arg index="3" type="com.jakeapp.gui.swing.panels.NewsPanel" ref="newsPanel"/>
+        <constructor-arg index="4" type="com.jakeapp.gui.swing.ContextViewChangedHolder"
+                         ref="contextViewChangedHolder"/>
+        <constructor-arg index="5" type="com.jakeapp.gui.swing.ContextViewPanelHolder" ref="contextViewPanelHolder"/>
+        <constructor-arg index="6" type="com.jakeapp.gui.swing.panels.InvitationPanel" ref="invitationPanel"/>
+        <constructor-arg index="7" type="com.jakeapp.gui.swing.components.JakeSourceList" ref="jakeSourceList"/>
+        <constructor-arg index="8" type="org.jdesktop.application.ResourceMap" ref="resourceMap"/>
+        <constructor-arg index="9" type="com.jakeapp.gui.swing.panels.FilePanel" ref="filePanel"/>
+        <!--<constructor-arg index="4" type="com.jakeapp.gui.swing.helpers.JakeMenuBar" ref="jakeMenuBar" />-->
         <!--<constructor-arg index="2" type="com.jakeapp.gui.swing.panels.InspectorPanel" ref="inspectorPanel"/>-->
         <!--<constructor-arg index="2" type="com.jakeapp.gui.swing.panels.InvitationPanel" ref="invitationPanel"/>-->
+        <property name="menuBar" ref="jakeMenuBar"/>
+
     </bean>
 
 

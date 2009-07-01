@@ -1,7 +1,8 @@
 package com.jakeapp.gui.swing.actions.file;
 
 import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.panels.FilePanel;
+import com.jakeapp.gui.swing.xcore.EventCore;
 import com.jakeapp.gui.swing.actions.abstracts.FileAction;
 import com.jakeapp.gui.swing.dialogs.generic.JSheet;
 import com.jakeapp.gui.swing.dialogs.generic.SheetEvent;
@@ -12,12 +13,18 @@ import com.jakeapp.gui.swing.helpers.ProjectFilesTreeNode;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class RenameFileAction extends FileAction {
-	public RenameFileAction() {
-		super();
+import org.jdesktop.application.ResourceMap;
 
-		String actionStr = JakeMainView.getMainView().getResourceMap().
-						getString("renameMenuItem.text");
+public class RenameFileAction extends FileAction {
+
+	private final ResourceMap resourceMap;
+
+	public RenameFileAction(EventCore eventCore, FilePanel filePanel, ResourceMap resourceMap) {
+		super(eventCore, filePanel);
+
+		this.resourceMap = resourceMap;
+
+		String actionStr = resourceMap.getString("renameMenuItem.text");
 
 		putValue(Action.NAME, actionStr);
 
@@ -46,8 +53,7 @@ public class RenameFileAction extends FileAction {
 
 		final String finalCurrentName = currentName;
 
-		String promptStr = JakeMainView.getMainView().getResourceMap().
-						getString("promptRenameFile");
+		String promptStr = resourceMap.getString("promptRenameFile");
 
 		JSheet.showInputSheet(JakeContext.getFrame(), promptStr, currentName,
 						new SheetListener() {

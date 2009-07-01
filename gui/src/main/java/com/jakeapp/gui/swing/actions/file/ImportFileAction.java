@@ -1,6 +1,5 @@
 package com.jakeapp.gui.swing.actions.file;
 
-import com.jakeapp.gui.swing.JakeMainView;
 import com.jakeapp.gui.swing.actions.abstracts.FileAction;
 import com.jakeapp.gui.swing.dialogs.generic.JSheet;
 import com.jakeapp.gui.swing.dialogs.generic.SheetEvent;
@@ -10,7 +9,10 @@ import com.jakeapp.gui.swing.helpers.FileObjectHelper;
 import com.jakeapp.gui.swing.helpers.ProjectFilesTreeNode;
 import com.jakeapp.gui.swing.worker.tasks.ImportFileFolderTask;
 import com.jakeapp.gui.swing.worker.JakeExecutor;
+import com.jakeapp.gui.swing.xcore.EventCore;
+import com.jakeapp.gui.swing.panels.FilePanel;
 import org.apache.log4j.Logger;
+import org.jdesktop.application.ResourceMap;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -20,11 +22,10 @@ import java.util.Arrays;
 public class ImportFileAction extends FileAction {
 	private static final Logger log = Logger.getLogger(ImportFileAction.class);
 
-	public ImportFileAction() {
-		super();
+	public ImportFileAction(EventCore eventCore, FilePanel filePanel, ResourceMap resourceMap) {
+		super(eventCore, filePanel);
 
-		String actionStr = JakeMainView.getMainView().getResourceMap().
-						getString("importMenuItem.text");
+		String actionStr = resourceMap.getString("importMenuItem.text");
 
 		putValue(Action.NAME, actionStr);
 

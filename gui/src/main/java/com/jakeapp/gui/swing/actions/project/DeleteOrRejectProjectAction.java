@@ -1,6 +1,7 @@
 package com.jakeapp.gui.swing.actions.project;
 
 import org.apache.log4j.Logger;
+import org.jdesktop.application.ResourceMap;
 
 import java.awt.event.ActionEvent;
 
@@ -10,16 +11,19 @@ import com.jakeapp.gui.swing.actions.project.CompoundProjectAction;
  * @author: studpete
  */
 public class DeleteOrRejectProjectAction extends CompoundProjectAction {
-	private final DeleteProjectAction deleteAction = new DeleteProjectAction();
-	private final RejectInvitationAction rejectAction = new RejectInvitationAction();
 	private static final Logger log = Logger.getLogger(DeleteOrRejectProjectAction.class);
+	private final DeleteProjectAction deleteAction;
+	private final RejectInvitationAction rejectAction;
 
 
-	public DeleteOrRejectProjectAction() {
+	public DeleteOrRejectProjectAction(ResourceMap resourceMap) {
 		super();
 
 		// link updates
+		deleteAction = new DeleteProjectAction(resourceMap);
 		deleteAction.addPropertyChangeListener(up);
+
+		rejectAction = new RejectInvitationAction(resourceMap);
 		rejectAction.addPropertyChangeListener(up);
 
 		updateAction();

@@ -2,19 +2,21 @@ package com.jakeapp.gui.swing.actions.file;
 
 import com.jakeapp.core.synchronization.attributes.SyncStatus;
 import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.panels.FilePanel;
+import com.jakeapp.gui.swing.xcore.EventCore;
 import com.jakeapp.gui.swing.actions.abstracts.FileAction;
 import com.jakeapp.gui.swing.dialogs.ResolveConflictDialog;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class ResolveConflictFileAction extends FileAction {
-	public ResolveConflictFileAction() {
-		super();
+import org.jdesktop.application.ResourceMap;
 
-		String actionStr = JakeMainView.getMainView().getResourceMap().
-						getString("resolveConflictMenuitem.text");
+public class ResolveConflictFileAction extends FileAction {
+	public ResolveConflictFileAction(EventCore eventCore, FilePanel filePanel, ResourceMap resourceMap) {
+		super(eventCore, filePanel);
+
+		String actionStr = resourceMap.getString("resolveConflictMenuitem.text");
 
 		putValue(Action.NAME, actionStr);
 

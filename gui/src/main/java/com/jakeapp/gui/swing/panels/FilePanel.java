@@ -53,10 +53,13 @@ public class FilePanel extends javax.swing.JPanel
 
 	private static FilePanel instance;
 
+	
+
+	
 	// fixme: deprecated!
 	public static final int FILETREETABLE_NODECOLUMN = 1;
 
-	private ResourceMap resourceMap;
+
 	private JToggleButton treeBtn;
 	private JToggleButton flatBtn;
 	private JToggleButton allBtn;
@@ -73,21 +76,26 @@ public class FilePanel extends javax.swing.JPanel
 
 	private final JPopupMenu popupMenu = new JakePopupMenu();
 
+
+	private final ResourceMap resourceMap;
+	private final EventCore eventCore;
+
 	/**
 	 * Creates new form FilePanel
+	 * @param eventCore
+	 * @param resourceMap
 	 */
-	public FilePanel() {
+	public FilePanel(EventCore eventCore, ResourceMap resourceMap) {
+		this.resourceMap = resourceMap;
+		this.eventCore = eventCore;
+
+
 		// save for instance access
 		instance = this;
 
-		// init resource map
-		setResourceMap(
-						org.jdesktop.application.Application.getInstance(JakeMainApp.class)
-										.getContext().getResourceMap(FilePanel.class));
-
 		initComponents();
 
-		EventCore.getInstance().addContextChangedListener(this);
+		eventCore.addContextChangedListener(this);
 
 		this.fileTreeTable.setScrollsOnExpand(true);
 		this.fileTreeTable.setSortable(true);
@@ -136,9 +144,7 @@ public class FilePanel extends javax.swing.JPanel
 		return this.resourceMap;
 	}
 
-	public void setResourceMap(ResourceMap resourceMap) {
-		this.resourceMap = resourceMap;
-	}
+
 
 	/**
 	 * Displays files as a file/folder tree or list of relative paths (classic Jake ;-)
@@ -195,21 +201,21 @@ public class FilePanel extends javax.swing.JPanel
 	}
 
 	private void initPopupMenu(JPopupMenu pm) {
-		pm.add(new JMenuItem(new OpenFileAction()));
-		pm.add(new JMenuItem(new ShowInBrowserFileAction()));
+		pm.add(new JMenuItem(new OpenFileAction(eventCore, this, resourceMap)));
+		pm.add(new JMenuItem(new ShowInBrowserFileAction(eventCore, this, resourceMap)));
 		// TODO: show always? dynamically? (alwasy for now...while dev)
-		pm.add(new JMenuItem(new ResolveConflictFileAction()));
+		pm.add(new JMenuItem(new ResolveConflictFileAction(eventCore, this, resourceMap)));
 		pm.add(new JSeparator());
-		pm.add(new JMenuItem(new AnnounceFileAction()));
-		pm.add(new JMenuItem(new PullFileAction()));
+		pm.add(new JMenuItem(new AnnounceFileAction(eventCore, this, resourceMap)));
+		pm.add(new JMenuItem(new PullFileAction(eventCore, this, resourceMap)));
 		pm.add(new JSeparator());
-		pm.add(new JMenuItem(new DeleteFileAction()));
-		pm.add(new JMenuItem(new RenameFileAction()));
-		pm.add(new JMenuItem(new LockFileAction()));
+		pm.add(new JMenuItem(new DeleteFileAction(eventCore, this, resourceMap)));
+		pm.add(new JMenuItem(new RenameFileAction(eventCore, this, resourceMap)));
+		pm.add(new JMenuItem(new LockFileAction(eventCore, this, resourceMap)));
 		pm.add(new JSeparator());
-		pm.add(new JMenuItem(new InspectorFileAction()));
-		pm.add(new JMenuItem(new CreateFolderFileAction()));
-		pm.add(new JMenuItem(new ImportFileAction()));
+		pm.add(new JMenuItem(new InspectorFileAction(eventCore, this, resourceMap)));
+		pm.add(new JMenuItem(new CreateFolderFileAction(eventCore, this, resourceMap)));
+		pm.add(new JMenuItem(new ImportFileAction(eventCore, this, resourceMap)));
 	}
 
 
@@ -258,8 +264,8 @@ public class FilePanel extends javax.swing.JPanel
 				nodeObjs.add(node);
 			}
 
-			EventCore.getInstance().notifyFileSelectionListeners(fileObjs);
-			EventCore.getInstance().notifyNodeSelectionListeners(nodeObjs);
+			eventCore.notifyFileSelectionListeners(fileObjs);
+			eventCore.notifyNodeSelectionListeners(nodeObjs);
 		}
 	}
 
@@ -288,7 +294,7 @@ public class FilePanel extends javax.swing.JPanel
 			int rowNumber = container.rowAtPoint(p);
 
 			if (rowNumber == -1) { // click in empty area
-				EventCore.getInstance().notifyFileSelectionListeners(null);
+				eventCore.notifyFileSelectionListeners(null);
 				container.clearSelection();
 			}
 			if (SwingUtilities.isRightMouseButton(me)) {
@@ -315,9 +321,9 @@ public class FilePanel extends javax.swing.JPanel
 
 						fileObjs.add(node.getFileObject());
 
-						EventCore.getInstance().notifyFileSelectionListeners(fileObjs);
+						eventCore.notifyFileSelectionListeners(fileObjs);
 					} else {
-						EventCore.getInstance().notifyFileSelectionListeners(null);
+						eventCore.notifyFileSelectionListeners(null);
 					}
 				}
 
@@ -327,7 +333,7 @@ public class FilePanel extends javax.swing.JPanel
 					nodeObjs.add(node);
 				}
 
-				EventCore.getInstance().notifyNodeSelectionListeners(nodeObjs);
+				eventCore.notifyNodeSelectionListeners(nodeObjs);
 
 				log.debug("UGA UGA " + DebugHelper.arrayToString(nodeObjs));
 
@@ -345,8 +351,8 @@ public class FilePanel extends javax.swing.JPanel
 					}
 					nodeObjs.add(node);
 				}
-				EventCore.getInstance().notifyFileSelectionListeners(fileObjs);
-				EventCore.getInstance().notifyNodeSelectionListeners(nodeObjs);
+				eventCore.notifyFileSelectionListeners(fileObjs);
+				eventCore.notifyNodeSelectionListeners(nodeObjs);
 
 				if (me.getClickCount() == 2 && fileObjs.size() == 1) {
 					onDoubleClick(fileObjs.get(0));

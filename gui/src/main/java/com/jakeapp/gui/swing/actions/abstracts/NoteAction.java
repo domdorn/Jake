@@ -22,13 +22,16 @@ public abstract class NoteAction extends ProjectAction implements NoteSelectionC
 
 	private List<Attributed<NoteObject>> selectedNotes = new ArrayList<Attributed<NoteObject>>();
 
+	private final NotesPanel notesPanel;
+
 	/**
 	 * Constructs a new NoteAction that works with the given notesTable.
+	 * @param notesPanel
 	 */
-	public NoteAction() {
+	public NoteAction(NotesPanel notesPanel) {
 		super();
-
-		NotesPanel.getInstance().addNoteSelectionListener(this);
+		this.notesPanel = notesPanel;
+		notesPanel.addNoteSelectionListener(this);
 	}
 
 	/**
@@ -41,7 +44,7 @@ public abstract class NoteAction extends ProjectAction implements NoteSelectionC
 	}
 
 	public List<Attributed<NoteObject>> getSelectedNotes() {
-		return NotesPanel.getInstance().getSelectedNotes();
+		return notesPanel.getSelectedNotes();
 	}
 
 	@Override
@@ -51,7 +54,7 @@ public abstract class NoteAction extends ProjectAction implements NoteSelectionC
 
 	protected void refreshNotesPanel() {
 		//XXX very cheap implementation
-		NotesPanel.getInstance().projectChanged(
+		notesPanel.projectChanged(
 						new ProjectChangedEvent(JakeContext.getProject(),
 										ProjectChangedEvent.Reason.Syncing));
 	}

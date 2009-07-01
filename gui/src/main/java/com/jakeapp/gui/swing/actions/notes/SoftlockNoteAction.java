@@ -3,9 +3,10 @@ package com.jakeapp.gui.swing.actions.notes;
 import com.jakeapp.core.domain.NoteObject;
 import com.jakeapp.core.synchronization.attributes.Attributed;
 import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.panels.NotesPanel;
 import com.jakeapp.gui.swing.actions.abstracts.NoteAction;
 import org.apache.log4j.Logger;
+import org.jdesktop.application.ResourceMap;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -20,13 +21,17 @@ public class SoftlockNoteAction extends NoteAction {
 	private static final long serialVersionUID = -3793566528638754529L;
 	private static Logger log = Logger.getLogger(SoftlockNoteAction.class);
 
+	private final ResourceMap resourceMap;
+
 	private boolean isLocked;
 
-	public SoftlockNoteAction() {
-		super();
+	public SoftlockNoteAction(NotesPanel notesPanel, ResourceMap resourceMap) {
+		super(notesPanel);
+
+		this.resourceMap = resourceMap;
 
 		this.isLocked = false;
-		String actionStr = JakeMainView.getMainView().getResourceMap().getString("softLockNote");
+		String actionStr = resourceMap.getString("softLockNote");
 		putValue(Action.NAME, actionStr);
 	}
 
@@ -57,15 +62,15 @@ public class SoftlockNoteAction extends NoteAction {
 				this.setEnabled(true);
 				if (this.isLocked) {
 					if (this.hasSingleSelectedNote()) {
-						this.putValue(Action.NAME, JakeMainView.getMainView().getResourceMap().getString("unlockNote"));
+						this.putValue(Action.NAME, resourceMap.getString("unlockNote"));
 					} else {
-						this.putValue(Action.NAME, JakeMainView.getMainView().getResourceMap().getString("unlockNotes"));
+						this.putValue(Action.NAME, resourceMap.getString("unlockNotes"));
 					}
 				} else {
 					if (this.getSelectedNotes().size() == 1) {
-						this.putValue(Action.NAME, JakeMainView.getMainView().getResourceMap().getString("softLockNote"));
+						this.putValue(Action.NAME, resourceMap.getString("softLockNote"));
 					} else {
-						this.putValue(Action.NAME, JakeMainView.getMainView().getResourceMap().getString("softLockNotes"));
+						this.putValue(Action.NAME, resourceMap.getString("softLockNotes"));
 					}
 				}
 			}

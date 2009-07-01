@@ -8,7 +8,6 @@ import com.jakeapp.core.domain.exceptions.InvalidCredentialsException;
 import com.jakeapp.core.services.MsgService;
 import com.jakeapp.core.services.exceptions.ProtocolNotSupportedException;
 import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.JakeMainView;
 import com.jakeapp.gui.swing.callbacks.ContextChangedCallback;
 import com.jakeapp.gui.swing.callbacks.CoreChangedCallback;
 import com.jakeapp.gui.swing.callbacks.RegistrationStatus;
@@ -79,9 +78,7 @@ public class UserPanel extends JXPanel
 	private JPanel loginUserPanel;
 	private JPanel loadingAppPanel;
 
-	private ImageIcon jakeWelcomeIcon = new ImageIcon(
-					JakeMainView.getMainView().getLargeAppImage().getScaledInstance(90, 90,
-									Image.SCALE_SMOOTH));
+	private ImageIcon jakeWelcomeIcon;
 	private JLabel userLabelLoginSuccess;
 	private JPanel userListPanel;
 	private JButton signInRegisterBackBtn;
@@ -89,6 +86,8 @@ public class UserPanel extends JXPanel
 	// on first run, make a direct login!
 	private boolean autoLoginOnFirstRun = true;
 
+
+	private final JakeMainApp jakeMainApp;
 
 	@Override public void coreChanged() {
 		// called after statup, when core init is done.
@@ -124,22 +123,38 @@ public class UserPanel extends JXPanel
 	/**
 	 * Create the User Panel.
 	 */
-	public UserPanel() {
+	public UserPanel(JakeMainApp jakeMainApp) {
+		this.jakeMainApp = jakeMainApp;
+
+
+
 		setResourceMap(org.jdesktop.application.Application
 						.getInstance(com.jakeapp.gui.swing.JakeMainApp.class)
 						.getContext().getResourceMap(UserPanel.class));
 
 		initComponents();
 
-		JakeMainApp.getInstance().addCoreChangedListener(this);
+
+
+		jakeMainApp.addCoreChangedListener(this);
 
 		// device which panel to show!
 		updateView();
+
+
+
+// TODO this is the only requirement for  jakemainview, please review this!		
+//		jakeWelcomeIcon = new ImageIcon(
+//						contextViewPanelHolder.getLargeAppImage().getScaledInstance(90, 90,
+//										Image.SCALE_SMOOTH));
+
+
+
 	}
 
 	private void initPredefinedCredentials() {
 		for (SupportedServices service : SupportedServices.values()) {
-			creds.put(service, JakeMainApp.getCore().getPredefinedServiceCredential(
+			creds.put(service, jakeMainApp.getCore().getPredefinedServiceCredential(
 							service.toString()));
 		}
 	}
@@ -256,7 +271,7 @@ public class UserPanel extends JXPanel
 
 		if (JakeContext.isCoreInitialized()) {
 			try {
-				List<MsgService<User>> msgs = JakeMainApp.getCore().getMsgServices();
+				List<MsgService<User>> msgs = jakeMainApp.getCore().getMsgServices();
 
 				if (msgs != null) {
 					log.debug("updateChooseUserPanel will display n MsgServices, n=" + msgs
@@ -436,7 +451,7 @@ public class UserPanel extends JXPanel
 				signInRegisterButton.setEnabled(false);
 				try {
 					// sync call
-					MsgService msg = JakeMainApp.getCore().addAccount(getCredentials());
+					MsgService msg = jakeMainApp.getCore().addAccount(getCredentials());
 					JakeContext.setMsgService(msg);
 
 					// prepare the servicecredentials (prefilled?)
@@ -484,7 +499,7 @@ public class UserPanel extends JXPanel
 			workingAnimation.startAnimation();
 
 			try {
-				return JakeMainApp.getCore().createAccount(cred);
+				return jakeMainApp.getCore().createAccount(cred);
 			} catch (FrontendNotLoggedInException e) {
 				log.warn(e);
 				ExceptionUtilities.showError(e);
@@ -732,7 +747,7 @@ public class UserPanel extends JXPanel
 				// TODO: more control over login state
 				//if (MsgServiceHelper.isCurrentUserLoggedIn()) {
 				try {
-					JakeMainApp.logoutUser();
+					jakeMainApp.logoutUser();
 					updateView();
 				} catch (Exception e) {
 					log.warn(e);
@@ -790,7 +805,7 @@ public class UserPanel extends JXPanel
 
 	private void updateSignInRegisterMode() {
 		signInRegisterBackBtn.setVisible(
-						JakeContext.isCoreInitialized() && JakeMainApp.getCore().getMsgServices()
+						JakeContext.isCoreInitialized() && jakeMainApp.getCore().getMsgServices()
 										.size() > 0);
 
 		loginUserDataPanel.setVisible(isModeSignIn());
@@ -828,7 +843,7 @@ public class UserPanel extends JXPanel
 			if (JakeContext.getMsgService() != null) {
 				showPanel(UserPanels.LoggedIn);
 			} else {
-				List<MsgService<User>> msgs = JakeMainApp.getCore().getMsgServices();
+				List<MsgService<User>> msgs = jakeMainApp.getCore().getMsgServices();
 				if (msgs.size() > 0) {
 					showPanel(UserPanels.ManageUsers);
 
@@ -1033,7 +1048,7 @@ public class UserPanel extends JXPanel
 																	.getUserId() + "?</b><br><br>Connected Projects will be deleted. " + "<br>(But don't worry, we won't delete your Files)"),
 													"Delete")) {
 										try {
-											JakeMainApp.getCore().removeAccount(msg);
+											jakeMainApp.getCore().removeAccount(msg);
 											updateView();
 										} catch (Exception ex) {
 											ExceptionUtilities.showError(ex);
