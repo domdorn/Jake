@@ -23,10 +23,7 @@ import com.explodingpixels.macwidgets.MacWidgetFactory;
 import com.explodingpixels.macwidgets.TriAreaComponent;
 import com.jakeapp.availablelater.AvailableLaterObject;
 import com.jakeapp.core.domain.Project;
-import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.JakeMainView;
-import com.jakeapp.gui.swing.ContextPanelEnum;
-import com.jakeapp.gui.swing.ProjectViewEnum;
+import com.jakeapp.gui.swing.*;
 import com.jakeapp.gui.swing.callbacks.ContextChangedCallback;
 import com.jakeapp.gui.swing.callbacks.ContextViewChangedCallback;
 import com.jakeapp.gui.swing.callbacks.DataChangedCallback;
@@ -55,8 +52,8 @@ import com.jakeapp.jake.ics.status.ILoginStateListener;
  * As you see, Statusbar is very curious about ALL the events going on...
  */
 public class JakeStatusBar extends JakeGuiComponent
-				implements ILoginStateListener, ProjectChangedCallback, ProjectViewChangedCallback,
-				ContextViewChangedCallback, DataChangedCallback, ContextChangedCallback, TaskChangedCallback {
+		implements ILoginStateListener, ProjectChangedCallback, ProjectViewChangedCallback,
+		ContextViewChangedCallback, DataChangedCallback, ContextChangedCallback, TaskChangedCallback {
 	private static final Logger log = Logger.getLogger(JakeStatusBar.class);
 
 	private static JakeStatusBar instance;
@@ -73,18 +70,20 @@ public class JakeStatusBar extends JakeGuiComponent
 	private SpinningWheelComponent progressDrawer;
 	//	private JLabel progressMessage;
 
-	Icon chooseUserIcon = ImageLoader.get(getClass(),"/icons/login.png");
+	Icon chooseUserIcon = ImageLoader.get(getClass(), "/icons/login.png");
 
 	Icon spinningDial = new SpinningDial(16, 16);
 	private JLabel progressMsg;
 	private JPopupMenu connectionMenu;
 
-	@Override public void contextChanged(EnumSet<ContextChangedCallback.Reason> reason,
-					Object context) {
+	@Override
+	public void contextChanged(EnumSet<ContextChangedCallback.Reason> reason,
+							   Object context) {
 		updateConnectionDisplay();
 	}
 
-	@Override public void taskStarted(IJakeTask task) {
+	@Override
+	public void taskStarted(IJakeTask task) {
 		updateTaskDisplay();
 	}
 
@@ -96,19 +95,21 @@ public class JakeStatusBar extends JakeGuiComponent
 				moreTasks = String.format(" (%d)", JakeExecutor.countTasksRunning());
 			}
 			this.progressMsg.setText(
-							JakeExecutor.getLatestTask().getClass().getSimpleName() + moreTasks);
+					JakeExecutor.getLatestTask().getClass().getSimpleName() + moreTasks);
 		} else {
 			this.showProgressAnimation(false);
 			this.progressMsg.setText("");
 		}
 	}
 
-	@Override public void taskUpdated(IJakeTask task) {
+	@Override
+	public void taskUpdated(IJakeTask task) {
 		updateTaskDisplay();
 	}
 
-	@Override public void taskFinished(IJakeTask task) {
-		if(task.getException() != null) {
+	@Override
+	public void taskFinished(IJakeTask task) {
+		if (task.getException() != null) {
 			log.warn("Error in a task" + task.getException().getMessage());
 			//ExceptionUtilities.showError(task.getException());
 		}
@@ -116,7 +117,8 @@ public class JakeStatusBar extends JakeGuiComponent
 		updateTaskDisplay();
 	}
 
-	@Override public void connectionStateChanged(ConnectionState le, Exception ex) {
+	@Override
+	public void connectionStateChanged(ConnectionState le, Exception ex) {
 		lastConnectionState = le;
 		lastConnectionMsg = ex != null ? ex.getMessage() : null;
 		updateConnectionDisplay();
@@ -157,7 +159,8 @@ public class JakeStatusBar extends JakeGuiComponent
 		}
 	}
 
-	@Override public void dataChanged(EnumSet<DataReason> dataReason, Project p) {
+	@Override
+	public void dataChanged(EnumSet<DataReason> dataReason, Project p) {
 		updateMessage();
 	}
 
@@ -193,7 +196,7 @@ public class JakeStatusBar extends JakeGuiComponent
 		protected AvailableLaterObject<Integer> calculateFunction() {
 			log.info("calculating total file count...");
 			AvailableLaterObject<Integer> alo =
-							JakeMainApp.getCore().getProjectFileCount(getProject());
+					JakeMainApp.getCore().getProjectFileCount(getProject());
 			alo.setListener(this);
 			return alo;
 		}
@@ -238,17 +241,19 @@ public class JakeStatusBar extends JakeGuiComponent
 			}
 
 			String notesCountStr = getResourceMap()
-							.getString(notesCount == 1 ? "projectNote" : "projectNotes");
+					.getString(notesCount == 1 ? "projectNote" : "projectNotes");
 			statusLabel.setText(notesCount + " " + notesCountStr);
 		}
 	}
 
 	private final EventCore eventCore;
 	private final ResourceMap resourceMap;
+	private final ContextViewPanelHolder contextViewPanelHolder;//contextViewPanelHolder.setContextViewPanel
 
-	public JakeStatusBar(EventCore eventCore, ResourceMap resourceMap) {
+	public JakeStatusBar(EventCore eventCore, ContextViewPanelHolder contextViewPanelHolder, ResourceMap resourceMap) {
 		super();
 		this.eventCore = eventCore;
+		this.contextViewPanelHolder = contextViewPanelHolder;
 		this.resourceMap = resourceMap;
 		instance = this;
 
@@ -326,14 +331,14 @@ public class JakeStatusBar extends JakeGuiComponent
 
 		// only draw the 'small' statusbar if we are in on win. mac and linux want it fat! ;o)
 		BottomBarSize bottombarSize =
-						Platform.isWin() ? BottomBarSize.SMALL : BottomBarSize.LARGE;
+				Platform.isWin() ? BottomBarSize.SMALL : BottomBarSize.LARGE;
 
 		TriAreaComponent bottomBar = MacWidgetFactory.createBottomBar(bottombarSize);
 		statusLabel = MacWidgetFactory.createEmphasizedLabel("");
 
 		// make status label 2 px smaller
 		statusLabel.setFont(
-						statusLabel.getFont().deriveFont(statusLabel.getFont().getSize() - 2f));
+				statusLabel.getFont().deriveFont(statusLabel.getFont().getSize() - 2f));
 
 		bottomBar.addComponentToCenter(statusLabel);
 		bottomBar.installWindowDraggerOnWindow(JakeMainView.getMainView().getFrame());
@@ -345,7 +350,7 @@ public class JakeStatusBar extends JakeGuiComponent
 		// FIXME: remove after release
 		progressMsg = MacWidgetFactory.createEmphasizedLabel("");
 		progressMsg.setFont(
-						progressMsg.getFont().deriveFont(progressMsg.getFont().getSize() - 2f));
+				progressMsg.getFont().deriveFont(progressMsg.getFont().getSize() - 2f));
 		bottomBar.addComponentToLeft(progressMsg, 3);
 
 		// connection info
@@ -356,7 +361,7 @@ public class JakeStatusBar extends JakeGuiComponent
 		connectionButton.putClientProperty("JButton.buttonType", "textured");
 		if (!Platform.isMac()) {
 			connectionButton.setFont(connectionButton.getFont().deriveFont(
-							connectionButton.getFont().getSize() - 2f));
+					connectionButton.getFont().getSize() - 2f));
 		}
 
 		connectionButton.addActionListener(new ActionListener() {
@@ -366,7 +371,7 @@ public class JakeStatusBar extends JakeGuiComponent
 
 				// calculate contextmenu directly above signin-status button
 				menu.show((JButton) event.getSource(), ((JButton) event.getSource()).getX(),
-								((JButton) event.getSource()).getY() - 20);
+						((JButton) event.getSource()).getY() - 20);
 			}
 		});
 		updateConnectionDisplay();
@@ -383,7 +388,7 @@ public class JakeStatusBar extends JakeGuiComponent
 	private JPopupMenu createConnectionMenu() {
 		connectionMenu = new JakePopupMenu();
 		JMenuItem signInOut = new JMenuItem(getResourceMap().getString(
-						(JakeContext.getMsgService() != null) ? "menuSignOut" : "menuSignIn"));
+				(JakeContext.getMsgService() != null) ? "menuSignOut" : "menuSignIn"));
 
 		signInOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
@@ -394,15 +399,14 @@ public class JakeStatusBar extends JakeGuiComponent
 
 		JMenuItem chooseUser = new JMenuItem("Choose User...");
 		chooseUser.addActionListener(new ActionListener() {
-			@Override public void actionPerformed(ActionEvent e) {
+			@Override
+			public void actionPerformed(ActionEvent e) {
 				try {
 					JakeMainApp.logoutUser();
 				} catch (Exception ex) {
 					ExceptionUtilities.showError(ex);
 				}
-
-				JakeMainView.getMainView()
-								.setContextViewPanel(ContextPanelEnum.Login);
+				contextViewPanelHolder.setContextViewPanel(ContextPanelEnum.Login);
 			}
 		});
 
@@ -446,7 +450,7 @@ public class JakeStatusBar extends JakeGuiComponent
 						int peopleCount;
 						try {
 							peopleCount = JakeMainApp.getCore().getAllProjectMembers(getProject())
-											.size();
+									.size();
 						} catch (PeopleOperationFailedException e) {
 							peopleCount = 0;
 							ExceptionUtilities.showError(e);
@@ -455,7 +459,7 @@ public class JakeStatusBar extends JakeGuiComponent
 						// nobody there...
 						if (peopleCount == 1) {
 							String aloneStr =
-											getResourceMap().getString("projectAddPeopleToStart");
+									getResourceMap().getString("projectAddPeopleToStart");
 							statusLabel.setText(aloneStr);
 						} else {
 							String peopleCountStr = getResourceMap().getString("projectPeople");
@@ -509,8 +513,8 @@ public class JakeStatusBar extends JakeGuiComponent
 
 	private void setStatusLabelProjectStatistics() {
 		this.setStatusLabelText(this.getProjectFileCount() + (
-						(this.getProjectFileCount().length() == 0 || this.getProjectTotalSize()
-										.length() == 0) ? "" : ", ") + this.getProjectTotalSize());
+				(this.getProjectFileCount().length() == 0 || this.getProjectTotalSize()
+						.length() == 0) ? "" : ", ") + this.getProjectTotalSize());
 	}
 
 	private void setStatusLabelText(String text) {

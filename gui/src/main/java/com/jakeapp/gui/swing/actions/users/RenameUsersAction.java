@@ -2,6 +2,7 @@ package com.jakeapp.gui.swing.actions.users;
 
 import com.jakeapp.gui.swing.JakeMainView;
 import com.jakeapp.gui.swing.ContextPanelEnum;
+import com.jakeapp.gui.swing.ContextViewPanelHolder;
 import com.jakeapp.gui.swing.actions.abstracts.UserAction;
 import com.jakeapp.gui.swing.controls.JListMutable;
 import com.jakeapp.gui.swing.helpers.UserHelper;
@@ -18,8 +19,11 @@ import java.awt.event.ActionEvent;
 public class RenameUsersAction extends UserAction {
 	private static final Logger log = Logger.getLogger(RenameUsersAction.class);
 
-	public RenameUsersAction(JListMutable mutable) {
+	private final ContextViewPanelHolder contextViewPanelHolder;
+
+	public RenameUsersAction(JListMutable mutable, ContextViewPanelHolder contextViewPanelHolder) {
 		super(mutable);
+		this.contextViewPanelHolder = contextViewPanelHolder;
 
 		String actionStr = JakeMainView.getMainView().getResourceMap().
 						getString("renamePeopleMenuItem.text");
@@ -38,8 +42,10 @@ public class RenameUsersAction extends UserAction {
 		log.info("Rename ProjectMember " + getMutable() + " from" + getProject());
 
 		// ensure that users panel is visible
-		JakeMainView.getMainView()
-						.setContextViewPanel(ContextPanelEnum.Project);
+//		JakeMainView.getMainView()
+//						.setContextViewPanel(ContextPanelEnum.Project);
+
+		contextViewPanelHolder.setContextViewPanel(ContextPanelEnum.Project);
 
 		new JListMutable.StartEditingAction()
 						.actionPerformed(new ActionEvent(getMutable(), 0, ""));

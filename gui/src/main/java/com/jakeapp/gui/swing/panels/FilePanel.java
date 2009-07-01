@@ -3,6 +3,7 @@ package com.jakeapp.gui.swing.panels;
 import com.explodingpixels.widgets.WindowUtils;
 import com.jakeapp.core.domain.FileObject;
 import com.jakeapp.gui.swing.JakeMainApp;
+import com.jakeapp.gui.swing.InspectorStateHolder;
 import com.jakeapp.gui.swing.actions.file.*;
 import com.jakeapp.gui.swing.callbacks.ContextChangedCallback;
 import com.jakeapp.gui.swing.callbacks.ProjectChangedCallback;
@@ -79,15 +80,18 @@ public class FilePanel extends javax.swing.JPanel
 
 	private final ResourceMap resourceMap;
 	private final EventCore eventCore;
+	private final InspectorStateHolder inspectorStateHolder;
 
 	/**
 	 * Creates new form FilePanel
 	 * @param eventCore
 	 * @param resourceMap
+	 * @param inspectorStateHolder
 	 */
-	public FilePanel(EventCore eventCore, ResourceMap resourceMap) {
+	public FilePanel(EventCore eventCore, ResourceMap resourceMap, InspectorStateHolder inspectorStateHolder) {
 		this.resourceMap = resourceMap;
 		this.eventCore = eventCore;
+		this.inspectorStateHolder = inspectorStateHolder;
 
 
 		// save for instance access
@@ -213,7 +217,7 @@ public class FilePanel extends javax.swing.JPanel
 		pm.add(new JMenuItem(new RenameFileAction(eventCore, this, resourceMap)));
 		pm.add(new JMenuItem(new LockFileAction(eventCore, this, resourceMap)));
 		pm.add(new JSeparator());
-		pm.add(new JMenuItem(new InspectorFileAction(eventCore, this, resourceMap)));
+		pm.add(new JMenuItem(new InspectorFileAction(eventCore, this, inspectorStateHolder, resourceMap)));
 		pm.add(new JMenuItem(new CreateFolderFileAction(eventCore, this, resourceMap)));
 		pm.add(new JMenuItem(new ImportFileAction(eventCore, this, resourceMap)));
 	}

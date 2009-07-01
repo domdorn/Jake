@@ -4,6 +4,7 @@ import com.jakeapp.core.domain.Project;
 import com.jakeapp.gui.swing.JakeMainView;
 import com.jakeapp.gui.swing.ContextViewChangedHolder;
 import com.jakeapp.gui.swing.ContextViewPanelHolder;
+import com.jakeapp.gui.swing.InspectorStateHolder;
 import com.jakeapp.gui.swing.actions.file.*;
 import com.jakeapp.gui.swing.actions.notes.CommitNoteAction;
 import com.jakeapp.gui.swing.actions.notes.CreateNoteAction;
@@ -59,6 +60,8 @@ public class JakeMenuBar extends JMenuBar {
 	private final EventCore eventCore;
 	private final FilePanel filePanel;
 	private final NotesPanel notesPanel;
+	private final InspectorStateHolder inspectorStateHolder;
+
 
 	public JakeMenuBar(
 			ProjectHelper projectHelper,
@@ -67,8 +70,8 @@ public class JakeMenuBar extends JMenuBar {
 			ContextViewPanelHolder contextViewPanelHolder,
 			EventCore eventCore,
 			FilePanel filePanel,
-			NotesPanel notesPanel
-	) {
+			NotesPanel notesPanel,
+			InspectorStateHolder inspectorStateHolder) {
 		super();
 
 		this.resourceMap = resourceMap;
@@ -77,6 +80,7 @@ public class JakeMenuBar extends JMenuBar {
 		this.eventCore = eventCore;
 		this.filePanel = filePanel;
 		this.notesPanel = notesPanel;
+		this.inspectorStateHolder = inspectorStateHolder;
 
 
 		// Get the application instance
@@ -124,7 +128,7 @@ public class JakeMenuBar extends JMenuBar {
 		fileMenu.add(new JMenuItem(new RenameFileAction(eventCore, filePanel, resourceMap)));
 		fileMenu.add(new JMenuItem(new LockFileAction(eventCore, filePanel, resourceMap)));
 		fileMenu.addSeparator();
-		fileMenu.add(new JMenuItem(new InspectorFileAction(eventCore, filePanel, resourceMap)));
+		fileMenu.add(new JMenuItem(new InspectorFileAction(eventCore, filePanel, this.inspectorStateHolder, resourceMap)));
 		fileMenu.add(new JMenuItem(new CreateFolderFileAction(eventCore, filePanel, resourceMap)));
 		fileMenu.add(new JMenuItem(new ImportFileAction(eventCore, filePanel, resourceMap)));
 		this.add(fileMenu);

@@ -2,6 +2,7 @@ package com.jakeapp.gui.swing;
 
 import com.jakeapp.gui.swing.panels.UserPanel;
 import com.jakeapp.gui.swing.panels.InvitationPanel;
+import com.jakeapp.gui.swing.callbacks.ContextViewChangedCallback;
 
 public class ContextViewPanelHolder {
 //	private final JakeMainView jakeMainView;
@@ -9,12 +10,16 @@ public class ContextViewPanelHolder {
 
 	private final UserPanel loginPanel;
 	private final InvitationPanel invitationPanel;
+	private final ContentPanelHolder contentPanelHolder;
+	private final ContextViewChangedHolder contextViewChangedHolder;
 
 
-	public ContextViewPanelHolder(UserPanel loginPanel, InvitationPanel invitationPanel) {
+	public ContextViewPanelHolder(UserPanel loginPanel, InvitationPanel invitationPanel, ContentPanelHolder contentPanelHolder, ContextViewChangedHolder contextViewChangedHolder) {
 //		this.jakeMainView = jakeMainView;
 		this.invitationPanel = invitationPanel;
 		this.loginPanel = loginPanel;
+		this.contentPanelHolder = contentPanelHolder;
+		this.contextViewChangedHolder = contextViewChangedHolder;
 	}
 
 	public ContextPanelEnum getContextViewPanel() {
@@ -23,6 +28,17 @@ public class ContextViewPanelHolder {
 
 	public void setContextViewPanel(ContextPanelEnum view) {
 		this.contextViewPanel = view;
+
+
+		contentPanelHolder.showContentPanel(loginPanel, view == ContextPanelEnum.Login);
+		contentPanelHolder.showContentPanel(invitationPanel, view == ContextPanelEnum.Invitation);
+		JakeMainView.getMainView().updateProjectViewPanel();
+
+		fireContextViewChanged();
+
+//
+//		jakeMainView.updateProjectViewPanel();
+//		jakeMainView.fireContextViewChanged();
 
 
 		// TODO
@@ -35,4 +51,20 @@ public class ContextViewPanelHolder {
 
 
 	}
+
+
+		/**
+	 * Fires a project selection change event, calling all
+	 * registered members of the event.
+	 */
+	private void fireContextViewChanged() {
+		for (ContextViewChangedCallback psc : contextViewChangedHolder.getContextViewChanged()) {
+			psc.setContextViewPanel(this.getContextViewPanel());
+		}
+	}
+
+
+
+
+
 }

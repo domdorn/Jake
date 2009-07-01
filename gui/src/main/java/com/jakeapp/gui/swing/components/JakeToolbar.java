@@ -14,14 +14,14 @@ import com.jakeapp.gui.swing.filters.FileObjectNameFilter;
 import com.jakeapp.gui.swing.filters.NoteObjectFilter;
 import com.jakeapp.gui.swing.panels.FilePanel;
 import com.jakeapp.gui.swing.panels.NotesPanel;
-import com.jakeapp.gui.swing.JakeMainView;
-import com.jakeapp.gui.swing.ContextPanelEnum;
+import com.jakeapp.gui.swing.*;
 import com.jakeapp.gui.swing.xcore.EventCore;
 import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.helpers.ImageLoader;
 
 import org.jdesktop.swingx.decorator.FilterPipeline;
 import org.jdesktop.swingx.decorator.PatternFilter;
+import org.jdesktop.swingx.JXPanel;
 import org.jdesktop.application.ResourceMap;
 import org.apache.log4j.Logger;
 
@@ -37,7 +37,6 @@ import java.util.regex.PatternSyntaxException;
  */
 public class JakeToolbar {
 	private static final Logger log = Logger.getLogger(JakeToolbar.class);
-	private final JakeMainView jakeMainView;
 	private SearchField searchField;
 	private AbstractButton createProjectButton;
 	private AbstractButton addFilesButton;
@@ -47,17 +46,63 @@ public class JakeToolbar {
 	private final ResourceMap resourceMap;
 	private final EventCore eventCore;
 	private final FilePanel filePanel;
+	private final InspectorStateHolder inspectorStateHolder;
+	private final ContextViewPanelHolder contextViewPanelHolder;
+	private final ContextSwitcherButtonsHolder contextSwitcherButtonsHolder;
 
 	JPanel contextSwitcherPane;
 	JFrame jakeMainViewFrame;
 
-	public JakeToolbar(JakeMainView jakeMainView, EventCore eventCore, FilePanel filePanel, ResourceMap resourceMap) {
-		this.jakeMainView = jakeMainView;
+
+		/**
+	 * Context Switcher Panel
+	 *
+	 * @return the context switcher panel
+	 */
+	private JPanel createContextSwitcherPanel() {
+		JXPanel switcherPanel = new JXPanel();
+		switcherPanel.setOpaque(false);
+
+
+
+//		class ContextSwitchActionListener implements ActionListener {
+//			public void actionPerformed(ActionEvent event) {
+//				setProjectViewFromToolBarButtons();
+//			}
+//		}
+
+//		ContextSwitchActionListener cslistener = new ContextSwitchActionListener();
+
+//		getContextSwitcherButtons().get(0).addActionListener(cslistener);
+//		getContextSwitcherButtons().get(1).addActionListener(cslistener);
+//		getContextSwitcherButtons().get(2).addActionListener(cslistener);
+
+		JPanel flowButtons = new JPanel();
+		flowButtons.setOpaque(false);
+		flowButtons.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		switcherPanel.setLayout(new BorderLayout());
+		switcherPanel.add(flowButtons, BorderLayout.CENTER);
+
+		for (JToggleButton button : contextSwitcherButtonsHolder.getContextSwitcherButtons()) {
+			flowButtons.add(button);
+		}
+
+		return switcherPanel;
+	}
+
+
+
+	public JakeToolbar(EventCore eventCore, FilePanel filePanel, InspectorStateHolder inspectorStateHolder, ContextViewPanelHolder contextViewPanelHolder, ContextSwitcherButtonsHolder contextSwitcherButtonsHolder, ResourceMap resourceMap, JFrame jakeMainViewFrame) {
 		this.eventCore = eventCore;
 		this.filePanel = filePanel;
+		this.inspectorStateHolder = inspectorStateHolder;
+		this.contextViewPanelHolder = contextViewPanelHolder;
+		this.contextSwitcherButtonsHolder = contextSwitcherButtonsHolder;
 		this.resourceMap = resourceMap;
-		contextSwitcherPane = jakeMainView.getContextSwitcherPane();
-		jakeMainViewFrame = jakeMainView.getFrame();
+		this.jakeMainViewFrame = jakeMainViewFrame;
+
+		
+		contextSwitcherPane = createContextSwitcherPanel();
 	}
 
 	/**
@@ -169,7 +214,8 @@ public class JakeToolbar {
 		inspectorJButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent event) {
-				jakeMainView.setInspectorEnabled(!jakeMainView.isInspectorEnabled());
+				inspectorStateHolder.setInspectorEnabled(!inspectorStateHolder.isInspectorEnabled());
+//				jakeMainView.setInspectorEnabled(!jakeMainView.isInspectorEnabled());
 			}
 		});
 
@@ -240,16 +286,16 @@ public class JakeToolbar {
 		boolean hasProject = JakeContext.getProject() != null;
 		boolean isInvite = JakeContext.getProject() != null && JakeContext.getProject()
 				.getInvitationState() == InvitationState.INVITED;
-		boolean isProjectContext = jakeMainView.getContextViewPanel() == ContextPanelEnum.Project;
+		boolean isProjectContext = contextViewPanelHolder.getContextViewPanel() == ContextPanelEnum.Project;
 		boolean hasUser = JakeContext.getMsgService() != null;
 
 		createProjectButton.setEnabled(hasUser);
 		addFilesButton.setEnabled(hasProject && !isInvite);
 		invitePeopleButton.setEnabled(hasProject && !isInvite);
-		for (JToggleButton btn : jakeMainView.getContextSwitcherButtons()) {
+		for (JToggleButton btn : contextSwitcherButtonsHolder.getContextSwitcherButtons()) {
 			btn.setEnabled(isProjectContext && hasProject && !isInvite);
 		}
-		inspectorButton.setEnabled(jakeMainView.isInspectorAllowed());
+		inspectorButton.setEnabled(inspectorStateHolder.isInspectorAllowed());
 		searchField.setEditable(hasProject);
 	}
 }
