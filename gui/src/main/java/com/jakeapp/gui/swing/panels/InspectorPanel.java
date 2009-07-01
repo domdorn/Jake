@@ -8,6 +8,7 @@ import com.jakeapp.core.synchronization.attributes.Attributed;
 import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.JakeMainApp;
 import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.ProjectViewChangedHolder;
 import com.jakeapp.gui.swing.callbacks.ContextChangedCallback;
 import com.jakeapp.gui.swing.callbacks.FileSelectionChangedCallback;
 import com.jakeapp.gui.swing.callbacks.NoteSelectionChangedCallback;
@@ -48,11 +49,17 @@ public class InspectorPanel extends JXPanel
 	private static final long serialVersionUID = 7743765581263700424L;
 	private static final Logger log = Logger.getLogger(InspectorPanel.class);
 	public static final int INSPECTOR_SIZE = 250;
-	private ResourceMap resourceMap;
 	private JScrollPane eventsTableScrollPane;
 
+
+	private final ResourceMap resourceMap;
+	private final EventCore eventCore;
+	private final NotesPanel notesPanel;
+	private final ProjectViewChangedHolder projectViewChangedHolder;
+	
+
 	private enum Mode {
-		FILE, NOTE, NONE
+		FILE, NOTE, NONE;
 	}
 
 	private Mode mode;
@@ -81,19 +88,21 @@ public class InspectorPanel extends JXPanel
 	private JPanel noteFileInspector;
 	private JPanel emptyInspector;
 
-	public InspectorPanel() {
-
-		// load the resource map
-		setResourceMap(org.jdesktop.application.Application
-						.getInstance(JakeMainApp.class).getContext().getResourceMap(
-						InspectorPanel.class));
+	public InspectorPanel(EventCore eventCore, NotesPanel notesPanel, ProjectViewChangedHolder projectViewChangedHolder, ResourceMap resourceMap) {
+		this.eventCore = eventCore;
+		this.notesPanel = notesPanel;
+		this.projectViewChangedHolder = projectViewChangedHolder;
+		this.resourceMap = resourceMap;
 
 		// register for events
-		EventCore.getInstance().addProjectChangedCallbackListener(this);
-		EventCore.getInstance().addContextChangedListener(this);
-		EventCore.getInstance().addFileSelectionListener(this);
-		NotesPanel.getInstance().addNoteSelectionListener(this);
-		JakeMainView.getMainView().addProjectViewChangedListener(this);
+		eventCore.addProjectChangedCallbackListener(this);
+		eventCore.addContextChangedListener(this);
+		eventCore.addFileSelectionListener(this);
+		
+		
+		notesPanel.addNoteSelectionListener(this);
+		projectViewChangedHolder.add(this);
+//		JakeMainView.getMainView().addProjectViewChangedListener(this);
 
 		this.mode = Mode.NONE;
 
@@ -230,10 +239,6 @@ public class InspectorPanel extends JXPanel
 
 	protected ResourceMap getResourceMap() {
 		return this.resourceMap;
-	}
-
-	protected void setResourceMap(ResourceMap resourceMap) {
-		this.resourceMap = resourceMap;
 	}
 
 	public void setFileObject(Attributed<FileObject> attributedFileObject) {

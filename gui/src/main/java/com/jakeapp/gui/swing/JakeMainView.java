@@ -42,7 +42,6 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
@@ -55,25 +54,42 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	private static final Logger log = Logger.getLogger(JakeMainView.class);
 	private static final int CONTENT_SPLITTERSIZE = 2;
 	private static JakeMainView mainView;
-	private boolean inspectorEnabled;
-
 	private final EventCore eventCore;
-	private final JakeMainApp jakeMainApp;
 
+	private final JakeMainApp jakeMainApp;
 	// all the ui panels
 	private final NewsPanel newsPanel;
-	private FilePanel filePanel;
-	private NotesPanel notesPanel;
 
-
-	private InvitationPanel invitationPanel;
-
+	private final FilePanel filePanel;
+	private final NotesPanel notesPanel;
+	private final InvitationPanel invitationPanel;
 	private final UserPanel loginPanel;
+	private final JakeToolbar jakeToolbar;
+	private final ContextViewChangedHolder contextViewChangedHolder;
+	private final ContextViewPanelHolder contextViewPanelHolder;
+	private final ResourceMap resourceMap;
 	private List<JToggleButton> contextSwitcherButtons;
+
+
 	private JPanel contextSwitcherPane = createContextSwitcherPanel();
 
 
+
 	private JPanel inspectorPanel;
+
+	private boolean inspectorEnabled;
+	public boolean isInspectorEnabled() {
+		return inspectorEnabled;
+	}
+
+	public void setInspectorEnabled(boolean inspectorEnabled) {
+		this.inspectorEnabled = inspectorEnabled;
+
+		updateInspectorPanelVisibility();
+	}
+
+
+
 
 	private JakeMenuBar menuBar;
 	private javax.swing.JPanel contentPanel;
@@ -84,8 +100,34 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	private JakeStatusBar jakeStatusBar;
 	private JakeTrayIcon tray;
 
-	private List<ProjectViewChangedCallback> projectViewChanged =
-			new ArrayList<ProjectViewChangedCallback>();
+
+	private final ProjectViewChangedHolder projectViewChangedHolder;
+
+	// TODO will be removed
+	public void addProjectViewChangedListener(ProjectViewChangedCallback pvc) {
+		projectViewChangedHolder.add(pvc);
+	}
+
+	// TODO will be removed
+	public void removeProjectViewChangedListener(ProjectViewChangedCallback pvc) {
+		projectViewChangedHolder.remove(pvc);
+	}
+
+	/**
+	 * Fires a project selection change event, calling all
+	 * registered members of the event.
+	 */
+	// TODO will be removed
+	private void fireProjectViewChanged() {
+		projectViewChangedHolder.fireProjectViewChanged(getProjectViewPanel());
+	}
+
+
+
+
+
+
+
 	private JPanel statusPanel;
 
 	private JakeMainApp app;
@@ -94,20 +136,8 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 
 	private Image IconAppSmall;
 	private Image IconAppLarge;
-	private final JakeToolbar jakeToolbar;
-	private final ContextViewChangedHolder contextViewChangedHolder;
-	private final ContextViewPanelHolder contextViewPanelHolder;
-	private final ResourceMap resourceMap;
 
-	public boolean isInspectorEnabled() {
-		return inspectorEnabled;
-	}
 
-	public void setInspectorEnabled(boolean inspectorEnabled) {
-		this.inspectorEnabled = inspectorEnabled;
-
-		updateInspectorPanelVisibility();
-	}
 
 	/**
 	 * Returns the large application image.
@@ -141,10 +171,11 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 						InvitationPanel invitationPanel,
 						JakeSourceList jakeSourceList,
 						ResourceMap resourceMap,
-						FilePanel filePanel
+						FilePanel filePanel,
+						NotesPanel notesPanel,
+						InspectorPanel inspectorPanel,
 
-
-	) {
+						ProjectViewChangedHolder projectViewChangedHolder) {
 		super(app);
 
 		this.jakeMainApp = app;
@@ -155,6 +186,10 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 		this.sourceList = jakeSourceList;
 		this.resourceMap = resourceMap;
 		this.filePanel = filePanel;
+		this.newsPanel = newsPanel;
+		this.notesPanel = notesPanel;
+		this.inspectorPanel = inspectorPanel;
+		this.projectViewChangedHolder = projectViewChangedHolder;
 
 		IconAppSmall = ImageLoader.get(getClass(), "/icons/jakeapp.png").getImage();
 		IconAppLarge = ImageLoader.get(getClass(), "/icons/jakeapp-large.png").getImage();
@@ -172,14 +207,12 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 
 		log.debug("news panel ...");
 //		newsPanel = new NewsPanel(jakeMainApp, eventCore);
-		this.newsPanel = newsPanel;
+
 //		log.debug("files panel ...");
 //		filePanel = new FilePanel(eventCore, resourceMap);
-		log.debug("notes panel ...");
-		notesPanel = new NotesPanel();
-		log.debug("inspector panel ...");
+//		log.debug("notes panel ...");
+//		log.debug("inspector panel ...");
 
-		inspectorPanel = new InspectorPanel();
 //		setInspectorPanel(inspectorPanel);
 //		setInvitationPanel(invitationPanel);;
 
@@ -289,16 +322,10 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 
 
 	public FilePanel getFilePanel() {
-		if (filePanel == null) {
-			filePanel = new FilePanel(eventCore, resourceMap);
-		}
 		return filePanel;
 	}
 
 	public NotesPanel getNotesPanel() {
-		if (notesPanel == null) {
-			notesPanel = new NotesPanel();
-		}
 		return notesPanel;
 	}
 
@@ -759,23 +786,6 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	}
 
 
-	public void addProjectViewChangedListener(ProjectViewChangedCallback pvc) {
-		projectViewChanged.add(pvc);
-	}
-
-	public void removeProjectViewChangedListener(ProjectViewChangedCallback pvc) {
-		projectViewChanged.remove(pvc);
-	}
-
-	/**
-	 * Fires a project selection change event, calling all
-	 * registered members of the event.
-	 */
-	private void fireProjectViewChanged() {
-		for (ProjectViewChangedCallback psc : projectViewChanged) {
-			psc.setProjectViewPanel(getProjectViewPanel());
-		}
-	}
 
 
 	public void addContextViewChangedListener(ContextViewChangedCallback pvc) {
@@ -835,11 +845,6 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	public InvitationPanel getInvitationPanel() {
 		return invitationPanel;
 	}
-
-	public void setInvitationPanel(InvitationPanel invitationPanel) {
-		this.invitationPanel = invitationPanel;
-	}
-
 
 	public UserPanel getLoginPanel() {
 		return loginPanel;
