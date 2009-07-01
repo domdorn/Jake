@@ -33,7 +33,7 @@ public class ProjectViewChangedHolder {
 	 * 
 	 * @param projectView
 	 */
-	public void fireProjectViewChanged(ProjectView projectView) {
+	public void fireProjectViewChanged(ProjectViewEnum projectView) {
 		for (ProjectViewChangedCallback psc : getProjectViewChanged()) {
 			psc.setProjectViewPanel(projectView);
 		}

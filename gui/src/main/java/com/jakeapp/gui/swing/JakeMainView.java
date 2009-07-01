@@ -86,7 +86,7 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	private JSplitPane contentPanelSplit;
 	private JDialog aboutBox;
 
-	private ProjectView projectViewPanel = ProjectView.News;
+	private ProjectViewEnum projectViewPanel = ProjectViewEnum.News;
 	private JakeStatusBar jakeStatusBar;
 	private JakeTrayIcon tray;
 
@@ -450,9 +450,9 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 		return inspectorStateHolder.isInspectorAllowed();
 //		boolean hasProject = JakeContext.getProject() != null;
 //		boolean isFilePaneOpen =
-//				contextViewPanelHolder.getContextViewPanel() == ContextPanelEnum.Project && getProjectViewPanel() == ProjectView.Files;
+//				contextViewPanelHolder.getContextViewPanel() == ContextPanelEnum.Project && getProjectViewPanel() == ProjectViewEnum.Files;
 //		boolean isNotePaneOpen =
-//				contextViewPanelHolder.getContextViewPanel() == ContextPanelEnum.Project && getProjectViewPanel() == ProjectView.Notes;
+//				contextViewPanelHolder.getContextViewPanel() == ContextPanelEnum.Project && getProjectViewPanel() == ProjectViewEnum.Notes;
 //
 //		return hasProject && (isFilePaneOpen || isNotePaneOpen);
 	}
@@ -462,14 +462,14 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	 */
 	public void setProjectViewFromToolBarButtons() {
 		// determine toggle button selection
-		if (contextSwitcherButtons.get(ProjectView.News.ordinal()).isSelected()) {
-			setProjectViewPanel(ProjectView.News);
-		} else if (contextSwitcherButtons.get(ProjectView.Files.ordinal())
+		if (contextSwitcherButtons.get(ProjectViewEnum.News.ordinal()).isSelected()) {
+			setProjectViewPanel(ProjectViewEnum.News);
+		} else if (contextSwitcherButtons.get(ProjectViewEnum.Files.ordinal())
 				.isSelected()) {
-			setProjectViewPanel(ProjectView.Files);
-		} else if (contextSwitcherButtons.get(ProjectView.Notes.ordinal())
+			setProjectViewPanel(ProjectViewEnum.Files);
+		} else if (contextSwitcherButtons.get(ProjectViewEnum.Notes.ordinal())
 				.isSelected()) {
-			setProjectViewPanel(ProjectView.Notes);
+			setProjectViewPanel(ProjectViewEnum.Notes);
 		}
 	}
 
@@ -617,7 +617,7 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	}
 
 
-	public ProjectView getProjectViewPanel() {
+	public ProjectViewEnum getProjectViewPanel() {
 		return projectViewPanel;
 	}
 
@@ -627,7 +627,7 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	 *
 	 * @param view: the project view panel that should be active.
 	 */
-	public void setProjectViewPanel(ProjectView view) {
+	public void setProjectViewPanel(ProjectViewEnum view) {
 		this.projectViewPanel = view;
 		updateProjectViewPanel();
 		fireProjectViewChanged();
@@ -641,12 +641,12 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 		boolean canBeSelected = contextViewPanelHolder.getContextViewPanel() == ContextPanelEnum.Project;
 		log.trace("updateProjectToggleButtons. canBeSelected=" + canBeSelected);
 
-		contextSwitcherButtons.get(ProjectView.News.ordinal())
-				.setSelected(canBeSelected && getProjectViewPanel() == ProjectView.News);
-		contextSwitcherButtons.get(ProjectView.Files.ordinal())
-				.setSelected(canBeSelected && getProjectViewPanel() == ProjectView.Files);
-		contextSwitcherButtons.get(ProjectView.Notes.ordinal())
-				.setSelected(canBeSelected && getProjectViewPanel() == ProjectView.Notes);
+		contextSwitcherButtons.get(ProjectViewEnum.News.ordinal())
+				.setSelected(canBeSelected && getProjectViewPanel() == ProjectViewEnum.News);
+		contextSwitcherButtons.get(ProjectViewEnum.Files.ordinal())
+				.setSelected(canBeSelected && getProjectViewPanel() == ProjectViewEnum.Files);
+		contextSwitcherButtons.get(ProjectViewEnum.Notes.ordinal())
+				.setSelected(canBeSelected && getProjectViewPanel() == ProjectViewEnum.Notes);
 
 		// adapt button style
 		for (JToggleButton btn : contextSwitcherButtons) {
@@ -658,14 +658,14 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	 * Updates the Project View, called after setting with setProjectViewPanel
 	 */
 	private void updateProjectViewPanel() {
-		ProjectView view = getProjectViewPanel();
+		ProjectViewEnum view = getProjectViewPanel();
 
 		// only set if project panels are shown!
 		boolean show = contextViewPanelHolder.getContextViewPanel() == ContextPanelEnum.Project;
 
-		showContentPanel(newsPanel, show && view == ProjectView.News);
-		showContentPanel(filePanel, show && view == ProjectView.Files);
-		showContentPanel(notesPanel, show && view == ProjectView.Notes);
+		showContentPanel(newsPanel, show && view == ProjectViewEnum.News);
+		showContentPanel(filePanel, show && view == ProjectViewEnum.Files);
+		showContentPanel(notesPanel, show && view == ProjectViewEnum.Notes);
 
 		updateProjectToggleButtons();
 

@@ -15,7 +15,7 @@ public class InspectorStateHolder {
 	private final ContextViewPanelHolder contextViewPanelHolder;
 	private final JPanel contentPanel;
 
-	private ProjectView projectView;
+	private ProjectViewEnum projectView;
 
 	private boolean inspectorEnabled;
 
@@ -23,11 +23,11 @@ public class InspectorStateHolder {
 		return inspectorEnabled;
 	}
 
-	public ProjectView getProjectView() {
+	public ProjectViewEnum getProjectView() {
 		return projectView;
 	}
 
-	public void setProjectView(ProjectView projectView) {
+	public void setProjectView(ProjectViewEnum projectView) {
 		this.projectView = projectView;
 	}
 
@@ -35,7 +35,7 @@ public class InspectorStateHolder {
 								JSplitPane contentPanelSplit,
 								ContextViewPanelHolder contextViewPanelHolder,
 								JPanel contentPanel,
-								ProjectView projectView) {
+								ProjectViewEnum projectView) {
 		this.inspectorPanel = inspectorPanel;
 		this.contentPanelSplit = contentPanelSplit;
 		this.contextViewPanelHolder = contextViewPanelHolder;
@@ -98,9 +98,9 @@ public class InspectorStateHolder {
 
 		boolean hasProject = JakeContext.getProject() != null;
 		boolean isFilePaneOpen =
-				contextViewPanelHolder.getContextViewPanel() == ContextPanelEnum.Project && projectView == ProjectView.Files;
+				contextViewPanelHolder.getContextViewPanel() == ContextPanelEnum.Project && projectView == ProjectViewEnum.Files;
 		boolean isNotePaneOpen =
-				contextViewPanelHolder.getContextViewPanel() == ContextPanelEnum.Project && projectView == ProjectView.Notes;
+				contextViewPanelHolder.getContextViewPanel() == ContextPanelEnum.Project && projectView == ProjectViewEnum.Notes;
 
 		return hasProject && (isFilePaneOpen || isNotePaneOpen);
 	}

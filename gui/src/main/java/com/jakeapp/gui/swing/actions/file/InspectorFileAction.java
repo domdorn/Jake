@@ -1,6 +1,7 @@
 package com.jakeapp.gui.swing.actions.file;
 
 import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.InspectorStateHolder;
 import com.jakeapp.gui.swing.panels.FilePanel;
 import com.jakeapp.gui.swing.xcore.EventCore;
 import com.jakeapp.gui.swing.actions.abstracts.FileAction;
@@ -13,6 +14,7 @@ import org.jdesktop.application.ResourceMap;
 public class InspectorFileAction extends FileAction {
 
 	private final ResourceMap resourceMap;
+	
 
 	public InspectorFileAction(EventCore eventCore, FilePanel filePanel, ResourceMap resourceMap) {
 		super(eventCore, filePanel);
