@@ -7,6 +7,7 @@ import com.explodingpixels.widgets.WindowUtils;
 import com.jakeapp.core.domain.Invitation;
 import com.jakeapp.core.domain.InvitationState;
 import com.jakeapp.core.domain.Project;
+import com.jakeapp.core.services.MsgService;
 import com.jakeapp.gui.swing.callbacks.ContextChangedCallback;
 import com.jakeapp.gui.swing.callbacks.ContextViewChangedCallback;
 import com.jakeapp.gui.swing.callbacks.ProjectChangedCallback;
@@ -33,7 +34,6 @@ import org.apache.log4j.Logger;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.FrameView;
 import org.jdesktop.application.ResourceMap;
-import org.jdesktop.swingx.JXPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -83,7 +83,9 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	private JakeTrayIcon tray;
 
 
-	/**************** BEGIN INSPECTOR STUFF ******************/
+	/**
+	 * ************* BEGIN INSPECTOR STUFF *****************
+	 */
 	private final InspectorStateHolder inspectorStateHolder;
 
 	public boolean isInspectorEnabled() {
@@ -93,7 +95,7 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	public void setInspectorEnabled(boolean inspectorEnabled) {
 
 		inspectorStateHolder.setInspectorEnabled(inspectorEnabled);
-		updateInspectorPanelVisibility();
+		updateInspectorPanelVisibility(contentPanelSplit, inspectorStateHolder, inspectorPanel, contentPanelHolder);
 	}
 
 	/**
@@ -105,8 +107,9 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 		return inspectorStateHolder.isInspectorAllowed();
 	}
 
-	/**************** END INSPECTOR STUFF ******************/
-
+	/**
+	 * ************* END INSPECTOR STUFF *****************
+	 */
 
 
 	private final ProjectViewChangedHolder projectViewChangedHolder;
@@ -129,7 +132,6 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 
 	private Image IconAppSmall;
 	private Image IconAppLarge;
-
 
 
 	/**
@@ -207,7 +209,6 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 		);
 
 
-		
 		// initialize helper code
 		log.debug("helpers ...");
 		JakeHelper.initializeJakeMainHelper();
@@ -254,7 +255,8 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 		contentPanelSplit.setDividerSize(CONTENT_SPLITTERSIZE);
 		contentPanelSplit
 				.addPropertyChangeListener(new ResizeListener(contentPanelSplit));
-		updateInspectorPanelVisibility();
+
+		updateInspectorPanelVisibility(contentPanelSplit, inspectorStateHolder, inspectorPanel, contentPanelHolder);
 
 		// add the toolbar
 		TriAreaComponent toolBar = jakeToolbar.createToolBar();
@@ -306,21 +308,6 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 		new SyncUpdateTimer();
 	}
 
-
-	public FilePanel getFilePanel() {
-		return filePanel;
-	}
-
-	public NotesPanel getNotesPanel() {
-		return notesPanel;
-	}
-
-
-
-
-	public List<JToggleButton> getContextSwitcherButtons() {
-		return contextSwitcherButtonsHolder.getContextSwitcherButtons();
-	}
 
 	/**
 	 * This is a private inner class to control the resizing
@@ -399,10 +386,7 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	 */
 	private void registerCallbacks() {
 		eventCore.addProjectChangedCallbackListener(new UpdateAllProjectChangedCallback());
-//		EventCore.getInstance().addProjectChangedCallbackListener(new UpdateAllProjectChangedCallback());
-//		eventCore.addContextChangedListener(this);
-		EventCore.getInstance().addContextChangedListener(this);
-
+		eventCore.addContextChangedListener(this);
 	}
 
 
@@ -443,18 +427,17 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	}
 
 
-
 	/**
 	 * Called after pressing the toggle buttons for project view.
 	 */
 	public void setProjectViewFromToolBarButtons() {
 		// determine toggle button selection
-		if (getContextSwitcherButtons().get(ProjectViewEnum.News.ordinal()).isSelected()) {
+		if (contextSwitcherButtonsHolder.getContextSwitcherButtons().get(ProjectViewEnum.News.ordinal()).isSelected()) {
 			setProjectViewPanel(ProjectViewEnum.News);
-		} else if (getContextSwitcherButtons().get(ProjectViewEnum.Files.ordinal())
+		} else if (contextSwitcherButtonsHolder.getContextSwitcherButtons().get(ProjectViewEnum.Files.ordinal())
 				.isSelected()) {
 			setProjectViewPanel(ProjectViewEnum.Files);
-		} else if (getContextSwitcherButtons().get(ProjectViewEnum.Notes.ordinal())
+		} else if (contextSwitcherButtonsHolder.getContextSwitcherButtons().get(ProjectViewEnum.Notes.ordinal())
 				.isSelected()) {
 			setProjectViewPanel(ProjectViewEnum.Notes);
 		}
@@ -466,7 +449,6 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	public static void setMacSystemProperties() {
 		System.setProperty("apple.laf.useScreenMenuBar", "true");
 	}
-
 
 
 	/**
@@ -495,50 +477,52 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	 * This may not succeed if inspector is not allowed.
 	 * Checks isInspectorEnabled property.
 	 */
-	private void updateInspectorPanelVisibility() {
+	private void updateInspectorPanelVisibility(
+			JSplitPane localContentPanelSplit,
+			InspectorStateHolder localInspectorStateHolder,
+	        JPanel localInspectorPanel,
+			ContentPanelHolder localContentPanelHolder
+	) {
 		//log.debug("pre: isInspectorEnabled: " + isInspectorEnabled() +
 		//		  " isInspectorPanelVisible: " + isInspectorPanelVisible() +
 		//		  " isInspectorAllowed: " + isInspectorAllowed());
 		if (isInspectorEnabled()) {
 			// add inspector IF allowed
-			if (inspectorStateHolder.isInspectorAllowed() && !inspectorPanel.isVisible()) {
-				inspectorPanel.setVisible(true);
-				contentPanelSplit.setDividerLocation(contentPanelSplit
-						.getWidth() - InspectorPanel.INSPECTOR_SIZE - 1 - contentPanelSplit
+			if (localInspectorStateHolder.isInspectorAllowed() && !localInspectorPanel.isVisible()) {
+				localInspectorPanel.setVisible(true);
+				localContentPanelSplit.setDividerLocation(localContentPanelSplit
+						.getWidth() - InspectorPanel.INSPECTOR_SIZE - 1 - localContentPanelSplit
 						.getDividerSize());
-			} else if (!inspectorStateHolder.isInspectorAllowed() ) {
-				inspectorPanel.setVisible(false);
+			} else if (!localInspectorStateHolder.isInspectorAllowed()) {
+				localInspectorPanel.setVisible(false);
 			}
 		} else {
-			if (inspectorPanel.isVisible()) {
-				inspectorPanel.setVisible(false);
+			if (localInspectorPanel.isVisible()) {
+				localInspectorPanel.setVisible(false);
 			}
 		}
 
 		// hide divider if not allowed
 
 
-		if (inspectorStateHolder.isInspectorAllowed()) {
-			showDivider();
+		if (localInspectorStateHolder.isInspectorAllowed()) {
+			showDivider(localContentPanelSplit);
 		} else {
-			hideDivider();
+			hideDivider(localContentPanelSplit);
 		}
 
 		// refresh panel
-		contentPanelHolder.getContentPanel().updateUI();
+		localContentPanelHolder.getContentPanel().updateUI();
 
-//		log.trace("now: isInspectorEnabled: " + isInspectorEnabled() + " isInspectorPanelVisible: " + inspectorPanel.isVisible() + " isInspectorAllowed: " + isInspectorAllowed());
+//		log.trace("now: isInspectorEnabled: " + isInspectorEnabled() + " isInspectorPanelVisible: " + localInspectorPanel.isVisible() + " isInspectorAllowed: " + isInspectorAllowed());
 	}
 
-	private void hideDivider()
-	{
+	private void hideDivider(JSplitPane contentPanelSplit) {
 		contentPanelSplit.setDividerSize(0);
 	}
 
-	private void showDivider()
-	{
+	private void showDivider(JSplitPane contentPanelSplit) {
 		contentPanelSplit.setDividerSize(CONTENT_SPLITTERSIZE);
-
 	}
 
 
@@ -572,7 +556,7 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	private void updateAll() {
 		jakeToolbar.updateToolBar();
 		updateTitle();
-		updateView();
+		updateView(contentPanelHolder.getContentPanel());
 	}
 
 
@@ -589,26 +573,6 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 		projectViewChangedHolder.fireProjectViewChanged(projectViewHolder.getCurrentView());
 	}
 
-	/**
-	 * Updates the state of the toogle bottons to keep them in sync with
-	 * ProjectViewPanels - state.
-	 */
-	private void updateProjectToggleButtons() {
-		boolean canBeSelected = contextViewPanelHolder.getContextViewPanel() == ContextPanelEnum.Project;
-		log.trace("updateProjectToggleButtons. canBeSelected=" + canBeSelected);
-
-		getContextSwitcherButtons().get(ProjectViewEnum.News.ordinal())
-				.setSelected(canBeSelected && projectViewHolder.getCurrentView() == ProjectViewEnum.News);
-		getContextSwitcherButtons().get(ProjectViewEnum.Files.ordinal())
-				.setSelected(canBeSelected && projectViewHolder.getCurrentView() == ProjectViewEnum.Files);
-		getContextSwitcherButtons().get(ProjectViewEnum.Notes.ordinal())
-				.setSelected(canBeSelected && projectViewHolder.getCurrentView() == ProjectViewEnum.Notes);
-
-		// adapt button style
-		for (JToggleButton btn : getContextSwitcherButtons()) {
-			Platform.getStyler().styleToolbarButton(btn);
-		}
-	}
 
 	/**
 	 * Updates the Project View, called after setting with setProjectViewPanel
@@ -623,30 +587,30 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 		contentPanelHolder.showContentPanel(filePanel, show && view == ProjectViewEnum.Files);
 		contentPanelHolder.showContentPanel(notesPanel, show && view == ProjectViewEnum.Notes);
 
-		updateProjectToggleButtons();
+
+		contextSwitcherButtonsHolder.updateProjectToggleButtons(contextViewPanelHolder.getContextViewPanel() == ContextPanelEnum.Project);
 
 		// show or hide the inspector
-		updateInspectorPanelVisibility();
+		updateInspectorPanelVisibility(contentPanelSplit, inspectorStateHolder, inspectorPanel, contentPanelHolder);
 
-		updateSourceListVisibility();
+		updateSourceListVisibility(JakeContext.getMsgService(), this.mainSplitPane);
 
 		// toolbar changes with viewPort
 		jakeToolbar.updateToolBar();
 	}
 
-	private void updateSourceListVisibility() {
-		log.trace("update sourcelist visible state: visible=" + JakeContext
-				.getMsgService());
+	private void updateSourceListVisibility(MsgService msgService, JSplitPane mainSplitPane) {
+		log.trace("update sourcelist visible state: visible=" + msgService);
 
-		if (JakeContext.getMsgService() == null) {
-			this.mainSplitPane.getLeftComponent().setVisible(false);
+		if (msgService == null) {
+			mainSplitPane.getLeftComponent().setVisible(false);
 		} else {
-			this.mainSplitPane.getLeftComponent().setVisible(true);
+			mainSplitPane.getLeftComponent().setVisible(true);
 			// TODO: save original value
-			this.mainSplitPane.setDividerLocation(180);
+			mainSplitPane.setDividerLocation(180);
 		}
 
-		this.mainSplitPane.updateUI();
+		mainSplitPane.updateUI();
 	}
 
 
@@ -654,14 +618,15 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	 * Called everytime a new project is selected.
 	 * Updates the view depending on that selection
 	 * Called automatically on setProject()
+	 * @param contentPanel
 	 */
-	private void updateView() {
+	private void updateView(JPanel contentPanel) {
 		log.trace("updating view");
 		Project pr = JakeContext.getProject();
 		Invitation invite = JakeContext.getInvitation();
 
 		boolean showLogin = pr == null && invite == null;
-
+			showLogin = true;
 		// determine what to show
 		if (showLogin) {
 			contextViewPanelHolder.setContextViewPanel(ContextPanelEnum.Login);
@@ -671,7 +636,7 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 			contextViewPanelHolder.setContextViewPanel(ContextPanelEnum.Project);
 		}
 		updateProjectViewPanel();
-		contentPanelHolder.getContentPanel().updateUI();
+		contentPanel.updateUI();
 	}
 
 
@@ -694,8 +659,6 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	public static void showJakeWebsite() {
 		JakeHelper.showJakeWebsite();
 	}
-
-
 
 
 	public void addContextViewChangedListener(ContextViewChangedCallback pvc) {

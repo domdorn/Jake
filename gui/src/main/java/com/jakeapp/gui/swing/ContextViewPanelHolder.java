@@ -15,7 +15,6 @@ public class ContextViewPanelHolder {
 
 
 	public ContextViewPanelHolder(UserPanel loginPanel, InvitationPanel invitationPanel, ContentPanelHolder contentPanelHolder, ContextViewChangedHolder contextViewChangedHolder) {
-//		this.jakeMainView = jakeMainView;
 		this.invitationPanel = invitationPanel;
 		this.loginPanel = loginPanel;
 		this.contentPanelHolder = contentPanelHolder;
@@ -34,7 +33,7 @@ public class ContextViewPanelHolder {
 		contentPanelHolder.showContentPanel(invitationPanel, view == ContextPanelEnum.Invitation);
 		JakeMainView.getMainView().updateProjectViewPanel();
 
-		fireContextViewChanged();
+		this.fireContextViewChanged();
 
 //
 //		jakeMainView.updateProjectViewPanel();

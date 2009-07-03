@@ -209,7 +209,7 @@ public class JakeSourceList extends JakeGuiComponent
 							public JPopupMenu createContextMenu() {
 								log.trace("public JPopupMenu createContextMenu() {");
 								JPopupMenu popupMenu = new JakePopupMenu();
-								popupMenu.add(new JMenuItem(new CreateProjectAction(true, JakeMainView.getStaticResouceMap())));
+								popupMenu.add(new JMenuItem(new CreateProjectAction(true, resourceMap)));
 								return popupMenu;
 							}
 

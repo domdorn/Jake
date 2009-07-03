@@ -91,4 +91,46 @@ public class InspectorStateHolder {
 	}
 
 
+
+
+		/**
+	 * Show or hide the inspector panel.
+	 * This may not succeed if inspector is not allowed.
+	 * Checks isInspectorEnabled property.
+	 */
+//	private void updateInspectorPanelVisibility() {
+//		//log.debug("pre: isInspectorEnabled: " + isInspectorEnabled() +
+//		//		  " isInspectorPanelVisible: " + isInspectorPanelVisible() +
+//		//		  " isInspectorAllowed: " + isInspectorAllowed());
+//		if (isInspectorEnabled()) {
+//			// add inspector IF allowed
+//			if (inspectorStateHolder.isInspectorAllowed() && !inspectorPanel.isVisible()) {
+//				inspectorPanel.setVisible(true);
+//				contentPanelSplit.setDividerLocation(contentPanelSplit
+//						.getWidth() - InspectorPanel.INSPECTOR_SIZE - 1 - contentPanelSplit
+//						.getDividerSize());
+//			} else if (!inspectorStateHolder.isInspectorAllowed()) {
+//				inspectorPanel.setVisible(false);
+//			}
+//		} else {
+//			if (inspectorPanel.isVisible()) {
+//				inspectorPanel.setVisible(false);
+//			}
+//		}
+//
+//		// hide divider if not allowed
+//
+//
+//		if (inspectorStateHolder.isInspectorAllowed()) {
+//			showDivider();
+//		} else {
+//			hideDivider();
+//		}
+//
+//		// refresh panel
+//		contentPanelHolder.getContentPanel().updateUI();
+//
+////		log.trace("now: isInspectorEnabled: " + isInspectorEnabled() + " isInspectorPanelVisible: " + inspectorPanel.isVisible() + " isInspectorAllowed: " + isInspectorAllowed());
+//	}
+
 }
