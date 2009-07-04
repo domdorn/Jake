@@ -130,6 +130,7 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	private final JakeSourceList sourceList;
 	private JSplitPane mainSplitPane;
 
+
 	private Image IconAppSmall;
 	private Image IconAppLarge;
 
@@ -253,8 +254,7 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 		contentPanelSplit.setResizeWeight(1.0);
 		contentPanelSplit.setEnabled(true);
 		contentPanelSplit.setDividerSize(CONTENT_SPLITTERSIZE);
-		contentPanelSplit
-				.addPropertyChangeListener(new ResizeListener(contentPanelSplit));
+		contentPanelSplit.addPropertyChangeListener(new ResizeListener(contentPanelSplit));
 
 		updateInspectorPanelVisibility(contentPanelSplit, inspectorStateHolder, inspectorPanel, contentPanelHolder);
 
@@ -269,8 +269,8 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 		this.getFrame().add(mainSplitPane, BorderLayout.CENTER);
 
 		// create status bar
-		jakeStatusBar = new JakeStatusBar(eventCore, contextViewPanelHolder, resourceMap);
-		statusPanel.add(jakeStatusBar.getComponent());
+//		jakeStatusBar = new JakeStatusBar(eventCore, contextViewPanelHolder, resourceMap);
+//		statusPanel.add(jakeStatusBar.getComponent());
 
 		// set default window behaviour
 		log.debug("setting up window behaviour ...");
@@ -545,9 +545,9 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	private void initComponents() {
 //		setMenuBar(menuBar);
 
-		statusPanel = new JPanel();
-		statusPanel.setLayout(new java.awt.BorderLayout());
-		setStatusBar(statusPanel);
+//		statusPanel = new JPanel();
+//		statusPanel.setLayout(new java.awt.BorderLayout());
+//		setStatusBar(statusPanel);
 	}
 
 	/**
@@ -626,7 +626,7 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 		Invitation invite = JakeContext.getInvitation();
 
 		boolean showLogin = pr == null && invite == null;
-			showLogin = true;
+//			showLogin = true;
 		// determine what to show
 		if (showLogin) {
 			contextViewPanelHolder.setContextViewPanel(ContextPanelEnum.Login);

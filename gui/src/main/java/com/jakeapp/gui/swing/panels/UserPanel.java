@@ -57,7 +57,11 @@ import java.util.Map;
  */
 public class UserPanel extends JXPanel
 				implements RegistrationStatus, CoreChangedCallback, ContextChangedCallback {
-	private ResourceMap resourceMap;
+
+	private final JakeMainApp jakeMainApp;
+	private final ResourceMap resourceMap;
+	private final EventCore eventCore;
+
 	private static final Logger log = Logger.getLogger(UserPanel.class);
 
 	private javax.swing.JRadioButton registerRadioButton;
@@ -87,7 +91,6 @@ public class UserPanel extends JXPanel
 	private boolean autoLoginOnFirstRun = true;
 
 
-	private final JakeMainApp jakeMainApp;
 
 	@Override public void coreChanged() {
 		// called after statup, when core init is done.
@@ -123,14 +126,12 @@ public class UserPanel extends JXPanel
 	/**
 	 * Create the User Panel.
 	 */
-	public UserPanel(JakeMainApp jakeMainApp) {
+	public UserPanel(JakeMainApp jakeMainApp, ResourceMap resourceMap, EventCore eventCore) {
 		this.jakeMainApp = jakeMainApp;
+		this.resourceMap = resourceMap;
+		this.eventCore = eventCore;
 
 
-
-		setResourceMap(org.jdesktop.application.Application
-						.getInstance(com.jakeapp.gui.swing.JakeMainApp.class)
-						.getContext().getResourceMap(UserPanel.class));
 
 		initComponents();
 
@@ -161,10 +162,6 @@ public class UserPanel extends JXPanel
 
 	public ResourceMap getResourceMap() {
 		return resourceMap;
-	}
-
-	public void setResourceMap(ResourceMap resourceMap) {
-		this.resourceMap = resourceMap;
 	}
 
 
@@ -222,11 +219,11 @@ public class UserPanel extends JXPanel
 
 		// the say hello heading
 		JPanel titlePanel =
-						createJakeTitle(getResourceMap().getString("selectUserLabel"));
+						createJakeTitle(resourceMap.getString("selectUserLabel"));
 		loginUserPanel.add(titlePanel, "wrap, gapbottom 20, top, growx, h 80!");
 
 		// add link to create new user
-		JButton createAccountBtn = new JButton(getResourceMap().getString("addUserBtn"));
+		JButton createAccountBtn = new JButton(resourceMap.getString("addUserBtn"));
 		createAccountBtn.putClientProperty("JButton.buttonType", "textured");
 		createAccountBtn.addActionListener(new ActionListener() {
 			@Override
@@ -305,7 +302,7 @@ public class UserPanel extends JXPanel
 		JPanel titlePanel = new JPanel(new MigLayout("nogrid, fill, top, ins 0"));
 		titlePanel.setOpaque(false);
 		JLabel createAccountLabel =
-						new JLabel(getResourceMap().getString("loginMessageLabel"));
+						new JLabel(resourceMap.getString("loginMessageLabel"));
 		createAccountLabel.setIcon(jakeWelcomeIcon);
 		createAccountLabel.setVerticalTextPosition(JLabel.TOP);
 		titlePanel.add(createAccountLabel, "top, center, h 80!");
@@ -313,7 +310,7 @@ public class UserPanel extends JXPanel
 
 		// login existing with service
 		loginRadioButton =
-						new JRadioButton(getResourceMap().getString("loginRadioButton"));
+						new JRadioButton(resourceMap.getString("loginRadioButton"));
 		loginRadioButton.setOpaque(false);
 		loginRadioButton.addActionListener(new ActionListener() {
 			@Override
@@ -325,7 +322,7 @@ public class UserPanel extends JXPanel
 
 		// register new
 		registerRadioButton =
-						new JRadioButton(getResourceMap().getString("registerRadioButton"));
+						new JRadioButton(resourceMap.getString("registerRadioButton"));
 		registerRadioButton.setOpaque(false);
 		registerRadioButton.addActionListener(new ActionListener() {
 			@Override
@@ -389,7 +386,7 @@ public class UserPanel extends JXPanel
 
 		// add back button if there are users
 		try {
-			signInRegisterBackBtn = new JButton(getResourceMap().getString("backBtn"));
+			signInRegisterBackBtn = new JButton(resourceMap.getString("backBtn"));
 			signInRegisterBackBtn.putClientProperty("JButton.buttonType", "textured");
 			signInRegisterBackBtn.addActionListener(new ActionListener() {
 				@Override
@@ -563,18 +560,18 @@ public class UserPanel extends JXPanel
 				// fill the registraton info panel
 				registrationInfoPanel = new JPanel(new MigLayout("wrap 2, ins 0"));
 				JLabel registrationLabel1 =
-								new JLabel(getResourceMap().getString("registrationLabel1"));
+								new JLabel(resourceMap.getString("registrationLabel1"));
 				registrationLabel1.setForeground(Color.DARK_GRAY);
 				registrationInfoPanel.add(registrationLabel1, "span 2, wrap");
 				JLabel registrationLabel2 =
-								new JLabel(getResourceMap().getString("registrationLabel2"));
+								new JLabel(resourceMap.getString("registrationLabel2"));
 				registrationLabel2.setForeground(Color.DARK_GRAY);
 				registrationInfoPanel.add(registrationLabel2);
 				LinkAction linkAction =
-								new LinkAction(getResourceMap().getString("registrationLabel3")) {
+								new LinkAction(resourceMap.getString("registrationLabel3")) {
 									public void actionPerformed(ActionEvent e) {
 										try {
-											Desktop.getDesktop().browse(new URI(getResourceMap().getString(
+											Desktop.getDesktop().browse(new URI(resourceMap.getString(
 															"registrationLabelHyperlink")));
 										} catch (IOException e1) {
 											e1.printStackTrace();
@@ -588,7 +585,7 @@ public class UserPanel extends JXPanel
 				registrationInfoPanel.setOpaque(false);
 				this.add(registrationInfoPanel);
 
-				JLabel serverLabel = new JLabel(getResourceMap().getString("serverLabel"));
+				JLabel serverLabel = new JLabel(resourceMap.getString("serverLabel"));
 				serverLabel.setForeground(Color.DARK_GRAY);
 				serverComboBox = new JComboBox();
 				serverComboBox.setModel(new DefaultComboBoxModel(
@@ -599,14 +596,14 @@ public class UserPanel extends JXPanel
 				this.add(serverLabel, "");
 				this.add(serverComboBox, "width 350!");
 			}
-			userLabel = new JLabel(getResourceMap().getString("usernameLabel"));
+			userLabel = new JLabel(resourceMap.getString("usernameLabel"));
 			userLabel.setForeground(Color.DARK_GRAY);
 			this.add(userLabel);
 
 			userName = new JTextField();
 			this.add(userName, "width 350!");
 
-			JLabel passLabel = new JLabel(getResourceMap().getString("passwordLabel"));
+			JLabel passLabel = new JLabel(resourceMap.getString("passwordLabel"));
 			passLabel.setForeground(Color.DARK_GRAY);
 			this.add(passLabel);
 
@@ -620,7 +617,7 @@ public class UserPanel extends JXPanel
 			this.add(passName, "width 350!");
 
 			rememberPassCheckBox =
-							new JCheckBox(getResourceMap().getString("rememberPasswordCheckBox"));
+							new JCheckBox(resourceMap.getString("rememberPasswordCheckBox"));
 			rememberPassCheckBox.setSelected(true);
 			rememberPassCheckBox.setOpaque(false);
 			this.add(rememberPassCheckBox, addServer ? "" : "split");
@@ -646,7 +643,7 @@ public class UserPanel extends JXPanel
 			if (!addServer) {
 				// Advanced Settings
 				JButton loginAdvancedBtn =
-								new JButton(getResourceMap().getString("advancedServerButton"));
+								new JButton(resourceMap.getString("advancedServerButton"));
 				loginAdvancedBtn.putClientProperty("JButton.buttonType", "textured");
 				loginAdvancedBtn.addActionListener(new ActionListener() {
 					@Override
@@ -704,7 +701,7 @@ public class UserPanel extends JXPanel
 		 * @param str
 		 */
 		public void setUserLabel(String str) {
-			userLabel.setText(getResourceMap().getString(str));
+			userLabel.setText(resourceMap.getString(str));
 		}
 
 		public void cleanPanel() {
@@ -728,7 +725,7 @@ public class UserPanel extends JXPanel
 		loginSuccessPanel.setLayout(new MigLayout("nogrid, al center, fill"));
 
 		JLabel headerLoginSuccess =
-						new JLabel(getResourceMap().getString("signInSuccessHeader"));
+						new JLabel(resourceMap.getString("signInSuccessHeader"));
 		headerLoginSuccess.setFont(Platform.getStyler().getH1Font());
 		headerLoginSuccess.setForeground(Color.WHITE);
 		loginSuccessPanel.add(headerLoginSuccess, "top, center, wrap");
@@ -739,7 +736,7 @@ public class UserPanel extends JXPanel
 
 		// the sign out button
 		JButton signOutButton =
-						new JButton(getResourceMap().getString("signInSuccessSignOut"));
+						new JButton(resourceMap.getString("signInSuccessSignOut"));
 		signOutButton.putClientProperty("JButton.buttonType", "textured");
 		signOutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
@@ -766,12 +763,12 @@ public class UserPanel extends JXPanel
 
 		loginSuccessPanel.add(iconSuccess, "wrap, al center");
 
-		JLabel messageSuccess1 = new JLabel(getResourceMap().getString("dragDropHint1"));
+		JLabel messageSuccess1 = new JLabel(resourceMap.getString("dragDropHint1"));
 		messageSuccess1.setFont(Platform.getStyler().getH1Font());
 		messageSuccess1.setForeground(Color.DARK_GRAY);
 		loginSuccessPanel.add(messageSuccess1, "wrap, al center");
 
-		JLabel messageSuccess2 = new JLabel(getResourceMap().getString("dragDropHint2"));
+		JLabel messageSuccess2 = new JLabel(resourceMap.getString("dragDropHint2"));
 		messageSuccess2.setFont(Platform.getStyler().getH1Font());
 		messageSuccess2.setForeground(Color.DARK_GRAY);
 		loginSuccessPanel.add(messageSuccess2, "al center");
@@ -814,9 +811,9 @@ public class UserPanel extends JXPanel
 
 
 		if (isModeSignIn()) {
-			signInRegisterButton.setText(getResourceMap().getString("loginSignIn"));
+			signInRegisterButton.setText(resourceMap.getString("loginSignIn"));
 		} else {
-			signInRegisterButton.setText(getResourceMap().getString("loginRegister"));
+			signInRegisterButton.setText(resourceMap.getString("loginRegister"));
 		}
 		updateSignInRegisterModeButtons();
 	}
@@ -927,7 +924,7 @@ public class UserPanel extends JXPanel
 
 				if (status == RegisterStati.RegistrationActive) {
 					signInRegisterButton
-									.setText(getResourceMap().getString("loginRegisterProceed"));
+									.setText(resourceMap.getString("loginRegisterProceed"));
 					signInRegisterButton.setEnabled(false);
 				}
 			}
@@ -1010,7 +1007,7 @@ public class UserPanel extends JXPanel
 			this.add(userLabel, "span 2, gapbottom 8");
 
 			JLabel passLabel =
-							new JLabel(getResourceMap().getString("passwordLabel") + ":");
+							new JLabel(resourceMap.getString("passwordLabel") + ":");
 			this.add(passLabel, "left");
 
 			passField = new JPasswordField();
@@ -1019,7 +1016,7 @@ public class UserPanel extends JXPanel
 			this.add(passField, "w 200!");
 
 			rememberPassCheckBox =
-							new JCheckBox(getResourceMap().getString("rememberPasswordCheckBox")
+							new JCheckBox(resourceMap.getString("rememberPasswordCheckBox")
 
 							);
 			rememberPassCheckBox.setSelected(true);
@@ -1036,7 +1033,7 @@ public class UserPanel extends JXPanel
 			);
 			this.add(rememberPassCheckBox, "span 2");
 
-			JButton deleteUserBtn = new JButton(getResourceMap().getString("deleteUser"));
+			JButton deleteUserBtn = new JButton(resourceMap.getString("deleteUser"));
 			deleteUserBtn.putClientProperty("JButton.buttonType", "textured");
 			deleteUserBtn.addActionListener(new
 
@@ -1058,7 +1055,7 @@ public class UserPanel extends JXPanel
 							});
 			this.add(deleteUserBtn, "left, bottom");
 
-			signInBtn = new JButton(getResourceMap().getString("loginSignInOnly"));
+			signInBtn = new JButton(resourceMap.getString("loginSignInOnly"));
 			signInBtn.putClientProperty("JButton.buttonType", "textured");
 			signInBtn.addActionListener(loginAction);
 			this.add(signInBtn, "right, bottom");

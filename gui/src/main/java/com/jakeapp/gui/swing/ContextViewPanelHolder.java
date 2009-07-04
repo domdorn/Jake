@@ -28,7 +28,6 @@ public class ContextViewPanelHolder {
 	public void setContextViewPanel(ContextPanelEnum view) {
 		this.contextViewPanel = view;
 
-
 		contentPanelHolder.showContentPanel(loginPanel, view == ContextPanelEnum.Login);
 		contentPanelHolder.showContentPanel(invitationPanel, view == ContextPanelEnum.Invitation);
 		JakeMainView.getMainView().updateProjectViewPanel();

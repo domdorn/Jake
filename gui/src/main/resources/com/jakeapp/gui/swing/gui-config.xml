@@ -39,6 +39,8 @@
 
     <bean id="loginPanel" class="com.jakeapp.gui.swing.panels.UserPanel">
         <constructor-arg ref="jakeMainApp"/>
+        <constructor-arg ref="eventCore" />
+        <constructor-arg ref="resourceMap" />
     </bean>
 
 
@@ -96,17 +98,7 @@
         <constructor-arg ref="projectViewHolder"/>
     </bean>
 
-    <bean id="jakeMenuBar" class="com.jakeapp.gui.swing.helpers.JakeMenuBar">
-        <constructor-arg index="0" type="com.jakeapp.gui.swing.helpers.ProjectHelper" ref="projectHelper"/>
-        <constructor-arg index="1" type="org.jdesktop.application.ResourceMap" ref="resourceMap"/>
-        <constructor-arg index="2" type="com.jakeapp.gui.swing.ContextViewChangedHolder"
-                         ref="contextViewChangedHolder"/>
-        <constructor-arg index="3" type="com.jakeapp.gui.swing.ContextViewPanelHolder" ref="contextViewPanelHolder"/>
-        <constructor-arg index="4" type="com.jakeapp.gui.swing.xcore.EventCore" ref="eventCore"/>
-        <constructor-arg index="5" type="com.jakeapp.gui.swing.panels.FilePanel" ref="filePanel"/>
-        <constructor-arg index="6" type="com.jakeapp.gui.swing.panels.NotesPanel" ref="notesPanel"/>
-        <constructor-arg index="7" type="com.jakeapp.gui.swing.InspectorStateHolder" ref="inspectorStateHolder"/>
-    </bean>
+
 
 
     <!-- panels -->
@@ -141,6 +133,15 @@
 
     <bean id="contentPanelHolder" class="com.jakeapp.gui.swing.ContentPanelHolder"/>
 
+
+
+    <import resource="mainWindow-config.xml" />
+
+
+
+
+
+
     <bean id="jakeMainView" class="com.jakeapp.gui.swing.JakeMainView">
         <constructor-arg index="0" type="com.jakeapp.gui.swing.JakeMainApp" ref="jakeMainApp"/>
         <constructor-arg index="1" type="com.jakeapp.gui.swing.xcore.EventCore" ref="eventCore"/>
@@ -165,8 +166,23 @@
         <!--<constructor-arg index="4" type="com.jakeapp.gui.swing.helpers.JakeMenuBar" ref="jakeMenuBar" />-->
         <!--<constructor-arg index="2" type="com.jakeapp.gui.swing.panels.InspectorPanel" ref="inspectorPanel"/>-->
         <!--<constructor-arg index="2" type="com.jakeapp.gui.swing.panels.InvitationPanel" ref="invitationPanel"/>-->
+
         <property name="menuBar" ref="jakeMenuBar"/>
 
+
+        <property name="statusBar" ref="statusPanel" />
+    </bean>
+
+
+    <bean id="viewController" class="com.jakeapp.gui.swing.ViewController">
+        <constructor-arg index="0" type="com.jakeapp.gui.swing.JakeMainView" ref="jakeMainView" />
+        <constructor-arg index="1" ref="filePanel" />
+        <constructor-arg index="2" ref="inspectorPanel" />
+        <constructor-arg index="3" ref="invitationPanel" />
+        <constructor-arg index="4" ref="newsPanel" />
+        <constructor-arg index="5" ref="notesPanel" />
+        <constructor-arg index="6" ref="loginPanel" />
+        <constructor-arg index="7" ref="contentPanelHolder" />
     </bean>
 
 

@@ -75,10 +75,15 @@ public class JakeMainApp extends SingleFrameApplication {
 
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("/com/jakeapp/gui/swing/gui-config.xml");
 
-		JakeMainView mainView = (JakeMainView) ctx.getBean("jakeMainView", JakeMainView.class);
 
+		ViewController viewController = (ViewController) ctx.getBean("viewController", ViewController.class);
 
-		show(mainView);
+		viewController.showMainWindow();
+
+//		JakeMainView mainView = (JakeMainView) ctx.getBean("jakeMainView", JakeMainView.class);
+//
+//
+//		show(mainView);
 		
 //		show(new JakeMainView(this));
 	}

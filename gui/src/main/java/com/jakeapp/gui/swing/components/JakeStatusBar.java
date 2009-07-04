@@ -250,6 +250,11 @@ public class JakeStatusBar extends JakeGuiComponent
 	private final ResourceMap resourceMap;
 	private final ContextViewPanelHolder contextViewPanelHolder;//contextViewPanelHolder.setContextViewPanel
 
+
+	public ResourceMap getResourceMap() {
+		return resourceMap;
+	}
+
 	public JakeStatusBar(EventCore eventCore, ContextViewPanelHolder contextViewPanelHolder, ResourceMap resourceMap) {
 		super();
 		this.eventCore = eventCore;
@@ -262,8 +267,8 @@ public class JakeStatusBar extends JakeGuiComponent
 		eventCore.addTasksChangedListener(this);
 		eventCore.addConnectionStatusCallbackListener(this);
 
-		JakeMainView.getMainView().addProjectViewChangedListener(this);
-		JakeMainView.getMainView().addContextViewChangedListener(this);
+//		JakeMainView.getMainView().addProjectViewChangedListener(this);
+//		JakeMainView.getMainView().addContextViewChangedListener(this);
 
 		statusBar = createStatusBar();
 	}
