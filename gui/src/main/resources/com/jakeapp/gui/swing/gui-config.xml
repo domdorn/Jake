@@ -6,7 +6,7 @@
 
     <!--<bean id="propertyPlaceholderConfigurer"-->
     <!--class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
-    <!--<property name="location" value="/com/jakeapp/gui/swing/resources/JakeMainView.properties"/>-->
+    <!--<property name="location" value="/com/jakeapp/gui/swing/resources/MainWindow.properties"/>-->
     <!--</bean>-->
 
     <bean id="jakeMainApp" class="com.jakeapp.gui.swing.JakeMainApp" factory-method="getInstance">
@@ -142,7 +142,7 @@
 
 
 
-    <bean id="jakeMainView" class="com.jakeapp.gui.swing.JakeMainView">
+    <bean id="jakeMainView" class="com.jakeapp.gui.swing.MainWindow">
         <constructor-arg index="0" type="com.jakeapp.gui.swing.JakeMainApp" ref="jakeMainApp"/>
         <constructor-arg index="1" type="com.jakeapp.gui.swing.xcore.EventCore" ref="eventCore"/>
         <constructor-arg index="2" type="com.jakeapp.gui.swing.panels.UserPanel" ref="loginPanel"/>
@@ -175,7 +175,7 @@
 
 
     <bean id="viewController" class="com.jakeapp.gui.swing.ViewController">
-        <constructor-arg index="0" type="com.jakeapp.gui.swing.JakeMainView" ref="jakeMainView" />
+        <constructor-arg index="0" type="com.jakeapp.gui.swing.MainWindow" ref="jakeMainView" />
         <constructor-arg index="1" ref="filePanel" />
         <constructor-arg index="2" ref="inspectorPanel" />
         <constructor-arg index="3" ref="invitationPanel" />

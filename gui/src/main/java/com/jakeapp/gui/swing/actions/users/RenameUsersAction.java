@@ -1,6 +1,6 @@
 package com.jakeapp.gui.swing.actions.users;
 
-import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.MainWindow;
 import com.jakeapp.gui.swing.ContextPanelEnum;
 import com.jakeapp.gui.swing.ContextViewPanelHolder;
 import com.jakeapp.gui.swing.actions.abstracts.UserAction;
@@ -25,7 +25,7 @@ public class RenameUsersAction extends UserAction {
 		super(mutable);
 		this.contextViewPanelHolder = contextViewPanelHolder;
 
-		String actionStr = JakeMainView.getMainView().getResourceMap().
+		String actionStr = MainWindow.getMainView().getResourceMap().
 						getString("renamePeopleMenuItem.text");
 
 		putValue(Action.NAME, actionStr);
@@ -42,7 +42,7 @@ public class RenameUsersAction extends UserAction {
 		log.info("Rename ProjectMember " + getMutable() + " from" + getProject());
 
 		// ensure that users panel is visible
-//		JakeMainView.getMainView()
+//		MainWindow.getMainView()
 //						.setContextViewPanel(ContextPanelEnum.Project);
 
 		contextViewPanelHolder.setContextViewPanel(ContextPanelEnum.Project);

@@ -2,7 +2,7 @@ package com.jakeapp.gui.swing.dialogs.generic;
 
 import com.jakeapp.core.domain.Project;
 import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.MainWindow;
 import com.jakeapp.gui.swing.helpers.ImageLoader;
 import com.jakeapp.gui.swing.helpers.Platform;
 import net.miginfocom.swing.MigLayout;
@@ -48,7 +48,7 @@ public abstract class JakeDialog extends EscapeDialog {
 	 * @param project
 	 */
 	public JakeDialog(Project project) {
-		super(JakeMainView.getMainView().getFrame());
+		super(MainWindow.getMainView().getFrame());
 		this.project = project;
 	}
 

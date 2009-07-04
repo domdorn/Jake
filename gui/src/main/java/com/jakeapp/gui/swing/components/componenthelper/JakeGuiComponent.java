@@ -3,7 +3,7 @@ package com.jakeapp.gui.swing.components.componenthelper;
 import com.jakeapp.core.domain.Project;
 import com.jakeapp.gui.swing.callbacks.ContextChangedCallback;
 import com.jakeapp.gui.swing.globals.JakeContext;
-import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.MainWindow;
 import org.jdesktop.application.ResourceMap;
 
 import java.util.EnumSet;
@@ -15,7 +15,7 @@ public abstract class JakeGuiComponent implements ContextChangedCallback {
     }
 
     protected ResourceMap getResourceMap() {
-        return JakeMainView.getStaticResouceMap();
+        return MainWindow.getStaticResouceMap();
     }
 
     public Project getProject() {

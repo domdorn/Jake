@@ -1,7 +1,6 @@
 package com.jakeapp.gui.swing.helpers;
 
 import com.jakeapp.core.domain.Project;
-import com.jakeapp.gui.swing.JakeMainView;
 
 /**
  * @author: studpete

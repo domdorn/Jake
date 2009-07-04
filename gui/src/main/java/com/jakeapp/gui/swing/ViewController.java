@@ -8,7 +8,7 @@ import com.jakeapp.gui.swing.panels.*;
 public class ViewController {
 
 	/* main window */
-	private final JakeMainView jakeMainView;
+	private final MainWindow mainWindow;
 
 
 	private final FilePanel filePanel;
@@ -34,14 +34,14 @@ public class ViewController {
 		this.currentContextPanelView = currentContextPanelView;
 	}
 
-	public ViewController(JakeMainView jakeMainView,
+	public ViewController(MainWindow mainWindow,
 						  FilePanel filePanel,
 						  InspectorPanel inspectorPanel,
 						  InvitationPanel invitationPanel,
 						  NewsPanel newsPanel,
 						  NotesPanel notesPanel,
 						  UserPanel userPanel, ContentPanelHolder contentPanelHolder) {
-		this.jakeMainView = jakeMainView;
+		this.mainWindow = mainWindow;
 
 		this.filePanel = filePanel;
 		this.inspectorPanel = inspectorPanel;
@@ -56,17 +56,17 @@ public class ViewController {
 
 	public void showMainWindow()
 	{
-		jakeMainView.getFrame().setVisible(true);
-		jakeMainView.getFrame().toFront();
+		mainWindow.getFrame().setVisible(true);
+		mainWindow.getFrame().toFront();
 		showSubView();
-//		JakeMainView.getMainView().getFrame().setVisible(visible);
-//		JakeMainView.getMainView().getFrame().toFront();
+//		MainWindow.getMainView().getFrame().setVisible(visible);
+//		MainWindow.getMainView().getFrame().toFront();
 	}
 
 
 	public void hideMainWindow()
 	{
-		jakeMainView.getFrame().setVisible(false);
+		mainWindow.getFrame().setVisible(false);
 	}
 
 	private void showSubView()

@@ -31,7 +31,7 @@ public class InspectorStateHolder {
 		this.inspectorEnabled = inspectorEnabled;
 
 //		updateInspectorPanelVisibility();
-		// this gets done in JakeMainView
+		// this gets done in MainWindow
 	}
 
 
@@ -64,7 +64,7 @@ public class InspectorStateHolder {
 //		if (!isInspectorAllowed()) {
 //			contentPanelSplit.setDividerSize(0);
 //		} else {
-//			contentPanelSplit.setDividerSize(JakeMainView.CONTENT_SPLITTERSIZE);
+//			contentPanelSplit.setDividerSize(MainWindow.CONTENT_SPLITTERSIZE);
 //		}
 //
 //		// refresh panel

@@ -6,7 +6,7 @@ import com.jakeapp.core.domain.User;
 import com.jakeapp.core.services.MsgService;
 import com.jakeapp.gui.swing.callbacks.ContextChangedCallback;
 import com.jakeapp.gui.swing.xcore.EventCore;
-import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.MainWindow;
 import com.jakeapp.gui.swing.JakeMainApp;
 
 import javax.swing.*;
@@ -26,7 +26,7 @@ public class JakeContext {
 	 * Convenience call to get the main gui frame faster.
 	 */
 	public static JFrame getFrame() {
-		return JakeMainView.getMainView().getFrame();
+		return MainWindow.getMainView().getFrame();
 	}
 
 	public static Project getProject() {

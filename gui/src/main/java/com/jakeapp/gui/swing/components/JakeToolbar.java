@@ -124,7 +124,7 @@ public class JakeToolbar {
 		toolBar.addComponentToLeft(createProjectButton, 10);
 
 		// Add Files
-		Icon addFilesIcon = ImageLoader.getScaled(JakeMainView.class,
+		Icon addFilesIcon = ImageLoader.getScaled(MainWindow.class,
 				"/icons/toolbar-addfiles.png", 32);
 
 		JButton jCreateAddFilesButton = new JButton(resourceMap.getString("toolbarAddFiles"),
@@ -208,7 +208,7 @@ public class JakeToolbar {
 					toolBar.addComponentToRight(lockButton, 10);
 	*/
 
-		Icon inspectorIcon = ImageLoader.getScaled(JakeMainView.class,
+		Icon inspectorIcon = ImageLoader.getScaled(MainWindow.class,
 				"/icons/inspector.png", 32);
 		JButton inspectorJButton = new JButton("Inspector", inspectorIcon);
 		inspectorJButton.addActionListener(new ActionListener() {

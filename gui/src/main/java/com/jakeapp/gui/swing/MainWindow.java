@@ -42,16 +42,15 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.Arrays;
 import java.util.EnumSet;
-import java.util.List;
 
 
 /**
  * The application's main frame.
  */
-public class JakeMainView extends FrameView implements ContextChangedCallback {
-	private static final Logger log = Logger.getLogger(JakeMainView.class);
+public class MainWindow extends FrameView implements ContextChangedCallback {
+	private static final Logger log = Logger.getLogger(MainWindow.class);
 	public static final int CONTENT_SPLITTERSIZE = 2;
-	private static JakeMainView mainView;
+	private static MainWindow mainWindow;
 	private final EventCore eventCore;
 
 	private final JakeMainApp jakeMainApp;
@@ -150,8 +149,8 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	}
 
 
-	//	public JakeMainView(SingleFrameApplication app) {
-	public JakeMainView(JakeMainApp app,
+	//	public MainWindow(SingleFrameApplication app) {
+	public MainWindow(JakeMainApp app,
 						EventCore eventCore,
 						UserPanel loginPanel,
 						NewsPanel newsPanel,
@@ -396,7 +395,7 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	 * @return the JakeMainView Resource Map.
 	 */
 	public static ResourceMap getStaticResouceMap() {
-		return mainView.getResourceMap();
+		return mainWindow.getResourceMap();
 	}
 
 
@@ -640,12 +639,12 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	}
 
 
-	public static JakeMainView getMainView() {
-		return mainView;
+	public static MainWindow getMainView() {
+		return mainWindow;
 	}
 
-	private static void setMainView(JakeMainView mainView) {
-		JakeMainView.mainView = mainView;
+	private static void setMainView(MainWindow mainWindow) {
+		MainWindow.mainWindow = mainWindow;
 	}
 
 
@@ -674,23 +673,23 @@ public class JakeMainView extends FrameView implements ContextChangedCallback {
 	}
 
 	public static boolean isMainWindowVisible() {
-		return JakeMainView.getMainView().getFrame().isVisible();
+		return MainWindow.getMainView().getFrame().isVisible();
 	}
 
 	public static void setMainWindowVisible(boolean visible) {
-		JakeMainView.getMainView().getFrame().setVisible(visible);
-		JakeMainView.getMainView().getFrame().toFront();
-		//JakeMainView.getMainView().getFrame().requestFocus();
+		MainWindow.getMainView().getFrame().setVisible(visible);
+		MainWindow.getMainView().getFrame().toFront();
+		//MainWindow.getMainView().getFrame().requestFocus();
 	}
 
 	public static void toggleShowHideMainWindow() {
 		if (!isMainWindowVisible()) {
-			//JakeMainView.getMainView().getFrame().setExtendedState(JFrame.ICONIFIED);
+			//MainWindow.getMainView().getFrame().setExtendedState(JFrame.ICONIFIED);
 		}
-		JakeMainView.getMainView().getFrame().setVisible(!isMainWindowVisible());
+		MainWindow.getMainView().getFrame().setVisible(!isMainWindowVisible());
 		if (isMainWindowVisible()) {
-			//JakeMainView.getMainView().getFrame().requestFocus();
-			//JakeMainView.getMainView().getFrame().setExtendedState(JFrame.NORMAL);
+			//MainWindow.getMainView().getFrame().requestFocus();
+			//MainWindow.getMainView().getFrame().setExtendedState(JFrame.NORMAL);
 		}
 	}
 

@@ -102,7 +102,7 @@ public class InspectorPanel extends JXPanel
 		
 		notesPanel.addNoteSelectionListener(this);
 		projectViewChangedHolder.add(this);
-//		JakeMainView.getMainView().addProjectViewChangedListener(this);
+//		MainWindow.getMainView().addProjectViewChangedListener(this);
 
 		this.mode = Mode.NONE;
 

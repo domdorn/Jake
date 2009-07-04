@@ -5,7 +5,7 @@ import com.jakeapp.gui.swing.panels.InvitationPanel;
 import com.jakeapp.gui.swing.callbacks.ContextViewChangedCallback;
 
 public class ContextViewPanelHolder {
-//	private final JakeMainView jakeMainView;
+//	private final MainWindow jakeMainView;
 	private ContextPanelEnum contextViewPanel = ContextPanelEnum.Login; // default Start View
 
 	private final UserPanel loginPanel;
@@ -30,7 +30,7 @@ public class ContextViewPanelHolder {
 
 		contentPanelHolder.showContentPanel(loginPanel, view == ContextPanelEnum.Login);
 		contentPanelHolder.showContentPanel(invitationPanel, view == ContextPanelEnum.Invitation);
-		JakeMainView.getMainView().updateProjectViewPanel();
+		MainWindow.getMainView().updateProjectViewPanel();
 
 		this.fireContextViewChanged();
 

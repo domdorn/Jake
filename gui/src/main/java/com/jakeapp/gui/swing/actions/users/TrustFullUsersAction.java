@@ -1,7 +1,6 @@
 package com.jakeapp.gui.swing.actions.users;
 
 import com.jakeapp.core.domain.TrustState;
-import com.jakeapp.gui.swing.JakeMainView;
 
 import javax.swing.*;
 

@@ -1,6 +1,5 @@
 package com.jakeapp.gui.swing.actions.view;
 
-import com.jakeapp.gui.swing.JakeMainView;
 import com.jakeapp.gui.swing.ContextViewChangedHolder;
 import com.jakeapp.gui.swing.ContextPanelEnum;
 import com.jakeapp.gui.swing.ContextViewPanelHolder;

@@ -1,6 +1,5 @@
 package com.jakeapp.gui.swing.actions.project;
 
-import com.jakeapp.gui.swing.JakeMainView;
 import com.jakeapp.gui.swing.actions.abstracts.ProjectAction;
 import com.jakeapp.gui.swing.dialogs.DeleteProjectDialog;
 import org.apache.log4j.Logger;

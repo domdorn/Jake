@@ -1,7 +1,7 @@
 package com.jakeapp.gui.swing.actions.project;
 
 import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.MainWindow;
 import com.jakeapp.gui.swing.actions.abstracts.ProjectAction;
 import com.jakeapp.gui.swing.dialogs.generic.JSheet;
 import com.jakeapp.gui.swing.dialogs.generic.SheetEvent;
@@ -34,8 +34,8 @@ public class RenameProjectAction extends ProjectAction {
 		//currently there is no support for that.
 		//so we stick with a dialog (or within newspanel?)
 
-		JSheet.showInputSheet(JakeMainView.getMainView().getFrame(),
-				  JakeMainView.getMainView().getResourceMap().getString("projectRenameInput"),
+		JSheet.showInputSheet(MainWindow.getMainView().getFrame(),
+				  MainWindow.getMainView().getResourceMap().getString("projectRenameInput"),
 				  JOptionPane.PLAIN_MESSAGE, null, null, getProject().getName(), new SheetListener() {
 					  @Override
 					  public void optionSelected(SheetEvent evt) {

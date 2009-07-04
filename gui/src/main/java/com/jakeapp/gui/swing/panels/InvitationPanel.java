@@ -1,7 +1,6 @@
 package com.jakeapp.gui.swing.panels;
 
 import com.jakeapp.core.domain.Invitation;
-import com.jakeapp.gui.swing.JakeMainView;
 import com.jakeapp.gui.swing.actions.project.JoinProjectAction;
 import com.jakeapp.gui.swing.actions.project.RejectInvitationAction;
 import com.jakeapp.gui.swing.callbacks.ContextChangedCallback;

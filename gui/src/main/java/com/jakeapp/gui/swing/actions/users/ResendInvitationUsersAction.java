@@ -2,7 +2,6 @@ package com.jakeapp.gui.swing.actions.users;
 
 import com.jakeapp.core.synchronization.UserInfo;
 import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.JakeMainView;
 import com.jakeapp.gui.swing.actions.abstracts.UserAction;
 import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.helpers.UserHelper;

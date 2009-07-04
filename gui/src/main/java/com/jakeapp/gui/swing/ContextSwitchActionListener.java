@@ -16,7 +16,7 @@ class ContextSwitchActionListener implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent event) {
-		JakeMainView.getMainView().setProjectViewFromToolBarButtons();
+		MainWindow.getMainView().setProjectViewFromToolBarButtons();
 	}
 
 //		public void setProjectViewFromToolBarButtons() {

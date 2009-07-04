@@ -1,7 +1,7 @@
 package com.jakeapp.gui.swing.helpers;
 
 import com.jakeapp.core.domain.Project;
-import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.MainWindow;
 import com.jakeapp.gui.swing.ContextViewChangedHolder;
 import com.jakeapp.gui.swing.ContextViewPanelHolder;
 import com.jakeapp.gui.swing.InspectorStateHolder;
@@ -160,7 +160,7 @@ public class JakeMenuBar extends JMenuBar {
 
 		javax.swing.ActionMap actionMap = org.jdesktop.application.Application
 						.getInstance(com.jakeapp.gui.swing.JakeMainApp.class).getContext()
-						.getActionMap(JakeMainView.class, JakeMainView.getMainView());
+						.getActionMap(MainWindow.class, MainWindow.getMainView());
 		visitWebsiteMenuItem.setAction(actionMap.get("showJakeWebsite")); // NOI18N
 
 		visitWebsiteMenuItem
@@ -412,7 +412,7 @@ public class JakeMenuBar extends JMenuBar {
 
 				public void actionPerformed(ActionEvent e) {
 					log.trace("reopen");
-					JakeMainView.setMainWindowVisible(true);
+					MainWindow.setMainWindowVisible(true);
 				}
 			});
 
@@ -432,6 +432,6 @@ public class JakeMenuBar extends JMenuBar {
 
 	private void quit() {
 		log.trace("calling quit from MenuBar");
-		JakeMainView.getMainView().quit();
+		MainWindow.getMainView().quit();
 	}
 }

@@ -1,7 +1,6 @@
 package com.jakeapp.gui.swing.actions.project;
 
 import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.JakeMainView;
 import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.actions.abstracts.JakeAction;
 import org.apache.log4j.Logger;

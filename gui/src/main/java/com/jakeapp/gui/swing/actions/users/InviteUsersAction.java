@@ -1,6 +1,5 @@
 package com.jakeapp.gui.swing.actions.users;
 
-import com.jakeapp.gui.swing.JakeMainView;
 import com.jakeapp.gui.swing.actions.abstracts.ProjectAction;
 import com.jakeapp.gui.swing.actions.project.StartStopProjectAction;
 import com.jakeapp.gui.swing.dialogs.InvitePeopleDialog;
@@ -10,7 +9,6 @@ import org.apache.log4j.Logger;
 import org.jdesktop.application.ResourceMap;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 
 /**

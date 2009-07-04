@@ -3,7 +3,7 @@ package com.jakeapp.gui.swing.helpers;
 import com.jakeapp.core.domain.FileObject;
 import com.jakeapp.core.domain.Invitation;
 import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.MainWindow;
 import com.jakeapp.gui.swing.exceptions.FileOperationFailedException;
 import net.roydesign.ui.FolderDialog;
 import org.apache.log4j.Logger;
@@ -51,7 +51,7 @@ public class FileUtilities {
 		// uses the awt native folder dialog on mac
 		if (Platform.isMac()) {
 			// TODO: can we put that into a sheet?
-			FolderDialog fod = new FolderDialog(JakeMainView.getMainView().getFrame(),
+			FolderDialog fod = new FolderDialog(MainWindow.getMainView().getFrame(),
 							"Choose Directory");
 			if (defaultFolder != null) {
 				fod.setFile(defaultFolder);

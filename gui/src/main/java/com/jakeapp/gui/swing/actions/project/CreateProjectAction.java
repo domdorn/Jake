@@ -1,7 +1,7 @@
 package com.jakeapp.gui.swing.actions.project;
 
 import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.MainWindow;
 import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.actions.abstracts.ProjectAction;
 import com.jakeapp.gui.swing.helpers.FileUtilities;
@@ -40,7 +40,7 @@ public class CreateProjectAction extends ProjectAction {
 		log.info("Create Project action invoked");
 
 		String path = FileUtilities.openDirectoryChooser(null,
-						JakeMainView.getMainView().getResourceMap().getString(
+						MainWindow.getMainView().getResourceMap().getString(
 										"createProjectDialogTitle"));
 		log.info("Directory was: " + path);
 

@@ -2,7 +2,7 @@ package com.jakeapp.gui.swing.helpers;
 
 import com.jakeapp.core.domain.JakeObject;
 import com.jakeapp.core.synchronization.attributes.Attributed;
-import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.MainWindow;
 import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.dialogs.generic.JSheet;
 import org.apache.log4j.Logger;
@@ -32,7 +32,7 @@ public class JakeHelper {
 	 * @param msgType
 	 */
 	public static void showMsgTranslated(String msgCode, int msgType) {
-		showMsg(JakeMainView.getMainView().getResourceMap().getString(msgCode), msgType);
+		showMsg(MainWindow.getMainView().getResourceMap().getString(msgCode), msgType);
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class JakeHelper {
 	 */
 	public static void showMsg(String msg, int msgType) {
 		log.info("Show Msg: " + msg + "(Type: " + msgType + ")");
-		JSheet.showMessageSheet(JakeMainView.getMainView().getFrame(),
+		JSheet.showMessageSheet(MainWindow.getMainView().getFrame(),
 				  msg, msgType);
 	}
 
@@ -53,7 +53,7 @@ public class JakeHelper {
 
 	public static void showJakeWebsite() {
 		try {
-			Desktop.getDesktop().browse(new URI(JakeMainView.getMainView().getResourceMap().getString("JakeWebsite")));
+			Desktop.getDesktop().browse(new URI(MainWindow.getMainView().getResourceMap().getString("JakeWebsite")));
 		} catch (IOException e) {
 			log.warn("Unable to open Website!", e);
 		} catch (URISyntaxException e) {

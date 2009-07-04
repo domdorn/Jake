@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 import com.jakeapp.core.util.SpringThreadBroker;
 import com.jakeapp.gui.swing.ICoreAccess;
 import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.MainWindow;
 import com.jakeapp.gui.swing.dialogs.generic.JSheet;
 import com.jakeapp.gui.swing.helpers.ExceptionUtilities;
 import com.jakeapp.gui.swing.worker.JakeExecutor;
@@ -60,7 +60,7 @@ public class InitCoreTask extends SwingWorker<ICoreAccess, Void>
 
 		if (!success) {
 			String msg = "Failed to login to backend";
-			JSheet.showMessageSheet(JakeMainView.getMainView().getFrame(), msg);
+			JSheet.showMessageSheet(MainWindow.getMainView().getFrame(), msg);
 			log.warn(msg);
 			ExceptionUtilities.showError(msg);
 		}

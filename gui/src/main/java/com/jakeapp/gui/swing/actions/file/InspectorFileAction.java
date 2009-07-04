@@ -1,6 +1,6 @@
 package com.jakeapp.gui.swing.actions.file;
 
-import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.MainWindow;
 import com.jakeapp.gui.swing.InspectorStateHolder;
 import com.jakeapp.gui.swing.panels.FilePanel;
 import com.jakeapp.gui.swing.xcore.EventCore;
@@ -37,7 +37,7 @@ public class InspectorFileAction extends FileAction {
 	private String getName() {
 
 		// TO DO fixme!
-//		return resourceMap.getString(JakeMainView.getMainView().isInspectorEnabled() ?
+//		return resourceMap.getString(MainWindow.getMainView().isInspectorEnabled() ?
 //										"hideInspectorMenuItem.text" : "showInspectorMenuItem.text");
 
 //		return resourceMap.getString(true ?
@@ -51,7 +51,7 @@ public class InspectorFileAction extends FileAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// If it is visible, hide it, if it's not, show it!
-		JakeMainView.getMainView()
-				.setInspectorEnabled(!JakeMainView.getMainView().isInspectorEnabled());
+		MainWindow.getMainView()
+				.setInspectorEnabled(!MainWindow.getMainView().isInspectorEnabled());
 	}
 }

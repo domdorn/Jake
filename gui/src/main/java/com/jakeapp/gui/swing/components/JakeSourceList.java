@@ -11,7 +11,6 @@ import com.jakeapp.core.domain.Invitation;
 import com.jakeapp.core.domain.Project;
 import com.jakeapp.core.domain.exceptions.FrontendNotLoggedInException;
 import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.JakeMainView;
 import com.jakeapp.gui.swing.ContextPanelEnum;
 import com.jakeapp.gui.swing.actions.project.CreateProjectAction;
 import com.jakeapp.gui.swing.actions.project.DeleteProjectAction;
@@ -184,8 +183,8 @@ public class JakeSourceList extends JakeGuiComponent
 					//JakeMainApp.getInstance().setProject(null);
 
 					// show the login context panel
-					//JakeMainView.getMainView()
-					//				.setContextViewPanel(JakeMainView.ContextPanelEnum.Login);
+					//MainWindow.getMainView()
+					//				.setContextViewPanel(MainWindow.ContextPanelEnum.Login);
 				}
 			}
 		};

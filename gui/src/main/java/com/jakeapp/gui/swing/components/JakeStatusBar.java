@@ -267,8 +267,8 @@ public class JakeStatusBar extends JakeGuiComponent
 		eventCore.addTasksChangedListener(this);
 		eventCore.addConnectionStatusCallbackListener(this);
 
-//		JakeMainView.getMainView().addProjectViewChangedListener(this);
-//		JakeMainView.getMainView().addContextViewChangedListener(this);
+//		MainWindow.getMainView().addProjectViewChangedListener(this);
+//		MainWindow.getMainView().addContextViewChangedListener(this);
 
 		statusBar = createStatusBar();
 	}
@@ -346,7 +346,7 @@ public class JakeStatusBar extends JakeGuiComponent
 				statusLabel.getFont().deriveFont(statusLabel.getFont().getSize() - 2f));
 
 		bottomBar.addComponentToCenter(statusLabel);
-		bottomBar.installWindowDraggerOnWindow(JakeMainView.getMainView().getFrame());
+		bottomBar.installWindowDraggerOnWindow(MainWindow.getMainView().getFrame());
 
 		progressDrawer = new SpinningWheelComponent();
 		progressDrawer.setVisible(false);

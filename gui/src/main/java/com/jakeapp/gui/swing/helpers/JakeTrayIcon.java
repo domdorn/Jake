@@ -1,6 +1,6 @@
 package com.jakeapp.gui.swing.helpers;
 
-import com.jakeapp.gui.swing.JakeMainView;
+import com.jakeapp.gui.swing.MainWindow;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -32,7 +32,7 @@ public class JakeTrayIcon {
 				public void mouseClicked(MouseEvent e) {
 					if (e.getClickCount() == 2 && SwingUtilities
 									.isLeftMouseButton(e) && !Platform.isMac()) {
-						JakeMainView.toggleShowHideMainWindow();
+						MainWindow.toggleShowHideMainWindow();
 					}
 				}
 
@@ -61,7 +61,7 @@ public class JakeTrayIcon {
 			ActionListener showJakeListener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					log.info("Showing main window");
-					JakeMainView.toggleShowHideMainWindow();
+					MainWindow.toggleShowHideMainWindow();
 				}
 			};
 
@@ -103,11 +103,11 @@ public class JakeTrayIcon {
 	}
 
 	private void quit() {
-		JakeMainView.getMainView().quit();
+		MainWindow.getMainView().quit();
 	}
 
 	private String getShowHideWindowString() {
-		return JakeMainView.getStaticResouceMap().getString(
-						JakeMainView.isMainWindowVisible() ? "windowHide" : "windowShow");
+		return MainWindow.getStaticResouceMap().getString(
+						MainWindow.isMainWindowVisible() ? "windowHide" : "windowShow");
 	}
 }

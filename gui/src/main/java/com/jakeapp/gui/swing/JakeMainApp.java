@@ -58,7 +58,7 @@ public class JakeMainApp extends SingleFrameApplication {
 
 							// User tried to load jake a second time.
 							// so open first instane!
-							JakeMainView.setMainWindowVisible(true);
+							MainWindow.setMainWindowVisible(true);
 						}
 					});
 		}
@@ -80,12 +80,12 @@ public class JakeMainApp extends SingleFrameApplication {
 
 		viewController.showMainWindow();
 
-//		JakeMainView mainView = (JakeMainView) ctx.getBean("jakeMainView", JakeMainView.class);
+//		MainWindow mainView = (MainWindow) ctx.getBean("jakeMainView", MainWindow.class);
 //
 //
 //		show(mainView);
 		
-//		show(new JakeMainView(this));
+//		show(new MainWindow(this));
 	}
 
 	/**
