@@ -12,6 +12,8 @@ public class ProjectViewModel extends Observable {
 
 	private boolean inspectorVisible;
 
+	private boolean inspectorAllowed;
+
 	private ProjectViewEnum currentView;
 	
 	public ProjectViewModel() {
@@ -37,5 +39,13 @@ public class ProjectViewModel extends Observable {
 		this.currentView = currentView;
 		setChanged();
 		notifyObservers();
+	}
+
+	public boolean isInspectorAllowed() {
+		return inspectorAllowed;
+	}
+
+	public void setInspectorAllowed(boolean inspectorAllowed) {
+		this.inspectorAllowed = inspectorAllowed;
 	}
 }

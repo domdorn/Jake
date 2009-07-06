@@ -294,7 +294,7 @@ public class JakeStatusBar extends JakeGuiComponent
 		if (JakeContext.getMsgService() != null) {
 			String user = JakeContext.getMsgService().getUserId().getUserId();
 
-			msg = getPrettyConnectionState() + " - " + user;
+			msg = getPrettyConnectionState(lastConnectionState) + " - " + user;
 
 			if (lastConnectionState == ConnectionState.CONNECTING) {
 				icon = IconEnum.LoggingIn;
@@ -313,8 +313,8 @@ public class JakeStatusBar extends JakeGuiComponent
 		connectionButton.setToolTipText(lastConnectionMsg);
 	}
 
-	private String getPrettyConnectionState() {
-		switch (lastConnectionState) {
+	private String getPrettyConnectionState(ConnectionState connectionState) {
+		switch (connectionState) {
 			case LOGGED_IN:
 				return "Connected";
 			case LOGGED_OUT:
@@ -393,7 +393,7 @@ public class JakeStatusBar extends JakeGuiComponent
 	 * @return
 	 */
 	private JPopupMenu createConnectionMenu() {
-		connectionMenu = new JakePopupMenu();
+		JakePopupMenu connectionMenu = new JakePopupMenu();
 		JMenuItem signInOut = new JMenuItem(getResourceMap().getString(
 				(JakeContext.getMsgService() != null) ? "menuSignOut" : "menuSignIn"));
 

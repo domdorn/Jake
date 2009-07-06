@@ -14,6 +14,8 @@
           factory-method="getResourceMap">
     </bean>
 
+
+   
     <!-- ###################################### PROJECT VIEW START ################################################# -->
 
     <bean id="projectViewModel" class="com.jakeapp.gui.swing.model.ProjectViewModel">
@@ -64,6 +66,7 @@
     <bean id="statusBarView" class="com.jakeapp.gui.swing.view.StatusBarView">
         <constructor-arg ref="statusBarModel"/>
         <constructor-arg ref="statusBarController"/>
+        <constructor-arg ref="resourceMap" />
     </bean>
 
 
@@ -150,6 +153,18 @@
     </bean>
 
     <!-- ########################################################################################################### -->
+    <bean id="menuBarModel" class="com.jakeapp.gui.swing.model.MenuBarModel"></bean>
+
+    <bean id="menuBarController" class="com.jakeapp.gui.swing.controller.MenuBarController">
+        <constructor-arg ref="menuBarModel"/>
+    </bean>
+
+    <bean id="menuBarView" class="com.jakeapp.gui.swing.view.MenuBarView">
+        <constructor-arg ref="menuBarModel"/>
+        <constructor-arg ref="menuBarController"/>
+        <constructor-arg ref="resourceMap" />
+    </bean>
+
     <!-- ########################################################################################################### -->
     <!-- ########################################################################################################### -->
     <!-- ########################################################################################################### -->
@@ -187,6 +202,7 @@
         <constructor-arg ref="contentView"/>
         <constructor-arg ref="toolbarView"/>
         <constructor-arg ref="statusBarView"/>
+        <property name="menuBar" ref="menuBarView" />
     </bean>
 
     <!-- ########################################### MAIN WINDOW END ############################################### -->

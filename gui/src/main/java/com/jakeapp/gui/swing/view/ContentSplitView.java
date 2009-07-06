@@ -17,7 +17,6 @@ public class ContentSplitView extends JPanel implements Observer {
 
 	private final JakeSourceList jakeSourceList;
 	private final ProjectView projectView;
-//	private final JPanel projectView = new JPanel();
 	private JSplitPane splitPane;
 
 

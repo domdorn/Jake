@@ -33,7 +33,6 @@ public class ProjectView extends JSplitPane implements Observer {
 	}
 
 	public ProjectView(ProjectViewModel model, ProjectViewController controller) {
-
 		super();
 
 		this.model = model;
@@ -72,7 +71,6 @@ public class ProjectView extends JSplitPane implements Observer {
 	{
 
 		switch (model.getCurrentView()) {
-
 			case EVENTS:
 				this.setLeftComponent(eventsView);
 				break;
@@ -88,10 +86,24 @@ public class ProjectView extends JSplitPane implements Observer {
 		if(model.isInspectorVisible())
 		{
 			// TODO show inspector
+			rightComponent.setVisible(true);
+			this.setDividerLocation( getWidth() - 250 - 1 - getDividerSize());
 		}
 		else
 		{
 			// TODO hide inspector
+			rightComponent.setVisible(false);
+			this.setDividerSize(2);
+
+		}
+
+		if(model.isInspectorAllowed())
+		{
+			this.setDividerSize(2);
+		}
+		else
+		{
+			this.setDividerSize(0);
 		}
 
 		this.validate();
@@ -100,3 +112,44 @@ public class ProjectView extends JSplitPane implements Observer {
 	}
 
 }
+
+
+
+
+	/**
+	 * Show or hide the inspector panel.
+	 * This may not succeed if inspector is not allowed.
+	 * Checks isInspectorEnabled property.
+	 */
+//	public void updateInspectorPanelVisibility() {
+//		//log.debug("pre: isInspectorEnabled: " + isInspectorEnabled() +
+//		//		  " isInspectorPanelVisible: " + isInspectorPanelVisible() +
+//		//		  " isInspectorAllowed: " + isInspectorAllowed());
+//		if (isInspectorEnabled()) {
+//			// add inspector IF allowed
+//			if (isInspectorAllowed() && !inspectorPanel.isVisible()) {
+//				inspectorPanel.setVisible(true);
+//				contentPanelSplit.setDividerLocation(contentPanelSplit
+//						.getWidth() - InspectorPanel.INSPECTOR_SIZE - 1 - contentPanelSplit
+//						.getDividerSize());
+//			} else if (!isInspectorAllowed()) {
+//				inspectorPanel.setVisible(false);
+//			}
+//		} else {
+//			if (inspectorPanel.isVisible()) {
+//				inspectorPanel.setVisible(false);
+//			}
+//		}
+//
+//		// hide divider if not allowed
+//		if (!isInspectorAllowed()) {
+//			contentPanelSplit.setDividerSize(0);
+//		} else {
+//			contentPanelSplit.setDividerSize(MainWindow.CONTENT_SPLITTERSIZE);
+//		}
+//
+//		// refresh panel
+//		contentPanel.updateUI();
+//
+//		log.trace("now: isInspectorEnabled: " + isInspectorEnabled() + " isInspectorPanelVisible: " + inspectorPanel.isVisible() + " isInspectorAllowed: " + isInspectorAllowed());
+//	}
