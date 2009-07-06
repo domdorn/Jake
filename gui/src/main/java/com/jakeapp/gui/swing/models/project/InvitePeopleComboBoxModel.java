@@ -1,4 +1,4 @@
-package com.jakeapp.gui.swing.models;
+package com.jakeapp.gui.swing.models.project;
 
 import com.jakeapp.core.domain.Project;
 import com.jakeapp.core.domain.User;

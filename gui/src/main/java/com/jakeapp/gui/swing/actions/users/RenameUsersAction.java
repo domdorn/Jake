@@ -1,6 +1,6 @@
 package com.jakeapp.gui.swing.actions.users;
 
-import com.jakeapp.gui.swing.MainWindow;
+import com.jakeapp.gui.swing.view.MainWindow;
 import com.jakeapp.gui.swing.ContextPanelEnum;
 import com.jakeapp.gui.swing.ContextViewPanelHolder;
 import com.jakeapp.gui.swing.actions.abstracts.UserAction;

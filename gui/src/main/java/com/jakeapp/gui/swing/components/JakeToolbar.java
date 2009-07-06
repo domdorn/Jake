@@ -15,6 +15,7 @@ import com.jakeapp.gui.swing.filters.NoteObjectFilter;
 import com.jakeapp.gui.swing.panels.FilePanel;
 import com.jakeapp.gui.swing.panels.NotesPanel;
 import com.jakeapp.gui.swing.*;
+import com.jakeapp.gui.swing.view.MainWindow;
 import com.jakeapp.gui.swing.xcore.EventCore;
 import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.helpers.ImageLoader;
@@ -123,7 +124,7 @@ public class JakeToolbar {
 		createProjectButton.setBorder(new LineBorder(Color.BLACK, 0));
 		toolBar.addComponentToLeft(createProjectButton, 10);
 
-		// Add Files
+		// Add FILES
 		Icon addFilesIcon = ImageLoader.getScaled(MainWindow.class,
 				"/icons/toolbar-addfiles.png", 32);
 

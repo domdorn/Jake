@@ -5,7 +5,7 @@ import com.jakeapp.gui.swing.JakeMainApp;
 import com.jakeapp.gui.swing.callbacks.ProjectChangedCallback;
 import com.jakeapp.gui.swing.dialogs.generic.JakeDialog;
 import com.jakeapp.gui.swing.globals.JakeContext;
-import com.jakeapp.gui.swing.models.InvitePeopleComboBoxModel;
+import com.jakeapp.gui.swing.models.project.InvitePeopleComboBoxModel;
 import com.jakeapp.gui.swing.xcore.EventCore;
 import org.apache.log4j.Logger;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;

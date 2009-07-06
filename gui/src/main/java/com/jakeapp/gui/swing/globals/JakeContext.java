@@ -6,7 +6,7 @@ import com.jakeapp.core.domain.User;
 import com.jakeapp.core.services.MsgService;
 import com.jakeapp.gui.swing.callbacks.ContextChangedCallback;
 import com.jakeapp.gui.swing.xcore.EventCore;
-import com.jakeapp.gui.swing.MainWindow;
+import com.jakeapp.gui.swing.view.MainWindow;
 import com.jakeapp.gui.swing.JakeMainApp;
 
 import javax.swing.*;

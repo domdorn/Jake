@@ -1,15 +1,11 @@
 package com.jakeapp.gui.swing.helpers;
 
 import com.jakeapp.core.domain.Project;
-import com.jakeapp.gui.swing.MainWindow;
+import com.jakeapp.gui.swing.view.MainWindow;
 import com.jakeapp.gui.swing.ContextViewChangedHolder;
 import com.jakeapp.gui.swing.ContextViewPanelHolder;
 import com.jakeapp.gui.swing.InspectorStateHolder;
 import com.jakeapp.gui.swing.actions.file.*;
-import com.jakeapp.gui.swing.actions.notes.CommitNoteAction;
-import com.jakeapp.gui.swing.actions.notes.CreateNoteAction;
-import com.jakeapp.gui.swing.actions.notes.DeleteNoteAction;
-import com.jakeapp.gui.swing.actions.notes.SoftlockNoteAction;
 import com.jakeapp.gui.swing.actions.project.CreateProjectAction;
 import com.jakeapp.gui.swing.actions.project.DeleteProjectAction;
 import com.jakeapp.gui.swing.actions.project.RenameProjectAction;
@@ -59,7 +55,6 @@ public class JakeMenuBar extends JMenuBar {
 	private final ContextViewPanelHolder contextViewPanelHolder;
 	private final EventCore eventCore;
 	private final FilePanel filePanel;
-	private final NotesPanel notesPanel;
 	private final InspectorStateHolder inspectorStateHolder;
 
 
@@ -70,7 +65,6 @@ public class JakeMenuBar extends JMenuBar {
 			ContextViewPanelHolder contextViewPanelHolder,
 			EventCore eventCore,
 			FilePanel filePanel,
-			NotesPanel notesPanel,
 			InspectorStateHolder inspectorStateHolder) {
 		super();
 
@@ -79,7 +73,6 @@ public class JakeMenuBar extends JMenuBar {
 		this.contextViewPanelHolder = contextViewPanelHolder;
 		this.eventCore = eventCore;
 		this.filePanel = filePanel;
-		this.notesPanel = notesPanel;
 		this.inspectorStateHolder = inspectorStateHolder;
 
 
@@ -137,12 +130,14 @@ public class JakeMenuBar extends JMenuBar {
 		final JMenu notesMenu = new JMenu();
 		notesMenu.setText(resourceMap.getString("notesMenu.text"));
 
-		notesMenu.add(new JMenuItem(new CreateNoteAction(this.notesPanel, resourceMap)));
-		notesMenu.addSeparator();
-		notesMenu.add(new JMenuItem(new DeleteNoteAction(this.notesPanel, resourceMap)));
-		notesMenu.add(new JMenuItem(new CommitNoteAction(this.notesPanel, resourceMap)));
-		notesMenu.addSeparator();
-		notesMenu.add(new JMenuItem(new SoftlockNoteAction(this.notesPanel, resourceMap)));
+
+//		TODO reenable this!
+//		notesMenu.add(new JMenuItem(new CreateNoteAction(this.notesPanel, resourceMap)));
+//		notesMenu.addSeparator();
+//		notesMenu.add(new JMenuItem(new DeleteNoteAction(this.notesPanel, resourceMap)));
+//		notesMenu.add(new JMenuItem(new CommitNoteAction(this.notesPanel, resourceMap)));
+//		notesMenu.addSeparator();
+//		notesMenu.add(new JMenuItem(new SoftlockNoteAction(this.notesPanel, resourceMap)));
 
 		this.add(notesMenu);
 
@@ -284,7 +279,7 @@ public class JakeMenuBar extends JMenuBar {
 		});
 		debugMenu.add(reloadFileDebugItem);
 
-		JMenuItem reloadNotesDebugItem = new JMenuItem("Reload Notes View");
+		JMenuItem reloadNotesDebugItem = new JMenuItem("Reload NOTES View");
 		reloadNotesDebugItem.addActionListener(new ActionListener() {
 
 			@Override

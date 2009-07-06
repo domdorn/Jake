@@ -1,7 +1,8 @@
 package com.jakeapp.gui.swing;
 
 import com.jakeapp.core.domain.Project;
-import com.jakeapp.gui.swing.globals.JakeContext;
+import com.jakeapp.gui.swing.view.ProjectViewEnum;
+
 
 /**
  * This Component stores the current View of the GUi and if selected, the current Project
@@ -9,7 +10,7 @@ import com.jakeapp.gui.swing.globals.JakeContext;
 public class ProjectViewHolder {
 
 	private Project currentProject;
-	private ProjectViewEnum currentView= ProjectViewEnum.News;
+	private ProjectViewEnum currentView= ProjectViewEnum.EVENTS;
 
 	public ProjectViewHolder() {
 	}

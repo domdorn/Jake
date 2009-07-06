@@ -1,6 +1,6 @@
 package com.jakeapp.gui.swing.helpers;
 
-import com.jakeapp.gui.swing.MainWindow;
+import com.jakeapp.gui.swing.view.MainWindow;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;

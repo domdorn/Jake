@@ -8,7 +8,8 @@ import com.jakeapp.core.synchronization.attributes.Attributed;
 import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.JakeMainApp;
 import com.jakeapp.gui.swing.ProjectViewChangedHolder;
-import com.jakeapp.gui.swing.ProjectViewEnum;
+import com.jakeapp.gui.swing.view.ProjectViewEnum;
+
 import com.jakeapp.gui.swing.callbacks.ContextChangedCallback;
 import com.jakeapp.gui.swing.callbacks.FileSelectionChangedCallback;
 import com.jakeapp.gui.swing.callbacks.NoteSelectionChangedCallback;
@@ -19,7 +20,7 @@ import com.jakeapp.gui.swing.controls.SmallLabel;
 import com.jakeapp.gui.swing.controls.SmallShortenedLabel;
 import com.jakeapp.gui.swing.exceptions.FileOperationFailedException;
 import com.jakeapp.gui.swing.helpers.*;
-import com.jakeapp.gui.swing.models.EventsTableModel;
+import com.jakeapp.gui.swing.models.project.EventsTableModel;
 import com.jakeapp.gui.swing.xcore.EventCore;
 import com.jakeapp.gui.swing.xcore.ObjectRegistry;
 import net.miginfocom.swing.MigLayout;
@@ -54,7 +55,7 @@ public class InspectorPanel extends JXPanel
 
 	private final ResourceMap resourceMap;
 	private final EventCore eventCore;
-	private final NotesPanel notesPanel;
+//	private final NotesPanel notesPanel;
 	private final ProjectViewChangedHolder projectViewChangedHolder;
 	
 
@@ -88,9 +89,11 @@ public class InspectorPanel extends JXPanel
 	private JPanel noteFileInspector;
 	private JPanel emptyInspector;
 
-	public InspectorPanel(EventCore eventCore, NotesPanel notesPanel, ProjectViewChangedHolder projectViewChangedHolder, ResourceMap resourceMap) {
+	public InspectorPanel(EventCore eventCore,
+//						  NotesPanel notesPanel,
+						  ProjectViewChangedHolder projectViewChangedHolder, ResourceMap resourceMap) {
 		this.eventCore = eventCore;
-		this.notesPanel = notesPanel;
+//		this.notesPanel = notesPanel;
 		this.projectViewChangedHolder = projectViewChangedHolder;
 		this.resourceMap = resourceMap;
 
@@ -100,7 +103,7 @@ public class InspectorPanel extends JXPanel
 		eventCore.addFileSelectionListener(this);
 		
 		
-		notesPanel.addNoteSelectionListener(this);
+//		notesPanel.addNoteSelectionListener(this);
 		projectViewChangedHolder.add(this);
 //		MainWindow.getMainView().addProjectViewChangedListener(this);
 
@@ -345,9 +348,9 @@ public class InspectorPanel extends JXPanel
 	@Override
 	public void setProjectViewPanel(ProjectViewEnum projectViewPanel) {
 
-		if (projectViewPanel == ProjectViewEnum.Files)
+		if (projectViewPanel == ProjectViewEnum.FILES)
 			this.mode = Mode.FILE;
-		else if (projectViewPanel == ProjectViewEnum.Notes)
+		else if (projectViewPanel == ProjectViewEnum.NOTES)
 			this.mode = Mode.NOTE;
 		else
 			this.mode = Mode.NONE;

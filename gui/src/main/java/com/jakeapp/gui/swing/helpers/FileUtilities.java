@@ -3,7 +3,7 @@ package com.jakeapp.gui.swing.helpers;
 import com.jakeapp.core.domain.FileObject;
 import com.jakeapp.core.domain.Invitation;
 import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.MainWindow;
+import com.jakeapp.gui.swing.view.MainWindow;
 import com.jakeapp.gui.swing.exceptions.FileOperationFailedException;
 import net.roydesign.ui.FolderDialog;
 import org.apache.log4j.Logger;

@@ -11,6 +11,8 @@ import com.jakeapp.gui.swing.helpers.ApplicationInstanceListener;
 import com.jakeapp.gui.swing.helpers.ApplicationInstanceManager;
 import com.jakeapp.gui.swing.helpers.ExceptionUtilities;
 import com.jakeapp.gui.swing.helpers.Platform;
+import com.jakeapp.gui.swing.view.MainWindow;
+import com.jakeapp.gui.swing.controller.MainWindowController;
 import org.apache.log4j.Logger;
 import org.jdesktop.application.SingleFrameApplication;
 import org.springframework.context.ApplicationContext;
@@ -73,19 +75,18 @@ public class JakeMainApp extends SingleFrameApplication {
 	protected void startup() {
 		this.setMainFrame(new JFrame("Jake"));
 
+		System.out.println("getting app-context");
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("/com/jakeapp/gui/swing/gui-config.xml");
 
+		System.out.println("getting mainWindowController");
+		MainWindowController mainWindowController = (MainWindowController) ctx.getBean("mainWindowController", MainWindowController.class);
 
-		ViewController viewController = (ViewController) ctx.getBean("viewController", ViewController.class);
+		System.out.println("getting mainWindowView");
+		ctx.getBean("mainWindowView"); // simply initialize view
 
-		viewController.showMainWindow();
+		System.out.println("sshowing mainWindow");
+		mainWindowController.showMainWindow();
 
-//		MainWindow mainView = (MainWindow) ctx.getBean("jakeMainView", MainWindow.class);
-//
-//
-//		show(mainView);
-		
-//		show(new MainWindow(this));
 	}
 
 	/**

@@ -1,5 +1,7 @@
 package com.jakeapp.gui.swing;
 
+import com.jakeapp.gui.swing.view.MainWindow;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -21,14 +23,14 @@ class ContextSwitchActionListener implements ActionListener {
 
 //		public void setProjectViewFromToolBarButtons() {
 //		 determine toggle button selection
-//		if (getContextSwitcherButtons().get(ProjectViewEnum.News.ordinal()).isSelected()) {
-//			setProjectViewPanel(ProjectViewEnum.News);
-//		} else if (getContextSwitcherButtons().get(ProjectViewEnum.Files.ordinal())
+//		if (getContextSwitcherButtons().get(ProjectViewEnum.EVENTS.ordinal()).isSelected()) {
+//			setProjectViewPanel(ProjectViewEnum.EVENTS);
+//		} else if (getContextSwitcherButtons().get(ProjectViewEnum.FILES.ordinal())
 //				.isSelected()) {
-//			setProjectViewPanel(ProjectViewEnum.Files);
-//		} else if (getContextSwitcherButtons().get(ProjectViewEnum.Notes.ordinal())
+//			setProjectViewPanel(ProjectViewEnum.FILES);
+//		} else if (getContextSwitcherButtons().get(ProjectViewEnum.NOTES.ordinal())
 //				.isSelected()) {
-//			setProjectViewPanel(ProjectViewEnum.Notes);
+//			setProjectViewPanel(ProjectViewEnum.NOTES);
 //		}
 //	}
 

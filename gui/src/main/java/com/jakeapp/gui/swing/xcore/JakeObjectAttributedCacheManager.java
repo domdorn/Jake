@@ -81,7 +81,7 @@ public class JakeObjectAttributedCacheManager implements DataChangedCallback {
 	@Override
 	public void dataChanged(EnumSet<DataReason> dataReason, Project p) {
 		if(dataReason.contains(DataReason.Files) || dataReason.contains(DataReason.Notes)){
-			log.trace("Files/Notes changed. Clearing Attributed cache.");
+			log.trace("FILES/NOTES changed. Clearing Attributed cache.");
 			clearCache();
 		}
 	}

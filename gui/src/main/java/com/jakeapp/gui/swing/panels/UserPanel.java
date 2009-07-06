@@ -8,9 +8,10 @@ import com.jakeapp.core.domain.exceptions.InvalidCredentialsException;
 import com.jakeapp.core.services.MsgService;
 import com.jakeapp.core.services.exceptions.ProtocolNotSupportedException;
 import com.jakeapp.gui.swing.JakeMainApp;
+import com.jakeapp.gui.swing.models.UserPanelModel;
 import com.jakeapp.gui.swing.callbacks.ContextChangedCallback;
 import com.jakeapp.gui.swing.callbacks.CoreChangedCallback;
-import com.jakeapp.gui.swing.callbacks.RegistrationStatus;
+
 import com.jakeapp.gui.swing.controls.SpinningWheelComponent;
 import com.jakeapp.gui.swing.dialogs.AdvancedAccountSettingsDialog;
 import com.jakeapp.gui.swing.globals.JakeContext;
@@ -56,11 +57,14 @@ import java.util.Map;
  * @author studpete
  */
 public class UserPanel extends JXPanel
-				implements RegistrationStatus, CoreChangedCallback, ContextChangedCallback {
+		implements CoreChangedCallback, ContextChangedCallback {
 
 	private final JakeMainApp jakeMainApp;
 	private final ResourceMap resourceMap;
 	private final EventCore eventCore;
+	private final UserPanelModel userPanelModel;
+
+
 
 	private static final Logger log = Logger.getLogger(UserPanel.class);
 
@@ -77,7 +81,7 @@ public class UserPanel extends JXPanel
 	private SpinningWheelComponent workingAnimationDark;
 	private SpinningWheelComponent workingAnimation = new SpinningWheelComponent();
 	private Map<SupportedServices, Account> creds =
-					new HashMap<SupportedServices, Account>();
+			new HashMap<SupportedServices, Account>();
 	private JPanel addUserPanel;
 	private JPanel loginUserPanel;
 	private JPanel loadingAppPanel;
@@ -91,8 +95,8 @@ public class UserPanel extends JXPanel
 	private boolean autoLoginOnFirstRun = true;
 
 
-
-	@Override public void coreChanged() {
+	@Override
+	public void coreChanged() {
 		// called after statup, when core init is done.
 
 		// one-time-init of predefined credentials
@@ -103,7 +107,8 @@ public class UserPanel extends JXPanel
 		updateView();
 	}
 
-	@Override public void contextChanged(EnumSet<Reason> reason, Object context) {
+	@Override
+	public void contextChanged(EnumSet<Reason> reason, Object context) {
 		if (reason.contains(Reason.MsgService)) {
 			updateView();
 		}
@@ -117,24 +122,16 @@ public class UserPanel extends JXPanel
 	}
 
 	/**
-	 * The three user panels supported.
-	 */
-	private enum UserPanels {
-		AddUser, ManageUsers, LoggedIn, LoadingApplication
-	}
-
-	/**
 	 * Create the User Panel.
 	 */
-	public UserPanel(JakeMainApp jakeMainApp, ResourceMap resourceMap, EventCore eventCore) {
+	public UserPanel(JakeMainApp jakeMainApp, ResourceMap resourceMap, EventCore eventCore, UserPanelModel userPanelModel) {
 		this.jakeMainApp = jakeMainApp;
 		this.resourceMap = resourceMap;
 		this.eventCore = eventCore;
-
+		this.userPanelModel = userPanelModel;
 
 
 		initComponents();
-
 
 
 		jakeMainApp.addCoreChangedListener(this);
@@ -143,12 +140,10 @@ public class UserPanel extends JXPanel
 		updateView();
 
 
-
-// TODO this is the only requirement for  jakemainview, please review this!		
+// TODO this is the only requirement for  jakemainview, please review this!
 //		jakeWelcomeIcon = new ImageIcon(
 //						contextViewPanelHolder.getLargeAppImage().getScaledInstance(90, 90,
 //										Image.SCALE_SMOOTH));
-
 
 
 	}
@@ -156,7 +151,7 @@ public class UserPanel extends JXPanel
 	private void initPredefinedCredentials() {
 		for (SupportedServices service : SupportedServices.values()) {
 			creds.put(service, jakeMainApp.getCore().getPredefinedServiceCredential(
-							service.toString()));
+					service.toString()));
 		}
 	}
 
@@ -186,10 +181,10 @@ public class UserPanel extends JXPanel
 
 		// the say hello heading
 		JXPanel jakeLogoContainer =
-						new JXPanel(new MigLayout("wrap 1, fill, center, ins 0"));
+				new JXPanel(new MigLayout("wrap 1, fill, center, ins 0"));
 		JLabel jakeLogo = new JLabel();
 		ImageIcon jakeLogoImage =
-						ImageLoader.get(getClass(), "/icons/jakeapp-large.png");
+				ImageLoader.get(getClass(), "/icons/jakeapp-large.png");
 		jakeLogo.setIcon(jakeLogoImage);
 		jakeLogoContainer.setOpaque(false);
 		jakeLogoContainer.add(jakeLogo, "center");
@@ -219,7 +214,7 @@ public class UserPanel extends JXPanel
 
 		// the say hello heading
 		JPanel titlePanel =
-						createJakeTitle(resourceMap.getString("selectUserLabel"));
+				createJakeTitle(resourceMap.getString("selectUserLabel"));
 		loginUserPanel.add(titlePanel, "wrap, gapbottom 20, top, growx, h 80!");
 
 		// add link to create new user
@@ -228,7 +223,7 @@ public class UserPanel extends JXPanel
 		createAccountBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				showPanel(UserPanels.AddUser);
+				showPanel(UserPanelsEnum.AddUser);
 			}
 		});
 
@@ -272,11 +267,11 @@ public class UserPanel extends JXPanel
 
 				if (msgs != null) {
 					log.debug("updateChooseUserPanel will display n MsgServices, n=" + msgs
-									.size());
+							.size());
 					for (MsgService<User> msg : msgs) {
 						UserControlPanel userPanel = new UserControlPanel(msg);
 						JXLayer<UserControlPanel> userLayer =
-										new JXLayer<UserControlPanel>(userPanel);
+								new JXLayer<UserControlPanel>(userPanel);
 						userListPanel.add(userLayer);
 					}
 				}
@@ -302,7 +297,7 @@ public class UserPanel extends JXPanel
 		JPanel titlePanel = new JPanel(new MigLayout("nogrid, fill, top, ins 0"));
 		titlePanel.setOpaque(false);
 		JLabel createAccountLabel =
-						new JLabel(resourceMap.getString("loginMessageLabel"));
+				new JLabel(resourceMap.getString("loginMessageLabel"));
 		createAccountLabel.setIcon(jakeWelcomeIcon);
 		createAccountLabel.setVerticalTextPosition(JLabel.TOP);
 		titlePanel.add(createAccountLabel, "top, center, h 80!");
@@ -310,7 +305,7 @@ public class UserPanel extends JXPanel
 
 		// login existing with service
 		loginRadioButton =
-						new JRadioButton(resourceMap.getString("loginRadioButton"));
+				new JRadioButton(resourceMap.getString("loginRadioButton"));
 		loginRadioButton.setOpaque(false);
 		loginRadioButton.addActionListener(new ActionListener() {
 			@Override
@@ -322,7 +317,7 @@ public class UserPanel extends JXPanel
 
 		// register new
 		registerRadioButton =
-						new JRadioButton(resourceMap.getString("registerRadioButton"));
+				new JRadioButton(resourceMap.getString("registerRadioButton"));
 		registerRadioButton.setOpaque(false);
 		registerRadioButton.addActionListener(new ActionListener() {
 			@Override
@@ -337,13 +332,13 @@ public class UserPanel extends JXPanel
 
 		// login service
 		String[] loginServices =
-						new String[]{"Google Talk", "Jabber", "United Internet (GMX, Web.de)"};
+				new String[]{"Google Talk", "Jabber", "United Internet (GMX, Web.de)"};
 		Integer[] indexes = new Integer[]{0, 1, 2};
 		ImageIcon[] images = new ImageIcon[3];
 		images[0] = ImageLoader.getScaled(getClass(), "/icons/service-google.png", 16);
 		images[1] = ImageLoader.getScaled(getClass(), "/icons/service-jabber.png", 16);
 		images[2] = ImageLoader
-						.getScaled(getClass(), "/icons/service-unitedinternet.png", 16);
+				.getScaled(getClass(), "/icons/service-unitedinternet.png", 16);
 		loginServiceCheckBox = new JComboBox();
 		loginServiceCheckBox.setModel(new DefaultComboBoxModel(indexes));
 		IconComboBoxRenderer renderer = new IconComboBoxRenderer(images, loginServices);
@@ -391,7 +386,7 @@ public class UserPanel extends JXPanel
 			signInRegisterBackBtn.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					showPanel(UserPanels.ManageUsers);
+					showPanel(UserPanelsEnum.ManageUsers);
 				}
 			});
 			addUserButtonPanel.add(signInRegisterBackBtn, "left, bottom, split");
@@ -421,11 +416,11 @@ public class UserPanel extends JXPanel
 			cred = creds.get(SupportedServices.Jabber);
 			cred.setServerAddress(registerUserDataPanel.getServer());
 			user = registerUserDataPanel.getUserName() + '@' + registerUserDataPanel
-							.getServer();
+					.getServer();
 			password = registerUserDataPanel.getPassword();
 		} else {
 			cred = creds.get(
-							SupportedServices.values()[loginServiceCheckBox.getSelectedIndex()]);
+					SupportedServices.values()[loginServiceCheckBox.getSelectedIndex()]);
 			user = loginUserDataPanel.getUserName();
 			password = loginUserDataPanel.getPassword();
 		}
@@ -457,7 +452,7 @@ public class UserPanel extends JXPanel
 					//creds.setPlainTextPassword(loginUserDataPanel.getPassword());
 
 					JakeExecutor.exec(new LoginAccountTask(msg, creds,
-									EventCore.getInstance().getLoginStateListener()));
+							EventCore.getInstance().getLoginStateListener()));
 
 				} catch (Exception e) {
 					log.warn(e);
@@ -528,10 +523,10 @@ public class UserPanel extends JXPanel
 	 */
 	private void updateLoginUsernameLabel() {
 		if (loginServiceCheckBox.getSelectedIndex() == SupportedServices.Google
-						.ordinal()) {
+				.ordinal()) {
 			loginUserDataPanel.setUserLabel("usernameGoogle");
 		} else if (loginServiceCheckBox.getSelectedIndex() == SupportedServices.Jabber
-						.ordinal()) {
+				.ordinal()) {
 			loginUserDataPanel.setUserLabel("usernameJabber");
 		} else {
 			loginUserDataPanel.setUserLabel("usernameUInternet");
@@ -560,27 +555,27 @@ public class UserPanel extends JXPanel
 				// fill the registraton info panel
 				registrationInfoPanel = new JPanel(new MigLayout("wrap 2, ins 0"));
 				JLabel registrationLabel1 =
-								new JLabel(resourceMap.getString("registrationLabel1"));
+						new JLabel(resourceMap.getString("registrationLabel1"));
 				registrationLabel1.setForeground(Color.DARK_GRAY);
 				registrationInfoPanel.add(registrationLabel1, "span 2, wrap");
 				JLabel registrationLabel2 =
-								new JLabel(resourceMap.getString("registrationLabel2"));
+						new JLabel(resourceMap.getString("registrationLabel2"));
 				registrationLabel2.setForeground(Color.DARK_GRAY);
 				registrationInfoPanel.add(registrationLabel2);
 				LinkAction linkAction =
-								new LinkAction(resourceMap.getString("registrationLabel3")) {
-									public void actionPerformed(ActionEvent e) {
-										try {
-											Desktop.getDesktop().browse(new URI(resourceMap.getString(
-															"registrationLabelHyperlink")));
-										} catch (IOException e1) {
-											e1.printStackTrace();
-										} catch (URISyntaxException e1) {
-											e1.printStackTrace();
-										}
-										setVisited(true);
-									}
-								};
+						new LinkAction(resourceMap.getString("registrationLabel3")) {
+							public void actionPerformed(ActionEvent e) {
+								try {
+									Desktop.getDesktop().browse(new URI(resourceMap.getString(
+											"registrationLabelHyperlink")));
+								} catch (IOException e1) {
+									e1.printStackTrace();
+								} catch (URISyntaxException e1) {
+									e1.printStackTrace();
+								}
+								setVisited(true);
+							}
+						};
 				registrationInfoPanel.add(new JXHyperlink(linkAction), "gapbottom 10");
 				registrationInfoPanel.setOpaque(false);
 				this.add(registrationInfoPanel);
@@ -589,8 +584,8 @@ public class UserPanel extends JXPanel
 				serverLabel.setForeground(Color.DARK_GRAY);
 				serverComboBox = new JComboBox();
 				serverComboBox.setModel(new DefaultComboBoxModel(
-								new String[]{"jabber.fsinf.at", "jabber.org", "jabber.ccc.de",
-												"macjabber.de", "swissjabber.ch", "binaryfreedom.info"}));
+						new String[]{"jabber.fsinf.at", "jabber.org", "jabber.ccc.de",
+								"macjabber.de", "swissjabber.ch", "binaryfreedom.info"}));
 				serverComboBox.setEditable(true);
 
 				this.add(serverLabel, "");
@@ -617,7 +612,7 @@ public class UserPanel extends JXPanel
 			this.add(passName, "width 350!");
 
 			rememberPassCheckBox =
-							new JCheckBox(resourceMap.getString("rememberPasswordCheckBox"));
+					new JCheckBox(resourceMap.getString("rememberPasswordCheckBox"));
 			rememberPassCheckBox.setSelected(true);
 			rememberPassCheckBox.setOpaque(false);
 			this.add(rememberPassCheckBox, addServer ? "" : "split");
@@ -643,14 +638,14 @@ public class UserPanel extends JXPanel
 			if (!addServer) {
 				// Advanced Settings
 				JButton loginAdvancedBtn =
-								new JButton(resourceMap.getString("advancedServerButton"));
+						new JButton(resourceMap.getString("advancedServerButton"));
 				loginAdvancedBtn.putClientProperty("JButton.buttonType", "textured");
 				loginAdvancedBtn.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						AdvancedAccountSettingsDialog.showDialog(getCredentials());
 						log.debug("credentials now: " + getCredentials()
-										.getServerAddress() + getCredentials().getServerPort());
+								.getServerAddress() + getCredentials().getServerPort());
 					}
 				});
 				this.add(loginAdvancedBtn, "wrap");
@@ -682,7 +677,7 @@ public class UserPanel extends JXPanel
 		 */
 		public String getServer() {
 			return serverComboBox != null ? serverComboBox.getSelectedItem().toString() :
-							null;
+					null;
 		}
 
 		/**
@@ -725,7 +720,7 @@ public class UserPanel extends JXPanel
 		loginSuccessPanel.setLayout(new MigLayout("nogrid, al center, fill"));
 
 		JLabel headerLoginSuccess =
-						new JLabel(resourceMap.getString("signInSuccessHeader"));
+				new JLabel(resourceMap.getString("signInSuccessHeader"));
 		headerLoginSuccess.setFont(Platform.getStyler().getH1Font());
 		headerLoginSuccess.setForeground(Color.WHITE);
 		loginSuccessPanel.add(headerLoginSuccess, "top, center, wrap");
@@ -736,7 +731,7 @@ public class UserPanel extends JXPanel
 
 		// the sign out button
 		JButton signOutButton =
-						new JButton(resourceMap.getString("signInSuccessSignOut"));
+				new JButton(resourceMap.getString("signInSuccessSignOut"));
 		signOutButton.putClientProperty("JButton.buttonType", "textured");
 		signOutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
@@ -781,7 +776,7 @@ public class UserPanel extends JXPanel
 	private void updateSignInSuccessPanel() {
 		if (JakeContext.getMsgService() != null) {
 			userLabelLoginSuccess
-							.setText(JakeContext.getMsgService().getUserId().getUserId());
+					.setText(JakeContext.getMsgService().getUserId().getUserId());
 		}
 	}
 
@@ -792,18 +787,18 @@ public class UserPanel extends JXPanel
 	private boolean isSignInRegisterButtonEnabled() {
 		if (isModeSignIn()) {
 			return (loginUserDataPanel.getUserName().length() > 0 && loginUserDataPanel
-							.getPassword().length() > 0);
+					.getPassword().length() > 0);
 		} else {
 			return (registerUserDataPanel.getUserName()
-							.length() > 0 && registerUserDataPanel.getPassword().length() > 0);
+					.length() > 0 && registerUserDataPanel.getPassword().length() > 0);
 
 		}
 	}
 
 	private void updateSignInRegisterMode() {
 		signInRegisterBackBtn.setVisible(
-						JakeContext.isCoreInitialized() && jakeMainApp.getCore().getMsgServices()
-										.size() > 0);
+				JakeContext.isCoreInitialized() && jakeMainApp.getCore().getMsgServices()
+						.size() > 0);
 
 		loginUserDataPanel.setVisible(isModeSignIn());
 		registerUserDataPanel.setVisible(!isModeSignIn());
@@ -838,11 +833,11 @@ public class UserPanel extends JXPanel
 		// update the view (maybe already logged in)
 		if (JakeContext.isCoreInitialized()) {
 			if (JakeContext.getMsgService() != null) {
-				showPanel(UserPanels.LoggedIn);
+				showPanel(UserPanelsEnum.LoggedIn);
 			} else {
 				List<MsgService<User>> msgs = jakeMainApp.getCore().getMsgServices();
 				if (msgs.size() > 0) {
-					showPanel(UserPanels.ManageUsers);
+					showPanel(UserPanelsEnum.ManageUsers);
 
 					// do the autologin?
 					if (autoLoginOnFirstRun) {
@@ -856,11 +851,11 @@ public class UserPanel extends JXPanel
 						}
 					}
 				} else {
-					showPanel(UserPanels.AddUser);
+					showPanel(UserPanelsEnum.AddUser);
 				}
 			}
 		} else {
-			showPanel(UserPanels.LoadingApplication);
+			showPanel(UserPanelsEnum.LoadingApplication);
 		}
 
 
@@ -872,25 +867,26 @@ public class UserPanel extends JXPanel
 	 * @param panel
 	 */
 
-	private void showPanel(UserPanels panel) {
+	private void showPanel(UserPanelsEnum panel) {
 		log.trace("show panel: " + panel);
-		showContentPanel(addUserPanel, panel == UserPanels.AddUser);
-		showContentPanel(loginUserPanel, panel == UserPanels.ManageUsers);
-		showContentPanel(loginSuccessPanel, panel == UserPanels.LoggedIn);
-		showContentPanel(loadingAppPanel, panel == UserPanels.LoadingApplication);
+		showContentPanel(addUserPanel, panel == UserPanelsEnum.AddUser);
+		showContentPanel(loginUserPanel, panel == UserPanelsEnum.ManageUsers);
+		showContentPanel(loginSuccessPanel, panel == UserPanelsEnum.LoggedIn);
+		showContentPanel(loadingAppPanel, panel == UserPanelsEnum.LoadingApplication);
 	}
 
 
 	/**
 	 * Starts the Login process
+	 *
 	 * @param account
 	 * @param msg
 	 */
 	private void performLogin(MsgService<User> msg, Account account) {
 		JakeContext.setMsgService(msg);
-		
+
 		JakeExecutor.exec(new LoginAccountTask(msg, account,
-						EventCore.getInstance().getLoginStateListener()));
+				EventCore.getInstance().getLoginStateListener()));
 
 		updateView();
 	}
@@ -909,28 +905,6 @@ public class UserPanel extends JXPanel
 			this.remove(panel);
 		}
 		this.updateUI();
-	}
-
-
-	public void setRegistrationStatus(final RegisterStati status, final String msg) {
-		log.info("got registration status update: " + status);
-
-		Runnable runner = new Runnable() {
-			public void run() {
-
-				updateView();
-
-				// animation is controlled via swingworker
-
-				if (status == RegisterStati.RegistrationActive) {
-					signInRegisterButton
-									.setText(resourceMap.getString("loginRegisterProceed"));
-					signInRegisterButton.setEnabled(false);
-				}
-			}
-		};
-
-		SwingUtilities.invokeLater(runner);
 	}
 
 
@@ -967,7 +941,7 @@ public class UserPanel extends JXPanel
 
 		public UserControlPanel(final MsgService<User> msg) {
 			log.info("creating UserControlPanel with " + msg + ", userID: " + msg
-							.getUserId());
+					.getUserId());
 			this.msg = msg;
 
 			ActionListener loginAction = new ActionListener() {
@@ -975,7 +949,7 @@ public class UserPanel extends JXPanel
 				public void actionPerformed(ActionEvent e) {
 					try {
 						log.info("Sign In with " + msg
-										.getUserId() + " useSavedPassword: " + isMagicToken());
+								.getUserId() + " useSavedPassword: " + isMagicToken());
 						signInBtn.setEnabled(false);
 
 						// prepare the servicecredentials (prefilled?)
@@ -1003,11 +977,11 @@ public class UserPanel extends JXPanel
 			String msgUserId = msg.getUserId().getUserId();
 
 			JLabel userLabel =
-							new JLabel(StringUtilities.htmlize("<b>" + msgUserId + "</b>"));
+					new JLabel(StringUtilities.htmlize("<b>" + msgUserId + "</b>"));
 			this.add(userLabel, "span 2, gapbottom 8");
 
 			JLabel passLabel =
-							new JLabel(resourceMap.getString("passwordLabel") + ":");
+					new JLabel(resourceMap.getString("passwordLabel") + ":");
 			this.add(passLabel, "left");
 
 			passField = new JPasswordField();
@@ -1015,20 +989,17 @@ public class UserPanel extends JXPanel
 			passField.addActionListener(loginAction);
 			this.add(passField, "w 200!");
 
-			rememberPassCheckBox =
-							new JCheckBox(resourceMap.getString("rememberPasswordCheckBox")
-
-							);
+			rememberPassCheckBox = new JCheckBox(resourceMap.getString("rememberPasswordCheckBox"));
 			rememberPassCheckBox.setSelected(true);
 			rememberPassCheckBox.setOpaque(false);
 			rememberPassCheckBox.addActionListener(new
 
-							ActionListener() {
-								@Override
-								public void actionPerformed(ActionEvent e) {
-									updateUserPanel();
-								}
-							}
+					ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							updateUserPanel();
+						}
+					}
 
 			);
 			this.add(rememberPassCheckBox, "span 2");
@@ -1037,22 +1008,22 @@ public class UserPanel extends JXPanel
 			deleteUserBtn.putClientProperty("JButton.buttonType", "textured");
 			deleteUserBtn.addActionListener(new
 
-							ActionListener() {
-								@Override
-								public void actionPerformed(ActionEvent e) {
-									if (SheetHelper.showConfirm(StringUtilities.htmlize(
-													"<b>Really delete " + msg.getUserId()
-																	.getUserId() + "?</b><br><br>Connected Projects will be deleted. " + "<br>(But don't worry, we won't delete your Files)"),
-													"Delete")) {
-										try {
-											jakeMainApp.getCore().removeAccount(msg);
-											updateView();
-										} catch (Exception ex) {
-											ExceptionUtilities.showError(ex);
-										}
-									}
+					ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							if (SheetHelper.showConfirm(StringUtilities.htmlize(
+									"<b>Really delete " + msg.getUserId()
+											.getUserId() + "?</b><br><br>Connected Projects will be deleted. " + "<br>(But don't worry, we won't delete your FILES)"),
+									"Delete")) {
+								try {
+									jakeMainApp.getCore().removeAccount(msg);
+									updateView();
+								} catch (Exception ex) {
+									ExceptionUtilities.showError(ex);
 								}
-							});
+							}
+						}
+					});
 			this.add(deleteUserBtn, "left, bottom");
 
 			signInBtn = new JButton(resourceMap.getString("loginSignInOnly"));
@@ -1063,7 +1034,7 @@ public class UserPanel extends JXPanel
 			// if a password is set, write a magic token into password field
 			// to represent the "not changed" state
 			log.info("msg.isPasswordSaved: " + msg.isPasswordSaved() + " for " + msg
-							.getUserId());
+					.getUserId());
 			if (msg.isPasswordSaved()) {
 				passField.setText(MagicPassToken);
 			} else {

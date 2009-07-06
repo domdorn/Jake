@@ -1,6 +1,7 @@
 package com.jakeapp.gui.swing.callbacks;
 
-import com.jakeapp.gui.swing.ProjectViewEnum;
+import com.jakeapp.gui.swing.view.ProjectViewEnum;
+
 
 /**
  * Interface for project view changed callback.

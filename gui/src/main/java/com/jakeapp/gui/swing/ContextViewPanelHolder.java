@@ -3,6 +3,7 @@ package com.jakeapp.gui.swing;
 import com.jakeapp.gui.swing.panels.UserPanel;
 import com.jakeapp.gui.swing.panels.InvitationPanel;
 import com.jakeapp.gui.swing.callbacks.ContextViewChangedCallback;
+import com.jakeapp.gui.swing.view.MainWindow;
 
 public class ContextViewPanelHolder {
 //	private final MainWindow jakeMainView;

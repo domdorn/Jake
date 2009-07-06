@@ -11,7 +11,7 @@
      <tx:annotation-driven/>
     
 
-    <import resource="classpath:/com/jakeapp/core/applicationContext.xml" />
+    <import resource="classpath:/com/jakeapp/core/applicationContext.xml"  />
 
 
     <bean id="coreAccess" class="com.jakeapp.gui.swing.SpringCoreAccessImpl" lazy-init="true" >

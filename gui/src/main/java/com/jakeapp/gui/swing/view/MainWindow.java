@@ -1,4 +1,4 @@
-package com.jakeapp.gui.swing;
+package com.jakeapp.gui.swing.view;
 
 import com.explodingpixels.macwidgets.MacUtils;
 import com.explodingpixels.macwidgets.MacWidgetFactory;
@@ -19,17 +19,14 @@ import com.jakeapp.gui.swing.dialogs.JakeAboutDialog;
 import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.helpers.*;
 import com.jakeapp.gui.swing.helpers.dragdrop.FileDropHandler;
-import com.jakeapp.gui.swing.panels.FilePanel;
-import com.jakeapp.gui.swing.panels.InspectorPanel;
-import com.jakeapp.gui.swing.panels.InvitationPanel;
-import com.jakeapp.gui.swing.panels.NewsPanel;
-import com.jakeapp.gui.swing.panels.NotesPanel;
 import com.jakeapp.gui.swing.panels.UserPanel;
+import com.jakeapp.gui.swing.panels.*;
 import com.jakeapp.gui.swing.worker.tasks.InitCoreTask;
 import com.jakeapp.gui.swing.worker.JakeExecutor;
 import com.jakeapp.gui.swing.xcore.EventCore;
 import com.jakeapp.gui.swing.xcore.JakeDatabaseTools;
 import com.jakeapp.gui.swing.xcore.SyncUpdateTimer;
+import com.jakeapp.gui.swing.*;
 import org.apache.log4j.Logger;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.FrameView;
@@ -58,7 +55,6 @@ public class MainWindow extends FrameView implements ContextChangedCallback {
 	private final NewsPanel newsPanel;
 
 	private final FilePanel filePanel;
-	private final NotesPanel notesPanel;
 	private final InvitationPanel invitationPanel;
 	private final UserPanel loginPanel;
 	private final JakeToolbar jakeToolbar;
@@ -160,7 +156,7 @@ public class MainWindow extends FrameView implements ContextChangedCallback {
 						JakeSourceList jakeSourceList,
 						ResourceMap resourceMap,
 						FilePanel filePanel,
-						NotesPanel notesPanel,
+
 						InspectorPanel inspectorPanel,
 
 						ProjectViewChangedHolder projectViewChangedHolder, ProjectViewHolder projectViewHolder, ContentPanelHolder contentPanelHolder,
@@ -178,7 +174,7 @@ public class MainWindow extends FrameView implements ContextChangedCallback {
 		this.resourceMap = resourceMap;
 		this.filePanel = filePanel;
 		this.newsPanel = newsPanel;
-		this.notesPanel = notesPanel;
+
 		this.inspectorPanel = inspectorPanel;
 		this.projectViewChangedHolder = projectViewChangedHolder;
 		this.projectViewHolder = projectViewHolder;
@@ -231,7 +227,7 @@ public class MainWindow extends FrameView implements ContextChangedCallback {
 
 		// initialize the mantisse gui components (menu)
 		log.debug("setting up components ...");
-		initComponents();
+
 
 		// adapt the menu if we live on a mac
 		if (Platform.isMac()) {
@@ -431,14 +427,14 @@ public class MainWindow extends FrameView implements ContextChangedCallback {
 	 */
 	public void setProjectViewFromToolBarButtons() {
 		// determine toggle button selection
-		if (contextSwitcherButtonsHolder.getContextSwitcherButtons().get(ProjectViewEnum.News.ordinal()).isSelected()) {
-			setProjectViewPanel(ProjectViewEnum.News);
-		} else if (contextSwitcherButtonsHolder.getContextSwitcherButtons().get(ProjectViewEnum.Files.ordinal())
+		if (contextSwitcherButtonsHolder.getContextSwitcherButtons().get(ProjectViewEnum.EVENTS.ordinal()).isSelected()) {
+			setProjectViewPanel(ProjectViewEnum.EVENTS);
+		} else if (contextSwitcherButtonsHolder.getContextSwitcherButtons().get(ProjectViewEnum.FILES.ordinal())
 				.isSelected()) {
-			setProjectViewPanel(ProjectViewEnum.Files);
-		} else if (contextSwitcherButtonsHolder.getContextSwitcherButtons().get(ProjectViewEnum.Notes.ordinal())
+			setProjectViewPanel(ProjectViewEnum.FILES);
+		} else if (contextSwitcherButtonsHolder.getContextSwitcherButtons().get(ProjectViewEnum.NOTES.ordinal())
 				.isSelected()) {
-			setProjectViewPanel(ProjectViewEnum.Notes);
+			setProjectViewPanel(ProjectViewEnum.NOTES);
 		}
 	}
 
@@ -539,17 +535,6 @@ public class MainWindow extends FrameView implements ContextChangedCallback {
 
 
 	/**
-	 * init app
-	 */
-	private void initComponents() {
-//		setMenuBar(menuBar);
-
-//		statusPanel = new JPanel();
-//		statusPanel.setLayout(new java.awt.BorderLayout());
-//		setStatusBar(statusPanel);
-	}
-
-	/**
 	 * Updates the window
 	 */
 	private void updateAll() {
@@ -582,9 +567,9 @@ public class MainWindow extends FrameView implements ContextChangedCallback {
 		// only set if project panels are shown!
 		boolean show = contextViewPanelHolder.getContextViewPanel() == ContextPanelEnum.Project;
 
-		contentPanelHolder.showContentPanel(newsPanel, show && view == ProjectViewEnum.News);
-		contentPanelHolder.showContentPanel(filePanel, show && view == ProjectViewEnum.Files);
-		contentPanelHolder.showContentPanel(notesPanel, show && view == ProjectViewEnum.Notes);
+		contentPanelHolder.showContentPanel(newsPanel, show && view == ProjectViewEnum.EVENTS);
+		contentPanelHolder.showContentPanel(filePanel, show && view == ProjectViewEnum.FILES);
+//		contentPanelHolder.showContentPanel(notesPanel, show && view == ProjectViewEnum.NOTES);
 
 
 		contextSwitcherButtonsHolder.updateProjectToggleButtons(contextViewPanelHolder.getContextViewPanel() == ContextPanelEnum.Project);

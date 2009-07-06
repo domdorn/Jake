@@ -2,7 +2,7 @@ package com.jakeapp.gui.swing.dialogs.generic;
 
 import com.jakeapp.core.domain.Project;
 import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.MainWindow;
+import com.jakeapp.gui.swing.view.MainWindow;
 import com.jakeapp.gui.swing.helpers.ImageLoader;
 import com.jakeapp.gui.swing.helpers.Platform;
 import net.miginfocom.swing.MigLayout;

@@ -1,9 +1,10 @@
-package com.jakeapp.gui.swing.models;
+package com.jakeapp.gui.swing.models.project;
 
 import com.jakeapp.core.domain.FileObject;
 import com.jakeapp.core.domain.Project;
 import com.jakeapp.core.synchronization.attributes.Attributed;
 import com.jakeapp.gui.swing.JakeMainApp;
+import com.jakeapp.gui.swing.models.project.FolderTreeTableModel;
 import com.jakeapp.gui.swing.callbacks.ContextChangedCallback;
 import com.jakeapp.gui.swing.callbacks.DataChangedCallback;
 import com.jakeapp.gui.swing.globals.JakeContext;

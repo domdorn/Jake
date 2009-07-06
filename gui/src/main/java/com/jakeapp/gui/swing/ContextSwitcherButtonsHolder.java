@@ -2,6 +2,8 @@ package com.jakeapp.gui.swing;
 
 import com.jakeapp.gui.swing.helpers.SegmentButtonCreator;
 import com.jakeapp.gui.swing.helpers.Platform;
+import com.jakeapp.gui.swing.view.ProjectViewEnum;
+
 
 import javax.swing.*;
 import java.util.List;
@@ -43,7 +45,7 @@ public class ContextSwitcherButtonsHolder {
 		this.projectViewHolder = projectViewHolder;
 		
 		getContextSwitcherButtons().get(0).setText("Project");
-		getContextSwitcherButtons().get(1).setText("Files");
+		getContextSwitcherButtons().get(1).setText("FILES");
 		getContextSwitcherButtons().get(2).setText("Notes");
 
 
@@ -63,12 +65,12 @@ public class ContextSwitcherButtonsHolder {
 		log.trace("updateProjectToggleButtons. canBeSelected=" + canBeSelected);
 
 		if (canBeSelected) {
-			getContextSwitcherButtons().get(ProjectViewEnum.News.ordinal())
-					.setSelected(projectViewHolder.getCurrentView() == ProjectViewEnum.News);
-			getContextSwitcherButtons().get(ProjectViewEnum.Files.ordinal())
-					.setSelected(projectViewHolder.getCurrentView() == ProjectViewEnum.Files);
-			getContextSwitcherButtons().get(ProjectViewEnum.Notes.ordinal())
-					.setSelected(projectViewHolder.getCurrentView() == ProjectViewEnum.Notes);
+			getContextSwitcherButtons().get(ProjectViewEnum.EVENTS.ordinal())
+					.setSelected(projectViewHolder.getCurrentView() == ProjectViewEnum.EVENTS);
+			getContextSwitcherButtons().get(ProjectViewEnum.FILES.ordinal())
+					.setSelected(projectViewHolder.getCurrentView() == ProjectViewEnum.FILES);
+			getContextSwitcherButtons().get(ProjectViewEnum.NOTES.ordinal())
+					.setSelected(projectViewHolder.getCurrentView() == ProjectViewEnum.NOTES);
 		}
 
 		// adapt button style

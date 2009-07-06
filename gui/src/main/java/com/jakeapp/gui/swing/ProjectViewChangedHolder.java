@@ -1,6 +1,8 @@
 package com.jakeapp.gui.swing;
 
 import com.jakeapp.gui.swing.callbacks.ProjectViewChangedCallback;
+import com.jakeapp.gui.swing.view.ProjectViewEnum;
+
 
 import java.util.List;
 import java.util.ArrayList;

@@ -24,6 +24,8 @@ import com.explodingpixels.macwidgets.TriAreaComponent;
 import com.jakeapp.availablelater.AvailableLaterObject;
 import com.jakeapp.core.domain.Project;
 import com.jakeapp.gui.swing.*;
+import com.jakeapp.gui.swing.view.MainWindow;
+import com.jakeapp.gui.swing.view.ProjectViewEnum;
 import com.jakeapp.gui.swing.callbacks.ContextChangedCallback;
 import com.jakeapp.gui.swing.callbacks.ContextViewChangedCallback;
 import com.jakeapp.gui.swing.callbacks.DataChangedCallback;
@@ -443,11 +445,11 @@ public class JakeStatusBar extends JakeGuiComponent
 				statusLabel.setText("Woohoo, that's an Invitation! You better join!");
 			} else {
 
-				if (getProjectViewPanel() == ProjectViewEnum.Files) {
+				if (getProjectViewPanel() == ProjectViewEnum.FILES) {
 					// update the status bar label
 					JakeExecutor.exec(new ProjectFileCountTask());
 					JakeExecutor.exec(new ProjectSizeTotalTask());
-				} else if (getProjectViewPanel() == ProjectViewEnum.Notes) {
+				} else if (getProjectViewPanel() == ProjectViewEnum.NOTES) {
 					JakeExecutor.exec(new NoteCountTask());
 				} else {
 					// project view

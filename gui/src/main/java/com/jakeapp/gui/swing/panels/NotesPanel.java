@@ -18,7 +18,7 @@ import com.jakeapp.gui.swing.helpers.Colors;
 import com.jakeapp.gui.swing.helpers.JakeHelper;
 import com.jakeapp.gui.swing.helpers.JakePopupMenu;
 import com.jakeapp.gui.swing.helpers.Platform;
-import com.jakeapp.gui.swing.models.NotesTableModel;
+import com.jakeapp.gui.swing.models.project.NotesTableModel;
 import com.jakeapp.gui.swing.renderer.DefaultJakeTableCellRenderer;
 import com.jakeapp.gui.swing.xcore.EventCore;
 import com.jakeapp.gui.swing.xcore.ObjectCache;
@@ -61,16 +61,17 @@ public class NotesPanel extends javax.swing.JPanel
 	private static NotesPanel instance;
 	private static Logger log = Logger.getLogger(NotesPanel.class);
 	private final static int TableUpdateDelay = 20000;
+
 	// 20 sec 	//FIXME magic number, make property
 	private Timer tableUpdateTimer;
 	private List<NoteSelectionChangedCallback> noteSelectionListeners =
 			new ArrayList<NoteSelectionChangedCallback>();
-	private NotesTableModel notesTableModel;
+	private final NotesTableModel notesTableModel;
 	private JScrollPane notesTableScrollPane;
 	private JSplitPane mainSplitPane;
 	private JXPanel noteReaderPanel;
-	private JXTable notesTable;
-	private ResourceMap resourceMap;
+	private JXTable notesTable = new ITunesTable();
+	private final ResourceMap resourceMap;
 	private JTextArea noteReader;
 	private JButton createBtn;
 	private JButton announceBtn;
@@ -147,14 +148,15 @@ public class NotesPanel extends javax.swing.JPanel
 
 	/**
 	 * Creates new form NotesPanel
+	 * @param notesTableModel
 	 */
-	public NotesPanel() {
+	public NotesPanel(NotesTableModel notesTableModel, ResourceMap resourceMap) {
+		this.notesTableModel = notesTableModel;
+		this.resourceMap = resourceMap;
+		
 		instance = this;
 
 		// getInstance resource map
-		this.setResourceMap(
-				org.jdesktop.application.Application.getInstance(JakeMainApp.class)
-						.getContext().getResourceMap(NotesPanel.class));
 
 		// init components
 		initComponents();
@@ -237,14 +239,6 @@ public class NotesPanel extends javax.swing.JPanel
 		return null;
 	}
 
-	public ResourceMap getResourceMap() {
-		return this.resourceMap;
-	}
-
-	public void setResourceMap(ResourceMap resourceMap) {
-		this.resourceMap = resourceMap;
-	}
-
 	public Project getProject() {
 		return JakeContext.getProject();
 	}
@@ -277,7 +271,6 @@ public class NotesPanel extends javax.swing.JPanel
 
 		this.mainSplitPane = new JSplitPane();
 		this.notesTableScrollPane = new JScrollPane();
-		this.notesTable = new ITunesTable();
 
 		this.mainSplitPane.setBorder(null);
 		this.mainSplitPane.setDividerSize(2);
@@ -288,8 +281,7 @@ public class NotesPanel extends javax.swing.JPanel
 		this.add(this.mainSplitPane, "grow");
 
 		// set up table model
-		this.notesTableModel = new NotesTableModel();
-		this.notesTable.setModel(this.notesTableModel);
+		this.notesTable.setModel(notesTableModel);
 		this.notesTable.setSortable(true);
 		this.notesTable.setColumnControlVisible(false);
 
@@ -317,7 +309,7 @@ public class NotesPanel extends javax.swing.JPanel
 
 		this.noteReaderPanel = new JXPanel(new MigLayout("wrap 1, ins 0, fill"));
 		this.noteReaderPanel
-				.setBackground(getResourceMap().getColor("noteReadPanel.background"));
+				.setBackground(resourceMap.getColor("noteReadPanel.background"));
 
 		JPanel noteControlPanel = new JPanel(new MigLayout("nogrid, ins 0"));
 		noteControlPanel.setBackground(Color.WHITE);

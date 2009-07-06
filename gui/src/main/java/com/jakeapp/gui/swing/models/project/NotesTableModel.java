@@ -1,4 +1,4 @@
-package com.jakeapp.gui.swing.models;
+package com.jakeapp.gui.swing.models.project;
 
 import com.jakeapp.core.domain.NoteObject;
 import com.jakeapp.core.domain.Project;
@@ -33,25 +33,25 @@ public class NotesTableModel extends DefaultTableModel
 	private static final long serialVersionUID = -2745782032637383756L;
 	private static Logger log = Logger.getLogger(NotesTableModel.class);
 
-	private ITimeUtilities timeUtilities = ObjectRegistry.getTimeUtilities();
 
+	private final ResourceMap resourceMap;
+
+	private ITimeUtilities timeUtilities = ObjectRegistry.getTimeUtilities();
 	private List<String> columnNames;
 	private List<Attributed<NoteObject>> attributedNotes =
 					new ArrayList<Attributed<NoteObject>>();
 	private NoteObject noteToSelectLater = null;
-	private ResourceMap resourceMap;
 	private Icon padlock, shared_note;
 
-	public NotesTableModel() {
-		this.resourceMap = org.jdesktop.application.Application
-						.getInstance(com.jakeapp.gui.swing.JakeMainApp.class).getContext()
-						.getResourceMap(NotesTableModel.class);
+	public NotesTableModel(ResourceMap resourceMap) {
+		this.resourceMap = resourceMap;
+
 		this.columnNames = new ArrayList<String>();
-		this.columnNames.add(this.getResourceMap().getString("tableHeaderSoftLock"));
-		this.columnNames.add(this.getResourceMap().getString("tableHeaderlocalNote"));
-		this.columnNames.add(this.getResourceMap().getString("tableHeaderNote"));
-		this.columnNames.add(this.getResourceMap().getString("tableHeaderLastEdit"));
-		this.columnNames.add(this.getResourceMap().getString("tableHeaderLastEditor"));
+		this.columnNames.add(resourceMap.getString("tableHeaderSoftLock"));
+		this.columnNames.add(resourceMap.getString("tableHeaderlocalNote"));
+		this.columnNames.add(resourceMap.getString("tableHeaderNote"));
+		this.columnNames.add(resourceMap.getString("tableHeaderLastEdit"));
+		this.columnNames.add(resourceMap.getString("tableHeaderLastEditor"));
 
 		this.padlock = ImageLoader.get(JakeMainApp.class, "/icons/file-lock.png");
 		this.shared_note = ImageLoader.get(JakeMainApp.class, "/icons/shared_note.png");
@@ -59,9 +59,6 @@ public class NotesTableModel extends DefaultTableModel
 		EventCore.getInstance().addDataChangedCallbackListener(this);
 	}
 
-	private ResourceMap getResourceMap() {
-		return this.resourceMap;
-	}
 
 	public Attributed<NoteObject> getNoteAtRow(int row) {
 		return this.attributedNotes.get(row);

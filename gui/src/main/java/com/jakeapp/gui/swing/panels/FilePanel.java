@@ -22,7 +22,7 @@ import com.jakeapp.gui.swing.helpers.FileObjectStatusCell;
 import com.jakeapp.gui.swing.helpers.JakePopupMenu;
 import com.jakeapp.gui.swing.helpers.Platform;
 import com.jakeapp.gui.swing.helpers.ProjectFilesTreeNode;
-import com.jakeapp.gui.swing.models.FileTableModel;
+import com.jakeapp.gui.swing.models.project.FileTableModel;
 import com.jakeapp.gui.swing.renderer.files.FileLockedTreeCellRenderer;
 import com.jakeapp.gui.swing.renderer.files.FileStatusTreeCellRenderer;
 import com.jakeapp.gui.swing.renderer.files.ProjectFilesTableCellRenderer;

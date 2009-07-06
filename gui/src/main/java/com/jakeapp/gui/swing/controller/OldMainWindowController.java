@@ -1,11 +1,16 @@
-package com.jakeapp.gui.swing;
+package com.jakeapp.gui.swing.controller;
 
 import com.jakeapp.gui.swing.panels.*;
+import com.jakeapp.gui.swing.view.MainWindow;
+import com.jakeapp.gui.swing.view.ProjectViewEnum;
+
+import com.jakeapp.gui.swing.ContentPanelHolder;
+import com.jakeapp.gui.swing.ContextPanelEnum;
 
 /**
  * This Controller controls all the View-Logic, meaning when to show which view
  */
-public class ViewController {
+public class OldMainWindowController {
 
 	/* main window */
 	private final MainWindow mainWindow;
@@ -15,13 +20,13 @@ public class ViewController {
 	private final InspectorPanel inspectorPanel;
 	private final InvitationPanel invitationPanel;
 	private final NewsPanel newsPanel;
-	private final NotesPanel notesPanel;
+	private final NewNotesPanel notesPanel;
 	private final UserPanel userPanel;
 
 	private final ContentPanelHolder contentPanelHolder;
 
 
-	private ProjectViewEnum currentProjectView = ProjectViewEnum.News;
+	private ProjectViewEnum currentProjectView = ProjectViewEnum.EVENTS;
 
 	private ContextPanelEnum currentContextPanelView = ContextPanelEnum.Login;
 
@@ -34,12 +39,12 @@ public class ViewController {
 		this.currentContextPanelView = currentContextPanelView;
 	}
 
-	public ViewController(MainWindow mainWindow,
+	public OldMainWindowController(MainWindow mainWindow,
 						  FilePanel filePanel,
 						  InspectorPanel inspectorPanel,
 						  InvitationPanel invitationPanel,
 						  NewsPanel newsPanel,
-						  NotesPanel notesPanel,
+						  NewNotesPanel notesPanel,
 						  UserPanel userPanel, ContentPanelHolder contentPanelHolder) {
 		this.mainWindow = mainWindow;
 

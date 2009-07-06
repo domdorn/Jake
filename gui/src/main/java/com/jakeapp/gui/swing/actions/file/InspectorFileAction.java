@@ -1,6 +1,6 @@
 package com.jakeapp.gui.swing.actions.file;
 
-import com.jakeapp.gui.swing.MainWindow;
+import com.jakeapp.gui.swing.view.MainWindow;
 import com.jakeapp.gui.swing.InspectorStateHolder;
 import com.jakeapp.gui.swing.panels.FilePanel;
 import com.jakeapp.gui.swing.xcore.EventCore;

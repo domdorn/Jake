@@ -1,9 +1,9 @@
 package com.jakeapp.gui.swing.actions.view;
 
-import com.jakeapp.gui.swing.MainWindow;
+import com.jakeapp.gui.swing.view.MainWindow;
+import com.jakeapp.gui.swing.view.ProjectViewEnum;
 import com.jakeapp.gui.swing.ContextViewChangedHolder;
 import com.jakeapp.gui.swing.ContextViewPanelHolder;
-import com.jakeapp.gui.swing.ProjectViewEnum;
 import com.jakeapp.gui.swing.actions.abstracts.SwitchProjectContextAction;
 
 import javax.swing.*;
@@ -27,6 +27,6 @@ public class SwitchNewsProjectContextAction extends SwitchProjectContextAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		MainWindow.getMainView().setProjectViewPanel(ProjectViewEnum.News);
+		MainWindow.getMainView().setProjectViewPanel(ProjectViewEnum.EVENTS);
 	}
 }
