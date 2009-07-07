@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
  * Time: 5:09:18 PM
  * To change this template use File | Settings | File Templates.
  */
+@Deprecated
 class ContextSwitchActionListener implements ActionListener {
 
 	ContextSwitchActionListener() {

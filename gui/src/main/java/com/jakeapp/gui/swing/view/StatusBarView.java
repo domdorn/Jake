@@ -100,7 +100,7 @@ public class StatusBarView extends JPanel implements Observer {
 		statusLabel.setFont(statusLabel.getFont().deriveFont(statusLabel.getFont().getSize() - 2f));
 
 		bottomBar.addComponentToCenter(statusLabel);
-//		bottomBar.installWindowDraggerOnWindow(MainWindow.getMainView().getFrame()); // TODO fixme
+		controller.installWindowDragger(bottomBar);
 
 		progressDrawer.setVisible(false);
 		bottomBar.addComponentToLeft(progressDrawer, 3);

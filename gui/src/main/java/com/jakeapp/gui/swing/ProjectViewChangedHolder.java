@@ -7,6 +7,7 @@ import com.jakeapp.gui.swing.view.ProjectViewEnum;
 import java.util.List;
 import java.util.ArrayList;
 
+@Deprecated
 public class ProjectViewChangedHolder {
 	private List<ProjectViewChangedCallback> projectViewChanged;
 

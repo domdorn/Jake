@@ -5,6 +5,7 @@ import com.jakeapp.gui.swing.panels.InvitationPanel;
 import com.jakeapp.gui.swing.callbacks.ContextViewChangedCallback;
 import com.jakeapp.gui.swing.view.MainWindow;
 
+@Deprecated
 public class ContextViewPanelHolder {
 //	private final MainWindow jakeMainView;
 	private ContextPanelEnum contextViewPanel = ContextPanelEnum.Login; // default Start View

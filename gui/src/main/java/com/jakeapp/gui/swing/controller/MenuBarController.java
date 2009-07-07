@@ -52,9 +52,9 @@ public class MenuBarController {
 	}
 
 	public void quit() {
+		System.exit(1);
 		throw new UnsupportedOperationException("Operation not yet implemented");
 	}
-
 
 	public void syncProject() {
 		throw new UnsupportedOperationException("Operation not yet implemented");

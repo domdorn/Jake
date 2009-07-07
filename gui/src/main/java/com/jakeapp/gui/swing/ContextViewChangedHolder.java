@@ -5,6 +5,7 @@ import com.jakeapp.gui.swing.callbacks.ContextViewChangedCallback;
 import java.util.List;
 import java.util.ArrayList;
 
+@Deprecated
 public class ContextViewChangedHolder {
 	private List<ContextViewChangedCallback> contextViewChanged = new ArrayList<ContextViewChangedCallback>();
 

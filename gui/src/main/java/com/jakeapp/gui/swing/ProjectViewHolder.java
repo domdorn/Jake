@@ -7,6 +7,7 @@ import com.jakeapp.gui.swing.view.ProjectViewEnum;
 /**
  * This Component stores the current View of the GUi and if selected, the current Project
  */
+@Deprecated
 public class ProjectViewHolder {
 
 	private Project currentProject;

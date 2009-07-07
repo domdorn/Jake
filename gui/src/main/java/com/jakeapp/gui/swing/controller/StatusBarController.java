@@ -3,6 +3,7 @@ package com.jakeapp.gui.swing.controller;
 import com.jakeapp.gui.swing.model.StatusBarModel;
 import com.jakeapp.gui.swing.JakeMainApp;
 import com.jakeapp.gui.swing.ContextPanelEnum;
+import com.explodingpixels.macwidgets.TriAreaComponent;
 
 public class StatusBarController {
 
@@ -22,5 +23,9 @@ public class StatusBarController {
 	public void loginUser() {
 		// todo
 
+	}
+
+	public void installWindowDragger(TriAreaComponent bottomBar) {
+		// TODO toolBar.installWindowDraggerOnWindow(jakeMainViewFrame);
 	}
 }

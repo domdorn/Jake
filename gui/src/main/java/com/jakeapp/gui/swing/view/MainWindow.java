@@ -44,6 +44,7 @@ import java.util.EnumSet;
 /**
  * The application's main frame.
  */
+@Deprecated
 public class MainWindow extends FrameView implements ContextChangedCallback {
 	private static final Logger log = Logger.getLogger(MainWindow.class);
 	public static final int CONTENT_SPLITTERSIZE = 2;

@@ -7,6 +7,7 @@ import com.jakeapp.gui.swing.view.ProjectViewEnum;
 
 import org.apache.log4j.Logger;
 
+@Deprecated
 public class InspectorStateHolder {
 	private static Logger log = Logger.getLogger(InspectorStateHolder.class);
 

@@ -48,6 +48,7 @@
     <bean id="toolbarView" class="com.jakeapp.gui.swing.view.ToolbarView">
         <constructor-arg ref="toolbarModel"/>
         <constructor-arg ref="toolbarController"/>
+        <constructor-arg ref="resourceMap" />
     </bean>
 
 

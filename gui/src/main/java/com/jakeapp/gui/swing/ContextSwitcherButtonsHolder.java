@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
  * Time: 5:05:59 PM
  * To change this template use File | Settings | File Templates.
  */
+@Deprecated
 public class ContextSwitcherButtonsHolder {
 	private static Logger log = Logger.getLogger(ContextSwitcherButtonsHolder.class);
 
