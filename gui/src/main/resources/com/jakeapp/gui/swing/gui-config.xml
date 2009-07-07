@@ -99,15 +99,15 @@
     <!-- ########################################################################################################### -->
 
 
-    <bean id="singleViewModel" class="com.jakeapp.gui.swing.model.SingleViewModel">
+    <bean id="singleViewModel" class="com.jakeapp.gui.swing.model.ContentSingleViewModel">
 
     </bean>
 
-    <bean id="singleViewController" class="com.jakeapp.gui.swing.controller.SingleViewController">
+    <bean id="singleViewController" class="com.jakeapp.gui.swing.controller.ContentSingleViewController">
         <constructor-arg ref="singleViewModel"/>
     </bean>
 
-    <bean id="singleView" class="com.jakeapp.gui.swing.view.SingleView">
+    <bean id="singleView" class="com.jakeapp.gui.swing.view.ContentSingleView">
         <constructor-arg ref="singleViewModel"/>
         <constructor-arg ref="singleViewController"/>
     </bean>

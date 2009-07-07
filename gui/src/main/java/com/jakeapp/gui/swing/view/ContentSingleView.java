@@ -1,8 +1,7 @@
 package com.jakeapp.gui.swing.view;
 
-import com.jakeapp.gui.swing.model.SingleViewModel;
-import com.jakeapp.gui.swing.controller.SingleViewController;
-import com.jakeapp.gui.swing.helpers.Colors;
+import com.jakeapp.gui.swing.model.ContentSingleViewModel;
+import com.jakeapp.gui.swing.controller.ContentSingleViewController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,11 +15,11 @@ import java.awt.*;
  */
 public class ContentSingleView extends JPanel {
 
-	private final SingleViewModel model;
-	private final SingleViewController controller;
+	private final ContentSingleViewModel model;
+	private final ContentSingleViewController controller;
 
 
-	public ContentSingleView(SingleViewModel model, SingleViewController controller) {
+	public ContentSingleView(ContentSingleViewModel model, ContentSingleViewController controller) {
 		this.model = model;
 		this.controller = controller;
 

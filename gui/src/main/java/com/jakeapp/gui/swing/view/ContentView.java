@@ -2,8 +2,6 @@ package com.jakeapp.gui.swing.view;
 
 import com.jakeapp.gui.swing.model.ContentViewModel;
 import com.jakeapp.gui.swing.controller.ContentViewController;
-import com.jakeapp.gui.swing.components.JakeSourceList;
-import com.explodingpixels.macwidgets.MacWidgetFactory;
 
 
 import javax.swing.*;
@@ -19,18 +17,18 @@ public class ContentView extends JPanel implements Observer {
 //	private final JPanel projectView;
 
 
-	private SingleView singleView;
+	private ContentSingleView contentSingleView;
 	private ContentSplitView splitView;
 
 //	private final JakeSourceList jakeSourceList;
 
 
 
-	public ContentView(ContentViewModel model, ContentViewController controller, SingleView singleView, ContentSplitView splitView) {
+	public ContentView(ContentViewModel model, ContentViewController controller, ContentSingleView contentSingleView, ContentSplitView splitView) {
 		super(new BorderLayout());
 		this.model = model;
 		this.controller = controller;
-		this.singleView = singleView;
+		this.contentSingleView = contentSingleView;
 		this.splitView = splitView;
 
 		model.addObserver(this);
@@ -76,7 +74,7 @@ public class ContentView extends JPanel implements Observer {
 		switch (model.getViewToShow()) {
 
 			case SINGLE:
-				this.add(singleView);
+				this.add(contentSingleView);
 				break;
 			case SPLITVIEW:
 				this.add(splitView);
