@@ -14,13 +14,13 @@ import java.awt.*;
  * Time: 8:02:32 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SingleView extends JPanel {
+public class ContentSingleView extends JPanel {
 
 	private final SingleViewModel model;
 	private final SingleViewController controller;
 
 
-	public SingleView(SingleViewModel model, SingleViewController controller) {
+	public ContentSingleView(SingleViewModel model, SingleViewController controller) {
 		this.model = model;
 		this.controller = controller;
 

@@ -1,6 +1,6 @@
 package com.jakeapp.gui.swing.controller;
 
-import com.jakeapp.gui.swing.model.SingleViewModel;
+import com.jakeapp.gui.swing.model.ContentSingleViewModel;
 
 /**
  * Created by IntelliJ IDEA.
@@ -9,12 +9,12 @@ import com.jakeapp.gui.swing.model.SingleViewModel;
  * Time: 8:03:00 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SingleViewController {
+public class ContentSingleViewController {
 
-	private final SingleViewModel model;
+	private final ContentSingleViewModel model;
 
 
-	public SingleViewController(SingleViewModel model) {
+	public ContentSingleViewController(ContentSingleViewModel model) {
 		this.model = model;
 	}
 }

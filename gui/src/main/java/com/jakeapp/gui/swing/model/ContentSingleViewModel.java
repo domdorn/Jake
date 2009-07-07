@@ -7,5 +7,5 @@ package com.jakeapp.gui.swing.model;
  * Time: 8:02:49 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SingleViewModel {
+public class ContentSingleViewModel {
 }
