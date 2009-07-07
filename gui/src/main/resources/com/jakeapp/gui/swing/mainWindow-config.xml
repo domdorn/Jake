@@ -13,6 +13,7 @@
 
     <bean id="mainWindowView" class="com.jakeapp.gui.swing.view.MainWindowView">
         <constructor-arg ref="jakeMainApp" />
+
     </bean>
 
 

@@ -159,7 +159,7 @@
         <constructor-arg ref="menuBarModel"/>
     </bean>
 
-    <bean id="menuBarView" class="com.jakeapp.gui.swing.view.MenuBarView">
+    <bean id="menuBarView" class="com.jakeapp.gui.swing.view.menuBar.MenuBarView">
         <constructor-arg ref="menuBarModel"/>
         <constructor-arg ref="menuBarController"/>
         <constructor-arg ref="resourceMap" />

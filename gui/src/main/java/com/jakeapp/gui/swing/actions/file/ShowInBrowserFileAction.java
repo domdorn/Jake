@@ -19,9 +19,7 @@ public class ShowInBrowserFileAction extends FileAction {
 	public ShowInBrowserFileAction(EventCore eventCore, FilePanel filePanel, ResourceMap resourceMap) {
 		super(eventCore, filePanel);
 
-		String actionStr = resourceMap.getString("browseMenuItem.text");
-
-		putValue(Action.NAME, actionStr);
+		putValue(Action.NAME, resourceMap.getString("browseMenuItem.text"));
 
 		updateAction();
 	}

@@ -6,5 +6,5 @@ public enum ProjectViewEnum {
 	 * Project View
 	 */
 	EVENTS, FILES, NOTES
-
+	,LOGIN // this should be somewhere else
 }

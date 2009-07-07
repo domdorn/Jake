@@ -51,6 +51,7 @@ public class JakeHelper {
 		return clickCount == 1 ? "" : "s";
 	}
 
+	@Deprecated
 	public static void showJakeWebsite() {
 		try {
 			Desktop.getDesktop().browse(new URI(MainWindow.getMainView().getResourceMap().getString("JakeWebsite")));
