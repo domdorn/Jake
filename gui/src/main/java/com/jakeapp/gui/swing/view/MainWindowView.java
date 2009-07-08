@@ -1,6 +1,7 @@
 package com.jakeapp.gui.swing.view;
 
 import com.jakeapp.gui.swing.model.MainWindowViewModel;
+import com.jakeapp.gui.swing.model.MainWindowViewModelEnum;
 import com.jakeapp.gui.swing.controller.MainWindowViewController;
 import com.jakeapp.gui.swing.JakeMainApp;
 import com.jakeapp.gui.swing.view.menuBar.MenuBarView;
@@ -41,11 +42,13 @@ public class MainWindowView extends FrameView implements Observer {
 		this.statusBarView = statusBarView;
 		this.menuBarView = menuBarView;
 
-		System.out.println("created mainWindowView");
+		this.setMenuBar(menuBarView);
+		this.setStatusBar(statusBarView);
+
+		initializeUI();
+		this.setComponent(mainView);
 
 
-		model.addObserver(this);
-		System.out.println("added observer");
 
 
 		// initialize icons
@@ -57,23 +60,27 @@ public class MainWindowView extends FrameView implements Observer {
 
 		// adapt the menu if we live on a mac
 //		if (Platform.isMac()) {
-			// install the close handler (meta-w)
+		// install the close handler (meta-w)
 //			GuiUtilities.installMacCloseHandler(getFrame());
 //		}
 
 
 
+		model.addObserver(this);
 
 		// initialize view dimension properties
 		model.setMinimumHeight(600);
 		model.setMinimumWidth(600);
 		model.setCurrentHeight(800);
 		model.setCurrentWidth(800);
+		model.setShowMenubar(true);
+		model.setShowStatusbar(true);
+		model.setShowToolbar(true);
 
 
-		this.setComponent(mainView);
 
-		this.setMenuBar(menuBarView);
+
+
 
 
 	}
@@ -81,16 +88,72 @@ public class MainWindowView extends FrameView implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 
+		if (o instanceof MainWindowViewModel && arg instanceof MainWindowViewModelEnum) {
+			MainWindowViewModelEnum changed = (MainWindowViewModelEnum) arg;
+
+
+			switch (changed) {
+
+				case currentHeight:
+					this.getFrame().setSize(this.getFrame().getWidth(), model.getCurrentHeight());
+					break;
+				case currentView:
+					// this gets handled by child components
+					break;
+				case currentWidth:
+					this.getFrame().setSize(model.getCurrentWidth(), this.getFrame().getHeight());
+					break;
+				case minimumHeight:
+					this.getFrame().setMinimumSize(new Dimension(model.getCurrentWidth(), model.getCurrentHeight()));
+					break;
+				case minimumWidth:
+					this.getFrame().setMinimumSize(new Dimension(model.getCurrentWidth(), model.getCurrentHeight()));
+					break;
+				case showMainWindow:
+					this.getFrame().setVisible(model.isShowMainWindow());
+					break;
+				case showMenubar:
+					if(this.getMenuBar() != null)
+						this.getMenuBar().setVisible(model.isShowMenubar());
+					break;
+				case showStatusbar:
+					if(this.getStatusBar() != null)
+						this.getStatusBar().setVisible(model.isShowStatusbar());
+					break;
+				case showToolbar:
+					this.toolbarView.setVisible(model.isShowToolbar());
+					break;
+				case windowTitle:
+					this.getFrame().setTitle(model.getWindowTitle());
+					break;
+			}
+
+
+		}
+
+		if (!(o instanceof MainWindowViewModel)) {
+			new Exception("Unhandled observer invocation, please fix me").printStackTrace();
+			System.exit(1);
+		}
+
+
 		System.out.println("o = " + o);
 		System.out.println("arg = " + arg);
 
 
-		updateUI();
+//		updateUI();
 		//To change body of implemented methods use File | Settings | File Templates.
 	}
 
-	private void updateUI()
+	private void reloadUIfromModel()
 	{
+		this.getFrame().setSize(model.getCurrentWidth(), model.getCurrentHeight());
+
+
+	}
+
+
+	private void initializeUI() {
 
 		if (!model.isShowMainWindow()) {
 			this.getFrame().setVisible(false);
@@ -115,20 +178,17 @@ public class MainWindowView extends FrameView implements Observer {
 
 		mainView.removeAll();
 
-		if(model.isShowToolbar())
+		if (model.isShowToolbar())
 			mainView.add(toolbarView, BorderLayout.NORTH);
 
 		mainView.add(contentView, BorderLayout.CENTER);
 
-		if(model.isShowStatusbar())
+		if (model.isShowStatusbar())
 			mainView.add(statusBarView, BorderLayout.SOUTH);
 
 
 		mainView.validate();
 	}
-
-
-
 
 
 }

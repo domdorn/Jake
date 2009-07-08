@@ -2,8 +2,11 @@ package com.jakeapp.gui.swing.controller;
 
 import com.jakeapp.gui.swing.model.ContentSingleViewModel;
 
+import java.util.Observer;
+import java.util.Observable;
 
-public class ContentSingleViewController {
+
+public class ContentSingleViewController implements Observer {
 
 	private final ContentSingleViewModel model;
 	private final ContentViewController parentController;
@@ -12,5 +15,19 @@ public class ContentSingleViewController {
 	public ContentSingleViewController(ContentSingleViewModel model, ContentViewController parentController) {
 		this.model = model;
 		this.parentController = parentController;
+
+		this.parentController.addObserver(this);
+	}
+
+
+		public void addObserver(Observer o)
+	{
+		this.model.addObserver(o);
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		//To change body of implemented methods use File | Settings | File Templates.
+		// TODO
 	}
 }

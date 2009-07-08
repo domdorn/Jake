@@ -5,7 +5,10 @@ import com.jakeapp.gui.swing.model.ToolbarModel;
 import com.jakeapp.gui.swing.view.ViewEnum;
 import org.apache.log4j.Logger;
 
-public class ToolbarController {
+import java.util.Observer;
+import java.util.Observable;
+
+public class ToolbarController implements Observer {
 	private static Logger log = Logger.getLogger(ToolbarController.class);
 
 	private final ToolbarModel model;
@@ -15,6 +18,12 @@ public class ToolbarController {
 	public ToolbarController(ToolbarModel model, MainWindowViewController parentController) {
 		this.model = model;
 		this.parentController = parentController;
+
+		this.parentController.addObserver(this);
+	}
+
+	public void addObserver(Observer o) {
+		this.model.addObserver(o);
 	}
 
 	public void createImportFileDialog() {
@@ -74,5 +83,11 @@ public class ToolbarController {
 	public void invitePeople() {
 		// TODO
 		// see com.jakeapp.gui.swing.actions.users.InviteUsersAction
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+
+
 	}
 }

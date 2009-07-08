@@ -7,5 +7,10 @@ package com.jakeapp.gui.swing.controller;
  * Time: 10:10:37 PM
  * To change this template use File | Settings | File Templates.
  */
+@Deprecated
 public class NotesPanelController {
+
+
+
+
 }

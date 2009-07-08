@@ -88,6 +88,7 @@ public class ContentView extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		System.out.println("calling update on ContentView");
 		System.out.println("o = " + o);
 		System.out.println("arg = " + arg);
 	

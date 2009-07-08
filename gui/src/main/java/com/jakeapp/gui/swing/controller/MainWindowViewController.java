@@ -2,6 +2,8 @@ package com.jakeapp.gui.swing.controller;
 
 import com.jakeapp.gui.swing.model.MainWindowViewModel;
 
+import java.util.Observer;
+
 
 public class MainWindowViewController {
 
@@ -11,6 +13,9 @@ public class MainWindowViewController {
 		this.model = model;
 	}
 
+	public MainWindowViewModel getModel() {
+		return model;
+	}
 
 	public void showMainWindow()
 	{
@@ -22,5 +27,10 @@ public class MainWindowViewController {
 		this.model.setShowMainWindow(false);
 	}
 
+
+	public void addObserver(Observer o)
+	{
+		this.model.addObserver(o);
+	}
 
 }

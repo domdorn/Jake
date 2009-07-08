@@ -10,7 +10,7 @@ import java.util.*;
 import org.apache.log4j.Logger;
 
 
-public class MenuBarController {
+public class MenuBarController implements Observer {
 
 	private static Logger log = Logger.getLogger(MenuBarController.class);
 
@@ -22,10 +22,16 @@ public class MenuBarController {
 	public MenuBarController(MenuBarModel model, MainWindowViewController parentController) {
 		this.model = model;
 		this.parentController = parentController;
+
+		this.parentController.addObserver(this);
+	}
+
+	public void addObserver(Observer o) {
+		this.model.addObserver(o);
 	}
 
 	public MenuBarModel getModel() {
-		return model;
+		return model;	 // TODO ccheck usage of this!
 	}
 
 	public void createProject() {
@@ -553,7 +559,12 @@ public class MenuBarController {
 //		} else {
 //			setEnabled(false);
 //		}
-		
+
 		return false;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		//To change body of implemented methods use File | Settings | File Templates.
 	}
 }
