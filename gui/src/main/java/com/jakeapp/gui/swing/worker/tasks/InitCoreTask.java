@@ -16,6 +16,7 @@ import com.jakeapp.gui.swing.dialogs.generic.JSheet;
 import com.jakeapp.gui.swing.helpers.ExceptionUtilities;
 import com.jakeapp.gui.swing.worker.JakeExecutor;
 
+@Deprecated
 public class InitCoreTask extends SwingWorker<ICoreAccess, Void>
 				implements IJakeTask {
 	private static final Logger log = Logger.getLogger(InitCoreTask.class);

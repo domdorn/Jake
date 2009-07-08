@@ -2,7 +2,7 @@ package com.jakeapp.gui.swing.view;
 
 import com.jakeapp.gui.swing.controller.LoginViewController;
 import com.jakeapp.gui.swing.model.LoginViewModel;
-import com.jakeapp.gui.swing.JakeMainApp;
+import com.jakeapp.gui.swing.SupportedServices;
 import com.jakeapp.gui.swing.dialogs.AdvancedAccountSettingsDialog;
 import com.jakeapp.gui.swing.worker.JakeExecutor;
 import com.jakeapp.gui.swing.worker.tasks.LoginAccountTask;
@@ -11,9 +11,7 @@ import com.jakeapp.gui.swing.renderer.IconComboBoxRenderer;
 import com.jakeapp.gui.swing.panels.UserPanelsEnum;
 import com.jakeapp.gui.swing.helpers.*;
 import com.jakeapp.gui.swing.helpers.dragdrop.ProjectDropHandler;
-import com.jakeapp.gui.swing.models.UserPanelModel;
 import com.jakeapp.gui.swing.callbacks.ContextChangedCallback;
-import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.controls.SpinningWheelComponent;
 import com.jakeapp.gui.swing.xcore.EventCore;
 import com.jakeapp.core.domain.Account;
@@ -24,13 +22,11 @@ import com.jakeapp.core.services.MsgService;
 import com.jakeapp.core.services.exceptions.ProtocolNotSupportedException;
 import com.jakeapp.availablelater.AvailableLaterObject;
 import com.jakeapp.jake.ics.exceptions.NetworkException;
-
 import javax.swing.*;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.DocumentEvent;
 import java.util.*;
 import java.awt.*;
-import java.awt.List;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.net.URI;
@@ -96,7 +92,7 @@ public class LoginView extends JXPanel implements Observer {
 		// called after statup, when core init is done.
 
 		// one-time-init of predefined credentials
-		if (JakeContext.isCoreInitialized() && creds.size() == 0) {
+		if (model.isCoreInitialized() && creds.size() == 0) {
 			initPredefinedCredentials();
 		}
 
@@ -110,12 +106,7 @@ public class LoginView extends JXPanel implements Observer {
 		}
 	}
 
-	/**
-	 * SupportedServices; we add some default support for common services.
-	 */
-	private enum SupportedServices {
-		Google, Jabber, UnitedInternet
-	}
+
 
 	/**
 	 * Create the User Panel.
@@ -125,15 +116,12 @@ public class LoginView extends JXPanel implements Observer {
 	) {
 		this.model = model;
 		this.controller = controller;
+		this.resourceMap = resourceMap;
 
 		this.model.addObserver(this);
 
 
-		// TODO REMOVE THIS
 
-		this.resourceMap = resourceMap;
-
-		// TODO TILL HERE
 
 
 //		this.setBackground(new Color(6,87,90));
@@ -267,7 +255,7 @@ public class LoginView extends JXPanel implements Observer {
 		userListPanel.removeAll();
 		log.debug("updateChooseUserPanel removed all!");
 
-		if (JakeContext.isCoreInitialized()) {
+		if (model.isCoreInitialized()) {
 			try {
 				java.util.List<MsgService<User>> msgs = controller.getMsgServices();
 
@@ -425,8 +413,7 @@ public class LoginView extends JXPanel implements Observer {
 					.getServer();
 			password = registerUserDataPanel.getPassword();
 		} else {
-			cred = creds.get(
-					SupportedServices.values()[loginServiceCheckBox.getSelectedIndex()]);
+			cred = creds.get(SupportedServices.values()[ loginServiceCheckBox.getSelectedIndex() ]);
 			user = loginUserDataPanel.getUserName();
 			password = loginUserDataPanel.getPassword();
 		}
@@ -456,8 +443,7 @@ public class LoginView extends JXPanel implements Observer {
 					creds.setAutologin(loginUserDataPanel.isSetRememberPassword());
 					//creds.setPlainTextPassword(loginUserDataPanel.getPassword());
 
-					JakeExecutor.exec(new LoginAccountTask(msg, creds,
-							EventCore.getInstance().getLoginStateListener()));
+					controller.login(msg, creds);
 
 				} catch (Exception e) {
 					log.warn(e);
@@ -466,7 +452,8 @@ public class LoginView extends JXPanel implements Observer {
 					updateView();
 				}
 			} else {
-				JakeExecutor.exec(new RegisterAccountTask(getCredentials()));
+				controller.registerAccount(getCredentials());
+
 				cleanView();
 				updateView();
 			}
@@ -780,9 +767,9 @@ public class LoginView extends JXPanel implements Observer {
 	}
 
 	private void updateSignInSuccessPanel() {
-		if (JakeContext.getMsgService() != null) {
+		if (model.getMsgService() != null) {
 			userLabelLoginSuccess
-					.setText(JakeContext.getMsgService().getUserId().getUserId());
+					.setText(model.getMsgService().getUserId().getUserId());
 		}
 	}
 
@@ -803,7 +790,7 @@ public class LoginView extends JXPanel implements Observer {
 
 	private void updateSignInRegisterMode() {
 		signInRegisterBackBtn.setVisible(
-				JakeContext.isCoreInitialized() && controller.getMsgServices()
+				model.isCoreInitialized() && controller.getMsgServices()
 						.size() > 0);
 
 		loginUserDataPanel.setVisible(isModeSignIn());
@@ -829,7 +816,7 @@ public class LoginView extends JXPanel implements Observer {
 	 * If not, show the add user screen.
 	 */
 	private void updateView() {
-		log.trace("updating login view. selected user: " + JakeContext.getMsgService());
+		log.trace("updating login view. selected user: " + model.getMsgService());
 
 		// always update everything
 		updateSignInSuccessPanel();
@@ -837,8 +824,8 @@ public class LoginView extends JXPanel implements Observer {
 		updateSignInRegisterMode();
 
 		// update the view (maybe already logged in)
-		if (JakeContext.isCoreInitialized()) {
-			if (JakeContext.getMsgService() != null) {
+		if (model.isCoreInitialized()) {
+			if (model.getMsgService() != null) {
 				showPanel(UserPanelsEnum.LoggedIn);
 			} else {
 				java.util.List<MsgService<User>> msgs = controller.getMsgServices();
@@ -889,7 +876,7 @@ public class LoginView extends JXPanel implements Observer {
 	 * @param msg
 	 */
 	private void performLogin(MsgService<User> msg, Account account) {
-		JakeContext.setMsgService(msg);
+		controller.setMsgService(msg);
 
 		JakeExecutor.exec(new LoginAccountTask(msg, account,
 				EventCore.getInstance().getLoginStateListener()));

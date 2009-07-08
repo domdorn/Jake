@@ -13,6 +13,7 @@ import com.jakeapp.gui.swing.helpers.ExceptionUtilities;
 import com.jakeapp.gui.swing.helpers.Platform;
 import com.jakeapp.gui.swing.view.MainWindow;
 import com.jakeapp.gui.swing.controller.MainWindowViewController;
+import com.jakeapp.gui.swing.model.MainAppModel;
 import org.apache.log4j.Logger;
 import org.jdesktop.application.SingleFrameApplication;
 import org.springframework.context.ApplicationContext;
@@ -34,6 +35,10 @@ public class JakeMainApp extends SingleFrameApplication {
 	private static final Logger log = Logger.getLogger(JakeMainApp.class);
 
 	private static JakeMainApp app;
+
+	private MainAppModel model = new MainAppModel(); // todo create this with spring? 
+
+
 
 	private ICoreAccess core;
 
@@ -87,6 +92,27 @@ public class JakeMainApp extends SingleFrameApplication {
 		System.out.println("sshowing mainWindow");
 		mainWindowViewController.showMainWindow();
 
+
+		System.out.println("creating thread loading the core");
+		new Thread(new Runnable(){
+			@Override
+			public void run() {
+
+				System.out.println("Loading core application-context");
+				ApplicationContext ctx_core;
+				ctx_core = new ClassPathXmlApplicationContext("/com/jakeapp/gui/swing/applicationContext-gui.xml");
+
+				System.out.println("loading the core");
+				ICoreAccess core = (ICoreAccess) ctx_core.getBean("coreAccess", ICoreAccess.class);
+				System.out.println("finished loading the core");
+				setCore(core);
+//				model.setCore(core);
+				model.setCoreSet(true);
+			}
+		}).start();
+
+
+
 	}
 
 	/**
@@ -114,15 +140,6 @@ public class JakeMainApp extends SingleFrameApplication {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		startGui(args);
-	}
-
-	/**
-	 * Starts the GUI!
-	 *
-	 * @param args
-	 */
-	private static void startGui(String[] args) {
 		log.info("JakeDB: " + System.getProperty("user.dir"));
 		lookAndFeelSetup(args);
 
@@ -134,6 +151,7 @@ public class JakeMainApp extends SingleFrameApplication {
 
 		launch(JakeMainApp.class, args);
 	}
+
 
 
 	private static void macMenuSetup() {
@@ -205,18 +223,18 @@ public class JakeMainApp extends SingleFrameApplication {
 	 * @return
 	 */
 	public static ICoreAccess getCore() {
-		return JakeMainApp.getInstance().core;
+		return JakeMainApp.getInstance().model.getCore();
 	}
 
 	public void setCore(ICoreAccess core) {
-		this.core = core;
+		this.model.setCore(core);
+//		this.core = core;
 
 		// shout out our core change!
 		for (CoreChangedCallback callback : coreChanged) {
 			callback.coreChanged();
 		}
 	}
-
 
 	public void saveQuit() {
 		log.trace("Calling saveQuit");
@@ -232,6 +250,7 @@ public class JakeMainApp extends SingleFrameApplication {
 	/**
 	 * Logs the current user out of the system, deselects current user.
 	 */
+	@Deprecated
 	public static void logoutUser() {
 		log.info("Logging out: " + JakeContext.getMsgService());
 
