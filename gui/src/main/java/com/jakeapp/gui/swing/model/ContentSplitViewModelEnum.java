@@ -7,6 +7,14 @@ package com.jakeapp.gui.swing.model;
  */
 public enum ContentSplitViewModelEnum {
 
-	viewToShow, currentView
+	/**
+	 * Describing which childview should be rendered/shown
+	 */
+	viewToShow,
 
+	/**
+	 * Describing which View (defined in ViewEnum) should be rendered/is currently rendered
+	 */
+	currentView
+	
 }

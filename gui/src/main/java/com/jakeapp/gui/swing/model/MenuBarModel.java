@@ -9,6 +9,7 @@ import com.jakeapp.core.domain.NoteObject;
 import com.jakeapp.core.synchronization.attributes.SyncStatus;
 import com.jakeapp.core.synchronization.attributes.Attributed;
 import com.jakeapp.gui.swing.JakeMainApp;
+import com.jakeapp.gui.swing.view.ViewEnum;
 
 
 public class MenuBarModel extends Observable {
@@ -28,6 +29,7 @@ public class MenuBarModel extends Observable {
 	private boolean noteSelected;
 	private boolean noteLocked;
 	private boolean nimbusLAF;
+	private ViewEnum currentView;
 
 	public boolean getEllipsis() {
 		return ellipsis;
@@ -145,5 +147,9 @@ public class MenuBarModel extends Observable {
 
 	public void setNimbusLAF(boolean nimbusLAF) {
 		this.nimbusLAF = nimbusLAF;
+	}
+
+	public ViewEnum getCurrentView() {
+		return currentView;
 	}
 }

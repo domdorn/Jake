@@ -26,7 +26,7 @@
         <property name="windowTitle" value="JakeApp.com"/>
         <property name="showToolbar" value="true"/>
         <property name="showStatusbar" value="true"/>
-        <property name="currentView" value="PROJECT_NOTES" />
+        <property name="currentView" value="LOGIN" />
     </bean>
 
 

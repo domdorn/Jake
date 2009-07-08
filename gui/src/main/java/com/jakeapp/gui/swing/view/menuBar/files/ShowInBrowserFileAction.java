@@ -23,7 +23,7 @@ public class ShowInBrowserFileAction extends AbstractMenuBarAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		controller.showInBrowser();
+		controller.showSelectedFileInBrowser();
 
 	}
 }
