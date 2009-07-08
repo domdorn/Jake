@@ -7,6 +7,6 @@ package com.jakeapp.gui.swing.model;
  */
 public enum ContentSplitViewModelEnum {
 
-	currentView
+	viewToShow, currentView
 
 }

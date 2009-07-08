@@ -1,6 +1,7 @@
 package com.jakeapp.gui.swing.view;
 
 import com.jakeapp.gui.swing.model.ContentViewModel;
+import com.jakeapp.gui.swing.model.ContentViewModelEnum;
 import com.jakeapp.gui.swing.controller.ContentViewController;
 
 
@@ -26,6 +27,7 @@ public class ContentView extends JPanel implements Observer {
 
 	public ContentView(ContentViewModel model, ContentViewController controller, ContentSingleView contentSingleView, ContentSplitView splitView) {
 		super(new BorderLayout());
+
 		this.model = model;
 		this.controller = controller;
 		this.contentSingleView = contentSingleView;
@@ -33,7 +35,7 @@ public class ContentView extends JPanel implements Observer {
 
 		model.addObserver(this);
 
-//		this.setBackground(new Color(0,0,255));
+//		this.splitView.setBackground(new Color(0,0,255));
 
 
 //		this.jakeSourceList = jakeSourceList;
@@ -69,15 +71,17 @@ public class ContentView extends JPanel implements Observer {
 
 	private void updateMe()
 	{
-		this.removeAll();
+//		this.removeAll();
 
 		switch (model.getViewToShow()) {
 
 			case SINGLE:
-				this.add(contentSingleView);
+				System.out.println("adding single view to center");
+				this.add(contentSingleView, BorderLayout.CENTER);
 				break;
 			case SPLITVIEW:
-				this.add(splitView);
+				System.out.println("adding split view to center");
+				this.add(splitView, BorderLayout.CENTER);
 				break;
 		}
 
@@ -88,10 +92,24 @@ public class ContentView extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println("calling update on ContentView");
-		System.out.println("o = " + o);
-		System.out.println("arg = " + arg);
-	
-		updateMe();
+
+		if(o instanceof ContentViewModel && arg instanceof ContentViewModelEnum)
+		{
+			ContentViewModelEnum changed = (ContentViewModelEnum) arg;
+
+			switch (changed) {
+				case currentView:
+				    updateMe();
+					break;
+				case viewToShow:
+					break;
+			}
+		}
+//		
+//		System.out.println("calling update on ContentView");
+//		System.out.println("o = " + o);
+//		System.out.println("arg = " + arg);
+//
+//		updateMe();
 	}
 }

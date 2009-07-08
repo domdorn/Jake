@@ -1,6 +1,7 @@
 package com.jakeapp.gui.swing.model;
 
 import com.jakeapp.gui.swing.view.ContentViewEnum;
+import com.jakeapp.gui.swing.view.ViewEnum;
 
 import java.util.Observable;
 
@@ -8,7 +9,7 @@ import java.util.Observable;
 public class ContentViewModel extends Observable {
 
 	private ContentViewEnum viewToShow;
-
+	private ViewEnum currentView;
 
 	public ContentViewModel() {
 
@@ -24,4 +25,13 @@ public class ContentViewModel extends Observable {
 		notifyObservers(ContentViewModelEnum.viewToShow);
 	}
 
+	public ViewEnum getCurrentView() {
+		return currentView;
+	}
+
+	public void setCurrentView(ViewEnum currentView) {
+		this.currentView = currentView;
+		setChanged();
+		notifyObservers(ContentViewModelEnum.currentView);
+	}
 }

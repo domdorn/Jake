@@ -1,6 +1,7 @@
 package com.jakeapp.gui.swing.view;
 
 import com.jakeapp.gui.swing.model.ProjectViewModel;
+import com.jakeapp.gui.swing.model.ProjectViewModelEnum;
 import com.jakeapp.gui.swing.controller.ProjectViewController;
 
 import javax.swing.*;
@@ -26,17 +27,23 @@ public class ProjectView extends JSplitPane implements Observer {
 	private JPanel rightComponent = new JPanel();
 
 	{
-		leftComponent.setBackground(new Color(148, 0, 253));
-		rightComponent.setBackground(new Color(204, 251, 74));
-
-
+		leftComponent.setBackground(new Color(148, 0, 253)); // violett ton
+		rightComponent.setBackground(new Color(204, 251, 74)); // giftgruen
 	}
 
-	public ProjectView(ProjectViewModel model, ProjectViewController controller, EventsView eventsView, FilesView filesView, NotesView notesView, InvitationView invitationView, InspectorView inspectorView, LoggedInView loggedInView) {
+	public ProjectView(ProjectViewModel model,
+					   ProjectViewController controller,
+					   EventsView eventsView,
+					   FilesView filesView,
+					   NotesView notesView,
+					   InvitationView invitationView,
+					   InspectorView inspectorView,
+					   LoggedInView loggedInView) {
 		super();
 
 		this.model = model;
 		this.controller = controller;
+
 		this.eventsView = eventsView;
 		this.filesView = filesView;
 		this.notesView = notesView;
@@ -44,8 +51,11 @@ public class ProjectView extends JSplitPane implements Observer {
 		this.inspectorView = inspectorView;
 		this.loggedInView = loggedInView;
 
+		model.addObserver(this);
+		
+
 		{
-			eventsView.setBackground(Color.BLACK);
+			eventsView.setBackground(Color.YELLOW);
 			filesView.setBackground(Color.BLUE);
 			notesView.setBackground(Color.RED);
 		}
@@ -55,6 +65,7 @@ public class ProjectView extends JSplitPane implements Observer {
 
 		this.setLeftComponent(leftComponent); // news, notes, files
 		this.setRightComponent(rightComponent); // inspector
+
 
 //		contentPanelSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
 //				contentPanelHolder.getContentPanel(),
@@ -68,20 +79,110 @@ public class ProjectView extends JSplitPane implements Observer {
 //		contentPanelSplit.addPropertyChangeListener(new ResizeListener(contentPanelSplit));
 
 
-		model.addObserver(this);
-		updateMe();
+//		updateMe();
 	}
 
 
 	@Override
 	public void update(Observable o, Object arg) {
+		System.out.println("calling update on ProjectView ");
+
+		if(o instanceof ProjectViewModel && arg instanceof ProjectViewModelEnum)
+		{
+			System.out.println("is instance of ProjectViewModel and ProjectViewModelEnum ");
+			ProjectViewModelEnum changed = (ProjectViewModelEnum) arg;
+
+			switch (changed) {
+
+				case currentView:
+				{
+					System.out.println("case currentView");
+					ViewEnum currentView = model.getCurrentView();
+
+					if(currentView == null)
+					{
+						new Exception().printStackTrace();
+						return;
+					}
+					else
+					{
+						System.out.println("currentView is not null");
+					}
+
+					switch (currentView) {
+						case INVITATION:
+							this.setLeftComponent(invitationView);
+							break;
+						case LOGGEDIN:
+							this.setLeftComponent(loggedInView);
+							break;
+						case PROJECT_EVENTS:
+							this.setLeftComponent(eventsView);
+							break;
+						case PROJECT_FILES:
+							this.setLeftComponent(filesView);
+							break;
+						case PROJECT_NOTES:
+							this.setLeftComponent(notesView);
+							break;
+
+						// not applicable
+						case REGISTER:
+						case LOGIN:
+							break;
+					}
+				}
+
+				this.validateTree();
+
+					break;
+				case inspectorAllowed:
+					System.out.println("case inspectorAllowed");
+//					this.rightComponent = null;
+//					this.setDividerLocation(getWidth() - 250 - 1 - getDividerSize());
+					break;
+				case inspectorVisible:
+				{
+					System.out.println("case inspectorVisible");
+					if(model.isInspectorAllowed() )
+					{
+					this.setRightComponent(inspectorView);
+					this.getRightComponent().setVisible(model.isInspectorVisible());
+						if(model.isInspectorVisible())
+						{
+							this.setDividerLocation(getWidth() - 250 - 1 - getDividerSize());
+						}
+						else
+						{
+							this.setDividerLocation(2);
+						}
+					}
+					else
+					{
+						this.rightComponent.setVisible(false);
+						this.setDividerLocation(2);
+					}
+				}
+					break;
+			}
+
+
+			this.validate();
+			this.updateUI();
+		}
+
 		System.out.println("o = " + o);
 		System.out.println("arg = " + arg);
-		updateMe();
+//		updateMe();
 	}
 
 	private void updateMe() {
+		System.out.println("calling updateMe on ProjectView");
+		new Exception().printStackTrace();
 
+		if(model.getCurrentView() == null)
+			return;
+		
 		switch (model.getCurrentView()) {
 			case PROJECT_EVENTS:
 				this.setLeftComponent(eventsView);
@@ -125,6 +226,9 @@ public class ProjectView extends JSplitPane implements Observer {
 		} else {
 			this.setDividerSize(0);
 		}
+
+		this.leftComponent.updateUI();
+		this.rightComponent.updateUI();
 
 		this.validate();
 		this.updateUI();

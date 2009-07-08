@@ -13,7 +13,7 @@ public class MainWindowViewModel extends Observable {
 	 */
 	private boolean showMainWindow = false;
 
-	private boolean showToolbar = false;
+	private boolean showToolbar = true;
 
 	private boolean showStatusbar = false;
 

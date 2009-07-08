@@ -1,6 +1,10 @@
 package com.jakeapp.gui.swing.controller;
 
 import com.jakeapp.gui.swing.model.ContentViewModel;
+import com.jakeapp.gui.swing.model.MainWindowViewModel;
+import com.jakeapp.gui.swing.model.MainWindowViewModelEnum;
+import com.jakeapp.gui.swing.view.ViewEnum;
+import com.jakeapp.gui.swing.view.ContentViewEnum;
 
 import java.util.Observer;
 import java.util.Observable;
@@ -27,6 +31,31 @@ public class ContentViewController implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 
+		if(o instanceof MainWindowViewModel && arg instanceof MainWindowViewModelEnum)
+		{
+			MainWindowViewModelEnum changed = (MainWindowViewModelEnum) arg;
+			MainWindowViewModel mainWindowViewModel = (MainWindowViewModel) o;
+
+			if(changed == MainWindowViewModelEnum.currentView)
+			{
+				ViewEnum newView = mainWindowViewModel.getCurrentView();
+
+				switch (newView) {
+					case LOGIN:
+					case REGISTER:
+						model.setViewToShow(ContentViewEnum.SINGLE);
+						break;
+					case INVITATION:
+					case LOGGEDIN:
+					case PROJECT_EVENTS:
+					case PROJECT_FILES:
+					case PROJECT_NOTES:
+						model.setViewToShow(ContentViewEnum.SPLITVIEW);
+						break;
+				}
+				model.setCurrentView(newView);
+			}
+		}
 
 	}
 }

@@ -7,5 +7,6 @@ package com.jakeapp.gui.swing.model;
  */
 public enum ContentViewModelEnum {
 
-	viewToShow
+	viewToShow,
+	currentView
 }

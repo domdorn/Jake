@@ -26,6 +26,7 @@
         <property name="windowTitle" value="JakeApp.com"/>
         <property name="showToolbar" value="true"/>
         <property name="showStatusbar" value="true"/>
+        <property name="currentView" value="PROJECT_NOTES" />
     </bean>
 
 
@@ -66,14 +67,14 @@
 
 
     <bean id="contentSplitViewModel" class="com.jakeapp.gui.swing.model.ContentSplitViewModel">
-        <property name="currentView" value="LOGOUT"/>
+
     </bean>
 
     <!-- containing -->
 
     <bean id="projectViewModel" class="com.jakeapp.gui.swing.model.ProjectViewModel">
-        <property name="inspectorVisible" value="false"/>
-        <property name="currentView" value="PROJECT_EVENTS"/>
+        <!--<property name="inspectorVisible" value="false"/>-->
+        <!--<property name="currentView" value="PROJECT_EVENTS"/>-->
     </bean>
 
     <!-- containing -->

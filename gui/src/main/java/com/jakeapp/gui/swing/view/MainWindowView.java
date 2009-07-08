@@ -45,10 +45,13 @@ public class MainWindowView extends FrameView implements Observer {
 		this.setMenuBar(menuBarView);
 		this.setStatusBar(statusBarView);
 
-		initializeUI();
+		mainView.add(toolbarView, BorderLayout.NORTH);
+
+		mainView.add(contentView, BorderLayout.CENTER);
+
+		mainView.setVisible(true);
+
 		this.setComponent(mainView);
-
-
 
 
 		// initialize icons
@@ -69,6 +72,9 @@ public class MainWindowView extends FrameView implements Observer {
 		model.addObserver(this);
 
 		// initialize view dimension properties
+
+
+		// TODO
 		model.setMinimumHeight(600);
 		model.setMinimumWidth(600);
 		model.setCurrentHeight(800);
@@ -78,7 +84,14 @@ public class MainWindowView extends FrameView implements Observer {
 		model.setShowToolbar(true);
 
 
+		// TODO thats a hack
+		model.setShowMenubar(model.isShowMenubar());
+		model.setShowStatusbar(model.isShowStatusbar());
+		model.setShowToolbar(model.isShowToolbar());
+		model.setCurrentView(model.getCurrentView());
 
+
+//		model.setCurrentView(ViewEnum.PROJECT_EVENTS);
 
 
 
@@ -141,6 +154,7 @@ public class MainWindowView extends FrameView implements Observer {
 		System.out.println("arg = " + arg);
 
 
+		 this.getFrame().validate();
 //		updateUI();
 		//To change body of implemented methods use File | Settings | File Templates.
 	}
@@ -175,19 +189,22 @@ public class MainWindowView extends FrameView implements Observer {
 
 		this.setComponent(mainView);
 
+		mainView.setBackground(Color.YELLOW);
 
-		mainView.removeAll();
+//		mainView.removeAll();
 
-		if (model.isShowToolbar())
-			mainView.add(toolbarView, BorderLayout.NORTH);
+//		if (model.isShowToolbar())
+
+		mainView.add(toolbarView, BorderLayout.NORTH);
 
 		mainView.add(contentView, BorderLayout.CENTER);
 
-		if (model.isShowStatusbar())
+//		if (model.isShowStatusbar())
 			mainView.add(statusBarView, BorderLayout.SOUTH);
 
 
 		mainView.validate();
+		mainView.updateUI();
 	}
 
 
