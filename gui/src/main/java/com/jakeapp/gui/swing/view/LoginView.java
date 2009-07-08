@@ -1,11 +1,15 @@
 package com.jakeapp.gui.swing.view;
 
-/**
- * Created by IntelliJ IDEA.
- * User: domdorn
- * Date: Jul 6, 2009
- * Time: 6:17:18 PM
- * To change this template use File | Settings | File Templates.
- */
+import com.jakeapp.gui.swing.controller.LoginViewController;
+import com.jakeapp.gui.swing.model.LoginViewModel;
+
 public class LoginView {
+
+	private final LoginViewModel model;
+	private final LoginViewController controller;
+
+	public LoginView(LoginViewModel model, LoginViewController controller) {
+		this.model = model;
+		this.controller = controller;
+	}
 }

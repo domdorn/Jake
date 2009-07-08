@@ -15,28 +15,41 @@ public class ProjectView extends JSplitPane implements Observer {
 	private final ProjectViewController controller;
 
 
-	private JPanel eventsView = new JPanel();
-	private JPanel filesView = new JPanel();
-	private JPanel notesView = new JPanel();
+	private final EventsView eventsView;
+	private final FilesView filesView;
+	private final NotesView notesView;
+	private final InvitationView invitationView;
+	private final InspectorView inspectorView;
+	private final LoggedInView loggedInView;
 
 	private JPanel leftComponent = new JPanel();
 	private JPanel rightComponent = new JPanel();
 
 	{
-		leftComponent.setBackground(new Color(148,0,253));
-		rightComponent.setBackground(new Color(204,251,74));
+		leftComponent.setBackground(new Color(148, 0, 253));
+		rightComponent.setBackground(new Color(204, 251, 74));
 
 
-		eventsView.setBackground(Color.BLACK);
-		filesView.setBackground(Color.BLUE);
-		notesView.setBackground(Color.RED);
 	}
 
-	public ProjectView(ProjectViewModel model, ProjectViewController controller) {
+	public ProjectView(ProjectViewModel model, ProjectViewController controller, EventsView eventsView, FilesView filesView, NotesView notesView, InvitationView invitationView, InspectorView inspectorView, LoggedInView loggedInView) {
 		super();
 
 		this.model = model;
 		this.controller = controller;
+		this.eventsView = eventsView;
+		this.filesView = filesView;
+		this.notesView = notesView;
+		this.invitationView = invitationView;
+		this.inspectorView = inspectorView;
+		this.loggedInView = loggedInView;
+
+		{
+			eventsView.setBackground(Color.BLACK);
+			filesView.setBackground(Color.BLUE);
+			notesView.setBackground(Color.RED);
+		}
+
 
 		this.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
 
@@ -67,8 +80,7 @@ public class ProjectView extends JSplitPane implements Observer {
 		updateMe();
 	}
 
-	private void updateMe()
-	{
+	private void updateMe() {
 
 		switch (model.getCurrentView()) {
 			case PROJECT_EVENTS:
@@ -80,47 +92,53 @@ public class ProjectView extends JSplitPane implements Observer {
 			case PROJECT_NOTES:
 				this.setLeftComponent(notesView);
 				break;
+
+
+			case INVITATION:
+				this.setLeftComponent(invitationView);
+				break;
+			case LOGGEDIN:
+				this.setLeftComponent(loggedInView);
+				break;
+			case LOGIN:
+				// this gets handled somewhere else
+				break;
+			case REGISTER:
+				// this gets handled somewhere else
+				break;
 		}
 
 
-		if(model.isInspectorVisible())
-		{
+		if (model.isInspectorVisible()) {
 			// TODO show inspector
 			rightComponent.setVisible(true);
-			this.setDividerLocation( getWidth() - 250 - 1 - getDividerSize());
-		}
-		else
-		{
+			this.setDividerLocation(getWidth() - 250 - 1 - getDividerSize());
+		} else {
 			// TODO hide inspector
 			rightComponent.setVisible(false);
 			this.setDividerSize(2);
 
 		}
 
-		if(model.isInspectorAllowed())
-		{
+		if (model.isInspectorAllowed()) {
 			this.setDividerSize(2);
-		}
-		else
-		{
+		} else {
 			this.setDividerSize(0);
 		}
 
 		this.validate();
 		this.updateUI();
-		
+
 	}
 
 }
 
 
-
-
-	/**
-	 * Show or hide the inspector panel.
-	 * This may not succeed if inspector is not allowed.
-	 * Checks isInspectorEnabled property.
-	 */
+/**
+ * Show or hide the inspector panel.
+ * This may not succeed if inspector is not allowed.
+ * Checks isInspectorEnabled property.
+ */
 //	public void updateInspectorPanelVisibility() {
 //		//log.debug("pre: isInspectorEnabled: " + isInspectorEnabled() +
 //		//		  " isInspectorPanelVisible: " + isInspectorPanelVisible() +

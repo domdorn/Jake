@@ -8,10 +8,12 @@ import com.explodingpixels.macwidgets.TriAreaComponent;
 public class StatusBarController {
 
 	private final StatusBarModel model;
+	private final MainWindowViewController parentController;
 
 
-	public StatusBarController(StatusBarModel model) {
+	public StatusBarController(StatusBarModel model, MainWindowViewController parentController) {
 		this.model = model;
+		this.parentController = parentController;
 	}
 
 	public void logoutUser() {

@@ -18,6 +18,6 @@ public class ContentSplitViewModel extends Observable {
 	public void setCurrentView(ContentSplitViewEnum currentView) {
 		this.currentView = currentView;
 		setChanged();
-		notifyObservers(currentView);
+		notifyObservers(ContentSplitViewModelEnum.currentView);
 	}
 }

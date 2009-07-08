@@ -1,9 +1,11 @@
 package com.jakeapp.gui.swing.model;
 
+import com.jakeapp.gui.swing.view.ViewEnum;
+
 import java.util.Observable;
 
 
-public class MainWindowModel extends Observable {
+public class MainWindowViewModel extends Observable {
 
 
 	/**
@@ -16,6 +18,9 @@ public class MainWindowModel extends Observable {
 	private boolean showStatusbar = false;
 
 	private boolean showMenubar = false;
+
+
+	private ViewEnum currentView;
 
 	/**
 	 * Defining minimum dimensions of the mainWindow
@@ -35,7 +40,7 @@ public class MainWindowModel extends Observable {
 	 */
 	private String windowTitle;
 
-	public MainWindowModel() {
+	public MainWindowViewModel() {
 	}
 
 
@@ -46,7 +51,7 @@ public class MainWindowModel extends Observable {
 	public void setShowMainWindow(boolean showMainWindow) {
 		this.showMainWindow = showMainWindow;
 		setChanged();
-		notifyObservers();
+		notifyObservers(MainWindowViewModelEnum.showMainWindow);
 	}
 
 
@@ -56,6 +61,8 @@ public class MainWindowModel extends Observable {
 
 	public void setMinimumWidth(int minimumWidth) {
 		this.minimumWidth = minimumWidth;
+		setChanged();
+		notifyObservers(MainWindowViewModelEnum.minimumWidth);
 	}
 
 	public int getMinimumHeight() {
@@ -64,6 +71,8 @@ public class MainWindowModel extends Observable {
 
 	public void setMinimumHeight(int minimumHeight) {
 		this.minimumHeight = minimumHeight;
+		setChanged();
+		notifyObservers(MainWindowViewModelEnum.minimumHeight);
 	}
 
 	public int getCurrentWidth() {
@@ -72,6 +81,8 @@ public class MainWindowModel extends Observable {
 
 	public void setCurrentWidth(int currentWidth) {
 		this.currentWidth = currentWidth;
+		setChanged();
+		notifyObservers(MainWindowViewModelEnum.currentWidth);
 	}
 
 	public int getCurrentHeight() {
@@ -80,6 +91,8 @@ public class MainWindowModel extends Observable {
 
 	public void setCurrentHeight(int currentHeight) {
 		this.currentHeight = currentHeight;
+		setChanged();
+		notifyObservers(MainWindowViewModelEnum.currentHeight);
 	}
 
 
@@ -89,6 +102,8 @@ public class MainWindowModel extends Observable {
 
 	public void setWindowTitle(String windowTitle) {
 		this.windowTitle = windowTitle;
+		setChanged();
+		notifyObservers(MainWindowViewModelEnum.windowTitle);
 	}
 
 
@@ -98,6 +113,8 @@ public class MainWindowModel extends Observable {
 
 	public void setShowToolbar(boolean showToolbar) {
 		this.showToolbar = showToolbar;
+		setChanged();
+		notifyObservers(MainWindowViewModelEnum.showToolbar);
 	}
 
 	public boolean isShowStatusbar() {
@@ -106,6 +123,8 @@ public class MainWindowModel extends Observable {
 
 	public void setShowStatusbar(boolean showStatusbar) {
 		this.showStatusbar = showStatusbar;
+		setChanged();
+		notifyObservers(MainWindowViewModelEnum.showStatusbar);
 	}
 
 	public boolean isShowMenubar() {
@@ -114,5 +133,17 @@ public class MainWindowModel extends Observable {
 
 	public void setShowMenubar(boolean showMenubar) {
 		this.showMenubar = showMenubar;
+		setChanged();
+		notifyObservers(MainWindowViewModelEnum.showMenubar);
+	}
+
+	public ViewEnum getCurrentView() {
+		return currentView;
+	}
+
+	public void setCurrentView(ViewEnum currentView) {
+		this.currentView = currentView;
+		setChanged();
+		notifyObservers(MainWindowViewModelEnum.currentView);
 	}
 }

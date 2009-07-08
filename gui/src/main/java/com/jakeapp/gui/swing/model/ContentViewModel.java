@@ -20,10 +20,8 @@ public class ContentViewModel extends Observable {
 
 	public void setViewToShow(ContentViewEnum viewToShow) {
 		this.viewToShow = viewToShow;
-		System.out.println("viewToShow = " + viewToShow);
 		setChanged();
-		notifyObservers();
-
+		notifyObservers(ContentViewModelEnum.viewToShow);
 	}
 
 }

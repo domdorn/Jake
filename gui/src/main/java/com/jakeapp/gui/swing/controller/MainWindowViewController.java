@@ -1,13 +1,13 @@
 package com.jakeapp.gui.swing.controller;
 
-import com.jakeapp.gui.swing.model.MainWindowModel;
+import com.jakeapp.gui.swing.model.MainWindowViewModel;
 
 
-public class MainWindowController {
+public class MainWindowViewController {
 
-	private final MainWindowModel model;
+	private final MainWindowViewModel model;
 
-	public MainWindowController(MainWindowModel model) {
+	public MainWindowViewController(MainWindowViewModel model) {
 		this.model = model;
 	}
 

@@ -1,8 +1,9 @@
 package com.jakeapp.gui.swing.view;
 
-import com.jakeapp.gui.swing.model.MainWindowModel;
-import com.jakeapp.gui.swing.controller.MainWindowController;
+import com.jakeapp.gui.swing.model.MainWindowViewModel;
+import com.jakeapp.gui.swing.controller.MainWindowViewController;
 import com.jakeapp.gui.swing.JakeMainApp;
+import com.jakeapp.gui.swing.view.menuBar.MenuBarView;
 
 import java.util.Observer;
 import java.util.Observable;
@@ -17,19 +18,20 @@ import javax.swing.*;
 public class MainWindowView extends FrameView implements Observer {
 	private static Logger log = Logger.getLogger(MainWindowView.class);
 
-	private final MainWindowModel model;
-	private final MainWindowController controller;
+	private final MainWindowViewModel model;
+	private final MainWindowViewController controller;
 	private final JakeMainApp app;
 	private final ToolbarView toolbarView;
 	private final StatusBarView statusBarView;
+	private final MenuBarView menuBarView;
 
 	private JPanel mainView = new JPanel(new BorderLayout());
 
 	private final ContentView contentView;
 
-	public MainWindowView(JakeMainApp app, MainWindowModel model, MainWindowController controller,
+	public MainWindowView(JakeMainApp app, MainWindowViewModel model, MainWindowViewController controller,
 						  ContentView contentView,
-						  ToolbarView toolbarView, StatusBarView statusBarView) {
+						  ToolbarView toolbarView, StatusBarView statusBarView, MenuBarView menuBarView) {
 		super(app);
 		this.app = app;
 		this.model = model;
@@ -37,6 +39,7 @@ public class MainWindowView extends FrameView implements Observer {
 		this.contentView = contentView;
 		this.toolbarView = toolbarView;
 		this.statusBarView = statusBarView;
+		this.menuBarView = menuBarView;
 
 		System.out.println("created mainWindowView");
 
@@ -70,6 +73,7 @@ public class MainWindowView extends FrameView implements Observer {
 
 		this.setComponent(mainView);
 
+		this.setMenuBar(menuBarView);
 
 
 	}

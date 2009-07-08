@@ -4,9 +4,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-    <bean id="mainWindowModel" class="com.jakeapp.gui.swing.model.MainWindowModel"/>
+    <bean id="mainWindowModel" class="com.jakeapp.gui.swing.model.MainWindowViewModel"/>
 
-    <bean id="mainWindowController" class="com.jakeapp.gui.swing.controller.MainWindowController">
+    <bean id="mainWindowController" class="com.jakeapp.gui.swing.controller.MainWindowViewController">
         <constructor-arg ref="mainWindowModel" />
     </bean>
 

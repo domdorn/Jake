@@ -1,12 +1,15 @@
 package com.jakeapp.gui.swing.view;
 
-/**
- * Created by IntelliJ IDEA.
- * User: domdorn
- * Date: Jul 6, 2009
- * Time: 6:17:25 PM
- * To change this template use File | Settings | File Templates.
- */
-public class RegisterView {
+import com.jakeapp.gui.swing.model.RegisterViewModel;
+import com.jakeapp.gui.swing.controller.RegisterViewController;
 
+
+public class RegisterView {
+	private final RegisterViewModel model;
+	private final RegisterViewController controller;
+
+	public RegisterView(RegisterViewModel model, RegisterViewController controller) {
+		this.model = model;
+		this.controller = controller;
+	}
 }

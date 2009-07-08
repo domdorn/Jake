@@ -6,22 +6,18 @@ import com.jakeapp.gui.swing.controller.ContentSingleViewController;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by IntelliJ IDEA.
- * User: domdorn
- * Date: Jul 6, 2009
- * Time: 8:02:32 PM
- * To change this template use File | Settings | File Templates.
- */
 public class ContentSingleView extends JPanel {
 
 	private final ContentSingleViewModel model;
 	private final ContentSingleViewController controller;
+	private final LoginView loginView;
+	private final RegisterView registerView;
 
-
-	public ContentSingleView(ContentSingleViewModel model, ContentSingleViewController controller) {
+	public ContentSingleView(ContentSingleViewModel model, ContentSingleViewController controller, LoginView loginView, RegisterView registerView) {
 		this.model = model;
 		this.controller = controller;
+		this.loginView = loginView;
+		this.registerView = registerView;
 
 		this.setBackground(new Color(255,188,8));
 		this.validate();

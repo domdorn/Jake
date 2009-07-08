@@ -15,10 +15,13 @@ public class MenuBarController {
 	private static Logger log = Logger.getLogger(MenuBarController.class);
 
 	private final MenuBarModel model;
+	private final MainWindowViewController parentController;
+
 	private boolean platformMac = false;
 
-	public MenuBarController(MenuBarModel model) {
+	public MenuBarController(MenuBarModel model, MainWindowViewController parentController) {
 		this.model = model;
+		this.parentController = parentController;
 	}
 
 	public MenuBarModel getModel() {

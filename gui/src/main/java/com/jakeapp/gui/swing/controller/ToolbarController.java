@@ -9,9 +9,12 @@ public class ToolbarController {
 	private static Logger log = Logger.getLogger(ToolbarController.class);
 
 	private final ToolbarModel model;
+	private final MainWindowViewController parentController;
 
-	public ToolbarController(ToolbarModel model) {
+
+	public ToolbarController(ToolbarModel model, MainWindowViewController parentController) {
 		this.model = model;
+		this.parentController = parentController;
 	}
 
 	public void createImportFileDialog() {

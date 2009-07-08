@@ -15,63 +15,309 @@
     </bean>
 
 
-   
-    <!-- ###################################### PROJECT VIEW START ################################################# -->
+    <!-- ########################################### MODELS ######################################################## -->
 
-    <bean id="projectViewModel" class="com.jakeapp.gui.swing.model.ProjectViewModel">
-        <property name="inspectorVisible" value="false" />
-        <property name="currentView" value="PROJECT_EVENTS" />
+    <!-- main window -->
+    <bean id="mainWindowViewModel" class="com.jakeapp.gui.swing.model.MainWindowViewModel">
+        <property name="minimumWidth" value="600"/>
+        <property name="minimumHeight" value="600"/>
+        <property name="currentWidth" value="800"/>
+        <property name="currentHeight" value="800"/>
+        <property name="windowTitle" value="JakeApp.com"/>
+        <property name="showToolbar" value="true"/>
+        <property name="showStatusbar" value="true"/>
     </bean>
 
-    <bean id="projectViewController" class="com.jakeapp.gui.swing.controller.ProjectViewController">
-        <constructor-arg ref="projectViewModel"/>
+
+    <bean id="menuBarModel" class="com.jakeapp.gui.swing.model.MenuBarModel">
+
     </bean>
-
-    <bean id="projectView" class="com.jakeapp.gui.swing.view.ProjectView">
-        <constructor-arg ref="projectViewModel"/>
-        <constructor-arg ref="projectViewController"/>
-    </bean>
-
-    <!-- ####################################### PROJECT VIEW END ################################################## -->
-
-    <!-- ###################################### TOOLBAR START ###################################################### -->
-
 
     <bean id="toolbarModel" class="com.jakeapp.gui.swing.model.ToolbarModel">
 
     </bean>
 
-    <bean id="toolbarController" class="com.jakeapp.gui.swing.controller.ToolbarController">
-        <constructor-arg ref="toolbarModel"/>
-    </bean>
-
-    <bean id="toolbarView" class="com.jakeapp.gui.swing.view.ToolbarView">
-        <constructor-arg ref="toolbarModel"/>
-        <constructor-arg ref="toolbarController"/>
-        <constructor-arg ref="resourceMap" />
-    </bean>
-
-
-    <!-- ###################################### TOOLBAR END ######################################################## -->
-
-    <!-- ##################################### STATUSBAR START ##################################################### -->
     <bean id="statusBarModel" class="com.jakeapp.gui.swing.model.StatusBarModel">
 
     </bean>
 
+    <!-- subviews now -->
+    <bean id="contentViewModel" class="com.jakeapp.gui.swing.model.ContentViewModel">
+        <property name="viewToShow" value="SPLITVIEW"/>
+        <!--<property name="viewToShow" value="SINGLE"/>-->
+    </bean>
+
+    <!-- dividing into -->
+    <bean id="contentSingleViewModel" class="com.jakeapp.gui.swing.model.ContentSingleViewModel">
+
+    </bean>
+    <!-- containing -->
+    <bean id="loginViewModel" class="com.jakeapp.gui.swing.model.LoginViewModel">
+
+    </bean>
+
+    <bean id="registerViewModel" class="com.jakeapp.gui.swing.model.RegisterViewModel">
+
+    </bean>
+
+    <bean id="loggedInViewModel" class="com.jakeapp.gui.swing.model.LoggedInViewModel">
+
+    </bean>
+
+
+    <bean id="contentSplitViewModel" class="com.jakeapp.gui.swing.model.ContentSplitViewModel">
+        <property name="currentView" value="LOGOUT"/>
+    </bean>
+
+    <!-- containing -->
+
+    <bean id="projectViewModel" class="com.jakeapp.gui.swing.model.ProjectViewModel">
+        <property name="inspectorVisible" value="false"/>
+        <property name="currentView" value="PROJECT_EVENTS"/>
+    </bean>
+
+    <!-- containing -->
+    <bean id="inspectorViewModel" class="com.jakeapp.gui.swing.model.InspectorViewModel">
+
+    </bean>
+
+    <bean id="eventsViewModel" class="com.jakeapp.gui.swing.model.EventsViewModel">
+
+    </bean>
+
+    <bean id="filesViewModel" class="com.jakeapp.gui.swing.model.FilesViewModel">
+
+    </bean>
+
+    <bean id="notesViewModel" class="com.jakeapp.gui.swing.model.NotesViewModel">
+
+    </bean>
+
+    <bean id="invitationViewModel" class="com.jakeapp.gui.swing.model.InvitationViewModel">
+
+    </bean>
+
+
+    <!-- ####################################### MODELS END ######################################################## -->
+
+    <!-- ######################################### CONTROLLER ###################################################### -->
+
+
+    <bean id="mainWindowViewController" class="com.jakeapp.gui.swing.controller.MainWindowViewController">
+        <constructor-arg ref="mainWindowViewModel"/>
+    </bean>
+
+
+    <bean id="menuBarController" class="com.jakeapp.gui.swing.controller.MenuBarController">
+        <constructor-arg ref="menuBarModel"/>
+        <constructor-arg ref="mainWindowViewController"/>
+    </bean>
+
+    <bean id="toolbarController" class="com.jakeapp.gui.swing.controller.ToolbarController">
+        <constructor-arg ref="toolbarModel"/>
+        <constructor-arg ref="mainWindowViewController"/>
+    </bean>
 
     <bean id="statusBarController" class="com.jakeapp.gui.swing.controller.StatusBarController">
         <constructor-arg ref="statusBarModel"/>
+        <constructor-arg ref="mainWindowViewController"/>
+    </bean>
+
+    <bean id="contentViewController" class="com.jakeapp.gui.swing.controller.ContentViewController">
+        <constructor-arg ref="contentViewModel"/>
+        <constructor-arg ref="mainWindowViewController"/>
+    </bean>
+
+
+    <!-- end first layer -->
+
+    <bean id="contentSingleViewController" class="com.jakeapp.gui.swing.controller.ContentSingleViewController">
+        <constructor-arg ref="contentSingleViewModel"/>
+        <constructor-arg ref="contentViewController"/>
+    </bean>
+
+
+    <bean id="contentSplitViewController" class="com.jakeapp.gui.swing.controller.ContentSplitViewController">
+        <constructor-arg ref="contentSplitViewModel"/>
+        <constructor-arg ref="contentViewController"/>
+    </bean>
+
+
+    <!-- end second layer -->
+
+
+    <!-- layer beyond ContentSingleView -->
+    <bean id="loginViewController" class="com.jakeapp.gui.swing.controller.LoginViewController">
+        <constructor-arg ref="loginViewModel"/>
+        <constructor-arg ref="contentSingleViewController"/>
+    </bean>
+
+
+    <bean id="registerViewController" class="com.jakeapp.gui.swing.controller.RegisterViewController">
+        <constructor-arg ref="registerViewModel"/>
+        <constructor-arg ref="contentSingleViewController"/>
+    </bean>
+
+    <!-- layer beyond ContentSplitView -->
+    <bean id="projectViewController" class="com.jakeapp.gui.swing.controller.ProjectViewController">
+        <constructor-arg ref="projectViewModel"/>
+        <constructor-arg ref="contentSplitViewController"/>
+    </bean>
+
+    <!-- layer beyond ProjectView -->
+
+    <bean id="loggedInViewController" class="com.jakeapp.gui.swing.controller.LoggedInViewController">
+        <constructor-arg ref="loggedInViewModel"/>
+        <constructor-arg ref="projectViewController"/>
+    </bean>
+
+    <bean id="inspectorViewController" class="com.jakeapp.gui.swing.controller.InspectorViewController">
+        <constructor-arg ref="inspectorViewModel"/>
+        <constructor-arg ref="projectViewController"/>
+    </bean>
+
+
+    <bean id="eventsViewController" class="com.jakeapp.gui.swing.controller.EventsViewController">
+        <constructor-arg ref="eventsViewModel"/>
+        <constructor-arg ref="projectViewController"/>
+    </bean>
+
+    <bean id="filesViewController" class="com.jakeapp.gui.swing.controller.FilesViewController">
+        <constructor-arg ref="filesViewModel"/>
+        <constructor-arg ref="projectViewController"/>
+    </bean>
+
+    <bean id="notesViewController" class="com.jakeapp.gui.swing.controller.NotesViewController">
+        <constructor-arg ref="notesViewModel"/>
+        <constructor-arg ref="projectViewController"/>
+    </bean>
+
+    <bean id="invitationViewController" class="com.jakeapp.gui.swing.controller.InvitationViewController">
+        <constructor-arg ref="invitationViewModel"/>
+        <constructor-arg ref="projectViewController"/>
+    </bean>
+
+
+    <!-- ##################################### CONTROLLER END ###################################################### -->
+
+    <!-- ######################################## VIEWS ############################################################ -->
+
+    <bean id="eventsView" class="com.jakeapp.gui.swing.view.EventsView">
+        <constructor-arg ref="eventsViewModel"/>
+        <constructor-arg ref="eventsViewController"/>
+    </bean>
+
+    <bean id="filesView" class="com.jakeapp.gui.swing.view.FilesView">
+        <constructor-arg ref="filesViewModel"/>
+        <constructor-arg ref="filesViewController"/>
+    </bean>
+
+
+    <bean id="notesView" class="com.jakeapp.gui.swing.view.NotesView">
+        <constructor-arg ref="notesViewModel"/>
+        <constructor-arg ref="notesViewController"/>
+    </bean>
+
+    <bean id="invitationView" class="com.jakeapp.gui.swing.view.InvitationView">
+        <constructor-arg ref="invitationViewModel"/>
+        <constructor-arg ref="invitationViewController"/>
+    </bean>
+
+    <bean id="inspectorView" class="com.jakeapp.gui.swing.view.InspectorView">
+        <constructor-arg ref="inspectorViewModel"/>
+        <constructor-arg ref="inspectorViewController"/>
+    </bean>
+
+
+    <bean id="loggedInView" class="com.jakeapp.gui.swing.view.LoggedInView">
+        <constructor-arg ref="loggedInViewModel"/>
+        <constructor-arg ref="loggedInViewController"/>
+    </bean>
+
+    <!-- layer above -->
+    <bean id="projectView" class="com.jakeapp.gui.swing.view.ProjectView">
+        <constructor-arg ref="projectViewModel"/>
+        <constructor-arg ref="projectViewController"/>
+        <constructor-arg ref="eventsView"/>
+        <constructor-arg ref="filesView"/>
+        <constructor-arg ref="notesView"/>
+        <constructor-arg ref="invitationView"/>
+        <constructor-arg ref="inspectorView"/>
+        <constructor-arg ref="loggedInView"/>
+    </bean>
+
+    <!-- this is thle "blue" list on the left side, holding projects and invitations -->
+    <bean id="jakeSourceList" class="com.jakeapp.gui.swing.components.JakeSourceList">
+        <constructor-arg type="com.jakeapp.gui.swing.xcore.EventCore" ref="eventCore"/>
+        <constructor-arg type="org.jdesktop.application.ResourceMap" ref="resourceMap"/>
+        <constructor-arg type="com.jakeapp.gui.swing.helpers.ProjectHelper" ref="projectHelper"/>
+    </bean>
+
+
+    <bean id="loginView" class="com.jakeapp.gui.swing.view.LoginView">
+        <constructor-arg ref="loginViewModel" />
+        <constructor-arg ref="loginViewController" />
+    </bean>
+
+
+    <bean id="registerView" class="com.jakeapp.gui.swing.view.RegisterView">
+        <constructor-arg ref="registerViewModel" />
+        <constructor-arg ref="registerViewController" />
+    </bean>
+
+    <!-- layer above -->
+    <bean id="contentSplitView" class="com.jakeapp.gui.swing.view.ContentSplitView">
+        <constructor-arg ref="contentSplitViewModel"/>
+        <constructor-arg ref="contentSplitViewController"/>
+        <constructor-arg ref="jakeSourceList"/>
+        <constructor-arg ref="projectView"/>
+    </bean>
+
+    <bean id="contentSingleView" class="com.jakeapp.gui.swing.view.ContentSingleView">
+        <constructor-arg ref="contentSingleViewModel"/>
+        <constructor-arg ref="contentSingleViewController"/>
+        <constructor-arg ref="loginView" />
+        <constructor-arg ref="registerView" />
+    </bean>
+
+    <!-- layer above -->
+   <bean id="contentView" class="com.jakeapp.gui.swing.view.ContentView">
+        <constructor-arg ref="contentViewModel"/>
+        <constructor-arg ref="contentViewController"/>
+        <constructor-arg ref="contentSingleView"/>
+        <constructor-arg ref="contentSplitView"/>
     </bean>
 
     <bean id="statusBarView" class="com.jakeapp.gui.swing.view.StatusBarView">
         <constructor-arg ref="statusBarModel"/>
         <constructor-arg ref="statusBarController"/>
-        <constructor-arg ref="resourceMap" />
+        <constructor-arg ref="resourceMap"/>
+    </bean>
+
+    <bean id="toolbarView" class="com.jakeapp.gui.swing.view.ToolbarView">
+        <constructor-arg ref="toolbarModel"/>
+        <constructor-arg ref="toolbarController"/>
+        <constructor-arg ref="resourceMap"/>
     </bean>
 
 
-    <!-- ###################################### STATUSBAR END ###################################################### -->
+      <bean id="menuBarView" class="com.jakeapp.gui.swing.view.menuBar.MenuBarView">
+        <constructor-arg ref="menuBarModel"/>
+        <constructor-arg ref="menuBarController"/>
+        <constructor-arg ref="resourceMap"/>
+    </bean>
+
+    <!-- layer above -->
+   <bean id="mainWindowView" class="com.jakeapp.gui.swing.view.MainWindowView">
+        <constructor-arg ref="jakeMainApp"/>
+        <constructor-arg ref="mainWindowViewModel"/>
+        <constructor-arg ref="mainWindowViewController"/>
+        <constructor-arg ref="contentView"/>
+        <constructor-arg ref="toolbarView"/>
+        <constructor-arg ref="statusBarView"/>
+        <constructor-arg ref="menuBarView"/>
+    </bean>
+
 
 
     <!-- ########################################################################################################### -->
@@ -87,125 +333,9 @@
         <!--<constructor-arg value="#{jakeMainViewPropertyPlaceholder.projectTreeStopProject}" />-->
         <constructor-arg value="${projectTreeStartProject}"/>
         <constructor-arg value="${projectTreeStopProject}"/>
-
-    </bean>
-
-    <!-- this is thle "blue" list on the left side, holding projects and invitations -->
-    <bean id="jakeSourceList" class="com.jakeapp.gui.swing.components.JakeSourceList">
-        <constructor-arg type="com.jakeapp.gui.swing.xcore.EventCore" ref="eventCore"/>
-        <constructor-arg type="org.jdesktop.application.ResourceMap" ref="resourceMap"/>
-        <constructor-arg type="com.jakeapp.gui.swing.helpers.ProjectHelper" ref="projectHelper"/>
-    </bean>
-    <!-- ########################################################################################################### -->
-
-
-    <bean id="singleViewModel" class="com.jakeapp.gui.swing.model.ContentSingleViewModel">
-
-    </bean>
-
-    <bean id="singleViewController" class="com.jakeapp.gui.swing.controller.ContentSingleViewController">
-        <constructor-arg ref="singleViewModel"/>
-    </bean>
-
-    <bean id="singleView" class="com.jakeapp.gui.swing.view.ContentSingleView">
-        <constructor-arg ref="singleViewModel"/>
-        <constructor-arg ref="singleViewController"/>
     </bean>
 
 
 
-
-    <bean id="contentSplitViewModel" class="com.jakeapp.gui.swing.model.ContentSplitViewModel">
-        <property name="currentView" value="LOGOUT" />
-    </bean>
-
-    <bean id="contentSplitViewController" class="com.jakeapp.gui.swing.controller.ContentSplitViewController">
-        <constructor-arg ref="contentSplitViewModel" />
-    </bean>
-
-
-    <bean id="contentSplitView" class="com.jakeapp.gui.swing.view.ContentSplitView">
-        <constructor-arg ref="contentSplitViewModel" />
-        <constructor-arg ref="contentSplitViewController" />
-        <constructor-arg ref="jakeSourceList" />
-        <constructor-arg ref="projectView" />
-    </bean>
-
-
-
-
-    <!-- ########################################################################################################### -->
-    <bean id="contentViewModel" class="com.jakeapp.gui.swing.model.ContentViewModel">
-        <property name="viewToShow" value="SPLITVIEW"/>
-        <!--<property name="viewToShow" value="SINGLE"/>-->
-        
-    </bean>
-
-    <bean id="contentViewController" class="com.jakeapp.gui.swing.controller.ContentViewController">
-        <constructor-arg ref="contentViewModel"/>
-    </bean>
-
-    <bean id="contentView" class="com.jakeapp.gui.swing.view.ContentView">
-        <constructor-arg ref="contentViewModel"/>
-        <constructor-arg ref="contentViewController"/>
-        <constructor-arg ref="singleView"/>
-        <constructor-arg ref="contentSplitView" />
-        <!--<constructor-arg ref="jakeSourceList" />-->
-    </bean>
-
-    <!-- ########################################################################################################### -->
-    <bean id="menuBarModel" class="com.jakeapp.gui.swing.model.MenuBarModel"></bean>
-
-    <bean id="menuBarController" class="com.jakeapp.gui.swing.controller.MenuBarController">
-        <constructor-arg ref="menuBarModel"/>
-    </bean>
-
-    <bean id="menuBarView" class="com.jakeapp.gui.swing.view.menuBar.MenuBarView">
-        <constructor-arg ref="menuBarModel"/>
-        <constructor-arg ref="menuBarController"/>
-        <constructor-arg ref="resourceMap" />
-    </bean>
-
-    <!-- ########################################################################################################### -->
-    <!-- ########################################################################################################### -->
-    <!-- ########################################################################################################### -->
-    <!-- ########################################################################################################### -->
-    <!-- ########################################################################################################### -->
-    <!-- ########################################################################################################### -->
-    <!-- ########################################################################################################### -->
-    <!-- ########################################################################################################### -->
-    <!-- ########################################################################################################### -->
-    <!-- ########################################################################################################### -->
-
-
-    <!-- ########################################### MAIN WINDOW START ############################################# -->
-
-
-    <bean id="mainWindowModel" class="com.jakeapp.gui.swing.model.MainWindowModel">
-        <property name="minimumWidth" value="600"/>
-        <property name="minimumHeight" value="600"/>
-        <property name="currentWidth" value="800"/>
-        <property name="currentHeight" value="800"/>
-        <property name="windowTitle" value="JakeApp.com"/>
-        <property name="showToolbar" value="true"/>
-        <property name="showStatusbar" value="true"/>
-    </bean>
-
-    <bean id="mainWindowController" class="com.jakeapp.gui.swing.controller.MainWindowController">
-        <constructor-arg ref="mainWindowModel"/>
-    </bean>
-
-
-    <bean id="mainWindowView" class="com.jakeapp.gui.swing.view.MainWindowView">
-        <constructor-arg ref="jakeMainApp"/>
-        <constructor-arg ref="mainWindowModel"/>
-        <constructor-arg ref="mainWindowController"/>
-        <constructor-arg ref="contentView"/>
-        <constructor-arg ref="toolbarView"/>
-        <constructor-arg ref="statusBarView"/>
-        <property name="menuBar" ref="menuBarView" />
-    </bean>
-
-    <!-- ########################################### MAIN WINDOW END ############################################### -->
 
 </beans>
