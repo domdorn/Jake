@@ -10,6 +10,7 @@ import com.jakeapp.gui.swing.ContextPanelEnum;
 /**
  * This Controller controls all the View-Logic, meaning when to show which view
  */
+@Deprecated
 public class OldMainWindowController {
 
 	/* main window */

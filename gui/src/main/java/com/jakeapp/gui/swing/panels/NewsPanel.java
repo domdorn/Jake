@@ -47,6 +47,7 @@ import java.util.EnumSet;
  *
  * @author studpete
  */
+@Deprecated
 public class NewsPanel extends javax.swing.JPanel
 		implements ProjectChangedCallback, DataChangedCallback,
 		ContextChangedCallback {

@@ -28,6 +28,7 @@ import java.util.Stack;
 /**
  * The Core Event Distributor.
  */
+@Deprecated
 public class EventCore {
 	private static final Logger log = Logger.getLogger(EventCore.class);
 	private static EventCore instance;

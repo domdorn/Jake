@@ -47,6 +47,7 @@ import java.util.List;
 /**
  * @author studpete, csutter
  */
+@Deprecated
 public class FilePanel extends javax.swing.JPanel
 				implements ContextChangedCallback, ProjectChangedCallback {
 	private static final long serialVersionUID = -3419475619689818265L;

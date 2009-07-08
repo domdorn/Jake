@@ -7,7 +7,7 @@ import javax.swing.*;
 
 import com.jakeapp.gui.swing.helpers.Platform;
 
-
+@Deprecated
 public class NewNotesPanel extends JPanel {
 	private final ResourceMap resourceMap;
 

@@ -258,6 +258,7 @@
     <bean id="loginView" class="com.jakeapp.gui.swing.view.LoginView">
         <constructor-arg ref="loginViewModel" />
         <constructor-arg ref="loginViewController" />
+        <constructor-arg ref="resourceMap" />
     </bean>
 
 

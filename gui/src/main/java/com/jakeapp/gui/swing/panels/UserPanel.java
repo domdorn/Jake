@@ -56,13 +56,14 @@ import java.util.Map;
  *
  * @author studpete
  */
+@Deprecated
 public class UserPanel extends JXPanel
 		implements CoreChangedCallback, ContextChangedCallback {
 
 	private final JakeMainApp jakeMainApp;
 	private final ResourceMap resourceMap;
 	private final EventCore eventCore;
-	private final UserPanelModel userPanelModel;
+
 
 
 
@@ -128,7 +129,6 @@ public class UserPanel extends JXPanel
 		this.jakeMainApp = jakeMainApp;
 		this.resourceMap = resourceMap;
 		this.eventCore = eventCore;
-		this.userPanelModel = userPanelModel;
 
 
 		initComponents();

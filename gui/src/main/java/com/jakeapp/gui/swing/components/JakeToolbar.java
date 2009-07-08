@@ -36,6 +36,7 @@ import java.util.regex.PatternSyntaxException;
 /**
  * Implementation of the Toolbar
  */
+@Deprecated
 public class JakeToolbar {
 	private static final Logger log = Logger.getLogger(JakeToolbar.class);
 	private SearchField searchField;
