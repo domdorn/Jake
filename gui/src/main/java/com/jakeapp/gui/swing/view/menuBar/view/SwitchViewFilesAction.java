@@ -1,6 +1,6 @@
 package com.jakeapp.gui.swing.view.menuBar.view;
 
-import com.jakeapp.gui.swing.view.ProjectViewEnum;
+import com.jakeapp.gui.swing.view.ViewEnum;
 import com.jakeapp.gui.swing.view.menuBar.AbstractMenuBarAction;
 import com.jakeapp.gui.swing.controller.MenuBarController;
 
@@ -18,11 +18,11 @@ public class SwitchViewFilesAction extends AbstractMenuBarAction{
 
 	@Override
 	public void updateAction() {
-		setEnabled( controller.isCurrentView(ProjectViewEnum.FILES));
+		setEnabled( controller.isCurrentView(ViewEnum.PROJECT_FILES));
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		controller.switchView(ProjectViewEnum.FILES);
+		controller.switchView(ViewEnum.PROJECT_FILES);
 	}
 }

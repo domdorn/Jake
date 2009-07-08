@@ -2,7 +2,7 @@ package com.jakeapp.gui.swing;
 
 import com.jakeapp.gui.swing.panels.InspectorPanel;
 import com.jakeapp.gui.swing.globals.JakeContext;
-import com.jakeapp.gui.swing.view.ProjectViewEnum;
+import com.jakeapp.gui.swing.view.ViewEnum;
 
 
 import org.apache.log4j.Logger;
@@ -86,9 +86,9 @@ public class InspectorStateHolder {
 
 		boolean hasProject = JakeContext.getProject() != null;
 		boolean isFilePaneOpen =
-				contextViewPanelHolder.getContextViewPanel() == ContextPanelEnum.Project && projectViewHolder.getCurrentView() == ProjectViewEnum.FILES;
+				contextViewPanelHolder.getContextViewPanel() == ContextPanelEnum.Project && projectViewHolder.getCurrentView() == ViewEnum.PROJECT_FILES;
 		boolean isNotePaneOpen =
-				contextViewPanelHolder.getContextViewPanel() == ContextPanelEnum.Project && projectViewHolder.getCurrentView() == ProjectViewEnum.NOTES;
+				contextViewPanelHolder.getContextViewPanel() == ContextPanelEnum.Project && projectViewHolder.getCurrentView() == ViewEnum.PROJECT_NOTES;
 
 		return hasProject && (isFilePaneOpen || isNotePaneOpen);
 	}

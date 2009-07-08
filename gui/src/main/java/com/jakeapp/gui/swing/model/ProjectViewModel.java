@@ -1,6 +1,6 @@
 package com.jakeapp.gui.swing.model;
 
-import com.jakeapp.gui.swing.view.ProjectViewEnum;
+import com.jakeapp.gui.swing.view.ViewEnum;
 
 
 import java.util.Observable;
@@ -14,7 +14,7 @@ public class ProjectViewModel extends Observable {
 
 	private boolean inspectorAllowed;
 
-	private ProjectViewEnum currentView;
+	private ViewEnum currentView;
 	
 	public ProjectViewModel() {
 	
@@ -31,11 +31,11 @@ public class ProjectViewModel extends Observable {
 		notifyObservers();
 	}
 
-	public ProjectViewEnum getCurrentView() {
+	public ViewEnum getCurrentView() {
 		return currentView;
 	}
 
-	public void setCurrentView(ProjectViewEnum currentView) {
+	public void setCurrentView(ViewEnum currentView) {
 		this.currentView = currentView;
 		setChanged();
 		notifyObservers();

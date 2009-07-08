@@ -24,14 +24,14 @@ class ContextSwitchActionListener implements ActionListener {
 
 //		public void setProjectViewFromToolBarButtons() {
 //		 determine toggle button selection
-//		if (getContextSwitcherButtons().get(ProjectViewEnum.EVENTS.ordinal()).isSelected()) {
-//			setProjectViewPanel(ProjectViewEnum.EVENTS);
-//		} else if (getContextSwitcherButtons().get(ProjectViewEnum.FILES.ordinal())
+//		if (getContextSwitcherButtons().get(ViewEnum.PROJECT_EVENTS.ordinal()).isSelected()) {
+//			setProjectViewPanel(ViewEnum.PROJECT_EVENTS);
+//		} else if (getContextSwitcherButtons().get(ViewEnum.PROJECT_FILES.ordinal())
 //				.isSelected()) {
-//			setProjectViewPanel(ProjectViewEnum.FILES);
-//		} else if (getContextSwitcherButtons().get(ProjectViewEnum.NOTES.ordinal())
+//			setProjectViewPanel(ViewEnum.PROJECT_FILES);
+//		} else if (getContextSwitcherButtons().get(ViewEnum.PROJECT_NOTES.ordinal())
 //				.isSelected()) {
-//			setProjectViewPanel(ProjectViewEnum.NOTES);
+//			setProjectViewPanel(ViewEnum.PROJECT_NOTES);
 //		}
 //	}
 

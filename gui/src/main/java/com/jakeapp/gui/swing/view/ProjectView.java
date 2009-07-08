@@ -71,13 +71,13 @@ public class ProjectView extends JSplitPane implements Observer {
 	{
 
 		switch (model.getCurrentView()) {
-			case EVENTS:
+			case PROJECT_EVENTS:
 				this.setLeftComponent(eventsView);
 				break;
-			case FILES:
+			case PROJECT_FILES:
 				this.setLeftComponent(filesView);
 				break;
-			case NOTES:
+			case PROJECT_NOTES:
 				this.setLeftComponent(notesView);
 				break;
 		}

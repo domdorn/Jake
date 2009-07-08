@@ -1,32 +1,10 @@
 package com.jakeapp.gui.swing.controller;
 
 import com.jakeapp.gui.swing.model.MenuBarModel;
-import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.components.JakeStatusBar;
-import com.jakeapp.gui.swing.exceptions.InvalidNewFolderException;
-import com.jakeapp.gui.swing.exceptions.FileOperationFailedException;
-import com.jakeapp.gui.swing.exceptions.NoteOperationFailedException;
-import com.jakeapp.gui.swing.worker.JakeExecutor;
-import com.jakeapp.gui.swing.worker.JakeDownloadMgr;
-import com.jakeapp.gui.swing.worker.tasks.DeleteJakeObjectsTask;
-import com.jakeapp.gui.swing.worker.tasks.AnnounceJakeObjectTask;
-import com.jakeapp.gui.swing.worker.tasks.ImportFileFolderTask;
-import com.jakeapp.gui.swing.worker.tasks.PullAndLaunchJakeObjectsTask;
-import com.jakeapp.gui.swing.helpers.*;
-import com.jakeapp.gui.swing.globals.JakeContext;
-import com.jakeapp.gui.swing.view.MainWindow;
-import com.jakeapp.gui.swing.view.ProjectViewEnum;
-import com.jakeapp.gui.swing.dialogs.generic.JSheet;
-import com.jakeapp.gui.swing.dialogs.generic.SheetListener;
-import com.jakeapp.gui.swing.dialogs.generic.SheetEvent;
-import com.jakeapp.gui.swing.dialogs.DeleteProjectDialog;
-import com.jakeapp.gui.swing.dialogs.ResolveConflictDialog;
+import com.jakeapp.gui.swing.view.ViewEnum;
 import com.jakeapp.core.domain.*;
-import com.jakeapp.core.domain.logentries.LogEntry;
 import com.jakeapp.core.synchronization.attributes.Attributed;
-import com.jakeapp.core.synchronization.UserInfo;
 
-import javax.swing.*;
 import java.util.*;
 
 import org.apache.log4j.Logger;
@@ -93,13 +71,13 @@ public class MenuBarController {
 		throw new UnsupportedOperationException("Operation not yet implemented");
 	}
 
-	public void switchView(ProjectViewEnum events) {
+	public void switchView(ViewEnum events) {
 		//To change body of created methods use File | Settings | File Templates.
 		// TODO
 		throw new UnsupportedOperationException("Operation not yet implemented");
 	}
 
-	public boolean isCurrentView(ProjectViewEnum events) {
+	public boolean isCurrentView(ViewEnum events) {
 		return false;  //To change body of created methods use File | Settings | File Templates.
 		// TODO
 

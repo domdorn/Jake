@@ -2,7 +2,7 @@ package com.jakeapp.gui.swing.controller;
 
 import com.explodingpixels.macwidgets.TriAreaComponent;
 import com.jakeapp.gui.swing.model.ToolbarModel;
-import com.jakeapp.gui.swing.view.ProjectViewEnum;
+import com.jakeapp.gui.swing.view.ViewEnum;
 import org.apache.log4j.Logger;
 
 public class ToolbarController {
@@ -54,13 +54,13 @@ public class ToolbarController {
 		// TODO
 	}
 
-	public void changeView(ProjectViewEnum events) {
+	public void changeView(ViewEnum events) {
 		// TODO
 
 	}
 
-	public ProjectViewEnum getCurrentView() {
-		return ProjectViewEnum.EVENTS; // TODO IMPLEMENT
+	public ViewEnum getCurrentView() {
+		return ViewEnum.PROJECT_EVENTS; // TODO IMPLEMENT
 	}
 
 	public void createProject() {

@@ -279,7 +279,7 @@ public class JakeMenuBar extends JMenuBar {
 		});
 		debugMenu.add(reloadFileDebugItem);
 
-		JMenuItem reloadNotesDebugItem = new JMenuItem("Reload NOTES View");
+		JMenuItem reloadNotesDebugItem = new JMenuItem("Reload PROJECT_NOTES View");
 		reloadNotesDebugItem.addActionListener(new ActionListener() {
 
 			@Override

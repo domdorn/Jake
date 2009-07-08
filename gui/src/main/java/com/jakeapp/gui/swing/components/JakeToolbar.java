@@ -124,7 +124,7 @@ public class JakeToolbar {
 		createProjectButton.setBorder(new LineBorder(Color.BLACK, 0));
 		toolBar.addComponentToLeft(createProjectButton, 10);
 
-		// Add FILES
+		// Add PROJECT_FILES
 		Icon addFilesIcon = ImageLoader.getScaled(MainWindow.class,
 				"/icons/toolbar-addfiles.png", 32);
 

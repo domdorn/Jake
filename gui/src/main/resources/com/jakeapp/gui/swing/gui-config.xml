@@ -20,7 +20,7 @@
 
     <bean id="projectViewModel" class="com.jakeapp.gui.swing.model.ProjectViewModel">
         <property name="inspectorVisible" value="false" />
-        <property name="currentView" value="EVENTS" />
+        <property name="currentView" value="PROJECT_EVENTS" />
     </bean>
 
     <bean id="projectViewController" class="com.jakeapp.gui.swing.controller.ProjectViewController">

@@ -2,7 +2,7 @@ package com.jakeapp.gui.swing.controller;
 
 import com.jakeapp.gui.swing.panels.*;
 import com.jakeapp.gui.swing.view.MainWindow;
-import com.jakeapp.gui.swing.view.ProjectViewEnum;
+import com.jakeapp.gui.swing.view.ViewEnum;
 
 import com.jakeapp.gui.swing.ContentPanelHolder;
 import com.jakeapp.gui.swing.ContextPanelEnum;
@@ -26,12 +26,12 @@ public class OldMainWindowController {
 	private final ContentPanelHolder contentPanelHolder;
 
 
-	private ProjectViewEnum currentProjectView = ProjectViewEnum.EVENTS;
+	private ViewEnum currentProjectView = ViewEnum.PROJECT_EVENTS;
 
 	private ContextPanelEnum currentContextPanelView = ContextPanelEnum.Login;
 
 
-	public void setCurrentProjectView(ProjectViewEnum currentProjectView) {
+	public void setCurrentProjectView(ViewEnum currentProjectView) {
 		this.currentProjectView = currentProjectView;
 	}
 

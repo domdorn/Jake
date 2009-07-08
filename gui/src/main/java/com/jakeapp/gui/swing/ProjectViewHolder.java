@@ -1,7 +1,7 @@
 package com.jakeapp.gui.swing;
 
 import com.jakeapp.core.domain.Project;
-import com.jakeapp.gui.swing.view.ProjectViewEnum;
+import com.jakeapp.gui.swing.view.ViewEnum;
 
 
 /**
@@ -11,16 +11,16 @@ import com.jakeapp.gui.swing.view.ProjectViewEnum;
 public class ProjectViewHolder {
 
 	private Project currentProject;
-	private ProjectViewEnum currentView= ProjectViewEnum.EVENTS;
+	private ViewEnum currentView= ViewEnum.PROJECT_EVENTS;
 
 	public ProjectViewHolder() {
 	}
 
-	public ProjectViewEnum getCurrentView() {
+	public ViewEnum getCurrentView() {
 		return currentView;
 	}
 
-	public void setCurrentView(ProjectViewEnum currentView) {
+	public void setCurrentView(ViewEnum currentView) {
 		this.currentView = currentView;
 	}
 

@@ -1,7 +1,7 @@
 package com.jakeapp.gui.swing;
 
 import com.jakeapp.gui.swing.callbacks.ProjectViewChangedCallback;
-import com.jakeapp.gui.swing.view.ProjectViewEnum;
+import com.jakeapp.gui.swing.view.ViewEnum;
 
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class ProjectViewChangedHolder {
 	 * 
 	 * @param projectView
 	 */
-	public void fireProjectViewChanged(ProjectViewEnum projectView) {
+	public void fireProjectViewChanged(ViewEnum projectView) {
 		for (ProjectViewChangedCallback psc : getProjectViewChanged()) {
 			psc.setProjectViewPanel(projectView);
 		}

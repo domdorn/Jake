@@ -175,7 +175,7 @@ public class FolderTreeTableModel implements TreeTableModel, FilesChangedCallbac
 		if (!(parent instanceof ProjectFilesTreeNode)) throw new IllegalArgumentException("Not a ProjectFilesTreeNode");
 		ProjectFilesTreeNode ournode = (ProjectFilesTreeNode) parent;
 
-		// FILES have no children
+		// PROJECT_FILES have no children
 		if (ournode.isFile()) return null;
 
 		FolderObject fo = ournode.getFolderObject();
@@ -188,7 +188,7 @@ public class FolderTreeTableModel implements TreeTableModel, FilesChangedCallbac
 		if (!(parent instanceof ProjectFilesTreeNode)) throw new IllegalArgumentException("Not a ProjectFilesTreeNode");
 		ProjectFilesTreeNode ournode = (ProjectFilesTreeNode) parent;
 
-		// FILES have no children
+		// PROJECT_FILES have no children
 		if (ournode.isFile()) return 0;
 
 		FolderObject fo = ournode.getFolderObject();

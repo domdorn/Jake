@@ -25,7 +25,7 @@ import com.jakeapp.availablelater.AvailableLaterObject;
 import com.jakeapp.core.domain.Project;
 import com.jakeapp.gui.swing.*;
 import com.jakeapp.gui.swing.view.MainWindow;
-import com.jakeapp.gui.swing.view.ProjectViewEnum;
+import com.jakeapp.gui.swing.view.ViewEnum;
 import com.jakeapp.gui.swing.callbacks.ContextChangedCallback;
 import com.jakeapp.gui.swing.callbacks.ContextViewChangedCallback;
 import com.jakeapp.gui.swing.callbacks.DataChangedCallback;
@@ -62,7 +62,7 @@ public class JakeStatusBar extends JakeGuiComponent
 	private JLabel statusLabel;
 	private JButton connectionButton;
 	private TriAreaComponent statusBar;
-	private ProjectViewEnum projectViewPanel;
+	private ViewEnum projectViewPanel;
 	private ContextPanelEnum contextViewPanel;
 
 	private ConnectionState lastConnectionState = ConnectionState.LOGGED_OUT;
@@ -445,11 +445,11 @@ public class JakeStatusBar extends JakeGuiComponent
 				statusLabel.setText("Woohoo, that's an Invitation! You better join!");
 			} else {
 
-				if (getProjectViewPanel() == ProjectViewEnum.FILES) {
+				if (getProjectViewPanel() == ViewEnum.PROJECT_FILES) {
 					// update the status bar label
 					JakeExecutor.exec(new ProjectFileCountTask());
 					JakeExecutor.exec(new ProjectSizeTotalTask());
-				} else if (getProjectViewPanel() == ProjectViewEnum.NOTES) {
+				} else if (getProjectViewPanel() == ViewEnum.PROJECT_NOTES) {
 					JakeExecutor.exec(new NoteCountTask());
 				} else {
 					// project view
@@ -533,13 +533,13 @@ public class JakeStatusBar extends JakeGuiComponent
 		projectUpdated();
 	}
 
-	public void setProjectViewPanel(ProjectViewEnum panel) {
+	public void setProjectViewPanel(ViewEnum panel) {
 		this.projectViewPanel = panel;
 
 		projectUpdated();
 	}
 
-	public ProjectViewEnum getProjectViewPanel() {
+	public ViewEnum getProjectViewPanel() {
 		return projectViewPanel;
 	}
 

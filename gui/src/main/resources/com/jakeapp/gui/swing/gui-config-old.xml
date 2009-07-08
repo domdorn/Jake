@@ -46,7 +46,7 @@
     </bean>
 
 
-    <!-- ############################################ NOTES START ################################################## -->
+    <!-- ############################################ PROJECT_NOTES START ################################################## -->
     <bean id="notesTableModel" class="com.jakeapp.gui.swing.models.project.NotesTableModel">
         <constructor-arg ref="resourceMap"/>
     </bean>
@@ -58,7 +58,7 @@
     </bean>
 
 
-    <!-- ############################################ NOTES END #################################################### -->
+    <!-- ############################################ PROJECT_NOTES END #################################################### -->
 
 
     <bean id="inspectorPanel" class="com.jakeapp.gui.swing.panels.InspectorPanel">

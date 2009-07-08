@@ -1,6 +1,6 @@
 package com.jakeapp.gui.swing.callbacks;
 
-import com.jakeapp.gui.swing.view.ProjectViewEnum;
+import com.jakeapp.gui.swing.view.ViewEnum;
 
 
 /**
@@ -10,5 +10,5 @@ import com.jakeapp.gui.swing.view.ProjectViewEnum;
  * Time: 8:44:22 PM
  */
 public interface ProjectViewChangedCallback {
-	public void setProjectViewPanel(ProjectViewEnum panel);
+	public void setProjectViewPanel(ViewEnum panel);
 }

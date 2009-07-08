@@ -4,9 +4,6 @@ import com.explodingpixels.macwidgets.LabeledComponentGroup;
 import com.explodingpixels.macwidgets.MacButtonFactory;
 import com.explodingpixels.macwidgets.MacWidgetFactory;
 import com.explodingpixels.macwidgets.TriAreaComponent;
-import com.jakeapp.gui.swing.actions.abstracts.ProjectAction;
-import com.jakeapp.gui.swing.actions.project.CreateProjectAction;
-import com.jakeapp.gui.swing.actions.users.InviteUsersAction;
 import com.jakeapp.gui.swing.controller.ToolbarController;
 import com.jakeapp.gui.swing.controls.SearchField;
 import com.jakeapp.gui.swing.helpers.ImageLoader;
@@ -122,7 +119,7 @@ public class ToolbarView extends JPanel implements Observer {
 		createProjectButton.setBorder(new LineBorder(Color.BLACK, 0));
 
 		// add files
-		// Add FILES
+		// Add PROJECT_FILES
 		Icon addFilesIcon = ImageLoader.getScaled(MainWindow.class,"/icons/toolbar-addfiles.png", 32);
 		JButton createAddFilesJButton = new JButton(resourceMap.getString("toolbarAddFiles"),addFilesIcon);
 		addFilesButton = MacButtonFactory.makeUnifiedToolBarButton(createAddFilesJButton);
@@ -326,7 +323,7 @@ public class ToolbarView extends JPanel implements Observer {
 
 	private void createContextSwitcherButtons() {
 		contextSwitcherButtons.get(0).setText("Project");
-		contextSwitcherButtons.get(1).setText("FILES");
+		contextSwitcherButtons.get(1).setText("PROJECT_FILES");
 		contextSwitcherButtons.get(2).setText("Notes");
 
 		contextSwitcherButtons.get(0).addActionListener(contextSwitcherButtonActionListener);
@@ -341,12 +338,12 @@ public class ToolbarView extends JPanel implements Observer {
 		public void actionPerformed(ActionEvent e) {
 
 			// determine toggle button selection
-			if (contextSwitcherButtons.get(ProjectViewEnum.EVENTS.ordinal()).isSelected()) {
-				controller.changeView(ProjectViewEnum.EVENTS);
-			} else if (contextSwitcherButtons.get(ProjectViewEnum.FILES.ordinal()).isSelected()) {
-				controller.changeView(ProjectViewEnum.FILES);
-			} else if (contextSwitcherButtons.get(ProjectViewEnum.NOTES.ordinal()).isSelected()) {
-				controller.changeView(ProjectViewEnum.NOTES);
+			if (contextSwitcherButtons.get(ViewEnum.PROJECT_EVENTS.ordinal()).isSelected()) {
+				controller.changeView(ViewEnum.PROJECT_EVENTS);
+			} else if (contextSwitcherButtons.get(ViewEnum.PROJECT_FILES.ordinal()).isSelected()) {
+				controller.changeView(ViewEnum.PROJECT_FILES);
+			} else if (contextSwitcherButtons.get(ViewEnum.PROJECT_NOTES.ordinal()).isSelected()) {
+				controller.changeView(ViewEnum.PROJECT_NOTES);
 			}
 		}
 	};
@@ -361,13 +358,13 @@ public class ToolbarView extends JPanel implements Observer {
 		log.trace("updateProjectToggleButtons. canBeSelected=" + canBeSelected);
 
 		if (canBeSelected) {
-			contextSwitcherButtons.get(ProjectViewEnum.EVENTS.ordinal())
-					.setSelected(controller.getCurrentView().equals(ProjectViewEnum.EVENTS));
+			contextSwitcherButtons.get(ViewEnum.PROJECT_EVENTS.ordinal())
+					.setSelected(controller.getCurrentView().equals(ViewEnum.PROJECT_EVENTS));
 
-			contextSwitcherButtons.get(ProjectViewEnum.FILES.ordinal())
-					.setSelected(controller.getCurrentView().equals(ProjectViewEnum.FILES));
-			contextSwitcherButtons.get(ProjectViewEnum.NOTES.ordinal())
-					.setSelected(controller.getCurrentView().equals(ProjectViewEnum.NOTES));
+			contextSwitcherButtons.get(ViewEnum.PROJECT_FILES.ordinal())
+					.setSelected(controller.getCurrentView().equals(ViewEnum.PROJECT_FILES));
+			contextSwitcherButtons.get(ViewEnum.PROJECT_NOTES.ordinal())
+					.setSelected(controller.getCurrentView().equals(ViewEnum.PROJECT_NOTES));
 		}
 
 		// adapt button style

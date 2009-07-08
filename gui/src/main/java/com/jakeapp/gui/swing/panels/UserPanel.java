@@ -1013,7 +1013,7 @@ public class UserPanel extends JXPanel
 						public void actionPerformed(ActionEvent e) {
 							if (SheetHelper.showConfirm(StringUtilities.htmlize(
 									"<b>Really delete " + msg.getUserId()
-											.getUserId() + "?</b><br><br>Connected Projects will be deleted. " + "<br>(But don't worry, we won't delete your FILES)"),
+											.getUserId() + "?</b><br><br>Connected Projects will be deleted. " + "<br>(But don't worry, we won't delete your PROJECT_FILES)"),
 									"Delete")) {
 								try {
 									jakeMainApp.getCore().removeAccount(msg);
