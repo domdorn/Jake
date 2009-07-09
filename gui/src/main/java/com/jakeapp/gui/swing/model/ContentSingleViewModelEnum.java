@@ -12,7 +12,7 @@ public enum ContentSingleViewModelEnum {
 	 */
 	viewToShow,
 
-	/**
+	coreInitialized, /**
 	 * Describing which View (defined in ViewEnum) should be rendered/is currently rendered
 	 */
 	currentView

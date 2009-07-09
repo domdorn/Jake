@@ -13,6 +13,7 @@ import com.jakeapp.gui.swing.helpers.ExceptionUtilities;
 import com.jakeapp.gui.swing.helpers.Platform;
 import com.jakeapp.gui.swing.view.MainWindow;
 import com.jakeapp.gui.swing.controller.MainWindowViewController;
+import com.jakeapp.gui.swing.controller.MainAppController;
 import com.jakeapp.gui.swing.model.MainAppModel;
 import org.apache.log4j.Logger;
 import org.jdesktop.application.SingleFrameApplication;
@@ -36,9 +37,8 @@ public class JakeMainApp extends SingleFrameApplication {
 
 	private static JakeMainApp app;
 
-	private MainAppModel model = new MainAppModel(); // todo create this with spring? 
-
-
+	private MainAppModel model;
+   	private MainAppController controller;
 
 	private ICoreAccess core;
 
@@ -84,6 +84,10 @@ public class JakeMainApp extends SingleFrameApplication {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("/com/jakeapp/gui/swing/gui-config.xml");
 
 		System.out.println("getting mainWindowViewController");
+		controller = (MainAppController) ctx.getBean("mainAppController", MainAppController.class);
+		model = (MainAppModel) ctx.getBean("mainAppModel");
+
+
 		MainWindowViewController mainWindowViewController = (MainWindowViewController) ctx.getBean("mainWindowViewController", MainWindowViewController.class);
 
 		System.out.println("getting mainWindowView");
@@ -94,7 +98,7 @@ public class JakeMainApp extends SingleFrameApplication {
 
 
 		System.out.println("creating thread loading the core");
-		new Thread(new Runnable(){
+		new Thread(new Runnable() {
 			@Override
 			public void run() {
 
@@ -106,11 +110,17 @@ public class JakeMainApp extends SingleFrameApplication {
 				ICoreAccess core = (ICoreAccess) ctx_core.getBean("coreAccess", ICoreAccess.class);
 				System.out.println("finished loading the core");
 				setCore(core);
-//				model.setCore(core);
-				model.setCoreSet(true);
+				model.setCore(core);
+
+				// TODO remove this in final version
+				// shout out our core change!
+				for (CoreChangedCallback callback : coreChanged) {
+					callback.coreChanged();
+				}
+				// till here
+
 			}
 		}).start();
-
 
 
 	}
@@ -153,7 +163,6 @@ public class JakeMainApp extends SingleFrameApplication {
 	}
 
 
-
 	private static void macMenuSetup() {
 		// MacOSX specific: set menu name to 'Jake'
 		// has to be called VERY early to succeed (prior to any gui stuff, later
@@ -161,7 +170,7 @@ public class JakeMainApp extends SingleFrameApplication {
 		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Jake");
 		installMacScrollbars();
 	}
-	
+
 	private static void lookAndFeelSetup(String[] args) {
 		/**
 		 * Laf detection code - get the best for every system!
@@ -223,17 +232,14 @@ public class JakeMainApp extends SingleFrameApplication {
 	 * @return
 	 */
 	public static ICoreAccess getCore() {
+		if(JakeMainApp.getInstance().model == null)
+			return null;
 		return JakeMainApp.getInstance().model.getCore();
 	}
 
+	@Deprecated
 	public void setCore(ICoreAccess core) {
-		this.model.setCore(core);
-//		this.core = core;
-
-		// shout out our core change!
-		for (CoreChangedCallback callback : coreChanged) {
-			callback.coreChanged();
-		}
+//	not used anymore
 	}
 
 	public void saveQuit() {

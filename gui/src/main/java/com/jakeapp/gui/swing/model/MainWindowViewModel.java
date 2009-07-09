@@ -20,6 +20,8 @@ public class MainWindowViewModel extends Observable {
 	private boolean showMenubar = false;
 
 
+	private boolean coreInitialized;
+
 	private ViewEnum currentView;
 
 	/**
@@ -145,5 +147,15 @@ public class MainWindowViewModel extends Observable {
 		this.currentView = currentView;
 		setChanged();
 		notifyObservers(MainWindowViewModelEnum.currentView);
+	}
+
+	public boolean isCoreInitialized() {
+		return coreInitialized;
+	}
+
+	public void setCoreInitialized(boolean coreInitialized) {
+		this.coreInitialized = coreInitialized;
+		setChanged();
+		notifyObservers(MainWindowViewModelEnum.coreInitialized);
 	}
 }

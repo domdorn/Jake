@@ -1,6 +1,8 @@
 package com.jakeapp.gui.swing.controller;
 
 import com.jakeapp.gui.swing.model.MainWindowViewModel;
+import com.jakeapp.gui.swing.model.MainAppModel;
+import com.jakeapp.gui.swing.model.MainAppModelEnum;
 import com.jakeapp.gui.swing.view.ViewEnum;
 import com.jakeapp.core.domain.NoteObject;
 import com.jakeapp.core.domain.FileObject;
@@ -8,16 +10,22 @@ import com.jakeapp.core.synchronization.attributes.Attributed;
 
 import java.util.Observer;
 import java.util.List;
+import java.util.Observable;
 
 import org.apache.log4j.Logger;
 
 
-public class MainWindowViewController {
+public class MainWindowViewController implements Observer {
 	private final static Logger log = Logger.getLogger(MainWindowViewController.class);
 	private final MainWindowViewModel model;
+	private final MainAppController parentController;
 
-	public MainWindowViewController(MainWindowViewModel model) {
+
+	public MainWindowViewController(MainWindowViewModel model, MainAppController parentController) {
 		this.model = model;
+		this.parentController = parentController;
+
+		parentController.addObserver(this);
 	}
 
 	public MainWindowViewModel getModel() {
@@ -527,5 +535,26 @@ public class MainWindowViewController {
 
 	public void createProject() {
 			throw new UnsupportedOperationException("Operation not yet implemented");
+	}
+
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if(o instanceof MainAppModel && arg instanceof MainAppModelEnum)
+		{
+			MainAppModelEnum changed = (MainAppModelEnum) arg;
+			MainAppModel mainAppModel = (MainAppModel) o;
+			switch (changed) {
+				case core:
+					this.model.setCoreInitialized(mainAppModel.getCore() != null);
+					break;
+				case isMainWindowVisible:
+					this.model.setShowMainWindow(mainAppModel.isMainWindowVisible());
+					break;
+			}
+
+			return;
+		}
+		assert(false);
 	}
 }

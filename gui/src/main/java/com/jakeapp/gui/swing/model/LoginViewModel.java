@@ -15,19 +15,23 @@ public class LoginViewModel extends Observable {
 	}
 
 	public MsgService getMsgService() {
-		return JakeContext.getMsgService();
-//		return msgService;
+//		return JakeContext.getMsgService();
+		return msgService;
 	}
 
 	public void setMsgService(MsgService msgService) {
 		this.msgService = msgService;
 		setChanged();
-		// todo notifyObservers
+		notifyObservers(LoginViewModelEnum.msgService);
 	}
 
 	public boolean isCoreInitialized() {
-//		return true;
-		return JakeContext.isCoreInitialized();
-//		return coreInitialized;
+		return coreInitialized;
+	}
+
+	public void setCoreInitialized(boolean coreInitialized) {
+		this.coreInitialized = coreInitialized;
+		setChanged();
+		notifyObservers(LoginViewModelEnum.coreInitialized);
 	}
 }

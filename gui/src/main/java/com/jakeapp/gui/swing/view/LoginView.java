@@ -2,6 +2,7 @@ package com.jakeapp.gui.swing.view;
 
 import com.jakeapp.gui.swing.controller.LoginViewController;
 import com.jakeapp.gui.swing.model.LoginViewModel;
+import com.jakeapp.gui.swing.model.LoginViewModelEnum;
 import com.jakeapp.gui.swing.SupportedServices;
 import com.jakeapp.gui.swing.dialogs.AdvancedAccountSettingsDialog;
 import com.jakeapp.gui.swing.worker.JakeExecutor;
@@ -51,7 +52,19 @@ public class LoginView extends JXPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		//To change body of implemented methods use File | Settings | File Templates.
+		if(o instanceof LoginViewModel && arg instanceof LoginViewModelEnum)
+		{
+			LoginViewModelEnum changed = (LoginViewModelEnum) arg;
+
+			switch (changed) {
+
+				case coreInitialized:
+					coreChanged();
+					break;
+				case msgService:
+					break;
+			}
+		}
 	}
 
 

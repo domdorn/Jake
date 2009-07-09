@@ -57,6 +57,9 @@ public class ContentSingleViewController implements Observer {
 				break;
 				case viewToShow:
 					break;
+				case coreInitialized:
+					this.model.setCoreInitialized(contentViewModel.isCoreInitialized());
+
 			}
 		}
 	}

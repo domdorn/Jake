@@ -6,4 +6,5 @@ package com.jakeapp.gui.swing.model;
  * @author Dominik Dorn
  */
 public enum LoginViewModelEnum {
+	coreInitialized, msgService
 }

@@ -1,12 +1,16 @@
 package com.jakeapp.gui.swing.controller;
 
 import com.jakeapp.gui.swing.model.LoginViewModel;
+import com.jakeapp.gui.swing.model.ContentSingleViewModelEnum;
+import com.jakeapp.gui.swing.model.ContentSingleViewModel;
 import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.worker.JakeExecutor;
 import com.jakeapp.gui.swing.worker.tasks.LoginAccountTask;
 import com.jakeapp.gui.swing.xcore.EventCore;
+import com.jakeapp.gui.swing.JakeMainApp;
 import com.jakeapp.core.domain.Account;
 import com.jakeapp.core.domain.User;
+import com.jakeapp.core.domain.ProtocolType;
 import com.jakeapp.core.services.MsgService;
 import com.jakeapp.core.services.exceptions.ProtocolNotSupportedException;
 import com.jakeapp.availablelater.AvailableLaterObject;
@@ -43,7 +47,23 @@ public class LoginViewController implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		if(o instanceof ContentSingleViewModel && arg instanceof ContentSingleViewModelEnum)
+		{
+			ContentSingleViewModel contentSingleViewModel = (ContentSingleViewModel) o;
+			ContentSingleViewModelEnum changed = (ContentSingleViewModelEnum) arg;
 
+			switch (changed) {
+
+				case coreInitialized:
+					this.model.setCoreInitialized(contentSingleViewModel.isCoreInitialized());
+					break;
+				case currentView:
+					break;
+				case viewToShow:
+					break;
+			}
+
+		}
 	}
 
 	public void logoutUser() {
@@ -52,8 +72,26 @@ public class LoginViewController implements Observer {
 	}
 
 	public Account getPredefinedServiceCredentials(String service) {
-		throw new UnsupportedOperationException("Not yet implemented");
-//		return jakeMainApp.getCore().getPredefinedServiceCredential(service.toString());
+//		throw new UnsupportedOperationException("Not yet implemented");
+//		return JakeMainApp.getInstance().getCore().getPredefinedServiceCredential(service.toString());
+
+//				log.debug("Fetch predefined Account for " + s);
+
+		// only support xmpp - for the moment
+		Account cred = new Account();
+		cred.setProtocol(ProtocolType.XMPP);
+
+		if (service.compareToIgnoreCase("google") == 0) {
+//			log.debug("Returning special google credentials");
+			cred.setServerPort(5222);
+			cred.setServerAddress("talk.google.com");
+		} else if (service.compareToIgnoreCase("unitedinternet") == 0) {
+			// fixme: insert data!
+		}
+
+		return cred;
+
+
 	}
 
 	public MsgService addAccount(Account credentials) {

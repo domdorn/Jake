@@ -17,5 +17,5 @@ public enum MainWindowViewModelEnum {
 	minimumHeight,
 	currentWidth,
 	currentHeight,
-	windowTitle
+	coreInitialized, windowTitle
 }

@@ -12,6 +12,7 @@ public class ContentSingleViewModel extends Observable {
 	private ContentSingleViewEnum viewToShow;
 
 	private ViewEnum currentView;
+	private boolean coreInitialized;
 
 	public ContentSingleViewModel() {
 	}
@@ -35,5 +36,16 @@ public class ContentSingleViewModel extends Observable {
 		this.currentView = currentView;
 		setChanged();
 		notifyObservers(ContentSingleViewModelEnum.currentView);
+	}
+
+
+	public boolean isCoreInitialized() {
+		return coreInitialized;
+	}
+
+	public void setCoreInitialized(boolean coreInitialized) {
+		this.coreInitialized = coreInitialized;
+		setChanged();
+		notifyObservers(ContentSingleViewModelEnum.coreInitialized);
 	}
 }

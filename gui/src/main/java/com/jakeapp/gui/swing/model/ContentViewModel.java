@@ -10,6 +10,7 @@ public class ContentViewModel extends Observable {
 
 	private ContentViewEnum viewToShow;
 	private ViewEnum currentView;
+	private boolean coreInitialized;
 
 	public ContentViewModel() {
 
@@ -34,4 +35,15 @@ public class ContentViewModel extends Observable {
 		setChanged();
 		notifyObservers(ContentViewModelEnum.currentView);
 	}
+
+		public boolean isCoreInitialized() {
+		return coreInitialized;
+	}
+
+	public void setCoreInitialized(boolean coreInitialized) {
+		this.coreInitialized = coreInitialized;
+		setChanged();
+		notifyObservers(ContentViewModelEnum.coreInitialized);
+	}
+
 }

@@ -17,6 +17,11 @@
 
     <!-- ########################################### MODELS ######################################################## -->
 
+    <bean id="mainAppModel" class="com.jakeapp.gui.swing.model.MainAppModel">
+        
+    </bean>
+
+
     <!-- main window -->
     <bean id="mainWindowViewModel" class="com.jakeapp.gui.swing.model.MainWindowViewModel">
         <property name="minimumWidth" value="600"/>
@@ -102,10 +107,14 @@
     <!-- ####################################### MODELS END ######################################################## -->
 
     <!-- ######################################### CONTROLLER ###################################################### -->
+    <bean id="mainAppController" class="com.jakeapp.gui.swing.controller.MainAppController">
+        <constructor-arg ref="mainAppModel" />
+    </bean>
 
 
     <bean id="mainWindowViewController" class="com.jakeapp.gui.swing.controller.MainWindowViewController">
         <constructor-arg ref="mainWindowViewModel"/>
+        <constructor-arg ref="mainAppController" />
     </bean>
 
 

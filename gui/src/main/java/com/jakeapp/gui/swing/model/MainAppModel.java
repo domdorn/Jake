@@ -12,24 +12,12 @@ import java.util.Observable;
  */
 public class MainAppModel extends Observable {
 
-	private boolean isCoreSet;
 	private boolean isMainWindowVisible;
 
 	private ICoreAccess core;
 
 	public MainAppModel() {
 	}
-
-	public boolean isCoreSet() {
-		return isCoreSet;
-	}
-
-	public void setCoreSet(boolean coreSet) {
-		isCoreSet = coreSet;
-		setChanged();
-		notifyObservers(MainAppModelEnum.isCoreSet);
-	}
-
 
 	public boolean isMainWindowVisible() {
 		return isMainWindowVisible;
@@ -47,8 +35,7 @@ public class MainAppModel extends Observable {
 
 	public void setCore(ICoreAccess core) {
 		this.core = core;
-		setCoreSet(true);
-//		setChanged();
-//		notifyObservers(MainAppModelEnum.core);
+		setChanged();
+		notifyObservers(MainAppModelEnum.core);
 	}
 }

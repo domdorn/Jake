@@ -45,6 +45,7 @@ public class ContentViewController implements Observer {
 					case REGISTER:
 						model.setViewToShow(ContentViewEnum.SINGLE);
 						break;
+
 					case INVITATION:
 					case LOGGEDIN:
 					case PROJECT_EVENTS:
@@ -52,8 +53,14 @@ public class ContentViewController implements Observer {
 					case PROJECT_NOTES:
 						model.setViewToShow(ContentViewEnum.SPLITVIEW);
 						break;
+
 				}
 				model.setCurrentView(newView);
+			}
+
+			if(changed == MainWindowViewModelEnum.coreInitialized)
+			{
+				this.model.setCoreInitialized(mainWindowViewModel.isCoreInitialized());
 			}
 		}
 
