@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
  * Opens a Dialog that let you add people to the project.
  * They get an invitation and can join/refuse the project.
  */
+@Deprecated
 public class RenameUsersAction extends UserAction {
 	private static final Logger log = Logger.getLogger(RenameUsersAction.class);
 

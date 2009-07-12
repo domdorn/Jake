@@ -13,6 +13,7 @@ import org.jdesktop.application.ResourceMap;
 /**
  * @author: studpete
  */
+@Deprecated
 public class SwitchLoginProjectContextAction extends SwitchProjectContextAction {
 	public SwitchLoginProjectContextAction(ContextViewChangedHolder contextViewChangedHolder, ResourceMap resourceMap, ContextViewPanelHolder contextViewPanelHolder) {
 		super(contextViewChangedHolder, contextViewPanelHolder);

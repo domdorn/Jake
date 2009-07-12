@@ -53,6 +53,7 @@ import com.jakeapp.jake.ics.status.ILoginStateListener;
  * Statusbar-Controller
  * As you see, Statusbar is very curious about ALL the events going on...
  */
+@Deprecated
 public class JakeStatusBar extends JakeGuiComponent
 		implements ILoginStateListener, ProjectChangedCallback, ProjectViewChangedCallback,
 		ContextViewChangedCallback, DataChangedCallback, ContextChangedCallback, TaskChangedCallback {

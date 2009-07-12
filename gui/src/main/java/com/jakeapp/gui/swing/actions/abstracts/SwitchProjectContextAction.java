@@ -8,6 +8,7 @@ import com.jakeapp.gui.swing.callbacks.ContextViewChangedCallback;
 /**
  * @author: studpete
  */
+@Deprecated
 public abstract class SwitchProjectContextAction extends JakeAction implements ContextViewChangedCallback {
 	protected final ContextViewPanelHolder contextViewPanelHolder;
 
