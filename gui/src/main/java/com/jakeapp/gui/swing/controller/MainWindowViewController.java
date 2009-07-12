@@ -534,14 +534,13 @@ public class MainWindowViewController implements Observer {
 	}
 
 	public void createProject() {
-			throw new UnsupportedOperationException("Operation not yet implemented");
+		throw new UnsupportedOperationException("Operation not yet implemented");
 	}
 
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if(o instanceof MainAppModel && arg instanceof MainAppModelEnum)
-		{
+		if (o instanceof MainAppModel && arg instanceof MainAppModelEnum) {
 			MainAppModelEnum changed = (MainAppModelEnum) arg;
 			MainAppModel mainAppModel = (MainAppModel) o;
 			switch (changed) {
@@ -555,6 +554,13 @@ public class MainWindowViewController implements Observer {
 
 			return;
 		}
-		assert(false);
+		assert (false);
 	}
+
+
+	public void setCurrentView(ViewEnum newView) {
+		model.setCurrentView(newView);
+//			parentController.setCurrentView(newView);
+	}
+
 }

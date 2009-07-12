@@ -3,6 +3,7 @@ package com.jakeapp.gui.swing.controller;
 import com.jakeapp.gui.swing.model.StatusBarModel;
 import com.jakeapp.gui.swing.JakeMainApp;
 import com.jakeapp.gui.swing.ContextPanelEnum;
+import com.jakeapp.gui.swing.view.ViewEnum;
 import com.explodingpixels.macwidgets.TriAreaComponent;
 
 import java.util.Observer;
@@ -44,5 +45,10 @@ public class StatusBarController implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 
+	}
+
+
+	public void setCurrentView(ViewEnum newView) {
+		parentController.setCurrentView(newView);
 	}
 }

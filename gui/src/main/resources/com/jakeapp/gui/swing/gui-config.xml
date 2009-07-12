@@ -21,6 +21,14 @@
         
     </bean>
 
+    <bean id="loginCore" class="com.jakeapp.gui.swing.coreAccess.LoginCore">
+        <constructor-arg ref="mainAppModel" />
+    </bean>
+
+
+
+
+
 
     <!-- main window -->
     <bean id="mainWindowViewModel" class="com.jakeapp.gui.swing.model.MainWindowViewModel">
@@ -156,10 +164,15 @@
     <!-- end second layer -->
 
 
+
+
+
     <!-- layer beyond ContentSingleView -->
+
     <bean id="loginViewController" class="com.jakeapp.gui.swing.controller.LoginViewController">
         <constructor-arg ref="loginViewModel"/>
         <constructor-arg ref="contentSingleViewController"/>
+        <constructor-arg ref="loginCore" />
     </bean>
 
 

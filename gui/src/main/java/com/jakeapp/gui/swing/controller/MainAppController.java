@@ -1,6 +1,7 @@
 package com.jakeapp.gui.swing.controller;
 
 import com.jakeapp.gui.swing.model.MainAppModel;
+import com.jakeapp.gui.swing.view.ViewEnum;
 
 import java.util.Observer;
 import java.util.Observable;
@@ -16,7 +17,6 @@ public class MainAppController implements Observer {
 	public MainAppController(MainAppModel model) {
 		this.model = model;
 
-		
 
 	}
 
@@ -28,4 +28,6 @@ public class MainAppController implements Observer {
 	public void addObserver(Observer observer) {
 		this.model.addObserver(observer);
 	}
+
+
 }

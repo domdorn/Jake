@@ -4,6 +4,7 @@ import com.jakeapp.gui.swing.model.ContentSplitViewModel;
 import com.jakeapp.gui.swing.model.ContentViewModel;
 import com.jakeapp.gui.swing.model.ContentViewModelEnum;
 import com.jakeapp.gui.swing.view.ContentSplitViewEnum;
+import com.jakeapp.gui.swing.view.ViewEnum;
 
 import java.util.Observer;
 import java.util.Observable;
@@ -30,19 +31,17 @@ public class ContentSplitViewController implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 
-		if(o instanceof ContentViewModel && arg instanceof ContentViewModelEnum )
-		{
+		if (o instanceof ContentViewModel && arg instanceof ContentViewModelEnum) {
 			ContentViewModelEnum changed = (ContentViewModelEnum) arg;
 			ContentViewModel contentViewModel = (ContentViewModel) o;
 
 			switch (changed) {
-				case currentView:
-					{
-						// TODO do a logic check here
-						this.model.setViewToShow(ContentSplitViewEnum.PROJECT);
-						this.model.setCurrentView(contentViewModel.getCurrentView());
-					}
-					break;
+				case currentView: {
+					// TODO do a logic check here
+					this.model.setViewToShow(ContentSplitViewEnum.PROJECT);
+					this.model.setCurrentView(contentViewModel.getCurrentView());
+				}
+				break;
 				case viewToShow:
 					// we are not interested in this
 					break;
@@ -52,4 +51,10 @@ public class ContentSplitViewController implements Observer {
 
 
 	}
+
+
+	public void setCurrentView(ViewEnum newView) {
+		parentController.setCurrentView(newView);
+	}
+
 }

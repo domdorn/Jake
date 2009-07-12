@@ -90,4 +90,9 @@ public class ToolbarController implements Observer {
 
 
 	}
+
+
+	public void setCurrentView(ViewEnum newView) {
+		parentController.setCurrentView(newView);
+	}
 }

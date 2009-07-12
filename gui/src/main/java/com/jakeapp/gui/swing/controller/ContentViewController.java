@@ -31,13 +31,11 @@ public class ContentViewController implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 
-		if(o instanceof MainWindowViewModel && arg instanceof MainWindowViewModelEnum)
-		{
+		if (o instanceof MainWindowViewModel && arg instanceof MainWindowViewModelEnum) {
 			MainWindowViewModelEnum changed = (MainWindowViewModelEnum) arg;
 			MainWindowViewModel mainWindowViewModel = (MainWindowViewModel) o;
 
-			if(changed == MainWindowViewModelEnum.currentView)
-			{
+			if (changed == MainWindowViewModelEnum.currentView) {
 				ViewEnum newView = mainWindowViewModel.getCurrentView();
 
 				switch (newView) {
@@ -58,11 +56,15 @@ public class ContentViewController implements Observer {
 				model.setCurrentView(newView);
 			}
 
-			if(changed == MainWindowViewModelEnum.coreInitialized)
-			{
+			if (changed == MainWindowViewModelEnum.coreInitialized) {
 				this.model.setCoreInitialized(mainWindowViewModel.isCoreInitialized());
 			}
 		}
 
+	}
+
+
+	public void setCurrentView(ViewEnum newView) {
+		parentController.setCurrentView(newView);
 	}
 }

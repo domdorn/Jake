@@ -270,7 +270,7 @@ public class LoginView extends JXPanel implements Observer {
 
 		if (model.isCoreInitialized()) {
 			try {
-				java.util.List<MsgService<User>> msgs = controller.getMsgServices();
+				java.util.List<MsgService<User>> msgs = model.getMsgServices();
 
 				if (msgs != null) {
 					log.debug("updateChooseUserPanel will display n MsgServices, n=" + msgs
@@ -803,7 +803,7 @@ public class LoginView extends JXPanel implements Observer {
 
 	private void updateSignInRegisterMode() {
 		signInRegisterBackBtn.setVisible(
-				model.isCoreInitialized() && controller.getMsgServices()
+				model.isCoreInitialized() && model.getMsgServices()
 						.size() > 0);
 
 		loginUserDataPanel.setVisible(isModeSignIn());
@@ -841,7 +841,7 @@ public class LoginView extends JXPanel implements Observer {
 			if (model.getMsgService() != null) {
 				showPanel(UserPanelsEnum.LoggedIn);
 			} else {
-				java.util.List<MsgService<User>> msgs = controller.getMsgServices();
+				java.util.List<MsgService<User>> msgs = model.getMsgServices();
 				if (msgs.size() > 0) {
 					showPanel(UserPanelsEnum.ManageUsers);
 
@@ -889,11 +889,7 @@ public class LoginView extends JXPanel implements Observer {
 	 * @param msg
 	 */
 	private void performLogin(MsgService<User> msg, Account account) {
-		controller.setMsgService(msg);
-
-		JakeExecutor.exec(new LoginAccountTask(msg, account,
-				EventCore.getInstance().getLoginStateListener()));
-
+		controller.login(msg, account);
 		updateView();
 	}
 

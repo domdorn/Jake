@@ -1,6 +1,7 @@
 package com.jakeapp.gui.swing.controller;
 
 import com.jakeapp.gui.swing.model.LoggedInViewModel;
+import com.jakeapp.gui.swing.view.ViewEnum;
 
 import java.util.Observer;
 import java.util.Observable;
@@ -29,6 +30,10 @@ public class LoggedInViewController implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		
+
+	}
+
+	public void setCurrentView(ViewEnum newView) {
+		parentController.setCurrentView(newView);
 	}
 }

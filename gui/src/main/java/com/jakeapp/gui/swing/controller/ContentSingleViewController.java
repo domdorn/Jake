@@ -63,4 +63,9 @@ public class ContentSingleViewController implements Observer {
 			}
 		}
 	}
+
+	public void setCurrentView(ViewEnum newView) {
+		parentController.setCurrentView(newView);
+	}
+
 }

@@ -186,4 +186,10 @@ public class MenuBarController implements Observer {
 	public void update(Observable o, Object arg) {
 		// TODO update model
 	}
+
+
+	public void setCurrentView(ViewEnum newView) {
+		parentController.setCurrentView(newView);
+	}
+
 }

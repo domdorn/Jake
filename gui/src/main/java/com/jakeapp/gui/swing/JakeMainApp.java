@@ -23,6 +23,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * The main class of the application.
@@ -109,6 +111,19 @@ public class JakeMainApp extends SingleFrameApplication {
 				System.out.println("loading the core");
 				ICoreAccess core = (ICoreAccess) ctx_core.getBean("coreAccess", ICoreAccess.class);
 				System.out.println("finished loading the core");
+
+				// Backend authentication:
+				try{
+					Map<String, String> backendCredentials = new HashMap<String, String>();
+					System.out.println("Authenticating on backend");
+					core.authenticateOnBackend(backendCredentials);
+					System.out.println("authenticated");
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+				// done
 				setCore(core);
 				model.setCore(core);
 
@@ -118,6 +133,7 @@ public class JakeMainApp extends SingleFrameApplication {
 					callback.coreChanged();
 				}
 				// till here
+
 
 			}
 		}).start();

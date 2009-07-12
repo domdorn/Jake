@@ -32,27 +32,30 @@ public class ProjectViewController implements Observer {
 
 		System.out.println("o = " + o);
 		System.out.println("arg = " + arg);
-		if(o instanceof ContentSplitViewModel && arg instanceof ContentSplitViewModelEnum )
-		{
+		if (o instanceof ContentSplitViewModel && arg instanceof ContentSplitViewModelEnum) {
 			System.out.println("true");
 			ContentSplitViewModelEnum changed = (ContentSplitViewModelEnum) arg;
 			ContentSplitViewModel contentSplitViewModel = (ContentSplitViewModel) o;
 			switch (changed) {
 
 				case currentView:
-					System.out.println("updating ProjectViewModel with new view "+ contentSplitViewModel.getCurrentView());
+					System.out.println("updating ProjectViewModel with new view " + contentSplitViewModel.getCurrentView());
 					model.setCurrentView(contentSplitViewModel.getCurrentView());
-				break;
+					break;
 
 				case viewToShow:
 					System.out.println("viewToShow has changed");
 					break;
 			}
-		}
-		else
-		{
+		} else {
 			System.out.println("false");
 		}
-		
+
 	}
+
+
+	public void setCurrentView(ViewEnum newView) {
+		parentController.setCurrentView(newView);
+	}
+
 }

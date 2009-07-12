@@ -8,6 +8,8 @@ import com.jakeapp.gui.swing.worker.JakeExecutor;
 import com.jakeapp.gui.swing.worker.tasks.LoginAccountTask;
 import com.jakeapp.gui.swing.xcore.EventCore;
 import com.jakeapp.gui.swing.JakeMainApp;
+import com.jakeapp.gui.swing.view.ViewEnum;
+import com.jakeapp.gui.swing.coreAccess.LoginCore;
 import com.jakeapp.core.domain.Account;
 import com.jakeapp.core.domain.User;
 import com.jakeapp.core.domain.ProtocolType;
@@ -31,11 +33,12 @@ public class LoginViewController implements Observer {
 
 	private final LoginViewModel model;
 	private final ContentSingleViewController parentController;
+	private final LoginCore loginCore;
 
-
-	public LoginViewController(LoginViewModel model, ContentSingleViewController parentController) {
+	public LoginViewController(LoginViewModel model, ContentSingleViewController parentController, LoginCore loginCore) {
 		this.model = model;
 		this.parentController = parentController;
+		this.loginCore = loginCore;
 
 		this.parentController.addObserver(this);
 	}
@@ -47,8 +50,7 @@ public class LoginViewController implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if(o instanceof ContentSingleViewModel && arg instanceof ContentSingleViewModelEnum)
-		{
+		if (o instanceof ContentSingleViewModel && arg instanceof ContentSingleViewModelEnum) {
 			ContentSingleViewModel contentSingleViewModel = (ContentSingleViewModel) o;
 			ContentSingleViewModelEnum changed = (ContentSingleViewModelEnum) arg;
 
@@ -67,55 +69,27 @@ public class LoginViewController implements Observer {
 	}
 
 	public void logoutUser() {
-//		jakeMainApp.logoutUser();
-		throw new UnsupportedOperationException("Not yet implemented");
+		loginCore.logoutUser();
 	}
 
 	public Account getPredefinedServiceCredentials(String service) {
-//		throw new UnsupportedOperationException("Not yet implemented");
-//		return JakeMainApp.getInstance().getCore().getPredefinedServiceCredential(service.toString());
-
-//				log.debug("Fetch predefined Account for " + s);
-
-		// only support xmpp - for the moment
-		Account cred = new Account();
-		cred.setProtocol(ProtocolType.XMPP);
-
-		if (service.compareToIgnoreCase("google") == 0) {
-//			log.debug("Returning special google credentials");
-			cred.setServerPort(5222);
-			cred.setServerAddress("talk.google.com");
-		} else if (service.compareToIgnoreCase("unitedinternet") == 0) {
-			// fixme: insert data!
-		}
-
-		return cred;
-
-
+		return loginCore.getPredefinedServiceCredentials(service);
 	}
 
 	public MsgService addAccount(Account credentials) {
-		throw new UnsupportedOperationException("Not yet implemented");
-//		MsgService msg = jakeMainApp.getCore().addAccount(credentials);
-//		JakeContext.setMsgService(msg);
-//		return msg;
+		return loginCore.addAccount(credentials);
 	}
 
 	public List<MsgService<User>> getMsgServices() {
-		return new ArrayList<MsgService<User>>();
-		// TODO
-//		return jakeMainApp.getCore().getMsgServices();
-//		throw new UnsupportedOperationException("Not yet implemented");
+		return loginCore.getMsgServices();
 	}
 
 	public AvailableLaterObject<Void> createAccount(Account cred) throws ProtocolNotSupportedException, NetworkException {
-//		return jakeMainApp.getCore().createAccount(cred);
-		throw new UnsupportedOperationException("Not yet implemented");
+		return loginCore.createAccount(cred);
 	}
 
 	public void removeAccount(MsgService<User> msg) {
-//		jakeMainApp.getCore().removeAccount(msg);
-		throw new UnsupportedOperationException("Not yet implemented");
+		loginCore.removeAccount(msg);
 	}
 
 	public void setMsgService(MsgService<User> msg) {
@@ -123,13 +97,18 @@ public class LoginViewController implements Observer {
 	}
 
 	public void login(MsgService msg, Account creds) {
-		JakeExecutor.exec(new LoginAccountTask(msg, creds,
-				EventCore.getInstance().getLoginStateListener()));
-
+		setMsgService(msg);
+		loginCore.login(msg, creds);
+		setCurrentView(ViewEnum.LOGGEDIN);
 	}
 
 	public void registerAccount(Account credentials) {
-//		JakeExecutor.exec(new RegisterAccountTask(credentials));
-// TODO see LoginView RegisterAccountTask		
+		loginCore.registerAccount(credentials);
 	}
+
+
+	public void setCurrentView(ViewEnum newView) {
+		parentController.setCurrentView(newView);
+	}
+
 }
