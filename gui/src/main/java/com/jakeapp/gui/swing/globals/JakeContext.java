@@ -8,6 +8,7 @@ import com.jakeapp.gui.swing.callbacks.ContextChangedCallback;
 import com.jakeapp.gui.swing.xcore.EventCore;
 import com.jakeapp.gui.swing.view.MainWindow;
 import com.jakeapp.gui.swing.JakeMainApp;
+import com.jakeapp.gui.swing.model.MainAppModel;
 
 import javax.swing.*;
 
@@ -15,11 +16,23 @@ import javax.swing.*;
  * Static Context Class. Called by various code to get the right gui states.
  */
 public class JakeContext {
-	private static Project project = null;
-	private static Invitation invitation = null;
+	private static JakeContext instance;
 
+	private Project project = null;
+	private Invitation invitation = null;
 	// this is the message service the user chooses (one per application)
 	private static MsgService msgService = null;
+
+	private final MainAppModel model;
+
+
+	public JakeContext(MainAppModel model)
+	{
+		instance = this;
+		this.model = model;
+	}
+
+
 
 
 	/**
@@ -30,19 +43,19 @@ public class JakeContext {
 	}
 
 	public static Project getProject() {
-		return project;
+		return instance.model.getCurrentProject();
 	}
 
 
 	public static void setProject(Project project) {
-		if (JakeContext.project != project) {
-			JakeContext.project = project;
+		if(instance.model.getCurrentProject() != project){
+
+			instance.model.setCurrentProject(project);
 
 			// xor: project <-> invitation
 			if(project != null && getInvitation() != null) {
 				setInvitation(null);
 			}
-
 			// fire the event and relay to all items/components/actions/panels
 			EventCore.getInstance().fireContextChanged(ContextChangedCallback.Reason.Project, project);
 		}
@@ -56,7 +69,7 @@ public class JakeContext {
 	}
 
 	public static boolean isCoreInitialized() {
-		return JakeMainApp.getCore() != null;
+		return instance.model.getCore() != null;
 	}
 
 	/**
@@ -65,7 +78,7 @@ public class JakeContext {
 	 * @param msg
 	 */
 	public static void setMsgService(MsgService msg) {
-		JakeContext.msgService = msg;
+		instance.model.setCurrentMsgService(msg);
 
 		// inform the event core for this change
 		EventCore.getInstance().fireContextChanged(ContextChangedCallback.Reason.MsgService, msg);
@@ -77,15 +90,15 @@ public class JakeContext {
 	 * @return
 	 */
 	public static MsgService getMsgService() {
-		return JakeContext.msgService;
+		return instance.model.getCurrentMsgService();
 	}
 
 	public static Invitation getInvitation() {
-		return invitation;
+		return instance.model.getCurrentInvitation();
 	}
 
 	public static void setInvitation(Invitation invitation) {
-		JakeContext.invitation = invitation;
+		instance.model.setCurrentInvitation(invitation);
 
 			// xor: project <-> invitation
 			if(invitation != null && getProject() != null) {

@@ -4,6 +4,9 @@ import com.jakeapp.gui.swing.model.MainWindowViewModel;
 import com.jakeapp.gui.swing.model.MainAppModel;
 import com.jakeapp.gui.swing.model.MainAppModelEnum;
 import com.jakeapp.gui.swing.view.ViewEnum;
+import com.jakeapp.gui.swing.JakeMainApp;
+import com.jakeapp.gui.swing.worker.JakeExecutor;
+import com.jakeapp.gui.swing.worker.tasks.StartStopProjectTask;
 import com.jakeapp.core.domain.NoteObject;
 import com.jakeapp.core.domain.FileObject;
 import com.jakeapp.core.synchronization.attributes.Attributed;
@@ -50,14 +53,18 @@ public class MainWindowViewController implements Observer {
 	}
 
 	public void syncCurrentProject() {
+//		JakeMainApp.getCore().syncProject(getProject(), null);
 		throw new UnsupportedOperationException("Operation not yet implemented");
 	}
 
 	public void stopCurrentProject() {
+//		JakeExecutor.exec(new StartStopProjectTask(p, !p.isStarted()));
+
 		throw new UnsupportedOperationException("Operation not yet implemented");
 	}
 
 	public void startCurrentProject() {
+//		JakeExecutor.exec(new StartStopProjectTask(p, !p.isStarted()));		
 		throw new UnsupportedOperationException("Operation not yet implemented");
 	}
 

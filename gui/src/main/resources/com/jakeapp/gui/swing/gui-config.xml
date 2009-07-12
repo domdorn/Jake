@@ -21,15 +21,6 @@
         
     </bean>
 
-    <bean id="loginCore" class="com.jakeapp.gui.swing.coreAccess.LoginCore">
-        <constructor-arg ref="mainAppModel" />
-    </bean>
-
-
-
-
-
-
     <!-- main window -->
     <bean id="mainWindowViewModel" class="com.jakeapp.gui.swing.model.MainWindowViewModel">
         <property name="minimumWidth" value="600"/>
@@ -110,9 +101,35 @@
     <bean id="invitationViewModel" class="com.jakeapp.gui.swing.model.InvitationViewModel">
 
     </bean>
-
-
     <!-- ####################################### MODELS END ######################################################## -->
+
+
+
+    <!-- integration of legacy code components -->
+
+
+    <bean id="jakeContext" class="com.jakeapp.gui.swing.globals.JakeContext">
+        <constructor-arg ref="mainAppModel" />
+    </bean>
+
+    <bean id="eventCore" class="com.jakeapp.gui.swing.xcore.EventCore">
+        <constructor-arg ref="jakeMainApp"/>
+    </bean>
+
+    <bean id="statusBarHelper" class="com.jakeapp.gui.swing.StatusBarHelper">
+        <constructor-arg ref="statusBarModel" />
+    </bean>
+
+
+
+    <!-- temporary glue code between ICoreAccess and GUI to decouple stuff -->
+    <bean id="loginCore" class="com.jakeapp.gui.swing.coreAccess.LoginCore">
+        <constructor-arg ref="mainAppModel" />
+    </bean>
+
+
+
+
 
     <!-- ######################################### CONTROLLER ###################################################### -->
     <bean id="mainAppController" class="com.jakeapp.gui.swing.controller.MainAppController">
@@ -345,9 +362,7 @@
 
 
     <!-- ########################################################################################################### -->
-    <bean id="eventCore" class="com.jakeapp.gui.swing.xcore.EventCore">
-        <constructor-arg ref="jakeMainApp"/>
-    </bean>
+
     <!-- ########################################################################################################### -->
 
 

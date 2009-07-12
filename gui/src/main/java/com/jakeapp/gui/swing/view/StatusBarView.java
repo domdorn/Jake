@@ -1,6 +1,7 @@
 package com.jakeapp.gui.swing.view;
 
 import com.jakeapp.gui.swing.model.StatusBarModel;
+import com.jakeapp.gui.swing.model.StatusBarModelEnum;
 import com.jakeapp.gui.swing.controller.StatusBarController;
 import com.jakeapp.gui.swing.helpers.*;
 import com.jakeapp.gui.swing.controls.SpinningWheelComponent;
@@ -72,6 +73,30 @@ public class StatusBarView extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
+
+		if(o instanceof StatusBarModel && arg instanceof StatusBarModelEnum)
+		{
+			StatusBarModelEnum changed = (StatusBarModelEnum) arg;
+
+			switch (changed) {
+
+				case connectionState:
+
+					break;
+				case lastConnectionMsg:
+					break;
+				case loggedInUsername:
+					break;
+				case messageServiceSet:
+					break;
+				case operationInProgress:
+					break;
+				case statusMessage:
+					break;
+			}
+		}
+
+
 		//To change body of implemented methods use File | Settings | File Templates.
 
 		updateConnectionDisplay();

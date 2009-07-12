@@ -5,6 +5,9 @@ package com.jakeapp.gui.swing.model;
  */
 public enum MainAppModelEnum {
 	isMainWindowVisible,
-	core
+	core,
+	currentProject,
+	currentInvitation,
+	currentMsgService
 
 }

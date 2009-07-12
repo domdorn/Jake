@@ -28,7 +28,6 @@ import java.util.Stack;
 /**
  * The Core Event Distributor.
  */
-@Deprecated
 public class EventCore {
 	private static final Logger log = Logger.getLogger(EventCore.class);
 	private static EventCore instance;
@@ -72,10 +71,11 @@ public class EventCore {
 						final Exception ex) {
 			Runnable runner = new Runnable() {
 				@Override public void run() {
-					for (ILoginStateListener lsl : loginStateListeners) {
+					for (ILoginStateListener listener : loginStateListeners) {
 						try {
-							lsl.connectionStateChanged(le, ex);
+							listener.connectionStateChanged(le, ex);
 						} catch (Exception ignored) {
+							// FIXME why the hell does this exception even get thrown? 
 						}
 					}
 				}

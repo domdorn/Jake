@@ -13,8 +13,8 @@ public class StatusBarModel extends Observable {
 	private String loggedInUsername= ""; //  = JakeContext.getMsgService().getUserId().getUserId();
 	private ILoginStateListener.ConnectionState connectionState = ILoginStateListener.ConnectionState.LOGGED_OUT;
 
-	private String lastConnectionMsg = "connectionMessage";
-	private String statusMessage = "Now StatusMessage";
+	private String lastConnectionMsg = "";
+	private String statusMessage = "";
 
 	public StatusBarModel() {
 	}
@@ -24,38 +24,63 @@ public class StatusBarModel extends Observable {
 		return messageServiceSet;
 	}
 
-	public void setMessageServiceSet(boolean messageServiceSet) {
-		this.messageServiceSet = messageServiceSet;
-	}
-
 	public String getLoggedInUsername() {
 		return loggedInUsername;
-	}
-
-
-	public void setConnectionState(ILoginStateListener.ConnectionState connectionState) {
-		this.connectionState = connectionState;
-		// TODO UPDATE lastConnectionMsg
 	}
 
 	public ILoginStateListener.ConnectionState getConnectionState() {
 		return connectionState;
 	}
 
+
 	public String getLastConnectionMsg() {
 		return lastConnectionMsg;
 	}
-
 
 	public boolean isOperationInProgress() {
 		return operationInProgress;
 	}
 
-	public void setOperationInProgress(boolean operationInProgress) {
-		this.operationInProgress = operationInProgress;
-	}
-
 	public String getStatusMessage() {
 		return statusMessage;
+	}
+
+
+	public void setMessageServiceSet(boolean messageServiceSet) {
+		this.messageServiceSet = messageServiceSet;
+		setChanged();
+		notifyObservers(StatusBarModelEnum.messageServiceSet);
+	}
+
+	public void setConnectionState(ILoginStateListener.ConnectionState connectionState) {
+		this.connectionState = connectionState;
+		// TODO UPDATE lastConnectionMsg
+		setChanged();
+		notifyObservers(StatusBarModelEnum.connectionState);
+	}
+
+	public void setOperationInProgress(boolean operationInProgress) {
+		this.operationInProgress = operationInProgress;
+		setChanged();
+		notifyObservers(StatusBarModelEnum.operationInProgress);
+	}
+
+
+	public void setLoggedInUsername(String loggedInUsername) {
+		this.loggedInUsername = loggedInUsername;
+		setChanged();
+		notifyObservers(StatusBarModelEnum.loggedInUsername);
+	}
+
+	public void setLastConnectionMsg(String lastConnectionMsg) {
+		this.lastConnectionMsg = lastConnectionMsg;
+		setChanged();
+		notifyObservers(StatusBarModelEnum.lastConnectionMsg);
+	}
+
+	public void setStatusMessage(String statusMessage) {
+		this.statusMessage = statusMessage;
+		setChanged();
+		notifyObservers(StatusBarModelEnum.statusMessage);
 	}
 }

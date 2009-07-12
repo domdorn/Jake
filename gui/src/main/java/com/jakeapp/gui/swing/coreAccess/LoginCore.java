@@ -143,7 +143,7 @@ public class LoginCore implements Observer {
 	}
 
 	public void login(MsgService msg, Account creds) {
-		JakeExecutor.exec(new LoginAccountTask(msg, creds,null));
+		JakeExecutor.exec(new LoginAccountTask(msg, creds,EventCore.getInstance().getLoginStateListener()));
 
 	}
 

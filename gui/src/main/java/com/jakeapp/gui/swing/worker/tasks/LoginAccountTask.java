@@ -6,7 +6,7 @@ import com.jakeapp.availablelater.AvailableLaterObject;
 import com.jakeapp.core.domain.Account;
 import com.jakeapp.core.services.MsgService;
 import com.jakeapp.gui.swing.JakeMainApp;
-import com.jakeapp.gui.swing.components.JakeStatusBar;
+import com.jakeapp.gui.swing.StatusBarHelper;
 import com.jakeapp.jake.ics.status.ILoginStateListener;
 
 /**
@@ -43,18 +43,18 @@ public class LoginAccountTask extends AbstractTask<Boolean> {
 		try {
 			if (!this.get()) {
 				log.warn("Wrong User/Password");
-				JakeStatusBar.showMessage("Login unsuccessful: Wrong User/Password.", 100);
+				StatusBarHelper.showMessage("Login unsuccessful: Wrong User/Password.", 100);
 			} else {
-				JakeStatusBar.showMessage("Successfully logged in");
-				//JakeStatusBar.updateMessage();
+				StatusBarHelper.showMessage("Successfully logged in");
+				StatusBarHelper.updateMessage();
 			}
 		} catch (Exception e) {
 			log.warn("Login failed: " + e);
 			//ExceptionUtilities.showError("Log In did not succeed.", e);
-			JakeStatusBar.showMessage("Login failed.", 100);
+			StatusBarHelper.showMessage("Login failed.", 100);
 		}
 
 		// update the statusbar!
-		JakeStatusBar.getInstance().updateAll();
+		StatusBarHelper.updateAll();
 	}
 }

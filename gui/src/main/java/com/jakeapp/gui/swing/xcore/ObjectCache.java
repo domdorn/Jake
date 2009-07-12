@@ -5,12 +5,12 @@ import com.jakeapp.core.domain.NoteObject;
 import com.jakeapp.core.domain.Project;
 import com.jakeapp.gui.swing.callbacks.ContextChangedCallback;
 import com.jakeapp.gui.swing.callbacks.DataChangedCallback;
-import com.jakeapp.gui.swing.components.JakeStatusBar;
 import com.jakeapp.gui.swing.globals.JakeContext;
 import com.jakeapp.gui.swing.worker.JakeExecutor;
 import com.jakeapp.gui.swing.worker.tasks.GetAllProjectFilesTask;
 import com.jakeapp.gui.swing.worker.tasks.GetAllProjectNotesTask;
 import com.jakeapp.gui.swing.worker.tasks.GetMyProjectsTask;
+import com.jakeapp.gui.swing.StatusBarHelper;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -130,7 +130,8 @@ public class ObjectCache implements ContextChangedCallback {
 	public void updateFiles(Project p) {
 		if (JakeContext.isCoreInitialized()) {
 			JakeExecutor.exec(new GetAllProjectFilesTask(p));
-			JakeStatusBar.updateMessage();
+			StatusBarHelper.updateMessage();
+
 		}
 	}
 

@@ -13,7 +13,6 @@ import com.jakeapp.gui.swing.callbacks.ContextViewChangedCallback;
 import com.jakeapp.gui.swing.callbacks.ProjectChangedCallback;
 import com.jakeapp.gui.swing.callbacks.ProjectViewChangedCallback;
 import com.jakeapp.gui.swing.components.JakeSourceList;
-import com.jakeapp.gui.swing.components.JakeStatusBar;
 import com.jakeapp.gui.swing.components.JakeToolbar;
 import com.jakeapp.gui.swing.dialogs.JakeAboutDialog;
 import com.jakeapp.gui.swing.globals.JakeContext;
@@ -75,7 +74,6 @@ public class MainWindow extends FrameView implements ContextChangedCallback {
 	private JSplitPane contentPanelSplit;
 	private JDialog aboutBox;
 
-	private JakeStatusBar jakeStatusBar;
 	private JakeTrayIcon tray;
 
 

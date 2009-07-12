@@ -4,8 +4,8 @@ import com.jakeapp.core.domain.Project;
 import com.jakeapp.core.domain.User;
 import com.jakeapp.core.services.IProjectInvitationListener;
 import com.jakeapp.gui.swing.callbacks.ProjectChangedCallback;
-import com.jakeapp.gui.swing.components.JakeStatusBar;
 import com.jakeapp.gui.swing.helpers.UserHelper;
+import com.jakeapp.gui.swing.StatusBarHelper;
 import org.apache.log4j.Logger;
 
 /**
@@ -20,35 +20,38 @@ class ProjectInvitationListener implements IProjectInvitationListener {
 
 
 	// fixme: should be a invitation, not a project.
-	@Override public void invited(User user, Project p) {
+	@Override
+	public void invited(User user, Project p) {
 		log.debug("received invitation from " + user + " for project: " + p);
 
 		ObjectCache.get().updateProjects();
 
 		EventCore.getInstance().fireProjectChanged(new ProjectChangedCallback.ProjectChangedEvent(null,
-						ProjectChangedCallback.ProjectChangedEvent.Reason.Invited));
+				ProjectChangedCallback.ProjectChangedEvent.Reason.Invited));
 	}
 
-	@Override public void accepted(User user, Project p) {
+	@Override
+	public void accepted(User user, Project p) {
 		log.debug("accepted: " + user + ", project" + p);
 
 		EventCore.getInstance().fireLogChanged(p);
 
-		JakeStatusBar.showMessage(UserHelper
-						.cleanUserId(user) + " accepted your Invitation to " + p.getName());
+		StatusBarHelper.showMessage(UserHelper
+				.cleanUserId(user) + " accepted your Invitation to " + p.getName());
 
 		//debug
 		//JSheet.showMessageSheet(JakeContext.getFrame(),
-	  //					"User " + user + " accepted your Invitation to " + p);
+		//					"User " + user + " accepted your Invitation to " + p);
 	}
 
-	@Override public void rejected(User user, Project p) {
+	@Override
+	public void rejected(User user, Project p) {
 		log.debug("rejected" + user + ", project" + p);
 
 		EventCore.getInstance().fireLogChanged(p);
 
-		JakeStatusBar.showMessage(UserHelper
-						.cleanUserId(user) + " rejected your Invitation to " + p.getName());
+		StatusBarHelper.showMessage(UserHelper
+				.cleanUserId(user) + " rejected your Invitation to " + p.getName());
 
 		//debug
 		//JSheet.showMessageSheet(JakeContext.getFrame(),
