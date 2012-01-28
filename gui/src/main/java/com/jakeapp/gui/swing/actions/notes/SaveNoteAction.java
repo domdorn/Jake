@@ -14,15 +14,15 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 /**
- * Note action that saves the selected note.  
+ * Note action that saves the selected note.
  * @author Simon
  *
  */
 public class SaveNoteAction extends NoteAction {
-	
+
 	private static final long serialVersionUID = 196271937528474367L;
 	private static final Logger log = Logger.getLogger(SaveNoteAction.class);
-	
+
 	public SaveNoteAction() {
 		super();
 
@@ -35,7 +35,7 @@ public class SaveNoteAction extends NoteAction {
 		String newContent = NotesPanel.getInstance().getNoteReaderText();
 		NoteObject cachedNote = this.getSelectedNote().getJakeObject();
 		cachedNote.setContent(newContent);
-		
+
 		log.debug("saving note with new content: " + newContent);
 		try {
 			NotesPanel.getInstance().getNotesTableModel().setNoteToSelectLater(cachedNote);
@@ -44,12 +44,12 @@ public class SaveNoteAction extends NoteAction {
 			ExceptionUtilities.showError(e);
 		}
 	}
-	
+
 	@Override
 	public void updateAction() {
 		if (this.hasSelectedNotes()) { // notes are selected
 			this.setEnabled(true);
-			
+
 			if(this.getSelectedNote().isLocked()) { // the file is locked
 				if (getSelectedNote().getLockLogEntry().getMember().equals(JakeContext.getCurrentUser())) {
 					// local user has lock

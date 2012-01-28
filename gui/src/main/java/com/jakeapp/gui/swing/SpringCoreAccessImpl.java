@@ -442,7 +442,7 @@ public class SpringCoreAccessImpl implements ICoreAccess {
 			}
 
 			// first, look if we have a recent revision in the cache
-			// FIXME: the cache does not respect the attributes of a jake object. If somehow only the 
+			// FIXME: the cache does not respect the attributes of a jake object. If somehow only the
 			// attributes are changed (e.g. commit note) but note the jake object itself, the cache
 			// returnes the outdated attributes!!!
 			// TODO fix the bug described above by calling {@link AttributedCacheManager#invalidateCache}

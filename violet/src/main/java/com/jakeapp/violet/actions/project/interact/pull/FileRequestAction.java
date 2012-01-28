@@ -33,7 +33,7 @@ import com.jakeapp.violet.protocol.files.RequestFileMessage.RequestType;
 /**
  * Downloads the file from another user. If storeInFss = false, the File where
  * it is stored is given back.
- * 
+ *
  * @author johannes
  */
 class FileRequestAction extends AvailableLaterObject<File> {

@@ -7,7 +7,7 @@ import com.jakeapp.violet.model.Model;
 
 /**
  * Password storage -- implementations must not keep passwords in memory.
- * 
+ *
  * This is for the GUI, the core should not use it, it should only receive
  * passwords.
  */
@@ -15,7 +15,7 @@ public abstract class Passwords extends Observable implements Model {
 
 	/**
 	 * load password, if available
-	 * 
+	 *
 	 * @param user
 	 *            User id
 	 * @return null if not found
@@ -24,7 +24,7 @@ public abstract class Passwords extends Observable implements Model {
 
 	/**
 	 * save password
-	 * 
+	 *
 	 * @param user
 	 *            User id
 	 * @param pw
@@ -36,7 +36,7 @@ public abstract class Passwords extends Observable implements Model {
 
 	/**
 	 * remove password if stored.
-	 * 
+	 *
 	 * @param user
 	 *            User id
 	 * @throws IOException

@@ -64,7 +64,7 @@ public class JakeToolbar {
 		toolBar.addComponentToLeft(createProjectButton, 10);
 
 		// Add Files
-		Icon addFilesIcon = ImageLoader.getScaled(jakeMainView.getClass(), 
+		Icon addFilesIcon = ImageLoader.getScaled(jakeMainView.getClass(),
 						"/icons/toolbar-addfiles.png", 32);
 		JButton jCreateAddFilesButton = new JButton(jakeMainView.getResourceMap().getString("toolbarAddFiles"),
 						addFilesIcon);

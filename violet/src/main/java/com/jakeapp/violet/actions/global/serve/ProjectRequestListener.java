@@ -59,7 +59,7 @@ public class ProjectRequestListener implements IncomingTransferListener,
 
 	/**
 	 * decides if we know about the subject of this request.
-	 * 
+	 *
 	 * @param req
 	 *            Incoming request
 	 * @return null if we don't know this version for some reason, the

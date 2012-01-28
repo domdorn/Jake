@@ -16,7 +16,7 @@ public class AnnounceRuns extends TestDBEnabledTestCase {
 	private static final String obj = "00000000-0000-000b-0000-000000000001";
 
 	private static final String nonexistantobj = "FFFFFFFF-0000-000b-0000-000000000001";
-	
+
 	@Override
 	protected String getDbTemplateName() {
 		return "oneuserWithOneProjectContainingNotes";

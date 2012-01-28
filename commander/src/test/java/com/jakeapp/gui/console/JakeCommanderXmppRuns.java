@@ -39,7 +39,7 @@ public class JakeCommanderXmppRuns extends TestDBEnabledTestCase {
 	public void setup() throws Exception {
 		super.setup();
 		FSTestCommons.recursiveDelete(new File(".jake"));
-		
+
 		String pwd = new File(".").getAbsolutePath();
 		System.out.println("You are now in " + pwd);
 		File projectdir = new File(pwd, project);

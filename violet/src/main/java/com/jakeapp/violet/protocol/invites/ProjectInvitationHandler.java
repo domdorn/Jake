@@ -30,7 +30,7 @@ public class ProjectInvitationHandler implements IMessageReceiveListener,
 	/**
 	 * Method implemented from <code>IMessageReceiveListener</code>, to handle
 	 * incoming packets.
-	 * 
+	 *
 	 * @param from_userid
 	 *            the user id which sent the message
 	 * @param content
@@ -71,7 +71,7 @@ public class ProjectInvitationHandler implements IMessageReceiveListener,
 	 * Adds an <code>IProjectInvitationListener</code> to the list of
 	 * <code>IProjectInvitationListeners</code> to get notified when an
 	 * Invitation-Event occurs.
-	 * 
+	 *
 	 * @param invitationListener
 	 *            the <code>IProjectInvitationListener</code> to be added to the
 	 *            list
@@ -85,7 +85,7 @@ public class ProjectInvitationHandler implements IMessageReceiveListener,
 	/**
 	 * Removes this <code>IProjectInvitationListener</code> from the list of
 	 * <code>IProjectInvitationListener</code>s.
-	 * 
+	 *
 	 * @param invitationListener
 	 *            the <code>IProjectInvitationListener</code> to be removed from
 	 *            the list

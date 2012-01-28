@@ -1,38 +1,38 @@
 
-/* 
+/*
 
   from http://colorschemedesigner.com/#0040ziyoow0w0
- 
- 1 = normal, 
+
+ 1 = normal,
  2 = bleak
  3 = dark
  4 = 5 = light
 
 red, violet, green-brown, green
  */
-$primary-1: #C25252; 
-$primary-2:  #925252; 
-$primary-3:  #7E1B1B; 
-$primary-4:  #E17F7F; 
-$primary-5:  #E19999; 
+$primary-1: #C25252;
+$primary-2:  #925252;
+$primary-3:  #7E1B1B;
+$primary-4:  #E17F7F;
+$primary-5:  #E19999;
 
-$secondary-a-1:  #6E3981; 
-$secondary-a-2:  #563861; 
-$secondary-a-3:  #431354; 
-$secondary-a-4:  #AB70C0; 
-$secondary-a-5:  #B085C0; 
+$secondary-a-1:  #6E3981;
+$secondary-a-2:  #563861;
+$secondary-a-3:  #431354;
+$secondary-a-4:  #AB70C0;
+$secondary-a-5:  #B085C0;
 
-$secondary-b-1:  #B9C051; 
-$secondary-b-2:  #8C9051; 
-$secondary-b-3:  #777D1A; 
-$secondary-b-4:  #D9DF7E; 
-$secondary-b-5:  #DBDF98; 
+$secondary-b-1:  #B9C051;
+$secondary-b-2:  #8C9051;
+$secondary-b-3:  #777D1A;
+$secondary-b-4:  #D9DF7E;
+$secondary-b-5:  #DBDF98;
 
-$complement-1:  #419B41; 
-$complement-2:  #427542; 
-$complement-3:  #156515; 
-$complement-4:  #74CD74; 
-$complement-5:  #8CCD8C; 
+$complement-1:  #419B41;
+$complement-2:  #427542;
+$complement-3:  #156515;
+$complement-4:  #74CD74;
+$complement-5:  #8CCD8C;
 
 $bg: $secondary-b-5;
 $bg: black;
@@ -78,13 +78,13 @@ body {
 		background: $complement-1;
 		border: 0;
 	}
-	
+
 	#contentBox {
 		background: $bg;
 		margin-right: 0;
 		color: $fg;
 	}
-	
+
 }
 table {
 	font-size: small;
@@ -203,7 +203,7 @@ h4 {
 #navcolumn li a:visited {
 	color: $navigationvisitedfg;
 	background-color: $navigationvisitedbg;
-} 
+}
 
 table {
 	color: black;

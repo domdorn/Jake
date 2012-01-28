@@ -11,7 +11,7 @@ Abdeckung der Use Cases durch das IJakeGuiAccess:
 
 
     * [UC-01:04] manage object tags								getTags()
-																JakeObject.getTags(), 
+																JakeObject.getTags(),
 																JakeObject.addTag(),
 																JakeObject.removeTag()
 
@@ -20,13 +20,13 @@ Abdeckung der Use Cases durch das IJakeGuiAccess:
     * [UC-01:05] delete object									JakeObject.delete()
 
 
-    * [UC-01:06] synchronize project							IJakeGuiAccess.logSync(), 
-																IJakeGuiAccess.pullObjects(), 
+    * [UC-01:06] synchronize project							IJakeGuiAccess.logSync(),
+																IJakeGuiAccess.pullObjects(),
 																IJakeGuiAccess.pushObjects()
 
 
-    * [UC-01:07] set object synchronization mode				setAutoLogSync(), 
-																setAutoObjectPush(),	
+    * [UC-01:07] set object synchronization mode				setAutoLogSync(),
+																setAutoObjectPush(),
 																setAutoObjectPull()
 
 
@@ -50,7 +50,7 @@ Abdeckung der Use Cases durch das IJakeGuiAccess:
 														ProjectInvitation().decline(),
 														IJakeGuiAccess.getProjectInvitation()
 
-	- [UC-02:05] removed    
+	- [UC-02:05] removed
 
 
 	* [UC-02:06] Add local comment to a project member	ProjectMember.setComment(),
@@ -60,7 +60,7 @@ Abdeckung der Use Cases durch das IJakeGuiAccess:
 
 [UC-03] Manage Project
 
-    * [UC-03:01] Create new Project						IJakeGuiAccess.createProject(), 
+    * [UC-03:01] Create new Project						IJakeGuiAccess.createProject(),
 														IJakeGuiAccess.getProject
 	- [UC-03:02] removed
 	- [UC-03:03] removed
@@ -78,13 +78,13 @@ Abdeckung der Use Cases durch das IJakeGuiAccess:
     * [UC-04:08] Set automatic object push			Project.setAutoObjectPush()
     * [UC-04:09] Set automatic object pull			Project.setAutoObjectPull()
 
-    * [UC-04:10] Resolve version conflicts			
+    * [UC-04:10] Resolve version conflicts
 
 
     * [UC-04:11] View Log							IJakeGuiAccess.getLog()
     * [UC-04:12] Notify User of received message	IJakeGuiAccess.registerReceiveMessageCallback()
     * [UC-04:13] Read incomming message				IJakeGuiAccess.getNewMessages()
-    * [UC-04:14] Write message to project member	ProjectMember.leaveMessage()	
+    * [UC-04:14] Write message to project member	ProjectMember.leaveMessage()
 
 UC-05:
     * [UC-05:01] Set authentication Information		IJakeGuiAccess.setConfigOption()

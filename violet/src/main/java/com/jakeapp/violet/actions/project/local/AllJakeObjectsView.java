@@ -11,7 +11,7 @@ import com.jakeapp.violet.model.ProjectModel;
 
 /**
  * A view of all JakeObjects. Notification on changes.
- * 
+ *
  * @author johannes
  */
 public class AllJakeObjectsView {

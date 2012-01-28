@@ -22,18 +22,18 @@
 \subsection{\ucid: \ucname}
 \begin{tabular}{|p{3.3cm}|p{12cm}|}
 \hline
-ID & \ucid \\ 
-\hline 
+ID & \ucid \\
+\hline
 Name & \ucname \\
 \hline
 Scope & \ucscope \\
 \hline
-%Status & \ucstatus \\ 
-%\hline 
-Summary & \ucsummary \\ 
+%Status & \ucstatus \\
+%\hline
+Summary & \ucsummary \\
 \hline
-Goal/Rationale & \ucrationale \\ 
-\hline 
+Goal/Rationale & \ucrationale \\
+\hline
 Preconditions & \ucpreconditions \\
 \hline
 Triggers & \uctriggers \\
@@ -58,7 +58,7 @@ See also & \ucsee \\
 
 \item[ID] Unique \emph{ID} of the use case. Once set, it is immutable.
 \item[Name] Descriptive name of the use case. It should be short yet long enough to describe the use case.
-\item[Scope] The scope of the use case, e.g \emph{per project, per file, etc}. The scope may be chained together like \emph{per project: per file}. 
+\item[Scope] The scope of the use case, e.g \emph{per project, per file, etc}. The scope may be chained together like \emph{per project: per file}.
 \item[Summary] Short summary of the use case.
 \item[Goal/Rationale] The \emph{goal} and the \emph{rationale} of the use case. What's its goal and why does it matter to the user.
 \item[Preconditions] Preconditions of the use case that must be met in order to perform this use case.
@@ -67,7 +67,7 @@ See also & \ucsee \\
 \item[Alternative Path] Deviating paths from the basic course of events.
 \item[Postconditions] Conditions that must be met after the use case has been executed.
 \item[Frequency of use] How often the use case will be used. This field is based on a wild guess and is usually something like, \emph{daily, weekly, monthly, etc}.
-\item[See also] References to other use cases or other related information, e.g. \emph{log in} refers to \emph{log out} and vice versa. 
+\item[See also] References to other use cases or other related information, e.g. \emph{log in} refers to \emph{log out} and vice versa.
 \end{description}
 
 \section{General}
@@ -167,7 +167,7 @@ See also & \ucsee \\
 \def\ucprimaryscenario{
 \begin{enumerate}
 \item The user chooses to create a new project.
-\item The user specifies a local project folder (which may, but doesn't have to, already exist) and a project name. 
+\item The user specifies a local project folder (which may, but doesn't have to, already exist) and a project name.
 \item The project is created and added to the list of active projects.
 \item Any files which already exist in the local folder become local files of this project.
 \end{enumerate}
@@ -190,7 +190,7 @@ If the chosen directory cannot be accessed (e.g. because of filesystem issues or
 \def\uctriggers{An invitation is received (passive)}
 \def\ucprimaryscenario{
 \begin{enumerate}
-\item An invitation to a project from another Jake user is received. 
+\item An invitation to a project from another Jake user is received.
 \item The user is asked to accept/deny the invitation.
 \item The user selects a target directory for the new project.
 \item The project folder is created.
@@ -718,7 +718,7 @@ If the chosen directory cannot be accessed (e.g. because of filesystem issues or
 \def\ucprimaryscenario{
 \begin{enumerate}
 \item The user selects a tagged file.
-\item The user chooses to remove a tag from the file.~ 
+\item The user chooses to remove a tag from the file.~
 \item The tag is removed from the file.
 \item The tag change is announced to other project members.
 \end{enumerate}

@@ -23,7 +23,7 @@ public abstract class Commander {
 		public void run() {
 			Commander.this.onShutdown();
 		}
-		
+
 	});
 
 	public Commander(String[] args) {
@@ -68,7 +68,7 @@ public abstract class Commander {
 		} catch (IOException e) {
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private void addCommands() {
 		// we are so cool, we use reflection

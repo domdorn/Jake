@@ -5,7 +5,7 @@ appName=jake
 # env var $JAVA_OPTS is set with default values if not set
 defaultJAVA_OPTS='-Xms32M -Xmx384M -Djava.net.preferIPv4Stack=true'
 ##################################################################
- 
+
 ##################################################################
 showmessage() {
 	echo "$0 - $1"
@@ -20,7 +20,7 @@ showmessage() {
 		xmessage -center "$1"
 	fi
 }
- 
+
 ###################################################################
 #Detect DE for future message showings
 if [ "$KDE_FULL_SESSION" = "true" ]; then
@@ -35,9 +35,9 @@ fi
 JAVA=java
 echo 'Starting Jake...'
 which $JAVA 2>&1 || {
-	showmessage "Cannot find Java.\nPlease install or correct your JAVA_HOME!"; 
+	showmessage "Cannot find Java.\nPlease install or correct your JAVA_HOME!";
 	exit 2
 }
- 
+
 echo exec -a $appName $JAVA $JAVA_OPTS -jar $0
 exec $JAVA $JAVA_OPTS -jar $0

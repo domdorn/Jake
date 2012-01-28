@@ -8,7 +8,7 @@
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.  
+ * Lesser General Public License for more details.
  */
 package com.jakeapp.gui.swing.controls;
 
@@ -28,29 +28,29 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/** Provide a method for consistently augmenting the appearance of a given 
+/** Provide a method for consistently augmenting the appearance of a given
  * component by painting something on it <i>after</i> the component itself
  * gets painted.  If not explicitly removed via {@link #dispose}, an instance
  * of this object will live as long as its target component.<p>
- * By default, the decorator matches the location and size of the decorated 
- * component, but the bounds can be adjusted by overriding 
+ * By default, the decorator matches the location and size of the decorated
+ * component, but the bounds can be adjusted by overriding
  * {@link #getDecorationBounds()}.  The {@link #synch()} method should be
  * called whenever the bounds returned by {@link #getDecorationBounds()} would
- * change. 
+ * change.
  * <p>
  * The decoration is clipped to the bounds set on the decoration, which does
  * not necessarily need to be the same as the decorated component's bounds.
  * The decoration may extend beyond the decorated component bounds, or it may
- * be reduced to a smaller region.  
+ * be reduced to a smaller region.
  */
 // NOTE: OSX 1.6 lacks hierarchy events that w32 sends on layer changes
 
 // TODO: should probably do some locking on Component.getTreeLock()
 // when moving the component
-// TODO: need to synch underlying cursor when decorator covers more than 
+// TODO: need to synch underlying cursor when decorator covers more than
 // one component; the cursor should change to match custom cursors if the
 // decoration exceeds the component's bounds (would need to add mouse motion
-// listener) 
+// listener)
 // TODO: set default layer according to decorated component's layer and z order
 // (have to calculate z order on 1.4 JVMs).
 public abstract class AbstractComponentDecorator {
@@ -63,7 +63,7 @@ public abstract class AbstractComponentDecorator {
      * and the logical origin we want to pass to the {@link #paint} method.
      */
     private Point originOffset = new Point(0, 0);
-    
+
     private Painter painter;
     private JComponent component;
     private Container parent;
@@ -86,8 +86,8 @@ public abstract class AbstractComponentDecorator {
         this(c, layerOffset, TOP);
     }
 
-    /** Create a decorator with the given position within its layer. 
-     * Use {@link #TOP} to cover other decorations, or {@link #BOTTOM} 
+    /** Create a decorator with the given position within its layer.
+     * Use {@link #TOP} to cover other decorations, or {@link #BOTTOM}
      * to be covered by other decorations.<p>
      * WARNING: BOTTOM doesn't currently work, probably a JLayeredPane bug
      * in either the code or documentation.
@@ -108,19 +108,19 @@ public abstract class AbstractComponentDecorator {
     }
 
     /** Set the text to be displayed when the mouse is over the decoration.
-     * @see JComponent#setToolTipText(String) 
+     * @see JComponent#setToolTipText(String)
      */
     public void setToolTipText(String text) {
         painter.setToolTipText(text);
     }
-    
-    /** Return the currently set default tooltip text. 
+
+    /** Return the currently set default tooltip text.
      * @see JComponent#setToolTipText
      */
     public String getToolTipText() {
         return painter.getToolTipText();
     }
-    
+
     /** Provide for different tool tips depending on the actual location
      * over the decoration.  Note that if you <em>only</em> override this
      * method, you must also invoke {@link #setToolTipText(String)} with
@@ -130,7 +130,7 @@ public abstract class AbstractComponentDecorator {
     public String getToolTipText(MouseEvent e) {
         return getToolTipText();
     }
-    
+
     /** Indicate whether the decoration is visible.  The decoration
      * may be clipped by ancestor scroll panes or by being moved outside
      * if the visible region of its parent window.
@@ -138,7 +138,7 @@ public abstract class AbstractComponentDecorator {
     public boolean isVisible() {
         return painter.isVisible();
     }
-    
+
     /** Use this to change the visibility of the decoration. */
     public void setVisible(boolean visible) {
         painter.setVisible(visible);
@@ -173,7 +173,7 @@ public abstract class AbstractComponentDecorator {
                 // NOTE: JLayeredPane doesn't properly repaint an overlapping
                 // child when an obscured child calls repaint() if the two
                 // are in the same layer, so we use the next-higher layer
-                // instead of simply using a different position within the 
+                // instead of simply using a different position within the
                 // layer.
                 layer = base + layerOffset;
                 if (layerOffset < 0) {
@@ -209,7 +209,7 @@ public abstract class AbstractComponentDecorator {
         synch();
     }
 
-    /** Ensure the size of the decorator matches the current 
+    /** Ensure the size of the decorator matches the current
      * decoration bounds with appropriate clipping to viewports.
      */
     protected void synch() {
@@ -219,7 +219,7 @@ public abstract class AbstractComponentDecorator {
             Rectangle clipRect = clipDecorationBounds(decorated);
 
             Point pt = SwingUtilities.convertPoint(component,
-                                                   clipRect.x, clipRect.y, 
+                                                   clipRect.x, clipRect.y,
                                                    painterParent);
             if (clipRect.width <= 0 || clipRect.height <= 0) {
                 setPainterBounds(-1, -1, 0, 0);
@@ -242,7 +242,7 @@ public abstract class AbstractComponentDecorator {
         originOffset.x = decorated.x;
         originOffset.y = decorated.y;
         // If the the component is obscured (by a viewport or some
-        // other means), use the painter bounds to clip to the visible 
+        // other means), use the painter bounds to clip to the visible
         // bounds.  Doing may change the actual origin, so adjust our
         // origin offset accordingly
         Rectangle visible = getClippingRect(component, decorated);
@@ -253,14 +253,14 @@ public abstract class AbstractComponentDecorator {
             originOffset.y += visible.y - decorated.y;
         return clipRect;
     }
-    
+
     /** Return any clipping rectangle detected above the given component,
      * in the coordinate space of the given component.  The given rectangle
      * is desired to be visible.
-     */ 
+     */
     private Rectangle getClippingRect(Container component, Rectangle desired) {
         Rectangle visible = component instanceof JComponent
-            ? ((JComponent)component).getVisibleRect() 
+            ? ((JComponent)component).getVisibleRect()
             : new Rectangle(0, 0, component.getWidth(), component.getHeight());
         Rectangle clip = new Rectangle(desired);
         if (desired.x >= visible.x && desired.y >= visible.y
@@ -269,7 +269,7 @@ public abstract class AbstractComponentDecorator {
             // desired rect is within the current clip rect
         }
         else if (component.getParent() != null) {
-            // Only apply the clip if it is actually smaller than the 
+            // Only apply the clip if it is actually smaller than the
             // component's visible area
             if (component != painter.getParent()
                 && (visible.x > 0 || visible.y > 0
@@ -283,7 +283,7 @@ public abstract class AbstractComponentDecorator {
                                          visible.x + visible.width - desired.x);
                 desired.height = Math.min(desired.height,
                                           visible.y + visible.height - desired.y);
-                
+
                 // Check for clipping further up the hierarchy
                 desired.x += component.getX();
                 desired.y += component.getY();
@@ -301,11 +301,11 @@ public abstract class AbstractComponentDecorator {
      * when overriding and referencing derived class state.
      */
     protected Rectangle getDecorationBounds() {
-        return bounds != DEFAULT_BOUNDS 
+        return bounds != DEFAULT_BOUNDS
             ? bounds : new Rectangle(0, 0, component.getWidth(), component.getHeight());
     }
-    
-    /** Change the bounds of the decoration, relative to the decorated 
+
+    /** Change the bounds of the decoration, relative to the decorated
      * component.  The special value {@link #DEFAULT_BOUNDS} means the bounds
      * will track the component bounds.
      */
@@ -318,19 +318,19 @@ public abstract class AbstractComponentDecorator {
         }
         synch();
     }
-    
-    /** Change the bounds of the decoration, relative to the decorated 
+
+    /** Change the bounds of the decoration, relative to the decorated
      * component.
      */
     public void setDecorationBounds(int x, int y, int w, int h) {
         setDecorationBounds(new Rectangle(x, y, w, h));
     }
-    
+
     protected void setPainterBounds(int x, int y, int w, int h) {
         painter.setBounds(x, y, w, h);
         repaint();
     }
-    
+
     /** Returns the decorated component. */
     protected JComponent getComponent() { return component; }
 
@@ -338,8 +338,8 @@ public abstract class AbstractComponentDecorator {
      * track events.
      */
     protected JComponent getPainter() { return painter; }
-    
-    /** Set the cursor to appear anywhere over the decoration bounds. 
+
+    /** Set the cursor to appear anywhere over the decoration bounds.
      * If null, the cursor of the decorated component will be used.
      */
     public void setCursor(Cursor cursor) {
@@ -353,7 +353,7 @@ public abstract class AbstractComponentDecorator {
             p.repaint(painter.getBounds());
         }
     }
-    
+
     /** Stop decorating. */
     public void dispose() {
         // Disposal must occur on the EDT
@@ -387,16 +387,16 @@ public abstract class AbstractComponentDecorator {
 
     /** Define the decoration's appearance.  The point (0,0) represents
      * the upper left corner of the decorated component.
-     * The default clip mask will be the extents of the decoration bounds, as 
-     * indicated by {@link #getDecorationBounds()}, which defaults to the 
+     * The default clip mask will be the extents of the decoration bounds, as
+     * indicated by {@link #getDecorationBounds()}, which defaults to the
      * decorated component bounds.
      */
     public abstract void paint(Graphics g);
-    
+
     public String toString() {
         return super.toString() + " on " + getComponent();
     }
-    
+
     private static Field nComponents;
     static {
         try {
@@ -407,7 +407,7 @@ public abstract class AbstractComponentDecorator {
             nComponents = null;
         }
     }
-    
+
     private static boolean useSimpleBackground() {
         return nComponents == null;
     }
@@ -431,8 +431,8 @@ public abstract class AbstractComponentDecorator {
         public int getDecoratedLayer() {
             return base;
         }
-        public boolean isBackgroundDecoration() { 
-            return layerOffset < 0; 
+        public boolean isBackgroundDecoration() {
+            return layerOffset < 0;
         }
         /** Set the cursor to something else.  If null, the cursor of the
          * decorated component will be used.
@@ -449,7 +449,7 @@ public abstract class AbstractComponentDecorator {
         }
 
         /** Returns the cursor of the decorated component, or the last
-         * cursor set by {@link #setCursor}. 
+         * cursor set by {@link #setCursor}.
          */
         public Cursor getCursor() {
             return cursor != null ? cursor : component.getCursor();
@@ -466,7 +466,7 @@ public abstract class AbstractComponentDecorator {
             g2.dispose();
         }
         /** Provide a decorator-specific tooltip, shown when within the
-         * decorator's bounds. 
+         * decorator's bounds.
          */
         public String getToolTipText(MouseEvent e) {
             return AbstractComponentDecorator.this.getToolTipText(e);
@@ -475,8 +475,8 @@ public abstract class AbstractComponentDecorator {
             return "Painter for " + AbstractComponentDecorator.this;
         }
     }
-    
-    /** Provides a shared background painting mechanism for multiple 
+
+    /** Provides a shared background painting mechanism for multiple
      * decorations.  This ensures that the background is only painted once
      * if more than one background decorator is applied.
      */
@@ -514,10 +514,10 @@ public abstract class AbstractComponentDecorator {
                 }
                 catch(Exception e) {
 									// ignore
-                }        
+                }
             }
         }
-        
+
         private void paintBackground(Graphics g, Component parent, JComponent jc) {
             int x = jc.getX();
             int y = jc.getY();
@@ -525,7 +525,7 @@ public abstract class AbstractComponentDecorator {
             int h = jc.getHeight();
             paintBackground(g.create(x, y, w, h), jc);
         }
-        
+
         private void paintBackground(Graphics g, JComponent jc) {
             if (!jc.isShowing()) return;
             if (jc.isOpaque()) {
@@ -591,7 +591,7 @@ public abstract class AbstractComponentDecorator {
                 ((JComponent)i.next()).setDoubleBuffered(true);
             }
         }
-        
+
         /** Walk the list of "background" decorators and paint them. */
         public void paint(Graphics g) {
 
@@ -604,7 +604,7 @@ public abstract class AbstractComponentDecorator {
             for (int i=kids.length-1;i >=0; i--) {
                 if (kids[i] instanceof Painter) {
                     Painter p = (Painter)kids[i];
-                    if (p.isBackgroundDecoration() 
+                    if (p.isBackgroundDecoration()
                         && p.getDecoratedLayer() == layer) {
                         painters.add(p);
                         if (p.isShowing()) {
@@ -634,7 +634,7 @@ public abstract class AbstractComponentDecorator {
                     paintBackground(g, lp, c);
                 }
             }
-            
+
             // Paint the bg decorators
             for (Iterator i=painters.iterator();i.hasNext();) {
                 Painter p = (Painter)i.next();
@@ -661,7 +661,7 @@ public abstract class AbstractComponentDecorator {
     }
 
     /** Tracks changes to component configuration. */
-    private final class Listener extends ComponentAdapter 
+    private final class Listener extends ComponentAdapter
         implements HierarchyListener, HierarchyBoundsListener,
                    PropertyChangeListener {
         // NOTE: OSX (1.6) doesn't generate these the same as w32

@@ -16,7 +16,7 @@ public interface IProjectInvitationListener {
 	/**
 	 * You have been invited by user to the Project p We store the project p in
 	 * the local database as state invited
-	 * 
+	 *
 	 * @param inviter
 	 *            The <code>User</code> who invited us to the
 	 *            <code>Project</code>

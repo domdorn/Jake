@@ -8,7 +8,7 @@
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.  
+ * Lesser General Public License for more details.
  */
 package com.jakeapp.gui.swing.controls;
 
@@ -27,7 +27,7 @@ import javax.swing.Icon;
  */
 // TODO: implement gravity when aspect ratio doesn't match
 public class ScaledIcon implements Icon {
-    
+
     private final Icon icon;
     private int width;
     private int height;
@@ -37,14 +37,14 @@ public class ScaledIcon implements Icon {
     public ScaledIcon(Icon icon) {
         this(icon, icon.getIconWidth(), icon.getIconHeight());
     }
-    
+
     /** Create an icon that properly scales to the desired size.  The aspect
      * ratio will be preserved.
      */
     public ScaledIcon(Icon icon, int width, int height) {
         this(icon, width, height, true);
     }
-    
+
     /** Create an icon that properly scales to the desired size, and
      * whether to preserve the aspect ratio.
      */
@@ -57,11 +57,11 @@ public class ScaledIcon implements Icon {
     public void setPreserveAspect(boolean p) {
         preserveAspect = p;
     }
-    
+
     public void setSize(Dimension size) {
         setSize(size.width, size.height);
     }
-    
+
     public void setSize(int w, int h) {
         if (preserveAspect) {
             double requested = (double)w/h;

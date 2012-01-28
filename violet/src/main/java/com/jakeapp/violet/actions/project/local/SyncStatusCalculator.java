@@ -4,7 +4,7 @@ import com.jakeapp.violet.model.attributes.SyncStatus;
 
 /**
  * struct for giving over to the gui
- * 
+ *
  * @author johannes
  */
 public class SyncStatusCalculator {

@@ -68,9 +68,9 @@ public class LockFileAction extends FileAction {
 						.getAttributed(getSelectedFile());
 
 		String promptStr = this.resourceMap.getString("promptLockWithComment");
-		
+
 		if (!attributedFile.isLocked()) {
-			
+
 			JSheet.showInputSheet(JakeContext.getFrame(), promptStr, null,
 							new SheetListener() {
 								@Override public void optionSelected(SheetEvent evt) {

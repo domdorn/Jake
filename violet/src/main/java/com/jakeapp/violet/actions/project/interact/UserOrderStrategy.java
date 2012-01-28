@@ -8,7 +8,7 @@ public interface UserOrderStrategy {
 
 	/**
 	 * select and order the users
-	 * 
+	 *
 	 * @param origin
 	 *            the user that made the commit
 	 * @param users

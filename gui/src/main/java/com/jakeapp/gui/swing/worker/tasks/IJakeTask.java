@@ -11,7 +11,7 @@ public interface IJakeTask extends Runnable {
 	 * @return
 	 */
 	public int hashCode();
-	
+
 	/**
 	 * get the exception if the task failed, null if it was successful
 	 * @return

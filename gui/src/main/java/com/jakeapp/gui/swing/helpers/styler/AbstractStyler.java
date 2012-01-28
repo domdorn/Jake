@@ -23,7 +23,7 @@ public abstract class AbstractStyler implements Styler {
 	private Painter invitationBackgroundPainter;
 
 	public AbstractStyler() {
-		
+
 		loginBackgroundPainter = new SwingXGradientPainter(new Color(125, 125, 125),
 						new Color(64, 64, 64));
 

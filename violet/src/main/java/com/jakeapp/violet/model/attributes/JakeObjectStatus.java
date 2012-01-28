@@ -9,7 +9,7 @@ import com.jakeapp.violet.model.User;
  * This is the JakeObjectStatus - the base class for AttributedJakeObject.
  * Describing Infos about a domain object are saved here. Primary User:
  * FileObject, NoteObject.
- * 
+ *
  * @author johannes, peter
  */
 public class JakeObjectStatus {
@@ -90,7 +90,7 @@ public class JakeObjectStatus {
 
 	/**
 	 * Returns the Last Editor of this Object. Failsafe variant.
-	 * 
+	 *
 	 * @return returns null of no LogEntry
 	 */
 	public User getLastVersionEditor() {
@@ -129,7 +129,7 @@ public class JakeObjectStatus {
 
 	/**
 	 * Checks if the object is in conflict.
-	 * 
+	 *
 	 * @return
 	 */
 	public boolean isInConflict() {

@@ -91,7 +91,7 @@ public class StringHistory {
         }
         return result;
     }
-    
+
     private void readHistoryFile() {
         try {
             if (filename != null && FileUtilities.exists(filename)) {
@@ -103,12 +103,12 @@ public class StringHistory {
             Log.warn("Error reading history from file \"" + filename + "\".", ex);
         }
     }
-    
+
     private void writeHistoryFile() {
         if (filename == null) {
             return;
         }
-        
+
         // Make sure that we don't write to disk off the EDT.
         // FIXME: this relies on the calling code not calling us too frequently; a timer might be a better idea.
         executor.execute(new Runnable() {

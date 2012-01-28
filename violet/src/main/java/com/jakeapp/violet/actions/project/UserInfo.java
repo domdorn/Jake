@@ -5,7 +5,7 @@ import com.jakeapp.violet.model.User;
 
 /**
  * Detailed information about the user
- * 
+ *
  * @see User
  */
 public class UserInfo {

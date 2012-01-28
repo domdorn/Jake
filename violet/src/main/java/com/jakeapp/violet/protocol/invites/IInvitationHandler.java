@@ -8,7 +8,7 @@ public interface IInvitationHandler {
 	/**
 	 * Adding another <code>IProjectInvitationListener</code> to the list of
 	 * listeners.
-	 * 
+	 *
 	 * @param invitationListener
 	 *            the <code>IProjectInvitationListener</code> listener to be
 	 *            added.
@@ -19,7 +19,7 @@ public interface IInvitationHandler {
 	/**
 	 * Remove the given <code>IProjectInvitationListener</code> from the list of
 	 * listeners (if it exists)
-	 * 
+	 *
 	 * @param invitationListener
 	 *            the <code>IProjectInvitationListener</code> listener to be
 	 *            removed.

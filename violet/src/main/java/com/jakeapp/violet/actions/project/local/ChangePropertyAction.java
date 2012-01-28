@@ -35,7 +35,7 @@ public class ChangePropertyAction extends AvailableLaterObject<Void> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param model
 	 * @param key
 	 * @param value

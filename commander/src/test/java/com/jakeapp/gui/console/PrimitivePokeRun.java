@@ -24,8 +24,8 @@ import com.googlecode.junit.ext.Prerequisite;
 @RunWith(PrerequisiteAwareClassRunner.class)
 public class PrimitivePokeRun extends TmpdirEnabledTestCase {
 
-	
-	
+
+
 	private String user;
 
 	@Override
@@ -33,7 +33,7 @@ public class PrimitivePokeRun extends TmpdirEnabledTestCase {
 	public void setup() throws Exception {
 		FSTestCommons.recursiveDelete(new File(".jake"));
 		super.setup();
-		
+
 		this.user = XmppTestEnvironment.getXmppId("poker");
 		XmppTestEnvironment.assureUserExists(XmppTestEnvironment.getHost(), "poker", "poker");
 	}
@@ -42,7 +42,7 @@ public class PrimitivePokeRun extends TmpdirEnabledTestCase {
 	@Prerequisite(checker = XmppTestEnvironment.class)
 	public void bugRun() {
 		FifoStreamer fifo = new FifoStreamer();
-		fifo.addLine("coreLogin " + this.user + " poker");         
+		fifo.addLine("coreLogin " + this.user + " poker");
 		fifo.addLine("login");
 		fifo.addLine("openProject " + this.tmpdir);
 		fifo.addLine("startProject");

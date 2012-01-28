@@ -44,10 +44,10 @@ public class JakeObjectAttributedCacheManager implements DataChangedCallback {
 		if(!enabled)
 			return null;
 		return (Attributed<T>) cacheHash.get(jakeObject);
-	} 
-	
+	}
+
 	/**
-	 * deletes the corresponding cached Atrributed to a given jakeObject from the cache 
+	 * deletes the corresponding cached Atrributed to a given jakeObject from the cache
 	 * @param <T>
 	 * @param jakeObject
 	 */
@@ -65,7 +65,7 @@ public class JakeObjectAttributedCacheManager implements DataChangedCallback {
 	 */
 	public <T extends JakeObject> Attributed<T> cacheObject(T jakeObject,
 					Attributed<T> jakeObjectAttributed) {
-		if(enabled) 
+		if(enabled)
 			getCacheHash().put(jakeObject, (Attributed<JakeObject>) jakeObjectAttributed);
 		return jakeObjectAttributed;
 	}

@@ -108,15 +108,15 @@ public class InspectorPanel extends JXPanel
 		// header panel
 		this.headerPanel = new JPanel(new MigLayout("fill"));
 		this.headerPanel.setOpaque(false);
-		
+
 		this.icon = new JLabel();
 		this.headerPanel.add(this.icon, "w 64!, h 64!");
-		
+
 		this.nameValue = new JLabel();
 		this.headerPanel.add(this.nameValue, "top");
-		
+
 		this.sizeValue = new JLabel();
-		this.headerPanel.add(this.sizeValue, "growx, top");		
+		this.headerPanel.add(this.sizeValue, "growx, top");
 
 		// meta panel
 		this.metaPanel = new JPanel(new MigLayout("fill, wrap 2"));
@@ -126,7 +126,7 @@ public class InspectorPanel extends JXPanel
 		this.metaPanel.add(this.fullPathLabel, "right, hidemode 2");
 		this.fullPathValue = new SmallShortenedLabel();
 		this.metaPanel.add(this.fullPathValue, "growx, hidemode 2");
-		
+
 		this.lastEditedLabel = new SmallLabel(getResourceMap().getString("lastEditedLabel"));
 		this.metaPanel.add(this.lastEditedLabel, "right");
 		this.lastEditedValue = new SmallLabel();
@@ -146,7 +146,7 @@ public class InspectorPanel extends JXPanel
 		this.metaPanel.add(this.lockedByLabel, "right");
 		this.lockedByValue = new SmallShortenedLabel();
 		this.metaPanel.add(this.lockedByValue, "growx");
-		
+
 		this.uuidLabel = new SmallLabel(getResourceMap().getString("uuidLabel"));
 		this.metaPanel.add(this.uuidLabel, "right");
 		this.uuidValue = new SmallShortenedLabel();
@@ -206,7 +206,7 @@ public class InspectorPanel extends JXPanel
 				this.fullPathLabel.setVisible(true);
 				this.fullPathValue.setVisible(true);
 				this.sizeValue.setVisible(true);
-				
+
 				this.emptyInspector.setVisible(false);
 				this.noteFileInspector.setVisible(true);
 				break;
@@ -214,7 +214,7 @@ public class InspectorPanel extends JXPanel
 				this.sizeValue.setVisible(false);
 				this.fullPathLabel.setVisible(false);
 				this.fullPathValue.setVisible(false);
-								
+
 				this.emptyInspector.setVisible(false);
 				this.noteFileInspector.setVisible(true);
 				break;
@@ -243,10 +243,10 @@ public class InspectorPanel extends JXPanel
 		if (attributedFileObject != null) {
 			this.mode = Mode.FILE;
 			this.getEventsTableModel().setJakeObject(attributedFileObject);
-			
+
 			//update fields...
 			this.updateCommonFields(attributedFileObject);
-			
+
 			File file = null;
 			try {
 				file = JakeMainApp.getCore().getFile(attributedFileObject.getJakeObject());
@@ -308,7 +308,7 @@ public class InspectorPanel extends JXPanel
 		if (attributedNoteObject != null) {
 			this.mode = Mode.NOTE;
 			this.getEventsTableModel().setJakeObject(attributedNoteObject);
-			
+
 			// update fields
 			this.updateCommonFields(attributedNoteObject);
 			this.icon.setIcon(this.notesIcon);
@@ -318,17 +318,17 @@ public class InspectorPanel extends JXPanel
 			this.mode = Mode.NONE;
 		}
 	}
-	
+
 	private void updateCommonFields(Attributed<? extends JakeObject> attributedJakeObject) {
 		if (attributedJakeObject.getLastVersionEditor() != null) {
 			this.lastEditorValue.setText(attributedJakeObject.getLastVersionEditor().toString());
 		} else {
 			this.lastEditorValue.setText("local"); //FIXME: elaborate, i18n
 		}
-		
+
 		this.lastEditedValue	.setText(TimeUtilities.getRelativeTime(attributedJakeObject
 				.getLastModificationDate()));
-		
+
 		this.sharedValue.setText(Boolean.toString((!attributedJakeObject.isOnlyLocal())));
 
 		if (attributedJakeObject.isLocked()) {
@@ -339,7 +339,7 @@ public class InspectorPanel extends JXPanel
 		}
 		this.uuidValue.setText("" + attributedJakeObject.getJakeObject().getUuid());
 	}
-	
+
 	@Override
 	public void setProjectViewPanel(JakeMainView.ProjectView projectViewPanel) {
 

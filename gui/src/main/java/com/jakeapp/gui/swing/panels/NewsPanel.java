@@ -176,7 +176,7 @@ public class NewsPanel extends javax.swing.JPanel
 		if (dataReason.contains(DataReason.LogEntries)) {
 			this.updatePanel();
 
-			// fixme: need update on people change? 
+			// fixme: need update on people change?
 			//|| dataReason.contains(DataReason.User)
 		}
 	}

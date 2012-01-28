@@ -94,7 +94,7 @@ public class JakeMenuBar extends JMenuBar {
 		fileMenu.setText(resourceMap.getString("fileMenu.text"));
 
 		fileMenu.add(new JMenuItem(new OpenFileAction()));
-		fileMenu.add(new JMenuItem(new ShowInBrowserFileAction()));				
+		fileMenu.add(new JMenuItem(new ShowInBrowserFileAction()));
 		fileMenu.add(new JMenuItem(new ResolveConflictFileAction()));
 		fileMenu.addSeparator();
 		fileMenu.add(new JMenuItem(new AnnounceFileAction()));
@@ -104,7 +104,7 @@ public class JakeMenuBar extends JMenuBar {
 		fileMenu.add(new JMenuItem(new RenameFileAction()));
 		fileMenu.add(new JMenuItem(new LockFileAction()));
 		fileMenu.addSeparator();
-		fileMenu.add(new JMenuItem(new InspectorFileAction()));		
+		fileMenu.add(new JMenuItem(new InspectorFileAction()));
 		fileMenu.add(new JMenuItem(new CreateFolderFileAction()));
 		fileMenu.add(new JMenuItem(new ImportFileAction()));
 		this.add(fileMenu);

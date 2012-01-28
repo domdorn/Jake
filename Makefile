@@ -1,6 +1,6 @@
 # Makefile for Jake
 #
-# 	provides a dependency system to avoid duplicate builds, tests 
+# 	provides a dependency system to avoid duplicate builds, tests
 # 	and packaging.
 
 VERSION="1.0-SNAPSHOT"
@@ -22,13 +22,13 @@ help:
 start: install
 	cd gui; ${MVN} -o exec:java
 
-# multistart: allow jake to run multiple instances (no dependency 
+# multistart: allow jake to run multiple instances (no dependency
 # 			  system)
 multistart: install
 	cd gui; ${MVN} -o exec:java -Dcom.jakeapp.gui.ignoresingleinstance
 
 # @depstart: start gui with dependency system
-depstart: gui 
+depstart: gui
 	cd gui; ${MVN} exec:java
 
 # instantquit: start gui and quit it immediatly (for debugging spring)
@@ -40,7 +40,7 @@ quickstart: gui
 	cd gui; ${MVN} exec:java -Dexec.args=${PROJECTFOLDER}
 
 # console   : start console-gui (commander)
-console: commander 
+console: commander
 	cd commander; ${MVN} exec:java -Dexec.mainClass=com.jakeapp.gui.console.JakeCommander
 
 xmpp-console: commander
@@ -49,7 +49,7 @@ xmpp-console: commander
 # building & installing #
 
 # @install   : simply install everything (no dependency system)
-install: 
+install:
 	mvn -Dmaven.test.skip=true install
 
 # @jar       : deploy to a single jar file
@@ -57,7 +57,7 @@ jar:
 	#${MVN} clean
 	${MVN} install -Dmaven.test.skip=true
 	mkdir -p releases
-	cd releases && rm -rf temp && mkdir -p temp 
+	cd releases && rm -rf temp && mkdir -p temp
 	cd releases/temp && unzip ../../gui/target/gui-swing-${VERSION}.one-jar.jar && cp -v ../../{core,ics,ics-xmpp}/target/*.jar main/ && rm -f ../jake-current.jar && jar cvfm ../jake-current.jar meta-inf/manifest.mf .
 	cd releases; rm -rf temp
 	@echo release ready under releases/jake-current.jar
@@ -98,13 +98,13 @@ package-win: jar
 	rm -f releases/jake.xml releases/jakeapp.ico
 	@echo Winows Package: releases/Jake.exe
 	@echo TODO create installer with NULLSOFT or use other db path
-	
+
 package-linux: jar
 	@echo Creating Linux Package...
 	rm -f releases/Jake.bin
 	cat launcher/jake.sh releases/jake-current.jar > releases/jake.bin
 	chmod +x releases/jake.bin
-	#tar cjvf releases/jake.tar.bz2 releases/jake.bin 
+	#tar cjvf releases/jake.tar.bz2 releases/jake.bin
 
 	@echo Linux Package: releases/Jake.bin
 
@@ -121,7 +121,7 @@ commander: core
 	rm -f .rebuild* */.rebuild
 
 # core       : build core component
-core: availablelater fss ics ics-xmpp core-dao-hibernate-threading 
+core: availablelater fss ics ics-xmpp core-dao-hibernate-threading
 	@bash .build.sh ${VERSION} $@ "$^"
 	rm -f .rebuild_ics_dependent .rebuild_ics-xmpp_dependent
 
@@ -164,7 +164,7 @@ ics-xmpp: ics
 clean:
 	${MVN} clean
 
-# mrproper   : clean build environment and uninstall from local 
+# mrproper   : clean build environment and uninstall from local
 # 			  repository
 mrproper: clean
 	rm -rf ~/.m2/repository/com/{jakeapp,doublesignal}/
@@ -178,7 +178,7 @@ lazyclean:
 	mkdir fss/target/
 	mv .backup.fss-${VERSION}.jar fss/target/fss-${VERSION}.jar
 
-# others # 
+# others #
 
 generateDaos:
 	# use SpringThreadBroker.getInstance() for global dao's
@@ -192,10 +192,10 @@ generateDaos:
 	bash generateDao.sh core/src/main/java/com/jakeapp/core/dao/HibernateLogEntryDao.java           "SpringThreadBroker.getThreadForObject(this)"
 	bash generateDao.sh core/src/main/java/com/jakeapp/core/dao/HibernateNoteObjectDao.java         "SpringThreadBroker.getThreadForObject(this)"
 
-# 
-# You can add arguments to the maven call by setting the MVNEXTRAARGS 
+#
+# You can add arguments to the maven call by setting the MVNEXTRAARGS
 #   environment variable.
-# The dependency system does only work with the coreutils package, i.e., only on 
-#   Linux. 
-# 
+# The dependency system does only work with the coreutils package, i.e., only on
+#   Linux.
+#
 .PHONY: install jar packages package-win package-mac package-linux availablelater gui core fss fss-tests-base ics ics-xmpp commander start depstart instantquit quickstart console clean mrproper lazyclean

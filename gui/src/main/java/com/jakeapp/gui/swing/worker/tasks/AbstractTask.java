@@ -38,7 +38,7 @@ public abstract class AbstractTask<T> extends
 
 	private double progress;
 	private String status;
-	
+
 	private StackTraceElement[] callerStackTrace = new Throwable().getStackTrace();
 
 	@Override
@@ -49,9 +49,9 @@ public abstract class AbstractTask<T> extends
 			error(e);
 		}
 		this.value.setListener(this);
-		
+
 		this.value.start();
-		
+
 		s.acquire();
 		if (exception != null)
 			throw exception;
@@ -70,7 +70,7 @@ public abstract class AbstractTask<T> extends
 			JakeExecutor.removeTask(this);
 		}
 	}
-	
+
 	@Override
 	final public void finished(T o) {
 		s.release();
@@ -83,11 +83,11 @@ public abstract class AbstractTask<T> extends
 		}
 		finally {
 			JakeExecutor.removeTask(this);
-		}	
+		}
 	}
 
 	protected void onDone() {
-		
+
 	}
 
 	@Override
@@ -118,7 +118,7 @@ public abstract class AbstractTask<T> extends
 		// Fixme: is this a good idea?
 		return getClass().toString().hashCode();
 	}
-	
+
 	@Override
 	final public Exception getException() {
 		return this.exception;

@@ -14,7 +14,7 @@ import com.jakeapp.gui.console.JakeCommander;
 /**
  * This class is (atm) for running manually in the IDE and not for inclusion in
  * build automation
- * 
+ *
  * @author johannes
  */
 public class JakeCommanderRuns extends TmpdirEnabledTestCase {

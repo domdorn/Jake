@@ -42,7 +42,7 @@ public class InitCoreTask extends SwingWorker<ICoreAccess, Void>
 	@Override
 	public void done() {
 		super.done();
-		
+
 		boolean success = false;
 		try {
 			// get core & authenticate

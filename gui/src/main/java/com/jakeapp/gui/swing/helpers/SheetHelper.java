@@ -22,7 +22,7 @@ public class SheetHelper {
 	 * @return
 	 */
 	public static boolean showConfirm(String msg, String btn) {
-		
+
 		final boolean[] ret = new boolean[]{false};
 			ResourceMap map = FilePanel.getInstance().getResourceMap();
 			String[] options = {btn, map.getString("genericCancel")};

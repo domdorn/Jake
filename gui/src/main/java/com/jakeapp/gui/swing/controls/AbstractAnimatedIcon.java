@@ -8,7 +8,7 @@
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.  
+ * Lesser General Public License for more details.
  */
 package com.jakeapp.gui.swing.controls;
 
@@ -19,7 +19,7 @@ import java.awt.event.ActionListener;
 import java.lang.ref.WeakReference;
 
 /** Provide animation of auto-generated animations.  Makes use of the repaint
- * tracking structure established by {@link AnimatedIcon}. 
+ * tracking structure established by {@link AnimatedIcon}.
  */
 public abstract class AbstractAnimatedIcon extends AnimatedIcon {
     private static final int DEFAULT_INTERVAL = 1000/24;
@@ -28,25 +28,25 @@ public abstract class AbstractAnimatedIcon extends AnimatedIcon {
     private int repaintInterval;
     private int frame;
     private int frameCount;
-    
+
     protected AbstractAnimatedIcon() {
         this(0);
     }
-    
+
     protected AbstractAnimatedIcon(int frameCount) {
         this(frameCount, DEFAULT_INTERVAL);
     }
-    
+
     protected AbstractAnimatedIcon(int frameCount, int interval) {
         this.frameCount = frameCount;
         setFrameInterval(interval);
     }
-    
+
     /** Ensure the timer stops running, so it, too can be GC'd. */
     protected void finalize() {
         timer.stop();
     }
-    
+
     /** Setting a frame interval of zero stops automatic animation. */
     public void setFrameInterval(int interval) {
         repaintInterval = interval;
@@ -68,17 +68,17 @@ public abstract class AbstractAnimatedIcon extends AnimatedIcon {
     public int getFrameInterval() {
         return repaintInterval;
     }
-    
+
     /** Returns the total number of frames. */
     public int getFrameCount() {
         return frameCount;
     }
-    
+
     /** Advance to the next animation frame. */
     public void nextFrame() {
         setFrame(getFrame() + 1);
     }
-    
+
     /** Set the current animation frame number. */
     public void setFrame(int f) {
         this.frame = f;
@@ -86,7 +86,7 @@ public abstract class AbstractAnimatedIcon extends AnimatedIcon {
             frame = frame % frameCount;
         repaint();
     }
-    
+
     /** Returns the current animation frame number. */
     public int getFrame() {
         return frame;
@@ -97,7 +97,7 @@ public abstract class AbstractAnimatedIcon extends AnimatedIcon {
 
     public abstract int getIconWidth();
     public abstract int getIconHeight();
-    
+
     protected synchronized void registerRepaintArea(Component c, int x, int y, int w, int h) {
         if (timer != null && !timer.isRunning()) {
             timer.start();

@@ -18,7 +18,7 @@ info_txt() {
 }
 
 check_prerequisites() {
-	for i in $PREREQ; do 
+	for i in $PREREQ; do
 		if [[ -e ../.rebuild_${i}_dependent ]]; then
 			if [[ -e ${JAR} && ${JAR} -nt ../.rebuild_${i}_dependent ]]; then
 				touch .rebuild
@@ -29,12 +29,12 @@ check_prerequisites() {
 	true
 }
 check_jar() {
-	if ! [[ -e ${JAR} ]]; then 
+	if ! [[ -e ${JAR} ]]; then
 		echo -n "no jar! "; touch .rebuild
 	fi
 }
-check_modified() { 
-	find src/ -type f -newer ${JAR} | 
+check_modified() {
+	find src/ -type f -newer ${JAR} |
 		grep -v '\.svn' && {
 			echo -n ${JAR} $PWD "modification found! "
 			touch .rebuild
@@ -56,7 +56,7 @@ do_rebuild() {
 }
 rebuild() {
 	if test -e .rebuild; then
-		echo "yes" 
+		echo "yes"
 		do_rebuild
 	else
 		echo "no"
@@ -64,11 +64,11 @@ rebuild() {
 }
 
 printtesterrors() {
-	[ -e target/surefire-reports/ ] && 
-	{ 
-		echo "Tests in error in $TARGET:"; 
-		cat target/surefire-reports/*.txt|grep '<<<'|grep '^[^()]*[(][^(]*[)]' -Eo || 
-			echo "(none)" 
+	[ -e target/surefire-reports/ ] &&
+	{
+		echo "Tests in error in $TARGET:";
+		cat target/surefire-reports/*.txt|grep '<<<'|grep '^[^()]*[(][^(]*[)]' -Eo ||
+			echo "(none)"
 		echo
 	}
 }

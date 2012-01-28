@@ -8,28 +8,28 @@ public interface ISyncListener {
 
 	/**
 	 * we received a poke. Do a LogSync when you get a chance!
-	 * 
+	 *
 	 * @param user
 	 */
 	void poke(User user);
 
 	/**
 	 * fyi, we started receiving logs from user user
-	 * 
+	 *
 	 * @param user
 	 */
 	void startReceiving(User user);
 
 	/**
 	 * fyi, we finished receiving logs from user user
-	 * 
+	 *
 	 * @param user
 	 */
 	void finishedReceiving(User user);
 
 	/**
 	 * Should we accept a filerequest for this jakeObject by this user?
-	 * 
+	 *
 	 * @param user
 	 * @param jakeObject
 	 */
@@ -38,7 +38,7 @@ public interface ISyncListener {
 	/**
 	 * Sending a file to the user user failed. There is no reason to be
 	 * concerned though, it happens.
-	 * 
+	 *
 	 * @param user
 	 * @param fileName
 	 * @param error
@@ -47,7 +47,7 @@ public interface ISyncListener {
 
 	/**
 	 * We successfully sent a file to the user user.
-	 * 
+	 *
 	 * @param user
 	 * @param fileName
 	 */
@@ -55,7 +55,7 @@ public interface ISyncListener {
 
 	/**
 	 * Just a update on the progress of a sending transfer.
-	 * 
+	 *
 	 * @param user
 	 * @param fileName
 	 * @param status

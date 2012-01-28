@@ -19,7 +19,7 @@ public class SmallLabel extends JLabel {
 		super();
 		this.setFont(this.smallFont);
 	}
-	
+
 	public SmallLabel(String text) {
 		super(text);
 		this.setFont(this.smallFont);

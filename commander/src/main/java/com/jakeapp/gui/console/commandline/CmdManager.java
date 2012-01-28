@@ -11,7 +11,7 @@ public class CmdManager {
 	private List<Command> commands = new LinkedList<Command>();
 
 	private boolean status_ok = true;
-	
+
 	public CmdManager(){
 		commands.add(new Command(){
 			@Override
@@ -32,10 +32,10 @@ public class CmdManager {
 				}
 				return false;
 			}
-			
+
 		});
 	}
-	
+
 	public void registerCommand(Command c) {
 		commands.add(c);
 	}
@@ -77,7 +77,7 @@ public class CmdManager {
 			System.out.println("\t\t" + c.getHelpString());
 		}
 	}
-	
+
 	public void stop() {
 		status_ok = false;
 	}

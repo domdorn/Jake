@@ -126,15 +126,15 @@ abstract public class TestDBEnabledTestCase extends TmpdirEnabledTestCase {
 		File workdir = new File(".");
 		copyFiles(templatedir, workdir, ".svn");
 		 */
-		
+
 		// The brutal way
 		FSTestCommons.recursiveDelete(new File(".jake"));
 		File workdir = new File(".");
 		copyFiles(templatedir, workdir, ".svn");
-		
-		
+
+
 		File dbdir = new File(".jake");
-		dbdir.mkdir();		
+		dbdir.mkdir();
 		Assert.assertTrue(folderExists(".jake"));
 		log.info("Directory prepared with database template. ");
 	}

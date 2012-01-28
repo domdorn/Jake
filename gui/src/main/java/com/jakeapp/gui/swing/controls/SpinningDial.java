@@ -8,7 +8,7 @@
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.  
+ * Lesser General Public License for more details.
  */
 package com.jakeapp.gui.swing.controls;
 
@@ -57,7 +57,7 @@ public class SpinningDial extends AbstractAnimatedIcon {
     protected float getStrokeWidth(int size) {
         return size/16f;
     }
-    
+
     // TODO: move image snapshot up to abstract class
     protected void paintFrame(Component c, Graphics graphics, int x, int y) {
         int idx = getFrame();
@@ -65,7 +65,7 @@ public class SpinningDial extends AbstractAnimatedIcon {
             int w = getIconWidth();
             int h = getIconHeight();
             int size = Math.min(w, h);
-            Image image = c != null 
+            Image image = c != null
                 ? c.getGraphicsConfiguration().createCompatibleImage(w, h, Transparency.TRANSLUCENT)
                 : new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g = (Graphics2D)image.getGraphics();
@@ -77,7 +77,7 @@ public class SpinningDial extends AbstractAnimatedIcon {
             float strokeWidth = getStrokeWidth(FULL_SIZE);
             float fraction = .6f;
             g.setStroke(new BasicStroke(strokeWidth,
-                                        BasicStroke.CAP_ROUND, 
+                                        BasicStroke.CAP_ROUND,
                                         BasicStroke.JOIN_ROUND));
             g.translate((float)w/2, (float)h/2);
             float scale = (float)size/FULL_SIZE;
@@ -102,7 +102,7 @@ public class SpinningDial extends AbstractAnimatedIcon {
         }
         graphics.drawImage(frames[idx], x, y, null);
     }
-    
+
     public String toString() {
         return "SpinningDial(" + getIconWidth() + "x" + getIconHeight() + ")";
     }
