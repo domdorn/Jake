@@ -251,12 +251,12 @@ File: babel.def 2004/11/20 v3.8d Babel common definitions
 \babel@savecnt=\count88
 \U@D=\dimen103
 )
-\l@austrian = a dialect from \language\l@german 
+\l@austrian = a dialect from \language\l@german
 Package babel Info: Making " an active character on input line 91.
 )
 (/usr/share/texmf/tex/generic/babel/ngermanb.ldf
 Language: ngermanb 2004/02/20 v2.6m new German support from the babel system
-\l@naustrian = a dialect from \language\l@ngerman 
+\l@naustrian = a dialect from \language\l@ngerman
 ))
 (/usr/share/texmf/tex/latex/tools/multicol.sty
 Package: multicol 2004/02/14 v1.6e multicolumn formatting (FMi)
@@ -356,7 +356,7 @@ Package hyperref Info: Link coloring OFF on input line 2638.
 File: hpdftex.def 2003/11/30 v6.74m Hyperref driver for pdfTeX
 
 (/usr/share/texmf/tex/latex/psnfss/pifont.sty
-Package: pifont 2004/09/15 PSNFSS-v9.2 Pi font support (SPQR) 
+Package: pifont 2004/09/15 PSNFSS-v9.2 Pi font support (SPQR)
 LaTeX Font Info:    Try loading font information for U+pzd on input line 63.
 
 (/usr/share/texmf/tex/latex/psnfss/upzd.fd
@@ -589,12 +589,12 @@ File: umsb.fd 2002/01/19 v2.2g AMS font definitions
 
 ! pdfTeX warning (ext4): destination with the same identifier (name{page.1}) ha
 s been already used, duplicate ignored
-<to be read again> 
-                   \penalty 
+<to be read again>
+                   \penalty
 l.23 \sepmstart
-               
 
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt):
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
@@ -633,7 +633,7 @@ Overfull \hbox (27.5126pt too wide) in paragraph at lines 49--50
 //wiki.jakeapp.com/doku.php?id=javadoc
  []
 
-) AED: lastpage setting LastPage [3] (./main.aux) ) 
+) AED: lastpage setting LastPage [3] (./main.aux) )
 Here is how much of TeX's memory you used:
  4509 strings out of 94432
  56516 string characters out of 1175566

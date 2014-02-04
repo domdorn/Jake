@@ -8,7 +8,7 @@
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.  
+ * Lesser General Public License for more details.
  */
 package com.jakeapp.gui.swing.controls;
 
@@ -34,7 +34,7 @@ public class WaitIndicator extends AbstractComponentDecorator implements KeyEven
     public WaitIndicator(JFrame frame) {
         this(frame.getLayeredPane());
     }
-    
+
     /** Place the wait indicator over the given component. */
     public WaitIndicator(JComponent target) {
         super(target);
@@ -56,7 +56,7 @@ public class WaitIndicator extends AbstractComponentDecorator implements KeyEven
     public boolean dispatchKeyEvent(KeyEvent e) {
         return SwingUtilities.isDescendingFrom(e.getComponent(), getComponent());
     }
-    
+
     /** The default dims the blocked component. */
     public void paint(Graphics g) {
         Color bg = getComponent().getBackground();

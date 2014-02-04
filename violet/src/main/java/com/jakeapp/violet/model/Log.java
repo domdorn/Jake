@@ -14,14 +14,14 @@ public interface Log {
 
 	/**
 	 * connect to the log. Do this after creating this
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	void connect() throws SQLException;
 
 	/**
 	 * connect to the log. Do this after creating this
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	void disconnect() throws SQLException;
@@ -34,7 +34,7 @@ public interface Log {
 
 	/**
 	 * Retrieve a </code>LogEntry</code>.
-	 * 
+	 *
 	 * @param uuid
 	 *            the uuid of the requested </code>LogEntry</code>
 	 * @returns the LogEntry with the given UUID
@@ -47,7 +47,7 @@ public interface Log {
 	/**
 	 * change the <code>processed</code> field of a logEntry. Note that the
 	 * logEntry handed in is now invalid.
-	 * 
+	 *
 	 * @param logEntry
 	 *            the <code>LogEntry</code> that is to be changed.
 	 * @throws NoSuchLogEntryException
@@ -57,7 +57,7 @@ public interface Log {
 
 	/**
 	 * Get all unprocessed <code>LogEntries</code>.
-	 * 
+	 *
 	 * @return all unprocessed LogEntries of the Project
 	 * @throws SQLException
 	 */
@@ -66,7 +66,7 @@ public interface Log {
 	/**
 	 * Get the unprocessed <code>LogEntries</code> for a specific
 	 * <code>JakeObject</code>.
-	 * 
+	 *
 	 * @param jakeObject
 	 * @return the unprocessed LogEntries of the specific JakeObject
 	 * @throws SQLException
@@ -76,7 +76,7 @@ public interface Log {
 	/**
 	 * Check if a <code>JakeObject</code> has unprocessed
 	 * <code>LogEntries</code>
-	 * 
+	 *
 	 * @param jakeObject
 	 * @return Whether unprocessed LogEntries of the JakeObject exist
 	 * @throws SQLException
@@ -93,7 +93,7 @@ public interface Log {
 
 	/**
 	 * Get all LogEntrys stored in the database for one <code>Project</code>.
-	 * 
+	 *
 	 * @param includeUnprocessed
 	 *            Whether to look at unprocessed LogEntries as well
 	 * @return List of LogEntrys
@@ -104,7 +104,7 @@ public interface Log {
 	/**
 	 * Get all LogEntrys stored in the database concerning a specific
 	 * <code>JakeObject</code>.
-	 * 
+	 *
 	 * @param jakeObject
 	 *            the <code>JakeObject</code> in question.
 	 * @param includeUnprocessed
@@ -118,7 +118,7 @@ public interface Log {
 	/**
 	 * Retrieves the most recent <code>LogEntry</code> of any LogAction for a
 	 * given <code>JakeObject</code>.
-	 * 
+	 *
 	 * @param jakeObject
 	 *            the <code>JakeObject</code> in question.
 	 * @param includeUnprocessed
@@ -143,7 +143,7 @@ public interface Log {
 
 	/**
 	 * Gets the first {@link LogEntry}.
-	 * 
+	 *
 	 * @throws NoSuchLogEntryException
 	 * @throws SQLException
 	 */
@@ -152,7 +152,7 @@ public interface Log {
 	/**
 	 * This methods sets all LogEntries with the same belongsTo object previous
 	 * to this one to processed
-	 * 
+	 *
 	 * @param logEntry
 	 * @throws SQLException
 	 */

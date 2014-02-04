@@ -7,7 +7,7 @@ import com.jakeapp.violet.model.LogEntry;
 
 /**
  * Additional information about the synchronization status of a JakeObject
- * 
+ *
  * @author johannes
  */
 public class Attributed extends JakeObjectStatus {
@@ -64,7 +64,7 @@ public class Attributed extends JakeObjectStatus {
 
 	/**
 	 * Get the last modification date
-	 * 
+	 *
 	 * @return
 	 */
 	public long getLastModificationDate() {

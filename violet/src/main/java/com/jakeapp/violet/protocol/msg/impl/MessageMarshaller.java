@@ -29,7 +29,7 @@ public class MessageMarshaller implements IMessageMarshaller {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.jakeapp.violet.protocol.msg.IMessageMarshaller#decodePokeMessage(
 	 * java.lang.String, com.jakeapp.jake.ics.UserId)
@@ -54,7 +54,7 @@ public class MessageMarshaller implements IMessageMarshaller {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.jakeapp.violet.protocol.msg.IMessageMarshaller#serialize(com.jakeapp
 	 * .violet.protocol.msg.PokeMessage)

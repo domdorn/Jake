@@ -28,7 +28,7 @@ public class LogEntryMarshaller implements ILogEntryMarshaller {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.jakeapp.violet.protocol.msg.ILogEntryMarshaller#packLogEntries(java
 	 * .util.UUID, java.util.List, java.io.OutputStream)
@@ -45,7 +45,7 @@ public class LogEntryMarshaller implements ILogEntryMarshaller {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.jakeapp.violet.protocol.msg.ILogEntryMarshaller#unpackLogEntries(
 	 * java.util.UUID, java.io.InputStream)
@@ -63,7 +63,7 @@ public class LogEntryMarshaller implements ILogEntryMarshaller {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.jakeapp.violet.protocol.msg.ILogEntryMarshaller#serializeLogEntry
 	 * (com.jakeapp.violet.model.LogEntry)
@@ -78,7 +78,7 @@ public class LogEntryMarshaller implements ILogEntryMarshaller {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.jakeapp.violet.protocol.msg.ILogEntryMarshaller#deSerializeLogEntry
 	 * (java.lang.String)

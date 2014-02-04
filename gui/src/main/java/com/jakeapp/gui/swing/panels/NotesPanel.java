@@ -197,7 +197,7 @@ public class NotesPanel extends javax.swing.JPanel
 				if (i!=this.getNotesTable().getSelectedRow()) {
 					//this row was just de-selected
 					this.notesTableModel.getNoteAtRow(i).getJakeObject().setContent(this.getNoteReaderText());
-					
+
 				}
 			}*/
 			//handle new selection

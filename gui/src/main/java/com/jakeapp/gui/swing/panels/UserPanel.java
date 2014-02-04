@@ -876,7 +876,7 @@ public class UserPanel extends JXPanel
 	 */
 	private void performLogin(MsgService<User> msg, Account account) {
 		JakeContext.setMsgService(msg);
-		
+
 		JakeExecutor.exec(new LoginAccountTask(msg, account,
 						EventCore.get().getLoginStateListener()));
 

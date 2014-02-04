@@ -11,7 +11,7 @@ import com.jakeapp.violet.model.ProjectModel;
 
 /**
  * Gets the log of this {@link JakeObject}
- * 
+ *
  * @author johannes
  */
 public class GetLogEntriesAction extends

@@ -37,7 +37,7 @@ public class JakeSourceListTransferHandler extends TransferHandler {
 			return false;
 		}
 
-		// we only import files 
+		// we only import files
 		if (!support.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
 			return false;
 		}
@@ -149,7 +149,7 @@ public class JakeSourceListTransferHandler extends TransferHandler {
 				// FIXME: Eventually, this should import to a subfolder if we drop it above one
 				// For now, drag and drop always goes to root folder
 				String destFolder = "/";
-				
+
 				log.debug("HELLO MY NAME IS BUG: add file to project: " + project + ", in folder: " + destFolder);
 
 				JakeExecutor.exec(new ImportFileFolderTask(project, files, destFolder));

@@ -115,7 +115,7 @@ public class ExceptionUtilities {
 			exceptionQueue.add(new ExceptionSaver(e, msg));
 		} else {
 			exceptionDisplayActive = true;
-			
+
 			String okMsg = "Ok";
 			int numExceptions = exceptionQueue.size();
 			if (numExceptions > 0) {

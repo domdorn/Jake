@@ -52,7 +52,7 @@ public class DeleteNoteAction extends NoteAction {
 		ResourceMap map = NotesPanel.getInstance().getResourceMap();
 		String[] options = {map.getString("confirmDeleteNote.ok"), map.getString("genericCancel")};
 		String text;
-		
+
 		if (cache.size() == 1) { //single delete
 			if (cache.get(0).isLocked()) { //is locked
 				UserInfo lockOwner = JakeMainApp.getCore().getUserInfo(cache.get(0).getLockLogEntry().getMember());
@@ -82,7 +82,7 @@ public class DeleteNoteAction extends NoteAction {
 				text = map.getString("confirmDeleteNotes.text");
 			}
 		}
-		
+
 		JSheet.showOptionSheet(NotesPanel.getInstance(), text,
 				  JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0], new SheetListener() {
 			@Override
@@ -90,7 +90,7 @@ public class DeleteNoteAction extends NoteAction {
 				Collection<JakeObject> notes;
 				Project project = null;
 				NoteObject toSelectAfter = getUndeletedNoteToSelectLater(cache);
-				
+
 				if (evt.getOption() == 0) {
 					notes = Attributed.castDownCollection(Attributed.extract(cache));
 					if (notes.size()>0) {
@@ -101,7 +101,7 @@ public class DeleteNoteAction extends NoteAction {
 			}
 		});
 	}
-	
+
 	/**
 	 * Returns a note that is not in the notes to be deleted and will be still in the
 	 * Notespanel after the delete operation has deleted.

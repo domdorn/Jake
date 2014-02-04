@@ -38,11 +38,11 @@ public class DeleteJakeObjectsTask extends AbstractTask<Integer> {
 	private void setJos(Collection<JakeObject> jos) {
 		this.jos = jos;
 	}
-	
+
 	private JakeObject getToSelectAfter() {
 		return this.toSelectAfter;
 	}
-	
+
 	private void setToSelectAfter(JakeObject toSelectAfter) {
 		this.toSelectAfter = toSelectAfter;
 	}
@@ -91,7 +91,7 @@ public class DeleteJakeObjectsTask extends AbstractTask<Integer> {
 	private boolean containsFileObjects() {
 		return this.jos.iterator().hasNext() && this.jos.iterator().next() instanceof FileObject;
 	}
-	
+
 	@Override
 	public void onDone() {
 		// inform the core that there are new log entries available.

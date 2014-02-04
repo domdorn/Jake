@@ -40,7 +40,7 @@ public class SoftlockNoteAction extends NoteAction {
 			log.debug("attributed note isLocal: " + attributedNote.isOnlyLocal());
 			if (!attributedNote.isOnlyLocal()) {
 				log.debug("locking note: " + attributedNote + ", setting lock to: " + cachedNewLockingState);
-				JakeMainApp.getCore().setSoftLock(attributedNote.getJakeObject(), cachedNewLockingState, null);	
+				JakeMainApp.getCore().setSoftLock(attributedNote.getJakeObject(), cachedNewLockingState, null);
 			}
 		}
 	}
@@ -50,7 +50,7 @@ public class SoftlockNoteAction extends NoteAction {
 		if (this.hasSelectedNotes()) {
 			this.isLocked = this.getSelectedNote().isLocked();
 			log.debug("the topmost selected note isLocked: " + this.isLocked + " isOnlyLocal: " + this.getSelectedNote().isOnlyLocal());
-			
+
 			if (this.getSelectedNote().isOnlyLocal()) {
 				this.setEnabled(false);
 			} else {

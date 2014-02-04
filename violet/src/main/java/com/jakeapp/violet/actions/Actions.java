@@ -5,10 +5,10 @@ import com.jakeapp.violet.model.ProjectModel;
 /**
  * It was originally thought that this would be a exhaustive list of actions
  * that the gui can perform.
- * 
+ *
  * But it isn't, to avoid duplicate code. Pick the actions from
  * com.jakeapp.violet.actions.project
- * 
+ *
  */
 public class Actions {
 

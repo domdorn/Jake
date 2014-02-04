@@ -8,7 +8,7 @@ public interface IMessageMarshaller {
 
 	/**
 	 * de-serialize the poke message
-	 * 
+	 *
 	 * @param s
 	 *            message in string format
 	 * @param from
@@ -20,7 +20,7 @@ public interface IMessageMarshaller {
 
 	/**
 	 * serialize the poke message
-	 * 
+	 *
 	 * @param msg
 	 * @return
 	 * @throws IOException

@@ -8,7 +8,7 @@
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.  
+ * Lesser General Public License for more details.
  */
 package com.jakeapp.gui.swing.controls;
 
@@ -20,10 +20,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /** Component which scales any given {@link JComponent} into its bounds.
- * The visible portion of the {@link JComponent} (as reported by 
+ * The visible portion of the {@link JComponent} (as reported by
  * {@link JComponent#getVisibleRect}) is drawn as a rectangle in the scaled
- * image.  Dragging the rectangle will move the visible portion of the 
- * panned component within its scrolling context. 
+ * image.  Dragging the rectangle will move the visible portion of the
+ * panned component within its scrolling context.
  */
 public class Panner extends JComponent {
     public static final int MINIMUM_WIDTH = 64;
@@ -36,7 +36,7 @@ public class Panner extends JComponent {
     private float transparency = 0.9f;
     private boolean preserveAspect = true;
     private boolean includeBorder = true;
-    
+
     /** Whether to center the thumbnail if the component doesn't match
      * the panned component's aspect ratio.
      */
@@ -47,7 +47,7 @@ public class Panner extends JComponent {
     private boolean attached;
     /** Listener for notifications when the panned component is scrolled. */
     private ComponentListener listener = new PannedListener();
-    
+
     public Panner() {
         this(null);
     }
@@ -74,7 +74,7 @@ public class Panner extends JComponent {
         preserveAspect = preserve;
         thumbnail.setPreserveAspect(preserveAspect);
     }
-    
+
     public void setIncludeBorder(boolean border) {
         if (border != includeBorder) {
             boolean old = includeBorder;
@@ -82,7 +82,7 @@ public class Panner extends JComponent {
             firePropertyChange("includeBorder", old, includeBorder);
         }
     }
-    
+
     public void setTransparency(float t) {
         if (t != transparency) {
             float old = this.transparency;
@@ -90,7 +90,7 @@ public class Panner extends JComponent {
             firePropertyChange("transparency", old, transparency);
         }
     }
-    
+
     /** "Attach" to the panned component at the given location within
      * the component.  Returns whether the attach was successful.
      */
@@ -122,9 +122,9 @@ public class Panner extends JComponent {
         }
         return attached;
     }
-    
+
     public boolean isAttached() { return attached; }
-    
+
     public void detach() {
         if (attached) {
             Container parent = getParent();
@@ -137,7 +137,7 @@ public class Panner extends JComponent {
             firePropertyChange("attached", true, false);
         }
     }
-    
+
     /** Sets the center point of the current viewport.  Coordinates are relative
      * to the Panner bounds.  The viewport bounds will always be contained
      * within the thumbnail image.
@@ -151,7 +151,7 @@ public class Panner extends JComponent {
         double[] scale = scaleFactor();
         Rectangle current = panned.getVisibleRect();
         Dimension size = getDrawingSize(panned);
-        current.x = Math.min(size.width, 
+        current.x = Math.min(size.width,
                              Math.max(0, (int)
                                       Math.round(visible.x / scale[0])));
         current.y = Math.min(size.height,
@@ -159,7 +159,7 @@ public class Panner extends JComponent {
                                       Math.round(visible.y / scale[1])));
         panned.scrollRectToVisible(current);
     }
-    
+
     protected Dimension getDrawingSize(JComponent component) {
         Dimension size = check(component.getSize());
         Insets insets = component.getInsets();
@@ -169,7 +169,7 @@ public class Panner extends JComponent {
         }
         return size;
     }
-    
+
     /** Set the thumbnail alignment within the available space. */
     public void setCentered(boolean set) {
         boolean oldCentered = centered;
@@ -201,8 +201,8 @@ public class Panner extends JComponent {
         size.height = Math.max(size.height, MINIMUM_HEIGHT);
         return size;
     }
-    
-    /** Return the actual thumbnail bounds, accounting for extra space 
+
+    /** Return the actual thumbnail bounds, accounting for extra space
      * required for this component's border and to maintain proper aspect ratio.
      */
     public Rectangle getThumbnailBounds() {
@@ -215,7 +215,7 @@ public class Panner extends JComponent {
         }
         return new Rectangle(x, y, thumb.width, thumb.height);
     }
-    
+
     /** Return a rectangle within the current component content bounds
      * equivalent to the visible rectangle within the panned component's
      * content bounds.
@@ -240,29 +240,29 @@ public class Panner extends JComponent {
     }
 
     private Dimension getThumbnailSize() {
-        return new Dimension(thumbnail.getIconWidth(), 
+        return new Dimension(thumbnail.getIconWidth(),
                              thumbnail.getIconHeight());
     }
-    
+
     private double[] scaleFactor() {
         if (panned == null)
             return new double[] { 1.0, 1.0 };
-        
+
         Dimension full = getDrawingSize(panned);
         Rectangle bounds = getThumbnailBounds();
-        return new double[] { 
+        return new double[] {
             (double)bounds.width / full.width,
-            (double)bounds.height / full.height    
+            (double)bounds.height / full.height
         };
     }
-    
+
     /** Returns the preferred size, which will be the set preferred size
      * or the current size with an appropriate aspect ratio applied.
      * If there is no current panned component, no aspect ratio will be
      * applied.
      */
     public Dimension getPreferredSize() {
-        if (isPreferredSizeSet()) 
+        if (isPreferredSizeSet())
             return super.getPreferredSize();
         Dimension size = check(getThumbnailSize());
         Insets insets = getInsets();
@@ -272,12 +272,12 @@ public class Panner extends JComponent {
         }
         return size;
     }
-    
+
     /** Ensure the maximum size always has the correct aspect ratio. */
     public Dimension getMaximumSize() {
         return isMaximumSizeSet() ? super.getMaximumSize() : getPreferredSize();
     }
-    
+
     /** Ensure the minimum size always has the correct aspect ratio. */
     public Dimension getMinimumSize() {
         return isMinimumSizeSet() ? super.getMinimumSize() : getPreferredSize();
@@ -287,7 +287,7 @@ public class Panner extends JComponent {
         super.setBounds(x, y, w, h);
         setThumbnailSize();
     }
-    
+
     private void setThumbnailSize() {
         thumbnail.setPreserveAspect(preserveAspect);
         thumbnail.setSize(getDrawingSize(this));
@@ -297,7 +297,7 @@ public class Panner extends JComponent {
             thumbnail.setSize(getDrawingSize(this));
         }
     }
-    
+
     /** Paint the panned component in a thumbnail. */
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D)g;
@@ -309,7 +309,7 @@ public class Panner extends JComponent {
             super.paint(g);
             if (panned == null)
                 return;
-            
+
             Rectangle bounds = getThumbnailBounds();
             Shape oldClip = g2d.getClip();
             try {
@@ -320,9 +320,9 @@ public class Panner extends JComponent {
             finally {
                 g2d.setClip(oldClip);
             }
-            
+
             Color oldColor = g.getColor();
-            
+
             // Indicate the visible rect
             Rectangle visible = getViewportBounds();
             g.setColor(VISIBLE_BOUNDS_COLOR);
@@ -341,15 +341,15 @@ public class Panner extends JComponent {
             // the thumbnail outline may be smaller than the actual component
             g.setColor(BORDER_COLOR);
             g.drawRect(bounds.x, bounds.y, bounds.width-1, bounds.height-1);
-            
+
             g.setColor(oldColor);
         }
         finally {
             g2d.setComposite(oldComposite);
         }
     }
-    
-    private final class PannedListener extends ComponentAdapter 
+
+    private final class PannedListener extends ComponentAdapter
         implements HierarchyListener, PropertyChangeListener {
         public void hierarchyChanged(HierarchyEvent e) {
             if ((e.getChangeFlags() & HierarchyEvent.PARENT_CHANGED) != 0) {
@@ -366,7 +366,7 @@ public class Panner extends JComponent {
             revalidate();
             repaint();
         }
-        
+
         public void componentMoved(ComponentEvent e) {
             repaint();
         }

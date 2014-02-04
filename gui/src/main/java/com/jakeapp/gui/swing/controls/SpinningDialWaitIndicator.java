@@ -8,7 +8,7 @@
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.  
+ * Lesser General Public License for more details.
  */
 package com.jakeapp.gui.swing.controls;
 
@@ -37,7 +37,7 @@ public class SpinningDialWaitIndicator extends WaitIndicator implements ActionLi
     private static final int MARGIN = 8;
     // margins take up 1/MARGIN_FRACTION when space is limited
     private static final int MARGIN_FRACTION = 8;
-    
+
     private Timer timer;
     private int fade;
     private int verticalOffset;
@@ -56,7 +56,7 @@ public class SpinningDialWaitIndicator extends WaitIndicator implements ActionLi
     public SpinningDialWaitIndicator(JComponent target) {
         this(target, null);
     }
-    
+
     public SpinningDialWaitIndicator(final JComponent target, String text) {
         super(target);
         this.text = text;
@@ -76,12 +76,12 @@ public class SpinningDialWaitIndicator extends WaitIndicator implements ActionLi
         // Disable automatic animation
         dial.setFrameInterval(0);
     }
-    
+
     public void setText(String text) {
         this.text = text;
         repaint();
     }
-    
+
     /** Fade the affected component to background, then apply a spinning
      * wait indicator.
      */
@@ -91,11 +91,11 @@ public class SpinningDialWaitIndicator extends WaitIndicator implements ActionLi
             timer.start();
         }
         Graphics2D g = (Graphics2D)graphics.create();
-    
+
         Rectangle r = getComponent().getVisibleRect();
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                            RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, 
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                            RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         Color bg = getComponent().getBackground();
         g.setColor(new Color(bg.getRed(), bg.getGreen(), bg.getBlue(), fade));
@@ -106,7 +106,7 @@ public class SpinningDialWaitIndicator extends WaitIndicator implements ActionLi
         int x = r.x;
         if (text == null)
             x += (r.width - dial.getIconWidth())/2;
-        else 
+        else
             x += dial.getIconWidth()/4;
         int y = r.y + verticalOffset + (r.height - verticalOffset - dial.getIconHeight())/2;
         dial.paintIcon(getPainter(), g, x, y);
@@ -120,10 +120,10 @@ public class SpinningDialWaitIndicator extends WaitIndicator implements ActionLi
             g.setColor(getComponent().getForeground());
             g.drawString(text, x, y);
         }
-        
+
         g.dispose();
     }
-    
+
     /** Remove the wait decoration. */
     public void dispose() {
         if (timer != null) {
@@ -132,7 +132,7 @@ public class SpinningDialWaitIndicator extends WaitIndicator implements ActionLi
         }
         super.dispose();
     }
-    
+
     /** First fade the background, then spin the dial. */
     public void actionPerformed(ActionEvent e) {
         if (fade < FADE_THRESHOLD) {

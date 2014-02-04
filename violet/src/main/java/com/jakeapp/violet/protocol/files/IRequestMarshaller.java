@@ -6,7 +6,7 @@ public interface IRequestMarshaller {
 
 	/**
 	 * Serialize the file request
-	 * 
+	 *
 	 * @param msg
 	 * @return
 	 */
@@ -14,7 +14,7 @@ public interface IRequestMarshaller {
 
 	/**
 	 * De-serialize the file request
-	 * 
+	 *
 	 * @param incomingMessage
 	 * @param from
 	 * @return

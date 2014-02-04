@@ -72,7 +72,7 @@ public class FolderObject {
    public Project getProject() {
 	   return project;
    }
-   
+
    /**
 	 * Retrieves all FileObjects that are directly or indirectly under this
 	 * FolderObject
@@ -81,11 +81,11 @@ public class FolderObject {
 	 */
 	public Collection<FileObject> flattenFolder() {
 		Collection<FileObject> result = new ArrayList<FileObject>();
-		
+
 		result.addAll(getFileChildren());
 		for (FolderObject childFolder : this.getFolderChildren())
 			result.addAll(childFolder.flattenFolder());
-		
+
 		return result;
 	}
 }

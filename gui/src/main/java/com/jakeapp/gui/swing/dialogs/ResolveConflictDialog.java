@@ -220,7 +220,7 @@ public class ResolveConflictDialog extends JakeDialog {
 	 */
 	private void resolveConflictAction() {
 	log.debug("Resolving conflict action.");
-		
+
 		// if local file is selected, we have to announce that.
 		if (isLocalSelected()) {
 			try {

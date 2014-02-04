@@ -600,7 +600,7 @@ public interface ICoreAccess {
 	 * @return
 	 */
 	Account getPredefinedServiceCredential(String s);
-	
+
 	/**
 	 * register a file modification listener for a certain project.
 	 * @param project the project to listen to
@@ -611,10 +611,10 @@ public interface ICoreAccess {
 	/**
 	 * launch the file
 	 * @param fo
-	 * @throws IOException 
-	 * @throws LaunchException 
-	 * @throws InvalidFilenameException 
-	 * @throws IllegalArgumentException 
+	 * @throws IOException
+	 * @throws LaunchException
+	 * @throws InvalidFilenameException
+	 * @throws IllegalArgumentException
 	 */
 	public void launch(FileObject fo) throws IllegalArgumentException, InvalidFilenameException, LaunchException, IOException;
 }

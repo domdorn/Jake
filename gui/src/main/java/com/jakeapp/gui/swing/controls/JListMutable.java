@@ -295,7 +295,7 @@ public class JListMutable extends JXList implements CellEditorListener {
 
             Point p = e.getPoint();
             int index = locationToIndex(p);
-            // The autoscroller can generate drag events outside the Table's range. 
+            // The autoscroller can generate drag events outside the Table's range.
             if (index == -1) {
                 return;
             }

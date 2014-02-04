@@ -8,7 +8,7 @@
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.  
+ * Lesser General Public License for more details.
  */
 package com.jakeapp.gui.swing.controls;
 
@@ -31,7 +31,7 @@ import javax.swing.Icon;
 /** Paint an icon appropriately for a selection to ensure that the icon is
  * visible and to avoid having to generate minor icon variations.  This may
  * mean a mouse-over, a selected button, or a selected row in a tree or
- * table.  
+ * table.
  * Primarily to make icons in selected rows of a table on Windows 2000 show up
  * properly, since that setup has a dark blue selection background which makes
  * any black pixels difficult to see.  This class replaces any pixels of the
@@ -110,11 +110,11 @@ public class SelectionIcon implements Icon {
 
     /** Composites the source image directly into the destination, ignoring the
      * destination pixels.  Pixels found in the source which match the
-     * foreground or background colors are modified to new values. 
+     * foreground or background colors are modified to new values.
      */
     private class CustomComposite implements Composite {
-        public CompositeContext createContext(final ColorModel srcCM, 
-                                              final ColorModel dstCM, 
+        public CompositeContext createContext(final ColorModel srcCM,
+                                              final ColorModel dstCM,
                                               RenderingHints hints) {
             //System.out.println("create");
             return new CompositeContext() {
@@ -122,7 +122,7 @@ public class SelectionIcon implements Icon {
                     int dr = Math.abs(c1.getRed() - c2.getRed());
                     int dg = Math.abs(c1.getGreen() - c2.getGreen());
                     int db = Math.abs(c1.getBlue() - c2.getBlue());
-                    return dr < TOLERANCE 
+                    return dr < TOLERANCE
                         && dg < TOLERANCE
                         && db < TOLERANCE
                         && dr + dg + db < TOTAL_TOLERANCE;
@@ -132,7 +132,7 @@ public class SelectionIcon implements Icon {
                 }
 
                 public void dispose() { }
-                public void compose(Raster src, Raster dst, 
+                public void compose(Raster src, Raster dst,
                                     WritableRaster out) {
                     int[] pout = new int[4];
                     int w = Math.min(src.getWidth(), out.getWidth());
@@ -149,7 +149,7 @@ public class SelectionIcon implements Icon {
                                 pout[2] = srcCM.getBlue(pixel);
                                 pout[3] = alpha;
                                 Color color = new Color(pout[0], pout[1],
-                                                        pout[2], pout[3]); 
+                                                        pout[2], pout[3]);
                                 if (near(color, fg, TOLERANCE)
                                     || near(color, sbg, TOLERANCE)) {
                                     pout[0] = sfg.getRed();
@@ -167,7 +167,7 @@ public class SelectionIcon implements Icon {
                                     pout[1] = mix(sbg.getGreen(), pout[1], TINT);
                                     pout[2] = mix(sbg.getBlue(), pout[2], TINT);
                                 }
-                                out.setPixel(out.getMinX()+x, 
+                                out.setPixel(out.getMinX()+x,
                                              out.getMinY()+y, pout);
                             }
                         }

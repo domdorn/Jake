@@ -22,9 +22,9 @@ import com.jakeapp.violet.model.exceptions.NoSuchLogEntryException;
 
 /**
  * Implementation of Log
- * 
+ *
  * @author user
- * 
+ *
  */
 public class LogImpl implements Log {
 

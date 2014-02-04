@@ -19,7 +19,7 @@ public class RequestMarshaller implements IRequestMarshaller {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.jakeapp.violet.protocol.files.IRequestMarshaller#serialize(com.jakeapp
 	 * .violet.protocol.files.RequestFileMessage)
@@ -33,7 +33,7 @@ public class RequestMarshaller implements IRequestMarshaller {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.jakeapp.violet.protocol.files.IRequestMarshaller#decodeRequestFileMessage
 	 * (java.lang.String, com.jakeapp.jake.ics.UserId)

@@ -1,7 +1,7 @@
 .PS
 down
 C: box "active" fill 0.1 rad 0.25
-"\fB\f4\mkLogSync\rt\ul\ul\ul\ul\ul\ul\ul\ul\ul" at C + (2,0.5) 
+"\fB\f4\mkLogSync\rt\ul\ul\ul\ul\ul\ul\ul\ul\ul" at C + (2,0.5)
 S: box "inactive" at C + (4,0) fill 0.1 rad 0.25
 C1: box "logsync" at C - (0,1)
 line from C.s to C1.n
@@ -17,7 +17,7 @@ arrow
 C3: box "collect" at C2 - (0,1)
 "collecting relevant" rjust "log entries" rjust \
 	"for each file" rjust "last log entries" rjust "and number of log entries" rjust \
-	at C3  - (0.5,0) 
+	at C3  - (0.5,0)
 S3: box "recv" at C3 + (4,-0.5)
 arrow from C3.e to S3.w dashed "UUID list" above
 move to S3.s

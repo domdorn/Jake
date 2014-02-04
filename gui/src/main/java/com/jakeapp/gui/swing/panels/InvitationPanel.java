@@ -38,7 +38,7 @@ public class InvitationPanel extends JXPanel implements ContextChangedCallback {
 	private final static int TableUpdateDelay = 60000;
 	private JButton joinButton;
 	private JoinProjectAction joinProjectAction;
-	
+
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(InvitationPanel.class);
 
@@ -170,7 +170,7 @@ public class InvitationPanel extends JXPanel implements ContextChangedCallback {
 			}
 
 			joinButton.setEnabled(folderTextField.getText().length() > 0);
-			
+
 			this.joinProjectAction.setProjectLocation(folderTextField.getText());
 		}
 	}

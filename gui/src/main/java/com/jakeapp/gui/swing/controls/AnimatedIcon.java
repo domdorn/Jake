@@ -8,7 +8,7 @@
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.  
+ * Lesser General Public License for more details.
  */
 package com.jakeapp.gui.swing.controls;
 
@@ -36,7 +36,7 @@ public class AnimatedIcon implements Icon {
 
     /** Cache results to reduce decoding overhead. */
     private static Map decoded = new WeakHashMap();
-    
+
     /** Returns whether the given icon is an animated GIF.
 		 * @param icon
 		 * @return
@@ -64,7 +64,7 @@ public class AnimatedIcon implements Icon {
                     e.printStackTrace();
                 }
                 /*
-                if (is == null) {  
+                if (is == null) {
                     try {
                         // Beware: lots of hackery to obtain the image input stream
                         // Be sure to catch security exceptions
@@ -99,13 +99,13 @@ public class AnimatedIcon implements Icon {
         }
         return icon instanceof AnimatedIcon;
     }
-    
+
     private ImageIcon original;
     private Set repaints = new HashSet();
 
     /** For use by derived classes that don't have an original. */
     protected AnimatedIcon() { }
-    
+
     /** Create an icon that takes care of animating itself on components
      * which use a CellRendererPane.
      */
@@ -113,8 +113,8 @@ public class AnimatedIcon implements Icon {
         this.original = original;
         new AnimationObserver(this, original);
     }
-    
-    /** Trigger a repaint on all components on which we've previously been 
+
+    /** Trigger a repaint on all components on which we've previously been
      * painted.
      */
     protected synchronized void repaint() {
@@ -149,7 +149,7 @@ public class AnimatedIcon implements Icon {
     protected void registerRepaintArea(Component c, int x, int y, int w, int h) {
         repaints.add(new RepaintArea(c, x, y, w, h));
     }
-    
+
     /** Object to encapsulate an area on a component to be repainted. */
     private static class RepaintArea {
         public int x, y, w, h;
@@ -171,7 +171,7 @@ public class AnimatedIcon implements Icon {
             String hash = String.valueOf(x) + "," + y + ":" + c.hashCode();
             this.hashCode = hash.hashCode();
         }
-        /** Find the first ancestor <em>not</em> descending from a 
+        /** Find the first ancestor <em>not</em> descending from a
          * {@link CellRendererPane}.
          */
         private Component findNonRendererAncestor(Component c) {

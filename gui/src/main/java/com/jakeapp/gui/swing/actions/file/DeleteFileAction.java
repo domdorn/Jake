@@ -39,7 +39,7 @@ public class DeleteFileAction extends FileAction {
 	@Override
 	public void updateAction() {
 		super.updateAction();
-		
+
 		setEnabled(isEnabled() && getSelectedRowCount() > 0);
 	}
 

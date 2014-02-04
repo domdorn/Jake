@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * strings to inputstream converter  
+ * strings to inputstream converter
  * @author johannes
  */
 class FifoStreamer extends InputStream {

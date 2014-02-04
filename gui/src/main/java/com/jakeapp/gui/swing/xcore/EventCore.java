@@ -132,8 +132,8 @@ public class EventCore {
 		};
 		SwingUtilities.invokeLater(runner);
 	}
-		
-		
+
+
 
 	private void spreadProjectChanged(ProjectChangedCallback.ProjectChangedEvent ev) {
 		for (ProjectChangedCallback callback : projectChanged) {
@@ -297,7 +297,7 @@ public class EventCore {
 		for (ContextChangedCallback c : contextChangedListeners) {
 			c.contextChanged(EnumSet.of(reason), context);
 		}
-		
+
 	}
 
 

@@ -64,7 +64,7 @@ public class JakeHelper {
 	public static void showInfoMsg(String s) {
 		showMsg(s, JOptionPane.INFORMATION_MESSAGE);
 	}
-	
+
 	/**
 	 * Determine whether a jake object is editable. 'editable' in that case means that it is either
 	 * not locked or the lock owner equals the local user.

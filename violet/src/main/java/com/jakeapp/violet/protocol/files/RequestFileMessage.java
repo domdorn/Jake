@@ -8,11 +8,11 @@ import com.jakeapp.violet.protocol.Message;
 
 /**
  * Request
- * 
+ *
  * - full file (type = "file"). file:UUID -- uuid is identifier
- * 
+ *
  * - delta (type = "delta"). delta:UUID -- uuid is identifier
- * 
+ *
  * - signature (type = "signature"). signature:relpath -- relpath is identifier
  */
 public class RequestFileMessage extends Message {
@@ -61,7 +61,7 @@ public class RequestFileMessage extends Message {
 
 	/**
 	 * Requesting the full file
-	 * 
+	 *
 	 * @param projectId
 	 *            Project
 	 * @param user
@@ -78,7 +78,7 @@ public class RequestFileMessage extends Message {
 
 	/**
 	 * Requesting the logs
-	 * 
+	 *
 	 * @param projectId
 	 *            Project
 	 * @param user
@@ -94,7 +94,7 @@ public class RequestFileMessage extends Message {
 
 	/**
 	 * Requesting a delta update file
-	 * 
+	 *
 	 * @param projectId
 	 *            Project
 	 * @param user
@@ -112,7 +112,7 @@ public class RequestFileMessage extends Message {
 	/**
 	 * Requesting a signature of what the current checksums are, so that a delta
 	 * can be created
-	 * 
+	 *
 	 * @param projectId
 	 *            Project
 	 * @param user

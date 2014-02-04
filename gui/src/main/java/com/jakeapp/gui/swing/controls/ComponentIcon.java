@@ -8,7 +8,7 @@
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.  
+ * Lesser General Public License for more details.
  */
 package com.jakeapp.gui.swing.controls;
 
@@ -32,7 +32,7 @@ public class ComponentIcon implements Icon {
     public ComponentIcon(JComponent c) {
         this(c, false);
     }
-    /** Iconify the given component, indicating whether to include its border. 
+    /** Iconify the given component, indicating whether to include its border.
      */
     public ComponentIcon(JComponent c, boolean includeBorder) {
         this.component = c;
@@ -48,7 +48,7 @@ public class ComponentIcon implements Icon {
         }
         return h;
     }
-    
+
     public int getIconWidth() {
         int w = component.getWidth();
         if (w != 0 && !includeBorder) {

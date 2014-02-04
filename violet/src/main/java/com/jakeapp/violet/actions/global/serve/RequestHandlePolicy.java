@@ -17,7 +17,7 @@ public interface RequestHandlePolicy {
 	 * corresponding to the providers are returned. The providers can be
 	 * accessed via
 	 * {@link com.com.jakeapp.violet.model.logentries.LogEntry#getMember()}
-	 * 
+	 *
 	 * @param jo
 	 * @return the Logentries with the UserIds to try, a empty list if noone
 	 *         could be found
@@ -30,7 +30,7 @@ public interface RequestHandlePolicy {
 
 	/**
 	 * Checks if it is ok to return the object.
-	 * 
+	 *
 	 * @param from
 	 * @param jo
 	 * @return null if not allowed, the content otherwise
@@ -40,7 +40,7 @@ public interface RequestHandlePolicy {
 
 	/**
 	 * Checks if it is ok to return the log.
-	 * 
+	 *
 	 * @param jo
 	 * @return whether retrieving is allowed
 	 * @param project

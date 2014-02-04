@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FileWatcherListenerMultiton {
-	private static final Logger log = Logger.getLogger(FileWatcherListenerMultiton.class);	
+	private static final Logger log = Logger.getLogger(FileWatcherListenerMultiton.class);
 	private static Map<Project, IFileModificationListener> listeners =
 					new HashMap<Project, IFileModificationListener>();
 

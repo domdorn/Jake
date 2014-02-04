@@ -19,7 +19,7 @@ import com.jakeapp.gui.swing.panels.NotesPanel;
  *
  */
 public class CreateNoteAction extends NoteAction {
-	
+
 	private static final long serialVersionUID = 8883731800177455307L;
 
 	public CreateNoteAction() {
@@ -35,16 +35,16 @@ public class CreateNoteAction extends NoteAction {
 			NoteObject newNote = new NoteObject(
 					NotesPanel.getInstance().getProject(),
 					JakeMainView.getMainView().getResourceMap().getString("NewNoteDefaultContent"));
-			
+
 			NotesPanel.getInstance().getNotesTableModel().setNoteToSelectLater(newNote);
-			
+
 			JakeMainApp.getCore().createNote(newNote);
 			JakeStatusBar.updateMessage();
 			//this.refreshNotesPanel();
 			/*
 			int row = NotesPanel.getInstance().getNotesTableModel().getRow(newNote);
 			if (row > -1) {
-				NotesPanel.getInstance().getNotesTable().changeSelection(row, 0, false, false);	
+				NotesPanel.getInstance().getNotesTable().changeSelection(row, 0, false, false);
 			}
 			*/
 		} catch (NoteOperationFailedException e) {

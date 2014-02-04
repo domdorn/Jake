@@ -10,7 +10,7 @@ import com.jakeapp.violet.model.ProjectModel;
 
 /**
  * Gets the full log
- * 
+ *
  * @author johannes
  */
 public class GetAllLogEntriesAction extends

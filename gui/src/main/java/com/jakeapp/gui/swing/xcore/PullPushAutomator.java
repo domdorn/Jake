@@ -12,5 +12,5 @@ public class PullPushAutomator {
 		this.project = project;
 	}
 
-	
+
 }

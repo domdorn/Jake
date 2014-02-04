@@ -6,7 +6,7 @@ package com.jakeapp.gui.swing.helpers;
  * @author: studpete
  */
 public class StringUtilities {
-	
+
 	/**
 	 * shortens a string to maxlength characters = "..."
 	 * @param str input string

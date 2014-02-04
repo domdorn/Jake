@@ -12,7 +12,7 @@ public interface ILogEntryMarshaller {
 
 	/**
 	 * serialize the log entries
-	 * 
+	 *
 	 * @param projectid
 	 * @param logs
 	 * @return
@@ -23,7 +23,7 @@ public interface ILogEntryMarshaller {
 
 	/**
 	 * de-serialize the log entries
-	 * 
+	 *
 	 * @param projectid
 	 * @param logs
 	 * @return

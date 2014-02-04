@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.jakeapp.violet.model.attributes;
 

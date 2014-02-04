@@ -16,7 +16,7 @@ import com.jakeapp.violet.model.ProjectModel;
 /**
  * Gets all JakeObject that ever were in the log (including remote-only,
  * deleted, ...).
- * 
+ *
  * @author johannes
  */
 public class AllJakeObjectsViewAction extends
